@@ -1,0 +1,27 @@
+{
+  "name": "ething-js",
+  "description": "ething javascript library",
+  "version": "0.1.0",
+  "main": "src/ething.js",
+  "author": {
+    "name": "Adrien Mezerette",
+    "email": "a.mezerette@gmail.com"
+  },
+  "keywords": [
+    "ething",
+    "iot",
+    "library"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "webpack": "^4.0.1",
+    "webpack-cli": "^2.0.9"
+  },
+  "scripts": {
+    "dev": "webpack --mode development",
+    "build": "webpack --mode production"
+  },
+  "browser": {
+    "./src/extra.js": "./src/extra-browser.js"
+  }
+}
