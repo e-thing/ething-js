@@ -6,9 +6,7 @@ var Url = require("url");
 var XMLHttpRequest = function() {
   "use strict";
 
-  /**
-   * Private variables
-   */
+  // Private variables
   var self = this;
   var http = require("http");
   var https = require("https");
@@ -37,19 +35,15 @@ var XMLHttpRequest = function() {
   // Event listeners
   var listeners = {};
 
-  /**
-   * Constants
-   */
-
+  // Constants
+  
   this.UNSENT = 0;
   this.OPENED = 1;
   this.HEADERS_RECEIVED = 2;
   this.LOADING = 3;
   this.DONE = 4;
 
-  /**
-   * Public vars
-   */
+  // Public vars
 
   // Current state
   this.readyState = this.UNSENT;
@@ -69,19 +63,16 @@ var XMLHttpRequest = function() {
   this.withCredentials = false;
   
 
-  /**
-   * Public methods
-   */
+  // Public methods
 
-  /**
-   * Open the connection. Currently supports local server requests.
-   *
-   * @param string method Connection method (eg GET, POST)
-   * @param string url URL for the connection.
-   * @param boolean async Asynchronous connection. Default is true.
-   * @param string user Username for basic authentication (optional)
-   * @param string password Password for basic authentication (optional)
-   */
+  // Open the connection. Currently supports local server requests.
+  // 
+  // param: string method Connection method (eg GET, POST)
+  // param: string url URL for the connection.
+  // param: boolean async Asynchronous connection. Default is true.
+  // param: string user Username for basic authentication (optional)
+  // param: string password Password for basic authentication (optional)
+  // 
   this.open = function(method, url, async, user, password) {
 	this.abort();
 	errorFlag = false;
@@ -98,12 +89,12 @@ var XMLHttpRequest = function() {
   };
 
 
-  /**
-   * Sets a header for the request or appends the value if one is already set.
-   *
-   * @param string header Header name
-   * @param string value Header value
-   */
+  //
+  // Sets a header for the request or appends the value if one is already set.
+  //
+  // param: string header Header name
+  // param: string value Header value
+  //
   this.setRequestHeader = function(header, value) {
 	if (this.readyState !== this.OPENED) {
 	  throw new Error("INVALID_STATE_ERR: setRequestHeader can only be called when state is OPEN");
@@ -116,12 +107,12 @@ var XMLHttpRequest = function() {
 	headers[header] = headers[header] ? headers[header] + ', ' + value : value;
   };
 
-  /**
-   * Gets a header from the server response.
-   *
-   * @param string header Name of header to get.
-   * @return string Text of the header or null if it doesn't exist.
-   */
+  // 
+  // Gets a header from the server response.
+  // 
+  // param: string header Name of header to get.
+  // return string Text of the header or null if it doesn't exist.
+  // 
   this.getResponseHeader = function(header) {
 	if (typeof header === "string"
 	  && this.readyState > this.OPENED
@@ -136,11 +127,11 @@ var XMLHttpRequest = function() {
 	return null;
   };
 
-  /**
-   * Gets all the response headers.
-   *
-   * @return string A string with all response headers separated by CR+LF
-   */
+  // 
+  // Gets all the response headers.
+  // 
+  // return string A string with all response headers separated by CR+LF
+  // 
   this.getAllResponseHeaders = function() {
 	if (this.readyState < this.HEADERS_RECEIVED || errorFlag) {
 	  return "";
@@ -156,12 +147,12 @@ var XMLHttpRequest = function() {
 	return result.substr(0, result.length - 2);
   };
 
-  /**
-   * Gets a request header
-   *
-   * @param string name Name of header to get
-   * @return string Returns the request header or empty string if not set
-   */
+  // 
+  // Gets a request header
+  // 
+  // param: string name Name of header to get
+  // return string Returns the request header or empty string if not set
+  // 
   this.getRequestHeader = function(name) {
 	if (typeof name === "string" && headersCase[name.toLowerCase()]) {
 	  return headers[headersCase[name.toLowerCase()]];
@@ -170,11 +161,11 @@ var XMLHttpRequest = function() {
 	return "";
   };
 
-  /**
-   * Sends the request to the server.
-   *
-   * @param string data Optional data to send as request body.
-   */
+  // 
+  // Sends the request to the server.
+  // 
+  // param: string data Optional data to send as request body.
+  // 
   this.send = function(data) {
 	if (this.readyState !== this.OPENED) {
 	  throw new Error("INVALID_STATE_ERR: connection must be opened before send() is called");
@@ -395,9 +386,9 @@ var XMLHttpRequest = function() {
 	
   };
 
-  /**
-   * Called when an error is encountered to deal with it.
-   */
+  // 
+  // Called when an error is encountered to deal with it.
+  // 
   this.handleError = function(error) {
 	this.status = 0;
 	this.statusText = error;
@@ -407,9 +398,9 @@ var XMLHttpRequest = function() {
 	this.dispatchEvent('error',[error]);
   };
 
-  /**
-   * Aborts a request.
-   */
+  // 
+  // Aborts a request.
+  // 
   this.abort = function() {
 	if (request) {
 	  request.abort();
@@ -432,9 +423,9 @@ var XMLHttpRequest = function() {
 	this.dispatchEvent('abort');
   };
 
-  /**
-   * Adds an event listener. Preferred method of binding to events.
-   */
+  // 
+  // Adds an event listener. Preferred method of binding to events.
+  // 
   this.addEventListener = function(event, callback) {
 	if (!(event in listeners)) {
 	  listeners[event] = [];
@@ -443,10 +434,10 @@ var XMLHttpRequest = function() {
 	listeners[event].push(callback);
   };
 
-  /**
-   * Remove an event callback that has already been bound.
-   * Only works on the matching funciton, cannot be a copy.
-   */
+  // 
+  // Remove an event callback that has already been bound.
+  // Only works on the matching funciton, cannot be a copy.
+  // 
   this.removeEventListener = function(event, callback) {
 	if (event in listeners) {
 	  // Filter will return a new array with the callback removed
@@ -456,9 +447,9 @@ var XMLHttpRequest = function() {
 	}
   };
 
-  /**
-   * Dispatch any events, including both "on" methods and events attached using addEventListener.
-   */
+  // 
+  // Dispatch any events, including both "on" methods and events attached using addEventListener.
+  // 
   this.dispatchEvent = function(event, args) {
 	if (typeof self["on" + event] === "function") {
 	  self["on" + event].apply(self, args || []);
@@ -470,11 +461,11 @@ var XMLHttpRequest = function() {
 	}
   };
 
-  /**
-   * Changes readyState and calls onreadystatechange.
-   *
-   * @param int state New state
-   */
+  // 
+  // Changes readyState and calls onreadystatechange.
+  // 
+  // param: int state New state
+  // 
   var setState = function(state) {
 	if (state == self.LOADING || self.readyState !== state) {
 	  self.readyState = state;

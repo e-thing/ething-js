@@ -23,6 +23,10 @@ Or build your own version :
 npm run build
 ```
 
+## Documentation
+
+See the [API](api.md).
+
 ## Examples
 
 ```javascript
