@@ -25,7 +25,7 @@ npm run build
 
 ## Documentation
 
-See the [API](api.md).
+See the [API](https://github.com/e-thing/ething-js/blob/master/api.md).
 
 ## Examples
 
