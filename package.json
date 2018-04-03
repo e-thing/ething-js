@@ -1,7 +1,7 @@
 {
   "name": "ething-js",
   "description": "ething javascript library",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "src/ething.js",
   "author": {
     "name": "Adrien Mezerette",
@@ -25,7 +25,7 @@
   "scripts": {
     "dev": "webpack --mode development",
     "build": "webpack --mode production",
-	"docs": "jsdoc2md -f src -c jsdoc.conf > api.md"
+    "docs": "jsdoc2md -f src -c jsdoc.conf > api.md"
   },
   "browser": {
     "./src/extra.js": "./src/extra-browser.js"
