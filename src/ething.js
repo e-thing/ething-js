@@ -15,5 +15,6 @@ require("./app.js");
 require("./device.js");
 require("./devices/http.js");
 require("./devices/mqtt.js");
+require("./arbo.js");
 
 module.exports = EThing;

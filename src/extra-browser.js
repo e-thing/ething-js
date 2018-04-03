@@ -4,18 +4,18 @@ module.exports = {
 	
 	"isNode": false,
 	
-	"btoa": btoa,
+	"btoa": window.btoa,
 	
-	"atob" : atob,
+	"atob" : window.atob,
 	
-	"XMLHttpRequest": XMLHttpRequest,
+	"XMLHttpRequest": window.XMLHttpRequest,
 	
-	'Blob': Blob,
+	'Blob': window.Blob,
 	
 	'Buffer': function(){},
 	
-	'FileReader': FileReader || null,
+	'FileReader': window.FileReader || null,
 	
-	'FileReaderSync': FileReaderSync || null
+	'FileReaderSync': window.FileReaderSync || null
 
 };
