@@ -96,7 +96,6 @@
             * [.Resource#script()](#EThing.Rule.Resource+script) ⇒ <code>string</code>
             * [.Resource#event()](#EThing.Rule.Resource+event) ⇒ <code>object</code>
             * [.Rule#scriptReturnCode()](#EThing.Rule.Rule+scriptReturnCode) ⇒ <code>number</code>
-            * [.Rule#scriptReturn()](#EThing.Rule.Rule+scriptReturn) ⇒ <code>object</code> \| <code>number</code> \| <code>string</code> \| <code>null</code>
             * [.Rule#scriptExecutionCount()](#EThing.Rule.Rule+scriptExecutionCount) ⇒ <code>number</code>
             * [.Rule#scriptExecutionDate()](#EThing.Rule.Rule+scriptExecutionDate) ⇒ <code>Date</code>
             * [.Rule#execute([callback])](#EThing.Rule.Rule+execute) ⇒ [<code>Rule</code>](#EThing.Rule)
@@ -999,7 +998,6 @@ resource.setData("key", "value").done(function(){
         * [.Resource#script()](#EThing.Rule.Resource+script) ⇒ <code>string</code>
         * [.Resource#event()](#EThing.Rule.Resource+event) ⇒ <code>object</code>
         * [.Rule#scriptReturnCode()](#EThing.Rule.Rule+scriptReturnCode) ⇒ <code>number</code>
-        * [.Rule#scriptReturn()](#EThing.Rule.Rule+scriptReturn) ⇒ <code>object</code> \| <code>number</code> \| <code>string</code> \| <code>null</code>
         * [.Rule#scriptExecutionCount()](#EThing.Rule.Rule+scriptExecutionCount) ⇒ <code>number</code>
         * [.Rule#scriptExecutionDate()](#EThing.Rule.Rule+scriptExecutionDate) ⇒ <code>Date</code>
         * [.Rule#execute([callback])](#EThing.Rule.Rule+execute) ⇒ [<code>Rule</code>](#EThing.Rule)
@@ -1047,13 +1045,6 @@ resource.setData("key", "value").done(function(){
 
 #### Rule.Rule#scriptReturnCode() ⇒ <code>number</code>
 <p>Returns the last exit code returned by the script of this rule.</p>
-
-**Kind**: static method of [<code>Rule</code>](#EThing.Rule)  
-**this**: <code>{EThing.Rule}</code>  
-<a name="EThing.Rule.Rule+scriptReturn"></a>
-
-#### Rule.Rule#scriptReturn() ⇒ <code>object</code> \| <code>number</code> \| <code>string</code> \| <code>null</code>
-<p>Returns the last value returned by the script of this rule.</p>
 
 **Kind**: static method of [<code>Rule</code>](#EThing.Rule)  
 **this**: <code>{EThing.Rule}</code>  
@@ -1993,7 +1984,6 @@ EThing.notify("hello world")
             * [.Resource#script()](#EThing.Rule.Resource+script) ⇒ <code>string</code>
             * [.Resource#event()](#EThing.Rule.Resource+event) ⇒ <code>object</code>
             * [.Rule#scriptReturnCode()](#EThing.Rule.Rule+scriptReturnCode) ⇒ <code>number</code>
-            * [.Rule#scriptReturn()](#EThing.Rule.Rule+scriptReturn) ⇒ <code>object</code> \| <code>number</code> \| <code>string</code> \| <code>null</code>
             * [.Rule#scriptExecutionCount()](#EThing.Rule.Rule+scriptExecutionCount) ⇒ <code>number</code>
             * [.Rule#scriptExecutionDate()](#EThing.Rule.Rule+scriptExecutionDate) ⇒ <code>Date</code>
             * [.Rule#execute([callback])](#EThing.Rule.Rule+execute) ⇒ [<code>Rule</code>](#EThing.Rule)
@@ -2896,7 +2886,6 @@ resource.setData("key", "value").done(function(){
         * [.Resource#script()](#EThing.Rule.Resource+script) ⇒ <code>string</code>
         * [.Resource#event()](#EThing.Rule.Resource+event) ⇒ <code>object</code>
         * [.Rule#scriptReturnCode()](#EThing.Rule.Rule+scriptReturnCode) ⇒ <code>number</code>
-        * [.Rule#scriptReturn()](#EThing.Rule.Rule+scriptReturn) ⇒ <code>object</code> \| <code>number</code> \| <code>string</code> \| <code>null</code>
         * [.Rule#scriptExecutionCount()](#EThing.Rule.Rule+scriptExecutionCount) ⇒ <code>number</code>
         * [.Rule#scriptExecutionDate()](#EThing.Rule.Rule+scriptExecutionDate) ⇒ <code>Date</code>
         * [.Rule#execute([callback])](#EThing.Rule.Rule+execute) ⇒ [<code>Rule</code>](#EThing.Rule)
@@ -2944,13 +2933,6 @@ resource.setData("key", "value").done(function(){
 
 #### Rule.Rule#scriptReturnCode() ⇒ <code>number</code>
 <p>Returns the last exit code returned by the script of this rule.</p>
-
-**Kind**: static method of [<code>Rule</code>](#EThing.Rule)  
-**this**: <code>{EThing.Rule}</code>  
-<a name="EThing.Rule.Rule+scriptReturn"></a>
-
-#### Rule.Rule#scriptReturn() ⇒ <code>object</code> \| <code>number</code> \| <code>string</code> \| <code>null</code>
-<p>Returns the last value returned by the script of this rule.</p>
 
 **Kind**: static method of [<code>Rule</code>](#EThing.Rule)  
 **this**: <code>{EThing.Rule}</code>  

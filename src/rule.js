@@ -61,16 +61,6 @@ Rule.prototype.scriptReturnCode = function() {
 }
 
 /**
- * Returns the last value returned by the script of this rule.
- * @memberof EThing.Rule
- * @this {EThing.Rule}
- * @returns {object|number|string|null}
- */
-Rule.prototype.scriptReturn = function() {
-	return this._json.script_return;
-}
-
-/**
  * Returns the number of times this rule has been executed.
  * @memberof EThing.Rule
  * @this {EThing.Rule}
