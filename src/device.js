@@ -5,8 +5,14 @@ var Resource = require("./resource.js");
 
 
 
-/* private constructor */
-/* base class of device */
+/**
+ * Constructs a Device instance from an object decribing a device. Should not be called directly. Use instead {@link EThing.list}.
+ * @protected
+ * @class The Device resource handle a device
+ * @memberof EThing
+ * @extends EThing.Resource
+ * @param {object} json
+ */
 var Device = function(json)
 {
 	Resource.call(this, json);
@@ -39,7 +45,6 @@ utils.inherits(Device, Resource);
 
 /**
  * 
- * @memberof EThing.Device
  * @this {EThing.Device}
  * @returns {string|null} Return either a string containing information about the location (coordinates, place, room ...) or null if no location is defined for this device.
  */
@@ -49,7 +54,6 @@ Device.prototype.location = function() {
 
 /**
  * 
- * @memberof EThing.Device
  * @this {EThing.Device}
  * @returns {boolean} Return true if the device is connected.
  */
@@ -59,7 +63,6 @@ Device.prototype.connected = function() {
 
 /**
  * 
- * @memberof EThing.Device
  * @this {EThing.Device}
  * @returns {Date|null}
  */
@@ -69,7 +72,6 @@ Device.prototype.lastSeenDate = function() {
 
 /**
  * 
- * @memberof EThing.Device
  * @this {EThing.Device}
  * @returns {boolean}
  */
@@ -79,7 +81,6 @@ Device.prototype.hasBattery = function() {
 
 /**
  * 
- * @memberof EThing.Device
  * @this {EThing.Device}
  * @returns {number}
  */
@@ -89,7 +90,6 @@ Device.prototype.battery = function() {
 
 /**
  * List the available methods on this device.
- * @memberof EThing.Device
  * @this {EThing.Device}
  * @returns {string[]}
  */
@@ -99,7 +99,6 @@ Device.prototype.methods = function(){
 
 /**
  * List the available interfaces on this device.
- * @memberof EThing.Device
  * @this {EThing.Device}
  * @returns {string[]}
  */
@@ -110,7 +109,6 @@ Device.prototype.interfaces = function(){
 
 /**
  * Execute an operation on this device.
- * @memberof EThing.Device
  * @this {EThing.Device}
  * @param {string} operationId
  * @param {object|array|anything} [data] the optional arguments required by the operation
@@ -151,7 +149,6 @@ Device.prototype.execute = function(){
 
 /**
  * Returns an url for executing an operation.
- * @memberof EThing.Device
  * @this {EThing.Device}
  * @param {string} operationId
  * @param {object} [data] the optional data required by the operation
@@ -175,7 +172,6 @@ Device.prototype.executeUrl = function(operationId, data){
 
 /**
  * Retrieve information about a specific method or all the methods available for this device.
- * @memberof EThing.Device
  * @this {EThing.Device}
  * @param {string} [operationId] if set, only information about this operation will be returned
  * @param {function(data,XHR,options)} [callback] it is executed once the request is complete whether in failure or success

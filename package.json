@@ -16,16 +16,18 @@
     "type": "git",
     "url": "https://github.com/e-thing/ething-js.git"
   },
-  "dependencies": {},
   "devDependencies": {
     "jsdoc-to-markdown": "^4.0.1",
     "webpack": "^4.0.1",
-    "webpack-cli": "^2.0.9"
+    "webpack-cli": "^2.0.9",
+    "chai": "^4.1.2",
+    "mocha": "^5.1.0"
   },
   "scripts": {
     "dev": "webpack --mode development",
     "build": "webpack --mode production",
-    "docs": "jsdoc2md --no-cache -f src -c jsdoc.conf > api.md"
+    "docs": "jsdoc2md --no-cache -f src -c jsdoc.conf > api.md",
+    "test": "mocha"
   },
   "browser": {
     "./src/extra.js": "./src/extra-browser.js"

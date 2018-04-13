@@ -22,7 +22,6 @@ utils.inherits(App, Resource);
 
 /**
  * Returns the size of this application in bytes.
- * @memberof EThing.App
  * @this {EThing.App}
  * @returns {number}
  */
@@ -33,7 +32,6 @@ App.prototype.size = function() {
 /**
  * If this application has an icon, it returns his link, else it returns null.
  * 
- * @memberof EThing.App
  * @this {EThing.App}
  * @param {boolean} [auth=false] wether or not attach any authentication element. Necessary if you are not using {@link EThing.request}.
  * @returns {string|null}
@@ -61,7 +59,6 @@ App.prototype.iconLink = function(auth) {
 
 /**
  * Returns the link to access the content.
- * @memberof EThing.App
  * @this {EThing.App}
  * @param {boolean} [auth=false] wether or not attach any authentication element. Necessary if you are not using {@link EThing.request}.
  * @returns {string}
@@ -78,7 +75,6 @@ App.prototype.getContentUrl = function(auth) {
 
 /**
  * Last time the content of this resource was modified
- * @memberof EThing.App
  * @this {EThing.App}
  * @returns {Date}
  */
@@ -88,7 +84,6 @@ App.prototype.contentModifiedDate = function() {
 
 /**
  * Return the scope of this app.
- * @memberof EThing.App
  * @this {EThing.App}
  * @returns {string}
  */
@@ -98,7 +93,6 @@ App.prototype.scope = function() {
 
 /**
  * Return the version of this app or null if this app is not versioned.
- * @memberof EThing.App
  * @this {EThing.App}
  * @returns {string}
  */
@@ -108,7 +102,6 @@ App.prototype.version = function() {
 
 /**
  * Gets the code of this application in text/html.
- * @memberof EThing.App
  * @this {EThing.App}
  * @param {function(data,XHR,options)} [callback] it is executed once the request is complete whether in failure or success
  * @returns {EThing.App} The instance on which this method was called.
@@ -123,7 +116,6 @@ App.prototype.read = function(callback){
 
 /**
  * Writes some HTML script in this application. Only available for {@link EThing.App#isEditable|editable app}
- * @memberof EThing.App
  * @this {EThing.App}
  * @param {string} data the full HTML script
  * @param {function(data,XHR,options)} [callback] it is executed once the request is complete whether in failure or success

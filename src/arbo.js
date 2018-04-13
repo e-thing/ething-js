@@ -45,12 +45,15 @@ var EThing = require("./core.js");
 var utils = require("./utils.js");
 var Resource = require("./resource.js");
 var Deferred = require("./deferred.js");
-var EventEngine = require("./eventEngine.js");
+
 
 
 var resources = [],
 	loaddfr = null,
 	root = null;
+
+
+
 
 
 
@@ -64,7 +67,7 @@ var resources = [],
  * @param {Object} json
  */
 // internal folder type
-EThing.Folder = function(json) {
+var Folder = function(json) {
 	
 	if(!json.id)
 		json.id = '/'+json.name; // just to avoid collision beetween native resource's id and Folder's id (ie: native resource's id never has '/' character)
@@ -72,19 +75,19 @@ EThing.Folder = function(json) {
 	if(json.name==='')
 		this.isRoot = true;
 	
-	EThing.Resource.call(this,utils.extend({
+	Resource.call(this,utils.extend({
 		type:'Folder'
 	},json));
 	
 };
-utils.inherits(EThing.Folder,EThing.Resource);
+utils.inherits(Folder,Resource);
 
 /*
 * Overriding some base methods 
 */
 
 // find the oldest createdDate
-EThing.Folder.prototype.createdDate = function() {
+Folder.prototype.createdDate = function() {
 	var l = this.find(),
 		t = null;
 	for(var i=0; i<l.length; i++){
@@ -95,7 +98,7 @@ EThing.Folder.prototype.createdDate = function() {
 }
 
 // Find the newest modifiedDate
-EThing.Folder.prototype.modifiedDate = function() {
+Folder.prototype.modifiedDate = function() {
 	var l = this.find(),
 		t = null;
 	for(var i=0; i<l.length; i++){
@@ -109,12 +112,11 @@ EThing.Folder.prototype.modifiedDate = function() {
 /**
  * Remove all the resources under this folder.
  *
- * @memberof EThing.Folder
  * @this {EThing.Folder}
  * @param {function(EThing.Folder)} [callback] function executed once the folder is removed
  * @returns {EThing.Folder} The instance on which this method was called.
  */
-EThing.Folder.prototype.remove = function(callback) {
+Folder.prototype.remove = function(callback) {
 	var self = this;
 	return this.deferred(function(){
 			var deferreds = [];
@@ -132,32 +134,32 @@ EThing.Folder.prototype.remove = function(callback) {
  * This method is not applicable on folder
  * @private
  */
-EThing.Folder.prototype.set = null;
+Folder.prototype.set = null;
 /**
  * This method is not applicable on folder
  * @private
  */
-EThing.Folder.prototype.setData = null;
+Folder.prototype.setData = null;
 /**
  * This method is not applicable on folder
  * @private
  */
-EThing.Folder.prototype.description;
+Folder.prototype.description;
 /**
  * This method is not applicable on folder
  * @private
  */
-EThing.Folder.prototype.data;
+Folder.prototype.data;
 /**
  * This method is not applicable on folder
  * @private
  */
-EThing.Folder.prototype.createdBy;
+Folder.prototype.createdBy;
 /**
  * This method is not applicable on folder
  * @private
  */
-EThing.Folder.prototype.extension = function(){
+Folder.prototype.extension = function(){
 	return '';
 };
 
@@ -172,12 +174,11 @@ EThing.Folder.prototype.extension = function(){
  *   - string[] : only the resources that match the given relative names are returned.
  *   - RegExp : only the resources satisfying this regular expression is returned.
  *  
- * @memberof EThing.Folder
  * @param {function(EThing.Resource,relativeName)|string|string[]|RegExp} [filter] if set, only the resources that match the filter are returned.
  * @this {EThing.Folder}
  * @returns {EThing.Resource[]}
  */
-EThing.Folder.prototype.children = function(filter_, type){
+Folder.prototype.children = function(filter_, type){
 	var fd = this._json.name.length ? (this._json.name+'/') : ''; // the root node has an empty name, no leading '/'
 	var list = find(new RegExp('^'+fd+'[^/]+$'));
 	if(typeof filter_ != "undefined" && filter_)
@@ -204,11 +205,10 @@ EThing.Folder.prototype.children = function(filter_, type){
 
 /**
  * Synonym of {@link EThing.Folder#children}
- * @memberof EThing.Folder
  * @this {EThing.Folder}
  * @returns {EThing.Resource[]}
  */
-EThing.Folder.prototype.ls = EThing.Folder.prototype.children;
+Folder.prototype.ls = Folder.prototype.children;
 
 /**
  * List the resources and folders under this folder.
@@ -220,12 +220,11 @@ EThing.Folder.prototype.ls = EThing.Folder.prototype.children;
  *   - string[] : only the resources that match the given relative names are returned.
  *   - RegExp : only the resources satisfying this regular expression is returned.
  *  
- * @memberof EThing.Folder
  * @param {function(EThing.Resource,relativeName)|string|string[]|RegExp} [filter] if set, only the resources that match the filter are returned.
  * @this {EThing.Folder}
  * @returns {EThing.Resource[]}
  */
-EThing.Folder.prototype.find = function(filter_, type){ // deep find
+Folder.prototype.find = function(filter_, type){ // deep find
 	var fd = this._json.name.length ? (this._json.name+'/') : ''; // the root node has an empty name, no leading '/'
 	var list = find(fd.length ? new RegExp('^'+fd) : new RegExp('^.+'));
 	if(typeof filter_ != "undefined" && filter_)
@@ -254,12 +253,11 @@ EThing.Folder.prototype.find = function(filter_, type){ // deep find
  * Same as {@link EThing.Folder#find} except that it will return only one result (the first resource that match the filter) or null if nothing was found.
  * See {@link EThing.Folder#find} for more details about the argument.
  *  
- * @memberof EThing.Folder
  * @param {function(EThing.Resource,relativeName)|string|string[]|RegExp} [filter] if set, only the first resource that match the filter is returned.
  * @this {EThing.Folder}
  * @returns {EThing.Resource|null}
  */
-EThing.Folder.prototype.findOne = function(filter_, type){
+Folder.prototype.findOne = function(filter_, type){
 	var res = this.find(filter_, type);
 	return res.length ? res[0] : null;
 }
@@ -267,11 +265,10 @@ EThing.Folder.prototype.findOne = function(filter_, type){
 /**
  * Returns the number of immediate children.
  * 
- * @memberof EThing.Folder
  * @this {EThing.Folder}
  * @returns {number}
  */
-EThing.Folder.prototype.length = function(){
+Folder.prototype.length = function(){
 	return this.children().length;
 }
 
@@ -290,6 +287,8 @@ EThing.Resource.prototype.parent = function(){
 }
 
 
+
+EThing.Folder = Folder;
 
 
 

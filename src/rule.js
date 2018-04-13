@@ -22,7 +22,6 @@ utils.inherits(Rule, Resource);
 
 /**
  * Returns true if this rule is enabled.
- * @memberof EThing.Rule
  * @this {EThing.Rule}
  * @returns {boolean}
  */
@@ -32,7 +31,6 @@ Rule.prototype.enabled = function() {
 
 /**
  * Returns the id of the script file.
- * @memberof EThing.Rule
  * @this {EThing.Rule}
  * @returns {string}
  */
@@ -42,7 +40,6 @@ Resource.prototype.script = function(){
 
 /**
  * Returns an object describing the event.
- * @memberof EThing.Rule
  * @this {EThing.Rule}
  * @returns {object}
  */
@@ -52,7 +49,6 @@ Resource.prototype.event = function(){
 
 /**
  * Returns the last exit code returned by the script of this rule.
- * @memberof EThing.Rule
  * @this {EThing.Rule}
  * @returns {number}
  */
@@ -62,7 +58,6 @@ Rule.prototype.scriptReturnCode = function() {
 
 /**
  * Returns the number of times this rule has been executed.
- * @memberof EThing.Rule
  * @this {EThing.Rule}
  * @returns {number}
  */
@@ -72,7 +67,6 @@ Rule.prototype.scriptExecutionCount = function() {
 
 /**
  * Returns the last time this rule has been executed.
- * @memberof EThing.Rule
  * @this {EThing.Rule}
  * @returns {Date}
  */
@@ -83,7 +77,6 @@ Rule.prototype.scriptExecutionDate = function() {
 
 /**
  * Run this rule.
- * @memberof EThing.Rule
  * @this {EThing.Rule}
  * @param {function(data,XHR,options)} [callback] it is executed once the request is complete whether in failure or success
  * @returns {EThing.Rule} The instance on which this method was called.

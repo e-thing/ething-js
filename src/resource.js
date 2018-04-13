@@ -63,7 +63,6 @@ Resource.prototype._fromJson = function(json, noTrigger){
 
 /**
  *  Returns the representation of this instance
- * @memberof EThing.Resource
  * @this {EThing.Resource}
  * @returns {object}
  */
@@ -73,7 +72,6 @@ Resource.prototype.json = function(){
 
 /**
  * Return true if the resource is of the given type.
- * @memberof EThing.Resource
  * @this {EThing.Resource}
  * @param {string} type
  * @returns {boolean}
@@ -87,7 +85,6 @@ Resource.prototype.isTypeof = function(type) {
  * Returns the name of this resource. A name is constructed as __PathName/FileName__.
  * To get only the FileName, see {@link EThing.Resource#basename}.
  * To get only the PathName, see {@link EThing.Resource#dirname}.
- * @memberof EThing.Resource
  * @this {EThing.Resource}
  * @returns {string}
  */
@@ -96,7 +93,6 @@ Resource.prototype.name = function() {
 }
 /**
  * Returns the path of this resource
- * @memberof EThing.Resource
  * @this {EThing.Resource}
  * @returns {string}
  */
@@ -105,7 +101,6 @@ Resource.prototype.dirname = function() {
 }
 /**
  * Returns the basename of this resource
- * @memberof EThing.Resource
  * @this {EThing.Resource}
  * @returns {string}
  */
@@ -114,7 +109,6 @@ Resource.prototype.basename = function() {
 }
 /**
  * Returns the extension of this resource
- * @memberof EThing.Resource
  * @this {EThing.Resource}
  * @returns {string}
  */
@@ -123,7 +117,6 @@ Resource.prototype.extension = function(){
 }
 /**
  * Returns the id of this resource. This id is unique and immutable.
- * @memberof EThing.Resource
  * @this {EThing.Resource}
  * @returns {string}
  */
@@ -132,7 +125,6 @@ Resource.prototype.id = function(){
 }
 /**
  * Returns the id of the Resource which creates it if any, or returns null.
- * @memberof EThing.Resource
  * @this {EThing.Resource}
  * @returns {string|null}
  */
@@ -146,7 +138,6 @@ Resource.prototype.createdBy = function(){
  *  - "Table"
  *  - "App"
  *  - "Device"
- * @memberof EThing.Resource
  * @this {EThing.Resource}
  * @returns {string}
  */
@@ -156,7 +147,6 @@ Resource.prototype.type = function() {
 
 /**
  *  Returns the types this resource depends on
- * @memberof EThing.Resource
  * @this {EThing.Resource}
  * @returns {string[]}
  */
@@ -170,7 +160,6 @@ Resource.prototype.types = function() {
  *  - "Table"
  *  - "App"
  *  - "Device"
- * @memberof EThing.Resource
  * @this {EThing.Resource}
  * @returns {string}
  */
@@ -181,7 +170,6 @@ Resource.prototype.baseType = function() {
 
 /**
  * Create time for this resource
- * @memberof EThing.Resource
  * @this {EThing.Resource}
  * @returns {Date}
  */
@@ -194,7 +182,6 @@ Resource.prototype.ctime = function(){
 
 /**
  * Last time this resource was modified
- * @memberof EThing.Resource
  * @this {EThing.Resource}
  * @returns {Date}
  */
@@ -207,7 +194,6 @@ Resource.prototype.mtime = function(){
 
 /**
  * Tells if this resource is publicly available.
- * @memberof EThing.Resource
  * @this {EThing.Resource}
  * @returns {boolean|string}
  */
@@ -217,7 +203,6 @@ Resource.prototype.public = function() {
 
 /**
  * Returns the data attached to this resource.
- * @memberof EThing.Resource
  * @param {string} [name] an optional data attribute name.
  * @param {} [defaultValue] a default value if the attribute was not found.
  * @this {EThing.Resource}
@@ -233,7 +218,6 @@ Resource.prototype.data = function(name, defaultValue) {
 
 /**
  * Returns the attributes to this resource.
- * @memberof EThing.Resource
  * @param {string} [name] an optional attribute name.
  * @this {EThing.Resource}
  * @returns {object|null}
@@ -248,7 +232,6 @@ Resource.prototype.attr = function(name) {
 
 /**
  * Returns true if the attribute exists for this resource.
- * @memberof EThing.Resource
  * @param {string} name attribute name.
  * @this {EThing.Resource}
  * @returns {boolean}
@@ -259,7 +242,6 @@ Resource.prototype.hasAttr = function(name) {
 
 /**
  * Returns the description of this resource
- * @memberof EThing.Resource
  * @this {EThing.Resource}
  * @returns {string}
  */
@@ -270,7 +252,6 @@ Resource.prototype.description = function() {
 // resource modificators (async)
 /**
  * Remove this resource.
- * @memberof EThing.Resource
  * @this {EThing.Resource}
  * @param {Boolean} [removeChildren] When true, the children are also removed. Default to false.
  * @param {function(data,XHR,options)} [callback] it is executed once the request is complete whether in failure or success
@@ -295,7 +276,6 @@ Resource.prototype.update = function(callback){
 
 /**
  * Update this resource attributes
- * @memberof EThing.Resource
  * @this {EThing.Resource}
  * @param {} properties
  * @param {function(data,XHR,options)} [callback] it is executed once the request is complete whether in failure or success
@@ -316,7 +296,6 @@ Resource.prototype.set = function(properties, callback){
 }
 /**
  * Attaches persistant data to this resource
- * @memberof EThing.Resource
  * @this {EThing.Resource}
  * @param {object} data
  * @param {function(data,XHR,options)} [callback] it is executed once the request is complete whether in failure or success

@@ -22,7 +22,6 @@ utils.inherits(Table, Resource);
 // specific methods
 /**
  * The number of rows in this table
- * @memberof EThing.Table
  * @this {EThing.Table}
  * @returns {number}
  */
@@ -31,7 +30,6 @@ Table.prototype.length = function(){
 }
 /**
  * The maximum number of rows allowed in this table. Returns null if this feature is disable (number of rows is unlimited).
- * @memberof EThing.Table
  * @this {EThing.Table}
  * @returns {number|null}
  */
@@ -40,7 +38,6 @@ Table.prototype.maxLength = function(){
 }
 /**
  * Returns the amount of seconds after which a __row__ is automatically removed, or null if this feature is not enable.
- * @memberof EThing.Table
  * @this {EThing.Table}
  * @returns {number}
  */
@@ -49,7 +46,6 @@ Table.prototype.expireAfter = function(){
 }
 /**
  * Returns the keys in this table. __The default keys ("id" and "date" are not listed)__.
- * @memberof EThing.Table
  * @this {EThing.Table}
  * @returns {string[]}
  */
@@ -62,7 +58,6 @@ Table.prototype.keys = function(){
 }
 /**
  * Last time the content of this resource was modified
- * @memberof EThing.Table
  * @this {EThing.Table}
  * @returns {Date}
  */
@@ -71,7 +66,6 @@ Table.prototype.contentModifiedDate = function() {
 }
 /**
  * Returns rows.
- * @memberof EThing.Table
  * @this {EThing.Table}
  * @param {Object} [options] Customize the selection
  * @param {number} [options.start=0] Position of the first rows to return. If start is negative, it starts from the end.
@@ -103,7 +97,6 @@ Table.prototype.select = function(options,callback){
 }
 /**
  * Performs statistics on a specific column.
- * @memberof EThing.Table
  * @this {EThing.Table}
  * @param {string} key The column name on which the statistics should be performed.
  * @param {string} [query] A query string to filter the data.
@@ -120,7 +113,6 @@ Table.prototype.computeStatistics = function(key,query,callback){
 }
 /**
  * Removes one or multiple rows.
- * @memberof EThing.Table
  * @this {EThing.Table}
  * @param {string|string[]} id The id of the row(s) to be removed
  * @param {function(data,XHR,options)} [callback] it is executed once the request is complete whether in failure or success
@@ -143,7 +135,6 @@ Table.prototype.removeRow = function(id,callback){
 }
 /**
  * Set new data to a row.
- * @memberof EThing.Table
  * @this {EThing.Table}
  * @param {object} data the data to be updated, it must contain the row id.
  * @param {function(data,XHR,options)} [callback] it is executed once the request is complete whether in failure or success
@@ -167,7 +158,6 @@ Table.prototype.replaceRow = function(data,callback){
 
 /**
  * Finds a single row matching the query and replaces it.
- * @memberof EThing.Table
  * @this {EThing.Table}
  * @param {string} query A query string to filter the data.
  * @param {object} data the new data.
@@ -193,7 +183,6 @@ Table.prototype.findOneAndReplace = function(query,data,upsert,callback){
 
 /**
  * Insert new data into the table. The data argument must be a key/value object.
- * @memberof EThing.Table
  * @this {EThing.Table}
  * @param {object} data
  * @param {string} [invalid_field] The behaviour to adopt when an invalid field name appears. The value must be one of the following : "rename","stop","skip","none".
@@ -219,7 +208,6 @@ Table.prototype.insert = function(data, callback){
 
 /**
  * Replace the content of this table by a new set of data.
- * @memberof EThing.Table
  * @this {EThing.Table}
  * @param {object[]} data
  * @param {string} [invalid_field] The behaviour to adopt when an invalid field name appears. The value must be one of the following : "rename","stop","skip","none".
@@ -243,7 +231,6 @@ Table.prototype.import = function(data, callback){
 
 /**
  * Returns the link to access the content.
- * @memberof EThing.Table
  * @this {EThing.Table}
  * @param {boolean} [auth=false] wether or not attach any authentication element. Necessary if you are not using {@link EThing.request}.
  * @returns {string}

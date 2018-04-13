@@ -20,7 +20,6 @@ utils.inherits(File, Resource);
 
 /**
  * Returns the size of this file in bytes.
- * @memberof EThing.File
  * @this {EThing.File}
  * @returns {number}
  */
@@ -29,7 +28,6 @@ File.prototype.size = function() {
 }
 /**
  * Returns the amount of seconds after the last update after which this file is removed automatically, or null if this feature is not enable (no time limit).
- * @memberof EThing.File
  * @this {EThing.File}
  * @returns {number|null}
  */
@@ -38,7 +36,6 @@ File.prototype.expireAfter = function(){
 }
 /**
  * Returns the MIME type of this file
- * @memberof EThing.File
  * @this {EThing.File}
  * @returns {string}
  */
@@ -48,7 +45,6 @@ File.prototype.mime = function(){
 
 /**
  * Last time the content of this resource was modified
- * @memberof EThing.File
  * @this {EThing.File}
  * @returns {Date}
  */
@@ -59,7 +55,6 @@ File.prototype.contentModifiedDate = function() {
 /**
  * If this file has a thumbnail (thumbnail is only available for file with MIME type __image/*__), it returns his link, else it returns null.
  * 
- * @memberof EThing.File
  * @this {EThing.File}
  * @param {boolean} [auth=false] wether or not attach any authentication element. Necessary if you are not using {@link EThing.request}.
  * @returns {string|null}
@@ -87,7 +82,6 @@ File.prototype.thumbnailLink = function(auth) {
 
 /**
  * Returns the link to access the content.
- * @memberof EThing.File
  * @this {EThing.File}
  * @param {boolean} [auth=false] wether or not attach any authentication element. Necessary if you are not using {@link EThing.request}.
  * @returns {string}
@@ -109,7 +103,6 @@ File.prototype.getContentUrl = function(auth) {
 
 /**
  * Returns true if this file has text based content.
- * @memberof EThing.File
  * @this {EThing.File}
  * @returns {boolean}
  */
@@ -119,7 +112,6 @@ File.prototype.isText = function() {
 
 /**
  * Returns true if this file is a script.
- * @memberof EThing.File
  * @this {EThing.File}
  * @returns {boolean}
  */
@@ -131,7 +123,6 @@ File.prototype.isScript = function() {
 
 /**
  * Execute a script file.
- * @memberof EThing.File
  * @this {EThing.File}
  * @param {string} [arguments] a string containing the arguments
  * @param {function(data,XHR,options)} [callback] it is executed once the request is complete whether in failure or success
@@ -153,7 +144,6 @@ File.prototype.execute = function(args, callback){
 
 /**
  * Gets the content of this file as text or as binary data.
- * @memberof EThing.File
  * @this {EThing.File}
  * @param {boolean} [binary] if true, return the content as binary data (as Blob in a browser, or Buffer in NodeJs)
  * @param {function(data,XHR,options)} [callback] it is executed once the request is complete whether in failure or success
@@ -191,7 +181,6 @@ File.prototype.read = function(binary, callback){
 
 /**
  * Writes some content to this file.
- * @memberof EThing.File
  * @this {EThing.File}
  * @param {string|blob|arraybuffer} data
  * @param {function(data,XHR,options)} [callback] it is executed once the request is complete whether in failure or success
