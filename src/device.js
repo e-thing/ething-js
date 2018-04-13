@@ -41,7 +41,7 @@ utils.inherits(Device, Resource);
  * 
  * @memberof EThing.Device
  * @this {EThing.Device}
- * @returns {object|null} Return either an object containing information about the location (coordinates, place, room ...) or null if no location is defined for this device.
+ * @returns {string|null} Return either a string containing information about the location (coordinates, place, room ...) or null if no location is defined for this device.
  */
 Device.prototype.location = function() {
   return this._json.location || null;

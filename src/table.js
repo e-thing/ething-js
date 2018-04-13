@@ -268,7 +268,7 @@ Table.prototype.getContentUrl = function(auth) {
 
 /**
  * Creates a new Table from the following attributes :
- *   - name {string} __ required__ the name of the table
+ *   - name {string} __required__ the name of the table
  *   - description {string} a string describing this table 
  *   - data {object} key/value pairs to attach to this table
  *   - expireAfter {number} amount of seconds after which a row is automatically removed, 0 means unlimited. Default to 0.

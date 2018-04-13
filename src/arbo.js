@@ -142,11 +142,6 @@ EThing.Folder.prototype.setData = null;
  * This method is not applicable on folder
  * @private
  */
-EThing.Folder.prototype.location;
-/**
- * This method is not applicable on folder
- * @private
- */
 EThing.Folder.prototype.description;
 /**
  * This method is not applicable on folder

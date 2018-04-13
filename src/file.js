@@ -214,7 +214,7 @@ File.prototype.write = function(data, callback){
 
 /**
  * Creates a new File from the following attributes :
- *   - name {string} __ required__ the name of the file
+ *   - name {string} __required__ the name of the file
  *   - description {string} a string describing this file 
  *   - data {object} key/value pairs to attach to this file
  *   - expireAfter {number} amount of seconds after the last update after which this file is removed automatically, 0 means unlimited. Default to 0.

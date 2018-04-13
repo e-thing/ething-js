@@ -87,6 +87,20 @@
             * [.Resource#remove([removeChildren], [callback])](#EThing.Resource.Resource+remove) ⇒ [<code>Resource</code>](#EThing.Resource)
             * [.Resource#set(properties, [callback])](#EThing.Resource.Resource+set) ⇒ [<code>Resource</code>](#EThing.Resource)
             * [.Resource#setData(data, [callback])](#EThing.Resource.Resource+setData) ⇒ [<code>Resource</code>](#EThing.Resource)
+    * [.Rule](#EThing.Rule) ⇐ [<code>Resource</code>](#EThing.Resource)
+        * [new Rule(json)](#new_EThing.Rule_new)
+        * _instance_
+            * [.parent()](#EThing.Resource+parent) ⇒ [<code>Resource</code>](#EThing.Resource) \| <code>undefined</code>
+        * _static_
+            * [.Rule#enabled()](#EThing.Rule.Rule+enabled) ⇒ <code>boolean</code>
+            * [.Resource#script()](#EThing.Rule.Resource+script) ⇒ <code>string</code>
+            * [.Resource#event()](#EThing.Rule.Resource+event) ⇒ <code>object</code>
+            * [.Rule#scriptReturnCode()](#EThing.Rule.Rule+scriptReturnCode) ⇒ <code>number</code>
+            * [.Rule#scriptReturn()](#EThing.Rule.Rule+scriptReturn) ⇒ <code>object</code> \| <code>number</code> \| <code>string</code> \| <code>null</code>
+            * [.Rule#scriptExecutionCount()](#EThing.Rule.Rule+scriptExecutionCount) ⇒ <code>number</code>
+            * [.Rule#scriptExecutionDate()](#EThing.Rule.Rule+scriptExecutionDate) ⇒ <code>Date</code>
+            * [.Rule#execute([callback])](#EThing.Rule.Rule+execute) ⇒ [<code>Rule</code>](#EThing.Rule)
+            * [.create(attributes, [callback])](#EThing.Rule.create) ⇒ <code>Deferred</code>
     * [.Table](#EThing.Table) ⇐ [<code>Resource</code>](#EThing.Resource)
         * [new Table(json)](#new_EThing.Table_new)
         * _instance_
@@ -296,7 +310,7 @@ EThing.request(app.getContentUrl()).done(function(content){
 #### App.create(attributes, [callback]) ⇒ <code>Deferred</code>
 <p>Creates a new Application from the following attributes :</p>
 <ul>
-<li>name {string} <strong> required</strong> the name of the application</li>
+<li>name {string} <strong>required</strong> the name of the application</li>
 <li>description {string} a string describing this application </li>
 <li>data {object} key/value pairs to attach to this application</li>
 <li>content {string} the full base64 encoded script</li>
@@ -662,7 +676,7 @@ file.write("hello world !").done(function(){
 #### File.create(attributes, [callback]) ⇒ <code>Deferred</code>
 <p>Creates a new File from the following attributes :</p>
 <ul>
-<li>name {string} <strong> required</strong> the name of the file</li>
+<li>name {string} <strong>required</strong> the name of the file</li>
 <li>description {string} a string describing this file </li>
 <li>data {object} key/value pairs to attach to this file</li>
 <li>expireAfter {number} amount of seconds after the last update after which this file is removed automatically, 0 means unlimited. Default to 0.</li>
@@ -967,6 +981,145 @@ resource.setData("key", "value").done(function(){
   // success
 });
 ```
+<a name="EThing.Rule"></a>
+
+### EThing.Rule ⇐ [<code>Resource</code>](#EThing.Resource)
+<p>The Rule resource handle an application</p>
+
+**Kind**: static class of [<code>EThing</code>](#EThing)  
+**Extends**: [<code>Resource</code>](#EThing.Resource)  
+**Access**: protected  
+
+* [.Rule](#EThing.Rule) ⇐ [<code>Resource</code>](#EThing.Resource)
+    * [new Rule(json)](#new_EThing.Rule_new)
+    * _instance_
+        * [.parent()](#EThing.Resource+parent) ⇒ [<code>Resource</code>](#EThing.Resource) \| <code>undefined</code>
+    * _static_
+        * [.Rule#enabled()](#EThing.Rule.Rule+enabled) ⇒ <code>boolean</code>
+        * [.Resource#script()](#EThing.Rule.Resource+script) ⇒ <code>string</code>
+        * [.Resource#event()](#EThing.Rule.Resource+event) ⇒ <code>object</code>
+        * [.Rule#scriptReturnCode()](#EThing.Rule.Rule+scriptReturnCode) ⇒ <code>number</code>
+        * [.Rule#scriptReturn()](#EThing.Rule.Rule+scriptReturn) ⇒ <code>object</code> \| <code>number</code> \| <code>string</code> \| <code>null</code>
+        * [.Rule#scriptExecutionCount()](#EThing.Rule.Rule+scriptExecutionCount) ⇒ <code>number</code>
+        * [.Rule#scriptExecutionDate()](#EThing.Rule.Rule+scriptExecutionDate) ⇒ <code>Date</code>
+        * [.Rule#execute([callback])](#EThing.Rule.Rule+execute) ⇒ [<code>Rule</code>](#EThing.Rule)
+        * [.create(attributes, [callback])](#EThing.Rule.create) ⇒ <code>Deferred</code>
+
+<a name="new_EThing.Rule_new"></a>
+
+#### new Rule(json)
+<p>Constructs a Rule instance from an object decribing a rule. Should not be called directly. Use instead [list](#EThing.list).</p>
+
+
+| Param | Type |
+| --- | --- |
+| json | <code>object</code> | 
+
+<a name="EThing.Resource+parent"></a>
+
+#### rule.parent() ⇒ [<code>Resource</code>](#EThing.Resource) \| <code>undefined</code>
+<p>Returns the parent directory of this resource, Returns undefined if this resource is the root directory.</p>
+
+**Kind**: instance method of [<code>Rule</code>](#EThing.Rule)  
+**this**: <code>{EThing.Resource}</code>  
+<a name="EThing.Rule.Rule+enabled"></a>
+
+#### Rule.Rule#enabled() ⇒ <code>boolean</code>
+<p>Returns true if this rule is enabled.</p>
+
+**Kind**: static method of [<code>Rule</code>](#EThing.Rule)  
+**this**: <code>{EThing.Rule}</code>  
+<a name="EThing.Rule.Resource+script"></a>
+
+#### Rule.Resource#script() ⇒ <code>string</code>
+<p>Returns the id of the script file.</p>
+
+**Kind**: static method of [<code>Rule</code>](#EThing.Rule)  
+**this**: <code>{EThing.Rule}</code>  
+<a name="EThing.Rule.Resource+event"></a>
+
+#### Rule.Resource#event() ⇒ <code>object</code>
+<p>Returns an object describing the event.</p>
+
+**Kind**: static method of [<code>Rule</code>](#EThing.Rule)  
+**this**: <code>{EThing.Rule}</code>  
+<a name="EThing.Rule.Rule+scriptReturnCode"></a>
+
+#### Rule.Rule#scriptReturnCode() ⇒ <code>number</code>
+<p>Returns the last exit code returned by the script of this rule.</p>
+
+**Kind**: static method of [<code>Rule</code>](#EThing.Rule)  
+**this**: <code>{EThing.Rule}</code>  
+<a name="EThing.Rule.Rule+scriptReturn"></a>
+
+#### Rule.Rule#scriptReturn() ⇒ <code>object</code> \| <code>number</code> \| <code>string</code> \| <code>null</code>
+<p>Returns the last value returned by the script of this rule.</p>
+
+**Kind**: static method of [<code>Rule</code>](#EThing.Rule)  
+**this**: <code>{EThing.Rule}</code>  
+<a name="EThing.Rule.Rule+scriptExecutionCount"></a>
+
+#### Rule.Rule#scriptExecutionCount() ⇒ <code>number</code>
+<p>Returns the number of times this rule has been executed.</p>
+
+**Kind**: static method of [<code>Rule</code>](#EThing.Rule)  
+**this**: <code>{EThing.Rule}</code>  
+<a name="EThing.Rule.Rule+scriptExecutionDate"></a>
+
+#### Rule.Rule#scriptExecutionDate() ⇒ <code>Date</code>
+<p>Returns the last time this rule has been executed.</p>
+
+**Kind**: static method of [<code>Rule</code>](#EThing.Rule)  
+**this**: <code>{EThing.Rule}</code>  
+<a name="EThing.Rule.Rule+execute"></a>
+
+#### Rule.Rule#execute([callback]) ⇒ [<code>Rule</code>](#EThing.Rule)
+<p>Run this rule.</p>
+
+**Kind**: static method of [<code>Rule</code>](#EThing.Rule)  
+**Returns**: [<code>Rule</code>](#EThing.Rule) - <p>The instance on which this method was called.</p>  
+**this**: <code>{EThing.Rule}</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| [callback] | <code>function</code> | <p>it is executed once the request is complete whether in failure or success</p> |
+
+<a name="EThing.Rule.create"></a>
+
+#### Rule.create(attributes, [callback]) ⇒ <code>Deferred</code>
+<p>Creates a new Rule from the following attributes :</p>
+<ul>
+<li>name {string} <strong>required</strong> the name of the rule</li>
+<li>script {EThing.File} <strong>required</strong> the JavaScript code to be executed</li>
+<li>event {object} <strong>required</strong> the event object describing when to execute this rule<ul>
+<li>event.type {string} <strong>required</strong> the type name of the event (Timer, ResourceCreated, ...)</li>
+<li>event.*  some options depending of the type of event</li>
+</ul>
+</li>
+<li>script_args {string} an optional string holding the arguments to pass to the script</li>
+</ul>
+
+**Kind**: static method of [<code>Rule</code>](#EThing.Rule)  
+**Returns**: <code>Deferred</code> - <p>a [jQuery like Promise object](http://api.jquery.com/category/deferred-object/). [More ...](#EThing.request)</p>  
+**Emits**: <code>EThing#ething.rule.event:created</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| attributes | <code>object</code> |  |
+| [callback] | <code>function</code> | <p>it is executed once the request is complete whether in failure or success</p> |
+
+**Example**  
+```js
+EThing.Rule.create({
+  name: "myRule",
+  script: <script_id>,
+  event: {
+    type: 'ResourceCreated' // this rule will be fired each time a resource is created !
+  }
+}).done(function(resource){
+    console.log('the new rule is created');
+})
+```
 <a name="EThing.Table"></a>
 
 ### EThing.Table ⇐ [<code>Resource</code>](#EThing.Resource)
@@ -1242,7 +1395,7 @@ $.getJSON(table.getContentUrl(true)).done(function(rows){
 #### Table.create(attributes, [callback]) ⇒ <code>Deferred</code>
 <p>Creates a new Table from the following attributes :</p>
 <ul>
-<li>name {string} <strong> required</strong> the name of the table</li>
+<li>name {string} <strong>required</strong> the name of the table</li>
 <li>description {string} a string describing this table </li>
 <li>data {object} key/value pairs to attach to this table</li>
 <li>expireAfter {number} amount of seconds after which a row is automatically removed, 0 means unlimited. Default to 0.</li>
@@ -1831,6 +1984,20 @@ EThing.notify("hello world")
             * [.Resource#remove([removeChildren], [callback])](#EThing.Resource.Resource+remove) ⇒ [<code>Resource</code>](#EThing.Resource)
             * [.Resource#set(properties, [callback])](#EThing.Resource.Resource+set) ⇒ [<code>Resource</code>](#EThing.Resource)
             * [.Resource#setData(data, [callback])](#EThing.Resource.Resource+setData) ⇒ [<code>Resource</code>](#EThing.Resource)
+    * [.Rule](#EThing.Rule) ⇐ [<code>Resource</code>](#EThing.Resource)
+        * [new Rule(json)](#new_EThing.Rule_new)
+        * _instance_
+            * [.parent()](#EThing.Resource+parent) ⇒ [<code>Resource</code>](#EThing.Resource) \| <code>undefined</code>
+        * _static_
+            * [.Rule#enabled()](#EThing.Rule.Rule+enabled) ⇒ <code>boolean</code>
+            * [.Resource#script()](#EThing.Rule.Resource+script) ⇒ <code>string</code>
+            * [.Resource#event()](#EThing.Rule.Resource+event) ⇒ <code>object</code>
+            * [.Rule#scriptReturnCode()](#EThing.Rule.Rule+scriptReturnCode) ⇒ <code>number</code>
+            * [.Rule#scriptReturn()](#EThing.Rule.Rule+scriptReturn) ⇒ <code>object</code> \| <code>number</code> \| <code>string</code> \| <code>null</code>
+            * [.Rule#scriptExecutionCount()](#EThing.Rule.Rule+scriptExecutionCount) ⇒ <code>number</code>
+            * [.Rule#scriptExecutionDate()](#EThing.Rule.Rule+scriptExecutionDate) ⇒ <code>Date</code>
+            * [.Rule#execute([callback])](#EThing.Rule.Rule+execute) ⇒ [<code>Rule</code>](#EThing.Rule)
+            * [.create(attributes, [callback])](#EThing.Rule.create) ⇒ <code>Deferred</code>
     * [.Table](#EThing.Table) ⇐ [<code>Resource</code>](#EThing.Resource)
         * [new Table(json)](#new_EThing.Table_new)
         * _instance_
@@ -2040,7 +2207,7 @@ EThing.request(app.getContentUrl()).done(function(content){
 #### App.create(attributes, [callback]) ⇒ <code>Deferred</code>
 <p>Creates a new Application from the following attributes :</p>
 <ul>
-<li>name {string} <strong> required</strong> the name of the application</li>
+<li>name {string} <strong>required</strong> the name of the application</li>
 <li>description {string} a string describing this application </li>
 <li>data {object} key/value pairs to attach to this application</li>
 <li>content {string} the full base64 encoded script</li>
@@ -2406,7 +2573,7 @@ file.write("hello world !").done(function(){
 #### File.create(attributes, [callback]) ⇒ <code>Deferred</code>
 <p>Creates a new File from the following attributes :</p>
 <ul>
-<li>name {string} <strong> required</strong> the name of the file</li>
+<li>name {string} <strong>required</strong> the name of the file</li>
 <li>description {string} a string describing this file </li>
 <li>data {object} key/value pairs to attach to this file</li>
 <li>expireAfter {number} amount of seconds after the last update after which this file is removed automatically, 0 means unlimited. Default to 0.</li>
@@ -2711,6 +2878,145 @@ resource.setData("key", "value").done(function(){
   // success
 });
 ```
+<a name="EThing.Rule"></a>
+
+### EThing.Rule ⇐ [<code>Resource</code>](#EThing.Resource)
+<p>The Rule resource handle an application</p>
+
+**Kind**: static class of [<code>EThing</code>](#EThing)  
+**Extends**: [<code>Resource</code>](#EThing.Resource)  
+**Access**: protected  
+
+* [.Rule](#EThing.Rule) ⇐ [<code>Resource</code>](#EThing.Resource)
+    * [new Rule(json)](#new_EThing.Rule_new)
+    * _instance_
+        * [.parent()](#EThing.Resource+parent) ⇒ [<code>Resource</code>](#EThing.Resource) \| <code>undefined</code>
+    * _static_
+        * [.Rule#enabled()](#EThing.Rule.Rule+enabled) ⇒ <code>boolean</code>
+        * [.Resource#script()](#EThing.Rule.Resource+script) ⇒ <code>string</code>
+        * [.Resource#event()](#EThing.Rule.Resource+event) ⇒ <code>object</code>
+        * [.Rule#scriptReturnCode()](#EThing.Rule.Rule+scriptReturnCode) ⇒ <code>number</code>
+        * [.Rule#scriptReturn()](#EThing.Rule.Rule+scriptReturn) ⇒ <code>object</code> \| <code>number</code> \| <code>string</code> \| <code>null</code>
+        * [.Rule#scriptExecutionCount()](#EThing.Rule.Rule+scriptExecutionCount) ⇒ <code>number</code>
+        * [.Rule#scriptExecutionDate()](#EThing.Rule.Rule+scriptExecutionDate) ⇒ <code>Date</code>
+        * [.Rule#execute([callback])](#EThing.Rule.Rule+execute) ⇒ [<code>Rule</code>](#EThing.Rule)
+        * [.create(attributes, [callback])](#EThing.Rule.create) ⇒ <code>Deferred</code>
+
+<a name="new_EThing.Rule_new"></a>
+
+#### new Rule(json)
+<p>Constructs a Rule instance from an object decribing a rule. Should not be called directly. Use instead [list](#EThing.list).</p>
+
+
+| Param | Type |
+| --- | --- |
+| json | <code>object</code> | 
+
+<a name="EThing.Resource+parent"></a>
+
+#### rule.parent() ⇒ [<code>Resource</code>](#EThing.Resource) \| <code>undefined</code>
+<p>Returns the parent directory of this resource, Returns undefined if this resource is the root directory.</p>
+
+**Kind**: instance method of [<code>Rule</code>](#EThing.Rule)  
+**this**: <code>{EThing.Resource}</code>  
+<a name="EThing.Rule.Rule+enabled"></a>
+
+#### Rule.Rule#enabled() ⇒ <code>boolean</code>
+<p>Returns true if this rule is enabled.</p>
+
+**Kind**: static method of [<code>Rule</code>](#EThing.Rule)  
+**this**: <code>{EThing.Rule}</code>  
+<a name="EThing.Rule.Resource+script"></a>
+
+#### Rule.Resource#script() ⇒ <code>string</code>
+<p>Returns the id of the script file.</p>
+
+**Kind**: static method of [<code>Rule</code>](#EThing.Rule)  
+**this**: <code>{EThing.Rule}</code>  
+<a name="EThing.Rule.Resource+event"></a>
+
+#### Rule.Resource#event() ⇒ <code>object</code>
+<p>Returns an object describing the event.</p>
+
+**Kind**: static method of [<code>Rule</code>](#EThing.Rule)  
+**this**: <code>{EThing.Rule}</code>  
+<a name="EThing.Rule.Rule+scriptReturnCode"></a>
+
+#### Rule.Rule#scriptReturnCode() ⇒ <code>number</code>
+<p>Returns the last exit code returned by the script of this rule.</p>
+
+**Kind**: static method of [<code>Rule</code>](#EThing.Rule)  
+**this**: <code>{EThing.Rule}</code>  
+<a name="EThing.Rule.Rule+scriptReturn"></a>
+
+#### Rule.Rule#scriptReturn() ⇒ <code>object</code> \| <code>number</code> \| <code>string</code> \| <code>null</code>
+<p>Returns the last value returned by the script of this rule.</p>
+
+**Kind**: static method of [<code>Rule</code>](#EThing.Rule)  
+**this**: <code>{EThing.Rule}</code>  
+<a name="EThing.Rule.Rule+scriptExecutionCount"></a>
+
+#### Rule.Rule#scriptExecutionCount() ⇒ <code>number</code>
+<p>Returns the number of times this rule has been executed.</p>
+
+**Kind**: static method of [<code>Rule</code>](#EThing.Rule)  
+**this**: <code>{EThing.Rule}</code>  
+<a name="EThing.Rule.Rule+scriptExecutionDate"></a>
+
+#### Rule.Rule#scriptExecutionDate() ⇒ <code>Date</code>
+<p>Returns the last time this rule has been executed.</p>
+
+**Kind**: static method of [<code>Rule</code>](#EThing.Rule)  
+**this**: <code>{EThing.Rule}</code>  
+<a name="EThing.Rule.Rule+execute"></a>
+
+#### Rule.Rule#execute([callback]) ⇒ [<code>Rule</code>](#EThing.Rule)
+<p>Run this rule.</p>
+
+**Kind**: static method of [<code>Rule</code>](#EThing.Rule)  
+**Returns**: [<code>Rule</code>](#EThing.Rule) - <p>The instance on which this method was called.</p>  
+**this**: <code>{EThing.Rule}</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| [callback] | <code>function</code> | <p>it is executed once the request is complete whether in failure or success</p> |
+
+<a name="EThing.Rule.create"></a>
+
+#### Rule.create(attributes, [callback]) ⇒ <code>Deferred</code>
+<p>Creates a new Rule from the following attributes :</p>
+<ul>
+<li>name {string} <strong>required</strong> the name of the rule</li>
+<li>script {EThing.File} <strong>required</strong> the JavaScript code to be executed</li>
+<li>event {object} <strong>required</strong> the event object describing when to execute this rule<ul>
+<li>event.type {string} <strong>required</strong> the type name of the event (Timer, ResourceCreated, ...)</li>
+<li>event.*  some options depending of the type of event</li>
+</ul>
+</li>
+<li>script_args {string} an optional string holding the arguments to pass to the script</li>
+</ul>
+
+**Kind**: static method of [<code>Rule</code>](#EThing.Rule)  
+**Returns**: <code>Deferred</code> - <p>a [jQuery like Promise object](http://api.jquery.com/category/deferred-object/). [More ...](#EThing.request)</p>  
+**Emits**: <code>EThing#ething.rule.event:created</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| attributes | <code>object</code> |  |
+| [callback] | <code>function</code> | <p>it is executed once the request is complete whether in failure or success</p> |
+
+**Example**  
+```js
+EThing.Rule.create({
+  name: "myRule",
+  script: <script_id>,
+  event: {
+    type: 'ResourceCreated' // this rule will be fired each time a resource is created !
+  }
+}).done(function(resource){
+    console.log('the new rule is created');
+})
+```
 <a name="EThing.Table"></a>
 
 ### EThing.Table ⇐ [<code>Resource</code>](#EThing.Resource)
@@ -2986,7 +3292,7 @@ $.getJSON(table.getContentUrl(true)).done(function(rows){
 #### Table.create(attributes, [callback]) ⇒ <code>Deferred</code>
 <p>Creates a new Table from the following attributes :</p>
 <ul>
-<li>name {string} <strong> required</strong> the name of the table</li>
+<li>name {string} <strong>required</strong> the name of the table</li>
 <li>description {string} a string describing this table </li>
 <li>data {object} key/value pairs to attach to this table</li>
 <li>expireAfter {number} amount of seconds after which a row is automatically removed, 0 means unlimited. Default to 0.</li>

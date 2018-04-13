@@ -32,11 +32,12 @@ Resource.prototype._fromJson = function(json, noTrigger){
 		name:null,
 		id:null,
 		type:null,
+        extends: [],
 		createdBy:null,
 		createdDate: 0,
 		modifiedDate: 0,
 		data: null,
-		description: null
+		description: ''
 	}, json || {});
 	
 	if(!noTrigger && updated) {

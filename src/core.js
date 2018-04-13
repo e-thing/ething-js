@@ -406,26 +406,18 @@ var ajax = function(options){
 
 
 
-
-function isResourceMetaData(json){
-	return json.hasOwnProperty('id') && json.hasOwnProperty('type') && json.hasOwnProperty('name');
-}
-
-var getClass = EThing.getClass = function (str){
-	var cc = str.split(/[.\\]/), obj = EThing;
-	if(cc.length>0 && (typeof EThing[cc[0]] != 'undefined')){
-		return EThing[cc[0]];
-	}
-	return undefined;
-}
-
 var instanciate = EThing.instanciate = function (json){
-	var cl = getClass(json.type);
-	if(!cl){
-		if(json.extends.indexOf('Device') >= 0)
-			cl = getClass('Device')
-	}
-	return cl ? new (cl)(json) : false;
+    
+    for(var i in json.extends){
+        var clsName = json.extends[i];
+        
+        if(typeof EThing[clsName] != 'undefined'){
+            return new EThing[clsName](json)
+        }
+        
+    }
+    
+	return false;
 }
 
 

@@ -142,7 +142,7 @@ App.prototype.write = function(data, callback){
 
 /**
  * Creates a new Application from the following attributes :
- *   - name {string} __ required__ the name of the application
+ *   - name {string} __required__ the name of the application
  *   - description {string} a string describing this application 
  *   - data {object} key/value pairs to attach to this application
  *   - content {string} the full base64 encoded script
@@ -240,7 +240,7 @@ App.read = function(a,b)
 	else if(utils.isId(a))
 		file_id = a;
 	else {
-		throw "First argument must be a File object or a file id !";
+		throw "First argument must be an App object or an app id !";
 		return;
 	}
 	
@@ -267,7 +267,7 @@ App.write = function(a,b,c)
 	else if(utils.isId(a))
 		file_id = a;
 	else {
-		throw "First argument must be a File object or a file id !";
+		throw "First argument must be a App object or an app id !";
 		return;
 	}
 	
@@ -303,7 +303,7 @@ App.getIcon = function(a,b)
 	else if(utils.isId(a))
 		file_id = a;
 	else {
-		throw "First argument must be a File object or a file id !";
+		throw "First argument must be a App object or an app id !";
 		return;
 	}
 	
