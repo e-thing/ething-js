@@ -713,8 +713,8 @@ resource.setData("key", "value").done(function(){
 EThing.App.create({
   name: "myApp",
   content: "<html><body>hello world !</body></html>",
-  icon: <icon_data>, // File, Blob, ArrayBuffer or base64 string
-  scope: "resource:read profile:read",
+  icon: <icon_data>, // File, Blob, Buffer, ArrayBuffer or base64 string
+  scope: "resource:read settings:read",
 }).done(function(resource){
     console.log('the new app can be accessed through : ' + resource.url());
 })
@@ -4303,8 +4303,8 @@ resource.setData("key", "value").done(function(){
 EThing.App.create({
   name: "myApp",
   content: "<html><body>hello world !</body></html>",
-  icon: <icon_data>, // File, Blob, ArrayBuffer or base64 string
-  scope: "resource:read profile:read",
+  icon: <icon_data>, // File, Blob, Buffer, ArrayBuffer or base64 string
+  scope: "resource:read settings:read",
 }).done(function(resource){
     console.log('the new app can be accessed through : ' + resource.url());
 })

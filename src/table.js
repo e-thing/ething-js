@@ -415,7 +415,7 @@ Table.replaceRow = function(a,b,c){
 	
 	var docId = b.id
 	var callback = c;
-	
+    
 	return EThing.request({
 		'url': '/tables/' + table_id + '/id/'+docId,
 		'dataType': 'json',

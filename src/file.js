@@ -2,6 +2,7 @@
 var EThing = require("./core.js");
 var utils = require("./utils.js");
 var Resource = require("./resource.js");
+var Deferred = require("./deferred.js");
 
 
 /**
@@ -228,17 +229,30 @@ File.create = function(a,callback){
 			'name': a
 		};
 	
-	return EThing.request({
-		'url': '/files',
-		'dataType': 'json',
-		'method': 'POST',
-		'contentType': "application/json; charset=utf-8",
-		'data': a,
-		'converter': EThing.resourceConverter
-	},callback).done(function(r){
-		EThing.trigger('ething.file.created',[r]);
-	});
-	
+    var dfr = Deferred();
+    var json = utils.extend({}, a);
+    
+    utils.toBase64(json.content || '', function(content){
+        json.content = content;
+        
+        EThing.request({
+            'url': '/files',
+            'dataType': 'json',
+            'method': 'POST',
+            'contentType': "application/json; charset=utf-8",
+            'data': json,
+            'converter': EThing.resourceConverter
+        },callback).done(function(){
+            dfr.resolveWith(this, Array.prototype.slice.call(arguments));
+        }).fail(function(){
+            dfr.rejectWith(this, Array.prototype.slice.call(arguments));
+        });
+        
+    });
+    
+    return dfr.done(callback).done(function(){
+        EThing.trigger('ething.file.created',[this]);
+    }).promise();
 };
 
 /*

@@ -149,30 +149,24 @@ App.prototype.write = function(data, callback){
  * EThing.App.create({
  *   name: "myApp",
  *   content: "<html><body>hello world !</body></html>",
- *   icon: <icon_data>, // File, Blob, ArrayBuffer or base64 string
- *   scope: "resource:read profile:read",
+ *   icon: <icon_data>, // File, Blob, Buffer, ArrayBuffer or base64 string
+ *   scope: "resource:read settings:read",
  * }).done(function(resource){
  *     console.log('the new app can be accessed through : ' + resource.url());
  * })
  */
 App.create = function(json,callback){
 	
-	// encode the content to base64 string
-	if(json.content) json.content = utils.btoa(json.content);
-	
-	// encode the icon into base64 string
-	if(json.icon){
-		
-		if(json.icon instanceof utils.Blob){
-			// asynchronous
-			
-			if(!utils.FileReader)
-				throw 'no FileReader instance found';
-			var reader = new utils.FileReader(), dfr = Deferred();
-			reader.onloadend = function() {
-			  json.icon = reader.result.substr(reader.result.indexOf(';base64,')+8);
-			  
-			  EThing.request({
+    var dfr = Deferred();
+    var json = utils.extend({}, json);
+    
+    utils.toBase64(json.content || '', function(content){
+        json.content = content;
+        
+        utils.toBase64(json.icon || '', function(icon){
+            json.icon = icon;
+            
+            EThing.request({
 				'url': '/apps',
 				'dataType': 'json',
 				'method': 'POST',
@@ -184,38 +178,13 @@ App.create = function(json,callback){
 			  }).fail(function(){
 				dfr.rejectWith(this, Array.prototype.slice.call(arguments));
 			  });
-			  
-			}
-			reader.readAsDataURL(json.icon);
-			
-			return dfr.done(callback).done(function(){
-				EThing.trigger('ething.app.created',[this]);
-			}).promise();
-		}
-		else if(json.icon instanceof ArrayBuffer){
-			var binary = '',
-				bytes = new Uint8Array(json.icon);
-			for (var i = 0; i < bytes.byteLength; i++) {
-				binary += String.fromCharCode( bytes[ i ] );
-			}
-			json.icon = utils.btoa(binary);
-		}
-		else if(json.icon != 'string')
-			throw 'invalid type for the icon attribute';
-		
-	}
-	
-	return EThing.request({
-		'url': '/apps',
-		'dataType': 'json',
-		'method': 'POST',
-		'contentType': "application/json; charset=utf-8",
-		'data': json,
-		'converter': EThing.resourceConverter
-	},callback).done(function(r){
-		EThing.trigger('ething.app.created',[r]);
-	});
-	
+              
+        });
+    });
+    
+    return dfr.done(callback).done(function(){
+        EThing.trigger('ething.app.created',[this]);
+    }).promise();
 };
 
 

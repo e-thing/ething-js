@@ -15,7 +15,7 @@ before('authentication', function(done) {
     
     EThing.initialize(options).done(function(){
         
-        assert.strictEqual(EThing.auth.isAuthenticated(), true):
+        assert.strictEqual(EThing.auth.isAuthenticated(), true);
         
         done();
         

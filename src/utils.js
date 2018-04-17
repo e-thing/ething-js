@@ -413,6 +413,47 @@ Utils.inherits = function (extended, parent){
 	extended.prototype = new parent();
 	extended.prototype.constructor = extended; // fix constructor property
 };
+
+
+Utils.toBase64 = function(content, callback){
+    
+    if(content instanceof Utils.Blob){
+        // asynchronous
+        
+        if(!Utils.FileReader)
+            throw 'no FileReader instance found';
+        
+        var reader = new Utils.FileReader(), dfr = Deferred();
+        reader.onloadend = function() {
+          content = reader.result.substr(reader.result.indexOf(';base64,')+8);
+          callback(content);
+        }
+        reader.readAsDataURL(content);
+        
+        return;
+    }
+    else if(content instanceof ArrayBuffer){
+        var binary = '',
+            bytes = new Uint8Array(content);
+        for (var i = 0; i < bytes.byteLength; i++) {
+            binary += String.fromCharCode( bytes[ i ] );
+        }
+        content = Utils.btoa(binary);
+    }
+    else if(content instanceof Utils.Buffer){
+        content = content.toString('base64');
+    }
+    else if(typeof content === 'string'){
+        content = Utils.btoa(content);
+    } else {
+        throw 'invalid type';
+    }
+    
+    callback(content);
+    
+    return;
+}
+
 	
 
 module.exports = Utils;
