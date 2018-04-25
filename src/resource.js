@@ -263,8 +263,10 @@ Resource.prototype.description = function() {
  * });
  */
 Resource.prototype.remove = function(removeChildren, callback){
+    var args = [].slice.call(arguments);
 	return this.deferred(function(){
-			return Resource.remove(this, callback);
+            args.unshift(this);
+			return Resource.remove.apply(EThing, args);
 		});
 }
 

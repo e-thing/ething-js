@@ -76,7 +76,8 @@ var Folder = function(json) {
 		this.isRoot = true;
 	
 	Resource.call(this,utils.extend({
-		type:'Folder'
+		type:'Folder',
+        extends: ['Folder']
 	},json));
 	
 };
@@ -346,7 +347,9 @@ function load(callback, force) {
 			});
 			
 			pdfr.resolve();
-		});
+		}).fail(function(err){
+            pdfr.reject(err);
+        });
 		
 		loaddfr = dfr = pdfr.promise();
 	}

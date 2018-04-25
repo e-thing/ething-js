@@ -3,10 +3,14 @@
 module.exports = {
 	
 	"isNode": false,
+    
+    "btoa": function(a){
+        return window.btoa(a);
+    },
 	
-	"btoa": window.btoa,
-	
-	"atob" : window.atob,
+	"atob" : function(a){
+        return window.atob(a);
+    },
 	
 	"XMLHttpRequest": window.XMLHttpRequest,
 	
