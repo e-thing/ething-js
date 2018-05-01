@@ -17,8 +17,6 @@ var EThing = {};
 var extend = utils.extend;
 var isPlainObject = utils.isPlainObject;
 
-var XMLHttpRequest = utils.XMLHttpRequest;
-
 
 EThing.Event = Event;
 EThing.Error = Error;
@@ -149,7 +147,7 @@ EThing.apiUrl = function(){
 
 var ajax = function(options){
 	var deferred = new Deferred(),
-		xhr = new XMLHttpRequest();
+		xhr = new utils.XMLHttpRequest();
 	
 	if(typeof options == 'string')
 		options = {
@@ -229,7 +227,7 @@ var ajax = function(options){
 			
 		} else {
 			// no content-type set, set to defaults
-			if(options.data instanceof Blob){
+			if(options.data instanceof utils.Blob){
 				xhr.setRequestHeader('Content-Type', requestContentType = options.data.type);
 				body = options.data;
 			} else if( (options.data instanceof ArrayBuffer) || (options.data instanceof utils.Buffer) ){
