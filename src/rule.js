@@ -2,7 +2,7 @@
 var EThing = require("./core.js");
 var utils = require("./utils.js");
 var Resource = require("./resource.js");
-var Deferred = require("./deferred.js");
+
 
 /**
  * Constructs a Rule instance from an object decribing a rule. Should not be called directly. Use instead {@link EThing.list}.
@@ -78,15 +78,13 @@ Rule.prototype.scriptExecutionDate = function() {
 /**
  * Run this rule.
  * @this {EThing.Rule}
- * @param {function(data,XHR,options)} [callback] it is executed once the request is complete whether in failure or success
+ * @param {function(data)} [callback] it is executed once the request is complete whether in failure or success
  * @returns {EThing.Rule} The instance on which this method was called.
  */
 Rule.prototype.execute = function(callback){
 	var args = [].slice.call(arguments);
-	return this.deferred(function(){
-			args.unshift(this);
-			return Rule.execute.apply(EThing, args);
-		});
+    args.unshift(this);
+    return Rule.execute.apply(EThing, args);
 }
 
 
@@ -102,8 +100,8 @@ Rule.prototype.execute = function(callback){
  *
  * @method EThing.Rule.create
  * @param {object} attributes
- * @param {function(data,XHR,options)} [callback] it is executed once the request is complete whether in failure or success
- * @returns {Deferred} a {@link http://api.jquery.com/category/deferred-object/|jQuery like Promise object}. {@link EThing.request|More ...} 
+ * @param {function(data)} [callback] it is executed once the request is complete whether in failure or success
+ * @returns {Promise}
  * @fires EThing#ething.rule.created
  * @example
  * EThing.Rule.create({
@@ -112,7 +110,7 @@ Rule.prototype.execute = function(callback){
  *   event: {
  *     type: 'ResourceCreated' // this rule will be fired each time a resource is created !
  *   }
- * }).done(function(resource){
+ * }).then(function(resource){
  *     console.log('the new rule is created');
  * })
  */
@@ -128,8 +126,9 @@ Rule.create = function(json,callback){
 		'contentType': "application/json; charset=utf-8",
 		'data': json,
 		'converter': EThing.resourceConverter
-	},callback).done(function(r){
+	},callback).then(function(r){
 		EThing.trigger('ething.rule.created',[r]);
+        return r
 	});
     
 	

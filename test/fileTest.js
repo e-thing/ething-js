@@ -17,7 +17,7 @@ describe("EThing.File test", function() {
         
         EThing.File.create({
             name: "foobar.txt"
-        }).done(function(resource){
+        }).then(function(resource){
             assert.instanceOf(resource, EThing.File);
             
             assert.isNumber(resource.size());
@@ -42,7 +42,7 @@ describe("EThing.File test", function() {
             
             done();
             
-        }).fail(function(err){
+        }).catch(function(err){
             done(err);
         });
         
@@ -55,17 +55,17 @@ describe("EThing.File test", function() {
         EThing.File.create({
             name: "foobar.txt",
             content: content
-        }).done(function(resource){
+        }).then(function(resource){
             assert.instanceOf(resource, EThing.File);
             
-            resource.read().done(function(text){
+            resource.read().then(function(text){
                 assert.equal(content, text)
                 done();
-            }).fail(function(err){
+            }).catch(function(err){
                 done(err)
             })
             
-        }).fail(function(err){
+        }).catch(function(err){
             done(err);
         });
         
@@ -78,17 +78,17 @@ describe("EThing.File test", function() {
         EThing.File.create({
             name: "foobar.txt",
             content: content
-        }).done(function(resource){
+        }).then(function(resource){
             assert.instanceOf(resource, EThing.File);
             
-            resource.read(true).done(function(bin){
+            resource.read(true).then(function(bin){
                 assert(content.equals(bin))
                 done();
-            }).fail(function(err){
+            }).catch(function(err){
                 done(err)
             })
             
-        }).fail(function(err){
+        }).catch(function(err){
             done(err);
         });
         
@@ -100,26 +100,26 @@ describe("EThing.File test", function() {
         
         EThing.File.create({
             name: "foobar.txt"
-        }).done(function(resource){
+        }).then(function(resource){
             assert.instanceOf(resource, EThing.File);
             
-            resource.write(content).done(function(resource){
+            resource.write(content).then(function(resource){
                 
                 assert.instanceOf(resource, EThing.File);
                 
                 // read it back
-                resource.read().done(function(text){
+                resource.read().then(function(text){
                     assert.equal(content, text)
                     done();
-                }).fail(function(err){
+                }).catch(function(err){
                     done(err)
                 })
                 
-            }).fail(function(err){
+            }).catch(function(err){
                 done(err)
             })
             
-        }).fail(function(err){
+        }).catch(function(err){
             done(err);
         });
         
@@ -131,26 +131,26 @@ describe("EThing.File test", function() {
         
         EThing.File.create({
             name: "foobar.txt"
-        }).done(function(resource){
+        }).then(function(resource){
             assert.instanceOf(resource, EThing.File);
             
-            resource.write(content).done(function(resource){
+            resource.write(content).then(function(resource){
                 
                 assert.instanceOf(resource, EThing.File);
                 
                 // read it back
-                resource.read(true).done(function(bin){
+                resource.read(true).then(function(bin){
                     assert(content.equals(bin))
                     done();
-                }).fail(function(err){
+                }).catch(function(err){
                     done(err)
                 })
                 
-            }).fail(function(err){
+            }).catch(function(err){
                 done(err)
             })
             
-        }).fail(function(err){
+        }).catch(function(err){
             done(err);
         });
         

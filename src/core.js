@@ -1,10 +1,8 @@
 
 var utils = require("./utils.js");
-var Deferred = require("./deferred.js");
-var Error = require("./error.js");
 var Event = require("./event.js");
 var EventEngine = require("./eventEngine.js");
-var DeferredObject = require("./deferredObject.js");
+var axios = require('axios');
 
 
 /**
@@ -19,23 +17,16 @@ var isPlainObject = utils.isPlainObject;
 
 
 EThing.Event = Event;
-EThing.Error = Error;
 
 EThing.utils = utils;
-EThing.utils.Deferred = Deferred;
 
-EThing.DeferredObject = DeferredObject;
+EThing.axios = axios.create({});
+
+
 
 EThing.config = {
 	serverUrl: 'http://localhost:8000'
 };
-
-
-var ajaxSuccessHandlers = [],
-	ajaxCompleteHandlers = [],
-	ajaxErrorHandlers = [],
-	ajaxSendHandlers = [],
-	apiRequestPrefilterHandler = null;
 
 
 
@@ -98,12 +89,6 @@ var ajaxSuccessHandlers = [],
  * @memberof EThing
  * @event "ething.app.created"
  */
-/**
- * authenticated event.
- *
- * @memberof EThing
- * @event "ething.authenticated"
- */
 EventEngine(EThing);
 
 
@@ -122,10 +107,9 @@ EThing.toApiUrl = function(url, auth){
 	}
 	
 	if(auth && isApiUrl(url)){
-		url = _processAuth(url);
-		if(typeof apiRequestPrefilterHandler == 'function')
-			url = apiRequestPrefilterHandler(url);
+		url = this.auth.instance().setUrl(url);
 	}
+    
 	return url;
 }
 
@@ -142,265 +126,6 @@ var apiUrl = function(){
 EThing.apiUrl = function(){
 	return EThing.toApiUrl();
 }
-
-
-
-var ajax = function(options){
-	var deferred = new Deferred(),
-		xhr = new utils.XMLHttpRequest();
-	
-	if(typeof options == 'string')
-		options = {
-			url: options
-		};
-	
-	options = extend({
-		method: 'GET',
-		context: null,
-		url: null,
-		data: null,
-		contentType: null, // When sending data to the server, use this content type , default to 'application/x-www-form-urlencoded; charset=UTF-8'
-		headers: null,
-		dataType: null, // The type of data that you're expecting back from the server (json -> {object}, text -> {string} , arraybuffer, blob -> (not available on nodejs), buffer (nodejs only) )
-		converter: null, // a user defined function to convert the receive data into something else ...
-		synchronous: false
-	},options);
-	
-	
-	if(typeof options.url != 'string')
-		return null;
-	
-	var url = EThing.toApiUrl(options.url);
-	var apiRequest = isApiUrl(url);
-	
-	
-	options.method = options.method.toUpperCase();
-	
-	var context = options.context || EThing;
-	
-	var isBodyRequest = !/^(?:GET|HEAD)$/.test( options.method ),
-		body = undefined,
-		hasData = typeof options.data != 'undefined' && options.data !== null;
-	
-	
-	
-	// If data is available, append data to url
-	if ( !isBodyRequest && hasData ){
-		// GET, HEAD request, append the data to the query string
-		url += ( /\?/.test( url ) ? "&" : "?" ) + ( typeof options.data == 'string' ? options.data : utils.param(options.data));
-	}
-	
-	
-	xhr.open(options.method, url, !options.synchronous);
-	
-	
-	// user headers
-	var requestContentType = null;
-	if(isPlainObject(options.headers)){
-		for(var i in options.headers){
-			if(options.headers.hasOwnProperty(i)){
-				if(/^content-type$/i.test(i)){
-					requestContentType = options.headers[i];
-				}
-				xhr.setRequestHeader(i, options.headers[i]);	
-			}
-		}
-	}
-	
-	// content-type header
-	if(!requestContentType && options.contentType)
-		xhr.setRequestHeader('Content-Type', requestContentType = options.contentType);
-	
-	if(isBodyRequest && hasData){
-		
-		if(requestContentType){
-			
-			body = options.data;
-			
-			if(isPlainObject(options.data) || Array.isArray(options.data)){
-				// transform the data according to the content-type
-				if(/json/i.test(requestContentType))
-					body = JSON.stringify(options.data)
-				else if(/application\/x-www-form-urlencoded/i.test(requestContentType))
-					body = utils.param(options.data);
-			}
-			
-		} else {
-			// no content-type set, set to defaults
-			if(options.data instanceof utils.Blob){
-				xhr.setRequestHeader('Content-Type', requestContentType = options.data.type);
-				body = options.data;
-			} else if( (options.data instanceof ArrayBuffer) || (options.data instanceof utils.Buffer) ){
-				xhr.setRequestHeader('Content-Type', requestContentType = 'application/octet-stream');
-				body = options.data;
-			} else {
-				xhr.setRequestHeader('Content-Type', requestContentType = 'application/x-www-form-urlencoded; charset=UTF-8');
-				body = typeof options.data == 'string' ? options.data : utils.param(options.data);
-			}
-		}
-		
-	}
-	
-	
-	
-	// authentication
-	if(apiRequest){
-		xhr = _processAuth(xhr);
-		if(typeof apiRequestPrefilterHandler == 'function')
-			xhr = apiRequestPrefilterHandler(xhr);
-	}
-	
-	// responseType
-	var dataType = options.dataType;
-	if(dataType && dataType != 'auto') xhr.responseType = dataType;
-	
-	function reject(error){
-		
-		var ct = xhr.getResponseHeader("Content-Type") || '',
-			data = null;
-		
-		if(typeof error != 'undefined'){
-			data = error;
-		}
-		else if(/json/.test(ct) || /text\/plain/.test(ct)){
-			
-			
-			switch(xhr.responseType){
-				
-				case '':
-				case 'text':
-				case 'json':
-					data = xhr.response;
-					break;
-				case 'blob':
-					
-					if(options.synchronous){
-						
-						if(!utils.FileReaderSync){
-							throw new Error("FileReaderSync not supported.");
-						}
-						
-						var fileReader = new utils.FileReaderSync();
-						data = String.fromCharCode.apply(null, new Uint8Array(fileReader.readAsArrayBuffer(xhr.response)));
-					} else {
-						data = Deferred();
-						
-						if(!utils.FileReader){
-							throw new Error("FileReaderSync not supported.");
-						}
-						
-						var fileReader = new utils.FileReader();
-						fileReader.onload = function() {
-							data.resolve( String.fromCharCode.apply(null, new Uint8Array(this.result)) );
-						};
-						fileReader.readAsArrayBuffer(xhr.response);
-					}
-					
-					break;
-				case 'arraybuffer':
-					data = String.fromCharCode.apply(null, new Uint8Array(xhr.response));
-					break;
-				case 'buffer':
-					data = xhr.response.toString("utf8");
-					break;
-				default:
-					throw new Error(xhr.responseType+" response type not supported.");
-					break;
-			}
-			
-		}
-		
-		Deferred.when(data).always(function(data){
-			
-			try{
-				data = JSON.parse(data);
-			} catch(e){}
-			
-			var error = new Error(data || (xhr.status ? (xhr.status+' ['+xhr.statusText+']') : 'unknown error')),
-				args = [error,xhr,options];
-			
-			EThing.trigger('ething.request.error',args);
-			ajaxErrorHandlers.forEach(function(handler){
-				handler.apply(context,args);
-			});
-			EThing.trigger('ething.request.complete',args);
-			ajaxCompleteHandlers.forEach(function(handler){
-				handler.apply(context,args);
-			});
-			deferred.rejectWith(context,args);
-			
-		});
-		
-		
-	}
-	
-	function resolve(data){
-		var args = [data,xhr,options];
-		
-		EThing.trigger('ething.request.success',args);
-		ajaxSuccessHandlers.forEach(function(handler){
-			handler.apply(context,args);
-		});
-		EThing.trigger('ething.request.complete',args);
-		ajaxCompleteHandlers.forEach(function(handler){
-			handler.apply(context,args);
-		});
-		deferred.resolveWith(context,args);
-	}
-	
-	// events
-	xhr.onload=function(){
-		var success = xhr.status >= 200 && xhr.status < 300 || xhr.status === 304;
-		if (success) {  
-			// success
-			var data = xhr.response;
-			
-			if(dataType == 'auto'){
-				if(/json/.test(xhr.getResponseHeader("Content-Type") || '')){
-					try {
-						data = JSON.parse(data);
-					} catch(err){}
-				}
-			} else if(dataType == 'json' && typeof data === 'string'){ // for ie compatibility
-				try {
-					data = JSON.parse(data);
-				} catch(err){}
-			}
-			
-			if(typeof options.converter == 'function'){
-				data = options.converter.call(context,data,xhr,options);
-			}
-			
-			resolve(data);
-		}
-		else
-			reject();
-	}
-	xhr.onerror=function(err){reject(err);};
-	xhr.onabort=function(){reject();};
-	xhr.onprogress=function(e){
-		deferred.notifyWith(context,[e,xhr,options]);
-	}
-	
-	var evt = Event('ething.request.send');
-	EThing.trigger(evt,[xhr, options]);
-	
-	if(evt.isDefaultPrevented()){
-		reject('Aborded');
-	}
-	else {
-	
-		ajaxSendHandlers.forEach(function(handler){
-			handler.call(context,xhr);
-		});
-		
-		xhr.send(body);
-		
-	}
-	
-	return deferred.promise();
-}
-
 
 
 
@@ -458,9 +183,9 @@ EThing.resourceConverter = function(data){
  *  - method {string} The HTTP request method to use. Default is GET.
  *  - data {string|object|Blob|ArrayBuffer|Buffer} The query string for GET request. The HTTP request body for POST|PATCH|PUT requests. If an object is given, it will be serialized into a query string.
  *  - contentType {string} When sending data to the server, use this content type. Default is 'application/octet-stream' if the data is an instance of ArrayBuffer or Buffer, if data is an instance of Blob, the default will be the type of the data itself, else 'application/x-www-form-urlencoded; charset=UTF-8'.
- *  - dataType {string} The type of data that you're expecting back from the server. See {@link http://xhr.spec.whatwg.org/#the-responsetype-attribute|XMLHttpRequest standard}.
+ *  - dataType {string} The type of data that you're expecting back from the server: 'arraybuffer', 'blob', 'document', 'json', 'text', 'stream'
  *  - headers {object} Additional HTTP request headers.
- *  - context {object} The value of this provided for the call of the callbacks
+ *  - context {object} The value of this provided for the call of the callback
  *  - converter {function(data,XHR)} A function that returns the transformed value of the response
  *
  * 
@@ -468,25 +193,23 @@ EThing.resourceConverter = function(data){
  * On success, it receives the returned request data, as well as the XMLHttpRequest object.
  * On failure, the first parameter will be a Error object describing the error.
  * To check if a request is in failure :
- * <pre><code>EThing.request(options,function(data,xhr){
- *     if(data instanceof EThing.Error){
+ * <pre><code>EThing.request(options,function(data,error){
+ *     if(error){
  *       // an error occurs, print the associated message
- *       console.log(data.message);
+ *       console.log(error);
  *     }
  *   })`
  * </code></pre>
  *
  *
- * This function returns a {@link http://api.jquery.com/category/deferred-object/|jQuery like Promise object} object.
- *
- * The done|fail|always functions take the same parameters than the {@link http://api.jquery.com/category/deferred-object/|jQuery version}.
+ * This function returns a {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise Promise} object.
  *
  *
  *
  * @method EThing.request
  * @param {string|object} options a set of key/value pairs that configure the request. If an URL is given, a GET request with the default options is made.
- * @param {function(data,XHR,options)} [callback] it is executed once the request is complete whether in failure or success
- * @returns {Deferred} a {@link http://api.jquery.com/category/deferred-object/|jQuery like Promise object}
+ * @param {function(data,error)} [callback] it is executed once the request is complete whether in failure or success
+ * @returns {Promise}
  * @example
  * // GET request
  * EThing.request('/resources') // is equivalent to EThing.list()
@@ -499,87 +222,164 @@ EThing.resourceConverter = function(data){
  *   data: 'some content here ...',
  *   contentType: 'text/plain'
  * })
- * .done(function(file){
+ * .then(function(file){
  *   console.log("the content was stored in the file "+file.name());
  * })
- * .fail(function(error){
- *   console.log("an error occurs : "+error.message);
+ * .catch(function(error){
+ *   console.log("an error occurs : "+error);
  * });
  */
 // opt : same as ajax options or an url
 EThing.request = function(opt,callback){
-	var d = ajax(opt);
+    var self = this;
+    
+    if(typeof opt == 'string')
+		opt = {
+			url: opt
+		};
 	
-	if(typeof callback == 'function') {
-		d.always(function(){
-			callback.apply(this,Array.prototype.slice.call(arguments));
-		});
-	}
+	var options = Object.assign({
+		method: 'GET',
+		context: this,
+		url: null,
+		data: null,
+		contentType: null, // When sending data to the server, use this content type
+		headers: null,
+		dataType: 'json', // The type of data that you're expecting back from the server (json -> {object}, text -> {string} , arraybuffer, blob -> (not available on nodejs), buffer (nodejs only) )
+		converter: null, // a user defined function to convert the receive data into something else ...
+        params: {}
+	},opt);
 	
-	// if sync return the result instead of the deferred object !
-	if(opt.synchronous){
-		var result = null;
-		d.always(function(r){
-			result = r;
-		});
-		return result;
-	} else {
-		return d;
-	}
+    this.auth.instance().set(options);
+    
+    if (options.contentType) {
+        options.headers = options.headers || {}
+        options.headers['content-type'] = options.contentType
+    }
+    
+    return this.axios.request({
+        url: options.url,
+        baseURL: this.apiUrl(),
+        method: options.method.toLowerCase(),
+        params: options.params,
+        data: options.data,
+        responseType: options.dataType.toLowerCase(),
+        headers: options.headers
+        
+    }).then(function(response){
+        /*console.log(response.data);
+        console.log(response.status);
+        console.log(response.statusText);
+        console.log(response.headers);
+        console.log(response.config);*/
+        
+        var data = response.data;
+        
+        if(options.converter){
+            try {
+                data = options.converter.call(options.context,data);
+            } catch(e){
+                return Promise.reject(String(e))
+            }
+        }
+        
+        return Promise.resolve(data)
+        
+    }, function(error){
+        
+        if (error.response) {
+          // The request was made and the server responded with a status code
+          // that falls out of the range of 2xx
+          /*console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);*/
+          
+          // get the error message from the response.data
+          var parseData = new Promise(function(resolve, reject) {
+              var data = error.response.data;
+              var responseType = error.config.responseType;
+              
+              function decodeJson(data){
+                try {
+                    data = JSON.parse(data);
+                } catch(e){
+                    reject('invalid JSON data')
+                    return
+                }
+                
+                resolve(data)
+              }
+              
+              switch(responseType){ // 'arraybuffer', 'blob', 'document', 'json', 'text', 'stream'
+                    
+                    case 'text':
+                        decodeJson(data)
+                        break;
+                    case 'json':
+                        resolve(data)
+                        break;
+                    case 'blob':
+                        
+                        if(typeof FileReader === "undefined"){
+                            reject("FileReader not supported.");
+                            return;
+                        }
+                        
+                        var fileReader = new FileReader();
+                        fileReader.onload = function() {
+                            decodeJson(String.fromCharCode.apply(null, new Uint8Array(this.result)));
+                        };
+                        fileReader.readAsArrayBuffer(data);
+                        
+                        break;
+                    case 'arraybuffer':
+                        decodeJson(String.fromCharCode.apply(null, new Uint8Array(data)));
+                        break;
+                    case 'buffer':
+                        decodeJson(data.toString("utf8"));
+                        break;
+                    default:
+                        reject(responseType+" response type not supported.");
+                        break;
+                }
+          })
+          
+          return parseData.then(function(serverErr){
+              return Promise.reject(serverErr.message);
+          }, function(parseErr) {
+              return Promise.reject(parseErr);
+          })
+          
+          
+        } else if (error.request) {
+          // The request was made but no response was received
+          // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+          // http.ClientRequest in node.js
+          return Promise.reject('no response from the server');
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          console.log('Error', error.message);
+          return Promise.reject(error.message || 'invalid request');
+        }
+    }).then(function(data){
+        self.trigger('ething.request.success',[data]);
+        
+        if(typeof callback === 'function'){
+            callback.call(self, data, false)
+        }
+        
+        return data
+    }, function(err){
+        self.trigger('ething.request.error',[err]);
+        
+        if(typeof callback === 'function'){
+            callback.call(self, null, err)
+        }
+        
+        return Promise.reject(err)
+    })
+    
 }
-
-
-/**
-*
-*/
-EThing.apiRequestPrefilter = function(handler){
-	apiRequestPrefilterHandler = handler;
-}
-/**
- * Register a handler to be called just before API requests is sent.
- *
- * @method EThing.ajaxSend
- * @param {function(XHR)} handler The function to be invoked.
- */
-EThing.ajaxSend = function(handler){
-	if(typeof handler == 'function'){
-		ajaxSendHandlers.push(handler);
-	}
-}
-/**
- * Register a handler to be called when API requests complete.
- *
- * @method EThing.ajaxComplete
- * @param {function(data,XHR,options)} handler The function to be invoked.
- */
-EThing.ajaxComplete = function(handler){
-	if(typeof handler == 'function'){
-		ajaxCompleteHandlers.push(handler);
-	}
-}
-/**
- * Register a handler to be called when API requests complete successfully.
- *
- * @method EThing.ajaxSuccess
- * @param {function(data,XHR,options)} handler The function to be invoked.
- */
-EThing.ajaxSuccess = function(handler){
-	if(typeof handler == 'function'){
-		ajaxSuccessHandlers.push(handler);
-	}
-}
-/**
- * Register a handler to be called when API requests complete with an error.
- *
- * @method EThing.ajaxError
- * @param {function(data,XHR,options)} handler The function to be invoked.
- */
-EThing.ajaxError = function(handler){
-	if(typeof handler == 'function'){
-		ajaxErrorHandlers.push(handler);
-	}
-}
-
 
 
 
@@ -589,16 +389,16 @@ EThing.ajaxError = function(handler){
  * This function get the available resources. A filter may be given to retrieve resources with specific attributes (see the HTTP API for more details).
  * @method EThing.list
  * @param {string} [query] Query string for searching resources
- * @param {function(data,XHR,options)} [callback] it is executed once the request is complete whether in failure or success
- * @returns {Deferred} a {@link http://api.jquery.com/category/deferred-object/|jQuery like Promise object}. {@link EThing.request|More ...} 
+ * @param {function(data)} [callback] it is executed once the request is complete whether in failure or success
+ * @returns {Promise}
  * @example
  * // get all the resources
- * EThing.list().done(function(resources){
+ * EThing.list().then(function(resources){
  *     console.log(resources);
  * })
  *
  * // get only File & Table resources
- * EThing.list('type == "File" or type == "Table"').done(function(resources){
+ * EThing.list('type == "File" or type == "Table"').then(function(resources){
  *     console.log(resources);
  * })
  */
@@ -631,11 +431,11 @@ EThing.list = EThing.find = function(a,b)
  *
  * @method EThing.get
  * @param {string|EThing.Resource} resourceIdentifier
- * @param {function(data,XHR,options)} [callback] it is executed once the request is complete whether in failure or success
- * @returns {Deferred} a {@link http://api.jquery.com/category/deferred-object/|jQuery like Promise object}. {@link EThing.request|More ...} 
+ * @param {function(data)} [callback] it is executed once the request is complete whether in failure or success
+ * @returns {Promise}
  * @example
  * // get a resource by its id
- * EThing.get("54516eb").done(function(resource){
+ * EThing.get("54516eb").then(function(resource){
  *     console.log('the name is ' + resource.name());
  * })
  */
@@ -669,11 +469,11 @@ EThing.get = function(a,b)
  *  - quota_size {number} the maximum space authorized in bytes
  *
  * @method EThing.usage
- * @param {function(data,XHR,options)} [callback] it is executed once the request is complete whether in failure or success
- * @returns {Deferred} a {@link http://api.jquery.com/category/deferred-object/|jQuery like Promise object}. {@link EThing.request|More ...} 
+ * @param {function(data)} [callback] it is executed once the request is complete whether in failure or success
+ * @returns {Promise}
  * @example
  * // get the occupied space :
- * EThing.usage().done(function(usage){
+ * EThing.usage().then(function(usage){
  *     console.log('space used : ' + (100 * usage.used / usage.quota_size) );
  * })
  */
@@ -690,219 +490,6 @@ EThing.usage = function(a)
 
 
 
-
-
-
-
-
-
-/*
- * AUTH
- */
-
-var NoAuth = function(a){ return a; };
-
-
-// private
-var _resource = null,
-	_scope = null,
-	_authType = null,
-	_processAuth = NoAuth; // function(xhr|url) -> return xhr|url
-
-
-
-/**
- * @namespace EThing.auth
- */
-
-EThing.auth = {};
-
-
-
-/**
- * Returns true if the authentication process has been successful.
- * @method EThing.auth.isAuthenticated
- * @returns {boolean}
- */
-EThing.auth.isAuthenticated = function(){
-	return !!_authType;
-}
-
-/**
- * Returns the authenticated app. Only available with app's apikey authentication.
- * @method EThing.auth.getApp
- * @returns {EThing.App} the authenticated app or null.
- */
-EThing.auth.getApp = function(){
-	return _resource instanceof EThing.App ? _resource : null;
-}
-
-/**
- * Returns the authenticated app. Only available with devices's apikey authentication.
- * @method EThing.auth.getDevice
- * @returns {EThing.Device} the authenticated device or null.
- */
-EThing.auth.getDevice = function(){
-	return _resource instanceof EThing.Device ? _resource : null;
-}
-
-/**
- * Returns the authenticated resource. Only available with apikey authentication.
- * @method EThing.auth.getResource
- * @returns {EThing.Resource} the authenticated resource or null.
- */
-EThing.auth.getResource = function(){
-	return _resource;
-}
-
-/**
- * Returns the scope of the current authentication
- * @method EThing.auth.getScope
- * @returns {string} the scope. May be an empty string if no permissions is set. May be null if full permissions.
- */
-EThing.auth.getScope = function(){
-	return _scope;
-}
-
-
-
-/**
- * Reset authentication. You must restart an authentication process to make API calls again.
- * @method EThing.auth.reset
- */
-EThing.auth.reset = function(){
-	_resource = null;
-	_authType = null;
-	_scope = null;
-	_processAuth = NoAuth;
-}
-
-
-
-
-EThing.auth.setApiKey = function(apiKey){
-	
-	EThing.auth.reset();
-	
-	_processAuth = function(xhrOrUrl){
-		
-		if(typeof xhrOrUrl == 'string')
-			xhrOrUrl = EThing.utils.insertParam(xhrOrUrl, 'api_key', apiKey);
-		else 
-			xhrOrUrl.setRequestHeader('X-API-KEY', apiKey);
-		
-		return xhrOrUrl;
-	};
-	
-};
-
-EThing.auth.setBasicAuth = function(login, password){
-	
-	EThing.auth.reset();
-	
-	_processAuth = function(xhrOrUrl){
-		
-		if(typeof xhrOrUrl == 'string')
-			xhrOrUrl = xhrOrUrl.replace(/\/\/([^:]+:[^@]+@)?/, '//'+login+':'+password+'@');
-		else 
-			xhrOrUrl.setRequestHeader("Authorization", "Basic " + utils.btoa(login + ":" + password));
-		
-		return xhrOrUrl;
-	};
-};
-
-
-
-
-/**
- * Initialize the eThing library.
- *
- * @method EThing.initialize
- * @param {Object} options
- * @param {number} options.serverUrl The URL of your eThing server (e.g. http://hostname:8000 ).
- * @param {number} [options.apiKey] Authenticate with an API key.
- * @param {number} [options.login] Basic Authentication login (Should be used only server side i.e. NodeJS).
- * @param {number} [options.password] Basic Authentication password (Should be used only server side i.e. NodeJS).
- * @param {function(EThing.Error)} [errorFn] it is executed on authentication error.
- * @returns {Deferred} a {@link http://api.jquery.com/category/deferred-object/|jQuery like Promise object}
- * @fires EThing#ething.authenticated
- * @example
- *
- * EThing.initialize({
- *    serverUrl: 'http://hostname:8000',
- *    apiKey: 'a4e28b3c-1f05-4a62-95f7-c12453b66b3c'
- *  }, function(){
- *    // on authentication success
- *    alert('connected !');
- *  }, function(error) {
- *    // on authentication error
- *    alert(error.message);
- *  });
- *
- */
-EThing.initialize = function(options, successFn, errorFn){
-	
-	EThing.auth.reset();
-	
-	options = extend({
-		serverUrl: null,
-		// auth apikey
-		apiKey: null,
-		// auth basic
-		login: 'ething',
-		password:null
-	},options || {});
-	
-	if(options.serverUrl)
-		EThing.config.serverUrl = options.serverUrl;
-	
-	
-	if(options.apiKey)
-		EThing.auth.setApiKey(options.apiKey);
-	else if(options.login && options.password)
-		EThing.auth.setBasicAuth(options.login, options.password);
-	
-	return EThing.request({
-		'url': '/auth',
-		'dataType': 'json',
-		'context': EThing,
-		'converter': function(data){
-			_authType = data.type;
-			if(data.resource)
-				_resource = EThing.instanciate(data.resource);
-			if(data.scope)
-				_scope = data.scope;
-		}
-	}).done(function(){
-		
-		authenticatedCb_.forEach(function(cb){
-			cb.call(EThing);
-		});
-		
-		EThing.trigger('ething.authenticated');
-	}).done(successFn).fail(errorFn);
-	
-}
-
-
-/**
- * Register a handler to be executed once the authentication is complete.
- *
- * @method EThing.authenticated
- * @param {function()} callback it is executed on authentication success.
- *
- */
-var authenticatedCb_ = [];
-EThing.authenticated = function(callback){
-	
-	if(typeof callback == 'function'){
-		authenticatedCb_.push(callback);
-		
-		if(EThing.auth.isAuthenticated()){
-			callback.call(EThing);
-		}
-	}
-}
 
 module.exports = EThing;
 

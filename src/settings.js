@@ -14,8 +14,8 @@ var settings = {};
  * Retrieve the settings.
  * @memberof EThing.settings
  * @this {EThing.settings}
- * @param {function(data,XHR,options)} [callback] it is executed once the request is complete whether in failure or success
- * @returns {Deferred} a {@link http://api.jquery.com/category/deferred-object/|jQuery like Promise object}. {@link EThing.request|More ...} 
+ * @param {function(data)} [callback] it is executed once the request is complete whether in failure or success
+ * @returns {Promise}
  */
 
 settings.get = function(callback){
@@ -31,8 +31,8 @@ settings.get = function(callback){
  * @memberof EThing.settings
  * @this {EThing.settings}
  * @param {object} [data] updated settings object
- * @param {function(data,XHR,options)} [callback] it is executed once the request is complete whether in failure or success
- * @returns {Deferred} a {@link http://api.jquery.com/category/deferred-object/|jQuery like Promise object}. {@link EThing.request|More ...} 
+ * @param {function(data)} [callback] it is executed once the request is complete whether in failure or success
+ * @returns {Promise}
  */
 settings.set = function(data, callback){
 	

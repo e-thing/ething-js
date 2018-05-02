@@ -2,7 +2,6 @@
 var EThing = require("./core.js");
 var utils = require("./utils.js");
 var Resource = require("./resource.js");
-var Deferred = require("./deferred.js");
 
 
 /**
@@ -69,7 +68,7 @@ File.prototype.contentModifiedDate = function() {
  * EThing.request({
  *   url: imageFile.thumbnailLink(),
  *   dataType: "blob"
- * }).done(function(blobData){
+ * }).then(function(blobData){
  *   // success
  *   var image = new Image();
  *   image.src = window.URL.createObjectURL( blobData );
@@ -88,7 +87,7 @@ File.prototype.thumbnailLink = function(auth) {
  * @returns {string}
  * @example
  * // using EThing.request() :
- * EThing.request(file.getContentUrl()).done(function(content){
+ * EThing.request(file.getContentUrl()).then(function(content){
  *   // success
  *   console.log('content as text : '+content);
  * });
@@ -126,10 +125,10 @@ File.prototype.isScript = function() {
  * Execute a script file.
  * @this {EThing.File}
  * @param {string} [arguments] a string containing the arguments
- * @param {function(data,XHR,options)} [callback] it is executed once the request is complete whether in failure or success
+ * @param {function(data)} [callback] it is executed once the request is complete whether in failure or success
  * @returns {EThing.File} The instance on which this method was called.
  * @example
- * file.execute().done(function(result){
+ * file.execute().then(function(result){
  *   // success
  *   console.log(result);
  * });
@@ -137,33 +136,36 @@ File.prototype.isScript = function() {
  */
 File.prototype.execute = function(args, callback){
 	var args = [].slice.call(arguments);
-	return this.deferred(function(){
-			args.unshift(this);
-			return File.execute.apply(EThing, args);
-		});
+    args.unshift(this);
+    return File.execute.apply(EThing, args);
 }
 
 /**
  * Gets the content of this file as text or as binary data.
  * @this {EThing.File}
- * @param {boolean} [binary] if true, return the content as binary data (as Blob in a browser, or Buffer in NodeJs)
- * @param {function(data,XHR,options)} [callback] it is executed once the request is complete whether in failure or success
+ * @param {boolean|string} [binary] if true, return the content as ArrayBuffer, if false return the content as text. A string such as 'blob' or 'json' may also be passed.
+ * @param {function(data)} [callback] it is executed once the request is complete whether in failure or success
  * @returns {EThing.File} The instance on which this method was called.
  * @example
- * file.read().done(function(content){
+ * file.read().then(function(content){
  *   // success
  *   console.log('content as text : '+content);
  * });
  * 
+ * // nodejs + browser :
+ * file.read(true).then(function(contentAsArrayBuffer){
+ *   // success
+ * });
+ *
  * // browser :
- * file.read(true).done(function(contentAsBlob){
+ * file.read('blob').then(function(contentAsBlob){
  *   // success
  * });
  *
  * // NodeJs :
  * var fs = require("fs");
- * EThing.get('kDO5Fk4').done(function(resource){
- * 	resource.read(true).done(function(data){
+ * EThing.get('kDO5Fk4').then(function(resource){
+ * 	resource.read(true).then(function(data){
  * 		// data : Buffer instance
  * 		fs.writeFile(resource.basename(), data, function(){
  * 			console.log('It\'s saved!');
@@ -174,30 +176,26 @@ File.prototype.execute = function(args, callback){
  */
 File.prototype.read = function(binary, callback){
 	var args = [].slice.call(arguments);
-	return this.deferred(function(){
-			args.unshift(this);
-			return File.read.apply(EThing, args);
-		});
+    args.unshift(this);
+    return File.read.apply(EThing, args);
 }
 
 /**
  * Writes some content to this file.
  * @this {EThing.File}
- * @param {string|blob|arraybuffer} data
- * @param {function(data,XHR,options)} [callback] it is executed once the request is complete whether in failure or success
+ * @param {string|Blob|Buffer|ArrayBuffer} data
+ * @param {function(data)} [callback] it is executed once the request is complete whether in failure or success
  * @returns {EThing.File} The instance on which this method was called.
  * @example
- * file.write("hello world !").done(function(){
+ * file.write("hello world !").then(function(){
  *   // success
  * });
  *
  */
 File.prototype.write = function(data, callback){
 	var args = [].slice.call(arguments);
-	return this.deferred(function(){
-			args.unshift(this);
-			return File.write.apply(EThing, args);
-		});
+    args.unshift(this);
+    return File.write.apply(EThing, args);
 }
 
 
@@ -211,14 +209,14 @@ File.prototype.write = function(data, callback){
  *
  * @method EThing.File.create
  * @param {object} attributes
- * @param {function(data,XHR,options)} [callback] it is executed once the request is complete whether in failure or success
- * @returns {Deferred} a {@link http://api.jquery.com/category/deferred-object/|jQuery like Promise object}. {@link EThing.request|More ...} 
+ * @param {function(data)} [callback] it is executed once the request is complete whether in failure or success
+ * @returns {Promise}
  * @fires EThing#ething.file.created
  * @example
  * EThing.File.create({
  *   name: "foobar.txt",
  *   description: "this is my file"
- * }).done(function(resource){
+ * }).then(function(resource){
  *     console.log('file created : ' + resource.name());
  * })
  */
@@ -229,30 +227,30 @@ File.create = function(a,callback){
 			'name': a
 		};
 	
-    var dfr = Deferred();
-    var json = utils.extend({}, a);
+    var json = Object.assign({}, a);
     
-    utils.toBase64(json.content || '', function(content){
-        json.content = content;
-        
-        EThing.request({
-            'url': '/files',
-            'dataType': 'json',
-            'method': 'POST',
-            'contentType': "application/json; charset=utf-8",
-            'data': json,
-            'converter': EThing.resourceConverter
-        },callback).done(function(){
-            dfr.resolveWith(this, Array.prototype.slice.call(arguments));
-        }).fail(function(){
-            dfr.rejectWith(this, Array.prototype.slice.call(arguments));
+    return new Promise(function(resolve, reject) {
+        utils.toBase64(json.content || '', function(content){
+            json.content = content;
+            
+            EThing.request({
+                'url': '/files',
+                'dataType': 'json',
+                'method': 'POST',
+                'contentType': "application/json; charset=utf-8",
+                'data': json,
+                'converter': EThing.resourceConverter
+            },callback).then(function(file){
+                    
+                EThing.trigger('ething.file.created',[file]);
+                
+                resolve(file)
+            }).catch(function(err){
+                reject(err)
+            });
+            
         });
-        
-    });
-    
-    return dfr.done(callback).done(function(){
-        EThing.trigger('ething.file.created',[this]);
-    }).promise();
+    })
 };
 
 /*
@@ -277,7 +275,7 @@ File.read = function(file, binary, callback)
 	return EThing.request({
 		'url': '/files/' + file,
 		'method': 'GET',
-		'dataType': binary ? (utils.isNode ? 'buffer' : 'blob') : 'text',
+		'dataType': binary ? (typeof binary === 'string' ? binary : 'arraybuffer') : 'text',
 		'context': context
 	},callback);
 };

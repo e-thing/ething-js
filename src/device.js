@@ -23,11 +23,9 @@ var Device = function(json)
 			
 			this[operationId] = function(data, binary, callback){
 				var args = [].slice.call(arguments);
-				return this.deferred(function(){
-					args.unshift(operationId);
-					args.unshift(this);
-					return Device.execute.apply(EThing, args);
-				});
+                args.unshift(operationId);
+                args.unshift(this);
+                return Device.execute.apply(EThing, args);
 			};
 			
 			this[operationId].getApi = function(callback){
@@ -112,12 +110,12 @@ Device.prototype.interfaces = function(){
  * @this {EThing.Device}
  * @param {string} operationId
  * @param {object|array|anything} [data] the optional arguments required by the operation
- * @param {boolean} [binary] if true, return the content as binary data (as Blob in a browser, or Buffer in NodeJs). The arguments must be provided.
- * @param {function(data,XHR,options)} [callback] it is executed once the request is complete whether in failure or success
+ * @param {boolean} [binary] if true, return the content as ArrayBuffer, if false return the content as text. A string such as 'blob' or 'json' may also be passed.
+ * @param {function(data)} [callback] it is executed once the request is complete whether in failure or success
  * @returns {EThing.Device} The instance on which this method was called.
  * @example
  * // if this device is a thermometer :
- * device.execute('getTemperature').done(function(data){
+ * device.execute('getTemperature').then(function(data){
  *   // success, handle the data here
  * });
  *
@@ -134,17 +132,15 @@ Device.prototype.interfaces = function(){
  * 
  * 
  * // you may also do :
- * device.getTemperature().done(function(data){
+ * device.getTemperature().then(function(data){
  *   // success, handle the data here
  * });
  *
  */
 Device.prototype.execute = function(){
 	var args = [].slice.call(arguments);
-	return this.deferred(function(){
-			args.unshift(this);
-			return Device.execute.apply(EThing, args);
-		});
+    args.unshift(this);
+    return Device.execute.apply(EThing, args);
 }
 
 /**
@@ -174,16 +170,14 @@ Device.prototype.executeUrl = function(operationId, data){
  * Retrieve information about a specific method or all the methods available for this device.
  * @this {EThing.Device}
  * @param {string} [operationId] if set, only information about this operation will be returned
- * @param {function(data,XHR,options)} [callback] it is executed once the request is complete whether in failure or success
+ * @param {function(data)} [callback] it is executed once the request is complete whether in failure or success
  * @returns {EThing.Device} The instance on which this method was called.
  *
  */
 Device.prototype.getApi = function(operationId, callback){
 	var args = [].slice.call(arguments);
-	return this.deferred(function(){
-		args.unshift(this);
-		return Device.getApi.apply(EThing, args);
-	});
+    args.unshift(this);
+    return Device.getApi.apply(EThing, args);
 }
 
 
@@ -229,7 +223,7 @@ Device.execute = function(device, operationId, data, binary, callback){
 		'method': 'POST',
 		'contentType': "application/json; charset=utf-8",
 		'data': typeof data != 'undefined' && data!==null ? JSON.stringify(data) : undefined,
-		'dataType': binary ? (utils.isNode ? 'buffer' : 'blob') : 'auto',
+		'dataType': binary ? (typeof binary === 'string' ? binary : 'arraybuffer') : 'text',
 		'context': context
 	},callback);
 	
@@ -275,8 +269,8 @@ Device.getApi = function(device, operationId, callback){
  * @method EThing.Device.create
  * @param {string} type the type of the device to create (ie: SSH, MQTT ...)
  * @param {object} attributes
- * @param {function(data,XHR,options)} [callback] it is executed once the request is complete whether in failure or success
- * @returns {Deferred} a {@link http://api.jquery.com/category/deferred-object/|jQuery like Promise object}. {@link EThing.request|More ...} 
+ * @param {function(data)} [callback] it is executed once the request is complete whether in failure or success
+ * @returns {Promise}
  * @fires EThing#ething.device.created
  * @example
  * EThing.Device.create('SSH', {
@@ -285,7 +279,7 @@ Device.getApi = function(device, operationId, callback){
  *     user: "foo",
  *     password: "bar"
  *   }
- * }).done(function(resource){
+ * }).then(function(resource){
  *     console.log('the new SSH device has been created');
  * })
  */
@@ -300,8 +294,9 @@ Device.create = function(type, a,callback){
 		'contentType': "application/json; charset=utf-8",
 		'data': a,
 		'converter': EThing.resourceConverter
-	},callback).done(function(r){
+	},callback).then(function(r){
 		EThing.trigger('ething.device.created',[r]);
+        return r;
 	});
 	
 };

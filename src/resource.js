@@ -1,7 +1,6 @@
 
 var utils = require("./utils.js");
 var EventEngine = require("./eventEngine.js");
-var DeferredObject = require("./deferredObject.js");
 var EThing = require("./core.js");
 
 
@@ -14,13 +13,10 @@ var EThing = require("./core.js");
  */
 var Resource = function (json)
 {
-	DeferredObject.call(this);
-	
 	EventEngine(this);
 	
 	this._fromJson(json, true);
 }
-utils.inherits(Resource,DeferredObject);
 
 // loader
 Resource.prototype._fromJson = function(json, noTrigger){
@@ -254,63 +250,57 @@ Resource.prototype.description = function() {
  * Remove this resource.
  * @this {EThing.Resource}
  * @param {Boolean} [removeChildren] When true, the children are also removed. Default to false.
- * @param {function(data,XHR,options)} [callback] it is executed once the request is complete whether in failure or success
+ * @param {function(data)} [callback] it is executed once the request is complete whether in failure or success
  * @returns {EThing.Resource} The instance on which this method was called.
  * @fires EThing#ething.resource.removed
  * @example
- * resource.remove().done(function(){
+ * resource.remove().then(function(){
  *   // the resource was successfully removed
  * });
  */
 Resource.prototype.remove = function(removeChildren, callback){
     var args = [].slice.call(arguments);
-	return this.deferred(function(){
-            args.unshift(this);
-			return Resource.remove.apply(EThing, args);
-		});
+    args.unshift(this);
+    return Resource.remove.apply(EThing, args);
 }
 
 Resource.prototype.update = function(callback){
-	return this.deferred(function(){
-			return EThing.get(this, callback);
-		});
+    return EThing.get(this, callback);
 }
 
 /**
  * Update this resource attributes
  * @this {EThing.Resource}
  * @param {} properties
- * @param {function(data,XHR,options)} [callback] it is executed once the request is complete whether in failure or success
+ * @param {function(data)} [callback] it is executed once the request is complete whether in failure or success
  * @returns {EThing.Resource} The instance on which this method was called.
  * @example
  * resource.set({
  *   name: "newName.txt"
- * }).done(function(){
+ * }).then(function(){
  *   console.log("the resource was successfully renamed to :"+this.name());
  * });
  */
 Resource.prototype.set = function(properties, callback){
 	var args = [].slice.call(arguments);
-	return this.deferred(function(){
-			args.unshift(this);
-			return Resource.set.apply(EThing, args);
-		});
+    args.unshift(this);
+    return Resource.set.apply(EThing, args);
 }
 /**
  * Attaches persistant data to this resource
  * @this {EThing.Resource}
  * @param {object} data
- * @param {function(data,XHR,options)} [callback] it is executed once the request is complete whether in failure or success
+ * @param {function(data)} [callback] it is executed once the request is complete whether in failure or success
  * @returns {EThing.Resource} The instance on which this method was called.
  * @example
  * resource.setData({
  *   "key": "value"
- * }).done(function(){
+ * }).then(function(){
  *   // success
  * });
  * 
  * // you can also write :
- * resource.setData("key", "value").done(function(){
+ * resource.setData("key", "value").then(function(){
  *   // success
  * });
  */
@@ -356,7 +346,7 @@ Resource.remove = function(a,removeChildren,callback)
 		'url': '/resources/' + a + '?' + utils.param({'children':removeChildren}),
 		'method': 'DELETE',
 		'context': context
-	},callback).done(function(){
+	},callback).then(function(){
 		EThing.trigger('ething.resource.removed',[a]);
 	});
 };

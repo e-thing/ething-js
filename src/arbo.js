@@ -44,7 +44,6 @@
 var EThing = require("./core.js");
 var utils = require("./utils.js");
 var Resource = require("./resource.js");
-var Deferred = require("./deferred.js");
 
 
 
@@ -119,16 +118,13 @@ Folder.prototype.modifiedDate = function() {
  */
 Folder.prototype.remove = function(callback) {
 	var self = this;
-	return this.deferred(function(){
-			var deferreds = [];
-			this.children().forEach(function(r){
-				deferreds.push( r.remove() );
-			});
-			return Deferred.when.apply(Deferred, deferreds).done(function(){
-				if(typeof callback == 'function')
-					callback.call(self);
-			});
-		});
+    var promises = this.children().map(function(r){
+        return r.remove();
+    });
+    return Promise.all(promises).then(function(){
+        if(typeof callback == 'function')
+            callback.call(self);
+    });
 }
 
 /**
@@ -305,65 +301,56 @@ function clear(){
  * @memberof EThing.arbo
  * @param {function(EThing.Resource[])} [callback] function executed once the resources are loaded
  * @param {boolean} [force] force to reload the entire resources
- * @returns {Deferred} a {@link http://api.jquery.com/category/deferred-object/|jQuery like Promise object}.
+ * @returns {Promise}
  */
 function load(callback, force) {
-	var dfr;
+    var self = this;
+    
+    if(force) clear();
 	
-	if(loaddfr && !force){
-		if(loaddfr===true)
-			dfr = new Deferred().resolve().promise();
-		else
-			dfr = loaddfr;
-	}
-	else {
-		var pdfr = new Deferred();
-		
-		clear();
-		
-		// load the resources
-		EThing.request({
-			'url': '/resources',
-			'method': 'GET',
-			'dataType': 'json'
-		}).done(function(rs) {
-			
-			loaddfr = true;
-	
-			// reset everything
-			resources = [];
-			
-			// add the root node
-			root = new EThing.Folder({
-				'name': ''
-			});
-			
-			resources.push(root);
-			
-			// add the other resources
-			rs.forEach(function(resource) {
-				if(!(resource = EThing.instanciate(resource))) return;
-				add(resource);
-			});
-			
-			pdfr.resolve();
-		}).fail(function(err){
-            pdfr.reject(err);
+    if(loaddfr===null){
+    // load the resources
+        loaddfr = EThing.request({
+            'url': '/resources',
+            'method': 'GET',
+            'dataType': 'json'
+        }).then(function(rs) {
+            
+            loaddfr = true;
+
+            // reset everything
+            resources = [];
+            
+            // add the root node
+            root = new EThing.Folder({
+                'name': ''
+            });
+            
+            resources.push(root);
+            
+            // add the other resources
+            rs.forEach(function(resource) {
+                if(!(resource = EThing.instanciate(resource))) return;
+                add(resource);
+            });
+            
+            EThing.trigger('ething.arbo.loaded');
+            
+            return resources;
         });
-		
-		loaddfr = dfr = pdfr.promise();
-	}
-	
-	return dfr.done(function() {
-		if (typeof callback == 'function')
-			callback(list());
-		
-		// trigger
-		EThing.trigger('ething.arbo.loaded');
-	});
+    }
+    
+    loaddfr.then(function(resources){
+        if (typeof callback == 'function')
+            callback.call(self, resources)
+    })
+    
+    return loaddfr
 };
 
 function refresh(callback) {
+    var self = this;
+    
 	return EThing.request({
 		'url': '/resources',
 		'method': 'GET',
@@ -377,9 +364,12 @@ function refresh(callback) {
 		});
 		
 		update(rs, true);
+        
+        if (typeof callback === 'function')
+            callback.call(self, resources)
 		
 		return resources;
-	}).done(callback);
+	});
 	
 }
 

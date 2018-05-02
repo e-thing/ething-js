@@ -13,15 +13,9 @@ var options = {
 
 before('authentication', function(done) {
     
-    EThing.initialize(options).done(function(){
-        
-        assert.strictEqual(EThing.auth.isAuthenticated(), true);
-        
-        done();
-        
-    }).fail(function(err){
-        done(err);
-    })
+    EThing.auth.setBasicAuth(options.login, options.password)
+    
+    done();
     
 });
 

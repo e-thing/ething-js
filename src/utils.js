@@ -1,7 +1,6 @@
 
-var extra = require("./extra.js");
 
-var Utils = extra || {};
+var Utils = {};
 
 
 Utils.isId = function(s){
@@ -251,20 +250,6 @@ Utils.dateDiffToString = function(diffInSec) {
 };
 
 
-var cache = {};// private
-
-Utils.createCache = function( requestFunction ) {
-	return function( key, callback ) {
-		if ( !cache[key] || (typeof cache[key].state == 'function' && cache[key].state() === 'rejected') ) {
-			cache[key] = requestFunction(key);
-		}
-		return cache[key].done( callback );
-	};
-};
-
-
-
-
 
 
 
@@ -415,15 +400,37 @@ Utils.inherits = function (extended, parent){
 };
 
 
+Utils.btoa = function (str) {
+    if(typeof btoa !== "undefined")
+        return btoa(str);
+    
+    var buffer;
+    if (str instanceof Buffer) {
+        buffer = str;
+    } else {
+        buffer = new Buffer(str.toString(), 'binary');
+    }
+    return buffer.toString('base64');
+}
+
+	
+Utils.atob = function (str) {
+    if(typeof atob !== "undefined")
+        return atob(str);
+    
+    return new Buffer(str, 'base64').toString('binary');
+}
+
+
 Utils.toBase64 = function(content, callback){
     
-    if(content instanceof Utils.Blob){
+    if(typeof Blob !== "undefined" && content instanceof Blob){
         // asynchronous
         
-        if(!Utils.FileReader)
+        if(typeof FileReader === "undefined")
             throw 'no FileReader instance found';
         
-        var reader = new Utils.FileReader(), dfr = Deferred();
+        var reader = new FileReader();
         reader.onloadend = function() {
           content = reader.result.substr(reader.result.indexOf(';base64,')+8);
           callback(content);
@@ -440,7 +447,7 @@ Utils.toBase64 = function(content, callback){
         }
         content = Utils.btoa(binary);
     }
-    else if(content instanceof Utils.Buffer){
+    else if(typeof Buffer !== "undefined" && content instanceof Buffer){
         content = content.toString('base64');
     }
     else if(typeof content === 'string'){

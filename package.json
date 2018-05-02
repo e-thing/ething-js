@@ -29,7 +29,7 @@
     "docs": "jsdoc2md --no-cache -f src -c jsdoc.conf > api.md",
     "test": "mocha"
   },
-  "browser": {
-    "./src/extra.js": "./src/extra-browser.js"
+  "dependencies": {
+    "axios": "^0.18.0"
   }
 }

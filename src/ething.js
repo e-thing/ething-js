@@ -9,6 +9,7 @@ var EThing = require("./core.js");
 require("./resource.js");
 require("./settings.js");
 require("./notify.js");
+require("./auth.js");
 require("./file.js");
 require("./table.js");
 require("./app.js");

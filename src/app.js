@@ -2,7 +2,6 @@
 var EThing = require("./core.js");
 var utils = require("./utils.js");
 var Resource = require("./resource.js");
-var Deferred = require("./deferred.js");
 
 /**
  * Constructs an App instance from an object decribing an application. Should not be called directly. Use instead {@link EThing.list}.
@@ -45,7 +44,7 @@ App.prototype.size = function() {
  * EThing.request({
  *   url: imageFile.iconLink(),
  *   dataType: "blob"
- * }).done(function(blobData){
+ * }).then(function(blobData){
  *   // success
  *   var image = new Image();
  *   image.src = window.URL.createObjectURL( blobData );
@@ -64,7 +63,7 @@ App.prototype.iconLink = function(auth) {
  * @returns {string}
  * @example
  * // using EThing.request() :
- * EThing.request(app.getContentUrl()).done(function(content){
+ * EThing.request(app.getContentUrl()).then(function(content){
  *   // success
  *   console.log('content as text : '+content);
  * });
@@ -103,30 +102,26 @@ App.prototype.version = function() {
 /**
  * Gets the code of this application in text/html.
  * @this {EThing.App}
- * @param {function(data,XHR,options)} [callback] it is executed once the request is complete whether in failure or success
+ * @param {function(data)} [callback] it is executed once the request is complete whether in failure or success
  * @returns {EThing.App} The instance on which this method was called.
  */
 App.prototype.read = function(callback){
 	var args = [].slice.call(arguments);
-	return this.deferred(function(){
-			args.unshift(this);
-			return App.read.apply(EThing, args);
-		});
+    args.unshift(this);
+    return App.read.apply(EThing, args);
 }
 
 /**
  * Writes some HTML script in this application. Only available for {@link EThing.App#isEditable|editable app}
  * @this {EThing.App}
  * @param {string} data the full HTML script
- * @param {function(data,XHR,options)} [callback] it is executed once the request is complete whether in failure or success
+ * @param {function(data)} [callback] it is executed once the request is complete whether in failure or success
  * @returns {EThing.App} The instance on which this method was called.
  */
 App.prototype.write = function(data, callback){
 	var args = [].slice.call(arguments);
-	return this.deferred(function(){
-			args.unshift(this);
-			return App.write.apply(EThing, args);
-		});
+    args.unshift(this);
+    return App.write.apply(EThing, args);
 }
 
 
@@ -142,8 +137,8 @@ App.prototype.write = function(data, callback){
  *
  * @method EThing.App.create
  * @param {object} attributes
- * @param {function(data,XHR,options)} [callback] it is executed once the request is complete whether in failure or success
- * @returns {Deferred} a {@link http://api.jquery.com/category/deferred-object/|jQuery like Promise object}. {@link EThing.request|More ...} 
+ * @param {function(data)} [callback] it is executed once the request is complete whether in failure or success
+ * @returns {Promise}
  * @fires EThing#ething.app.created
  * @example
  * EThing.App.create({
@@ -151,40 +146,41 @@ App.prototype.write = function(data, callback){
  *   content: "<html><body>hello world !</body></html>",
  *   icon: <icon_data>, // File, Blob, Buffer, ArrayBuffer or base64 string
  *   scope: "resource:read settings:read",
- * }).done(function(resource){
+ * }).then(function(resource){
  *     console.log('the new app can be accessed through : ' + resource.url());
  * })
  */
 App.create = function(json,callback){
 	
-    var dfr = Deferred();
-    var json = utils.extend({}, json);
+    var json = Object.assign({}, json);
     
-    utils.toBase64(json.content || '', function(content){
-        json.content = content;
-        
-        utils.toBase64(json.icon || '', function(icon){
-            json.icon = icon;
+    return new Promise(function(resolve, reject) {
+        utils.toBase64(json.content || '', function(content){
+            json.content = content;
             
-            EThing.request({
-				'url': '/apps',
-				'dataType': 'json',
-				'method': 'POST',
-				'contentType': "application/json; charset=utf-8",
-				'data': json,
-				'converter': EThing.resourceConverter
-			  }).done(function(){
-				dfr.resolveWith(this, Array.prototype.slice.call(arguments));
-			  }).fail(function(){
-				dfr.rejectWith(this, Array.prototype.slice.call(arguments));
-			  });
-              
+            utils.toBase64(json.icon || '', function(icon){
+                json.icon = icon;
+                
+                EThing.request({
+                    'url': '/apps',
+                    'dataType': 'json',
+                    'method': 'POST',
+                    'contentType': "application/json; charset=utf-8",
+                    'data': json,
+                    'converter': EThing.resourceConverter
+                  }, callback).then(function(app){
+                    
+                    EThing.trigger('ething.app.created',[app]);
+                    
+                    resolve(app)
+                  }).catch(function(err){
+                    reject(err)
+                  });
+                  
+            });
         });
-    });
+    })
     
-    return dfr.done(callback).done(function(){
-        EThing.trigger('ething.app.created',[this]);
-    }).promise();
 };
 
 
@@ -252,7 +248,7 @@ App.write = function(a,b,c)
 
 /*
 Resource,callback
-return data as blob
+return data as arraybuffer
 */
 App.getIcon = function(a,b)
 {
@@ -273,7 +269,7 @@ App.getIcon = function(a,b)
 	return EThing.request({
 		'url': '/apps/' + file_id + '/icon',
 		'method': 'GET',
-		'dataType': utils.isNode ? 'buffer' : 'blob',
+		'dataType': 'arraybuffer',
 		'context': context
 	},callback);
 };

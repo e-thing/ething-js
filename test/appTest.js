@@ -21,7 +21,7 @@ describe("EThing.App test", function() {
             name: "foobar.txt",
             content: content,
             scope: "resource:read settings:read"
-        }).done(function(resource){
+        }).then(function(resource){
             assert.instanceOf(resource, EThing.App);
             
             assert.isNumber(resource.size());
@@ -40,17 +40,17 @@ describe("EThing.App test", function() {
             
             assert.isString(resource.getContentUrl());
             
-            resource.read().done(function(script){
+            resource.read().then(function(script){
                 
                 assert.equal(content, script)
                 
                 done();
                 
-            }).fail(function(err){
+            }).catch(function(err){
                 done(err);
             });
             
-        }).fail(function(err){
+        }).catch(function(err){
             done(err);
         });
         
@@ -65,26 +65,26 @@ describe("EThing.App test", function() {
             name: "foobar.txt",
             content: content,
             scope: "resource:read settings:read"
-        }).done(function(resource){
+        }).then(function(resource){
             assert.instanceOf(resource, EThing.App);
             
-            resource.write(newContent).done(function(resource){
+            resource.write(newContent).then(function(resource){
                 
                 assert.instanceOf(resource, EThing.App);
                 
                 // read it back
-                resource.read().done(function(script){
+                resource.read().then(function(script){
                     assert.equal(newContent, script)
                     done();
-                }).fail(function(err){
+                }).catch(function(err){
                     done(err)
                 })
                 
-            }).fail(function(err){
+            }).catch(function(err){
                 done(err)
             })
             
-        }).fail(function(err){
+        }).catch(function(err){
             done(err);
         });
         

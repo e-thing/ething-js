@@ -7,11 +7,11 @@ var EThing = require("./core.js");
  * @memberof EThing
  * @param {string} [subject] The subject of the notification
  * @param {string} message The message of the notification
- * @param {function(data,XHR,options)} [callback] it is executed once the request is complete whether in failure or success
- * @returns {Deferred} a {@link http://api.jquery.com/category/deferred-object/|jQuery like Promise object}. {@link EThing.request|More ...} 
+ * @param {function(data)} [callback] it is executed once the request is complete whether in failure or success
+ * @returns {Promise}
  * @example
  * EThing.notify("hello world")
- *   .done(function(){
+ *   .then(function(){
  *     alert("A notification has been sent");
  *   })
  */

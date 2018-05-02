@@ -17,7 +17,7 @@ describe("EThing.Table test", function() {
         
         EThing.Table.create({
             name: "foobar"
-        }).done(function(resource){
+        }).then(function(resource){
             assert.instanceOf(resource, EThing.Table);
             
             assert.isNumber(resource.length());
@@ -38,7 +38,7 @@ describe("EThing.Table test", function() {
             
             done();
             
-        }).fail(function(err){
+        }).catch(function(err){
             done(err);
         });
         
@@ -57,12 +57,12 @@ describe("EThing.Table test", function() {
         EThing.Table.create({
             name: "foobar.txt",
             content: content
-        }).done(function(resource){
+        }).then(function(resource){
             assert.instanceOf(resource, EThing.Table);
             
             assert.equal(resource.length(), 1);
             
-            resource.select().done(function(data){
+            resource.select().then(function(data){
                 
                 assert.equal(data.length, 1);
                 
@@ -75,11 +75,11 @@ describe("EThing.Table test", function() {
                 assert.equal(data[0]['text'], "hello");
                 
                 done();
-            }).fail(function(err){
+            }).catch(function(err){
                 done(err)
             })
             
-        }).fail(function(err){
+        }).catch(function(err){
             done(err);
         });
         
@@ -97,14 +97,14 @@ describe("EThing.Table test", function() {
         
         EThing.Table.create({
             name: "foobar.txt",
-        }).done(function(resource){
+        }).then(function(resource){
             assert.instanceOf(resource, EThing.Table);
             
             assert.equal(resource.length(), 0);
             
-            resource.import(content).done(function(resource){
+            resource.import(content).then(function(resource){
                 
-                resource.select().done(function(data){
+                resource.select().then(function(data){
                     assert.equal(data.length, 1);
                     
                     assert.isObject(data[0]);
@@ -116,15 +116,15 @@ describe("EThing.Table test", function() {
                     assert.equal(data[0]['text'], "hello");
                     
                     done();
-                }).fail(function(err){
+                }).catch(function(err){
                     done(err)
                 })
                 
-            }).fail(function(err){
+            }).catch(function(err){
                 done(err)
             })
             
-        }).fail(function(err){
+        }).catch(function(err){
             done(err);
         });
         
@@ -140,14 +140,14 @@ describe("EThing.Table test", function() {
         
         EThing.Table.create({
             name: "foobar.txt",
-        }).done(function(resource){
+        }).then(function(resource){
             assert.instanceOf(resource, EThing.Table);
             
             assert.equal(resource.length(), 0);
             
-            resource.insert(content).done(function(resource){
+            resource.insert(content).then(function(resource){
                 
-                resource.select().done(function(data){
+                resource.select().then(function(data){
                     assert.equal(data.length, 1);
                     
                     assert.isObject(data[0]);
@@ -159,15 +159,15 @@ describe("EThing.Table test", function() {
                     assert.equal(data[0]['text'], "hello");
                     
                     done();
-                }).fail(function(err){
+                }).catch(function(err){
                     done(err)
                 })
                 
-            }).fail(function(err){
+            }).catch(function(err){
                 done(err)
             })
             
-        }).fail(function(err){
+        }).catch(function(err){
             done(err);
         });
         
@@ -187,12 +187,12 @@ describe("EThing.Table test", function() {
         EThing.Table.create({
             name: "foobar.txt",
             content: content
-        }).done(function(resource){
+        }).then(function(resource){
             assert.instanceOf(resource, EThing.Table);
             
             assert.equal(resource.length(), 1);
             
-            resource.select().done(function(data){
+            resource.select().then(function(data){
                 
                 assert.equal(data.length, 1);
                 
@@ -201,22 +201,22 @@ describe("EThing.Table test", function() {
                 resource.replaceRow({
                     'id': row_id,
                     'pressure': 45
-                }).done(function(row){
+                }).then(function(row){
                     
                     assert.hasAllKeys(row, ['id','date','pressure']);
                     
                     assert.equal(row['pressure'], 45);
                     
                     done();
-                }).fail(function(err){
+                }).catch(function(err){
                     done(err)
                 });
                 
-            }).fail(function(err){
+            }).catch(function(err){
                 done(err)
             })
             
-        }).fail(function(err){
+        }).catch(function(err){
             done(err);
         });
         
@@ -235,31 +235,31 @@ describe("EThing.Table test", function() {
         EThing.Table.create({
             name: "foobar.txt",
             content: content
-        }).done(function(resource){
+        }).then(function(resource){
             assert.instanceOf(resource, EThing.Table);
             
             assert.equal(resource.length(), 1);
             
-            resource.select().done(function(data){
+            resource.select().then(function(data){
                 
                 assert.equal(data.length, 1);
                 
                 var row_id = data[0]['id'];
                 
-                resource.removeRow(row_id).done(function(resource){
+                resource.removeRow(row_id).then(function(resource){
                     
                     assert.equal(resource.length(), 0);
                     
                     done();
-                }).fail(function(err){
+                }).catch(function(err){
                     done(err)
                 })
                 
-            }).fail(function(err){
+            }).catch(function(err){
                 done(err)
             })
             
-        }).fail(function(err){
+        }).catch(function(err){
             done(err);
         });
         

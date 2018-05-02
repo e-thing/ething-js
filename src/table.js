@@ -74,26 +74,24 @@ Table.prototype.contentModifiedDate = function() {
  * @param {string} [options.query] A query string to filter the results.
  * @param {string} [options.fields] Fields of the results to return. If omitted, all the fields are returned.
  * @param {string} [options.datefmt] the format of the date field (values: "RFC3339"(default), "TIMESTAMP", "TIMESTAMP_MS", "ISO8601", "RSS").
- * @param {function(data,XHR,options)} [callback] It is executed once the request is complete whether in failure or success
+ * @param {function(data)} [callback] It is executed once the request is complete whether in failure or success
  * @returns {EThing.Table} The instance on which this method was called.
  * @example
  * // returns all the content of a table :
- * table.select().done(function(data){
+ * table.select().then(function(data){
  *   // success
  * });
  *
  * // returns the last 10 rows sorted by the "foo" column :
- * table.select({start: -10, sort: "foo"}).done(function(data){
+ * table.select({start: -10, sort: "foo"}).then(function(data){
  *   // success
  * });
  *
  */
 Table.prototype.select = function(options,callback){
 	var args = [].slice.call(arguments);
-	return this.deferred(function(){
-			args.unshift(this);
-			return Table.select.apply(EThing, args);
-		});
+    args.unshift(this);
+    return Table.select.apply(EThing, args);
 }
 /**
  * Performs statistics on a specific column.
@@ -106,20 +104,18 @@ Table.prototype.select = function(options,callback){
  */
 Table.prototype.computeStatistics = function(key,query,callback){
 	var args = [].slice.call(arguments);
-	return this.deferred(function(){
-			args.unshift(this);
-			return Table.computeStatistics.apply(EThing, args);
-		});
+    args.unshift(this);
+    return Table.computeStatistics.apply(EThing, args);
 }
 /**
  * Removes one or multiple rows.
  * @this {EThing.Table}
  * @param {string|string[]} id The id of the row(s) to be removed
- * @param {function(data,XHR,options)} [callback] it is executed once the request is complete whether in failure or success
+ * @param {function(data)} [callback] it is executed once the request is complete whether in failure or success
  * @returns {EThing.Table} The instance on which this method was called.
  * @example
  * // removes the last 10 rows :
- * table.select(-10).done(function(data){
+ * table.select(-10).then(function(data){
  *   this.removeRow(data.map(function(row){
  *     return row.id;
  *   }));
@@ -128,32 +124,28 @@ Table.prototype.computeStatistics = function(key,query,callback){
  */
 Table.prototype.removeRow = function(id,callback){
 	var args = [].slice.call(arguments);
-	return this.deferred(function(){
-			args.unshift(this);
-			return Table.removeRow.apply(EThing, args);
-		});
+    args.unshift(this);
+    return Table.removeRow.apply(EThing, args);
 }
 /**
  * Set new data to a row.
  * @this {EThing.Table}
  * @param {object} data the data to be updated, it must contain the row id.
- * @param {function(data,XHR,options)} [callback] it is executed once the request is complete whether in failure or success
+ * @param {function(data)} [callback] it is executed once the request is complete whether in failure or success
  * @returns {EThing.Table} The instance on which this method was called.
  * @example
  * table.replaceRow({
  * 	 'id': 'g45Tdk4',
  * 	 'value': 45
- * }).done(function(data){
+ * }).then(function(data){
  *   // updated !
  * });
  *
  */
 Table.prototype.replaceRow = function(data,callback){
 	var args = [].slice.call(arguments);
-	return this.deferred(function(){
-			args.unshift(this);
-			return Table.replaceRow.apply(EThing, args);
-		});
+    args.unshift(this);
+    return Table.replaceRow.apply(EThing, args);
 }
 
 /**
@@ -162,23 +154,21 @@ Table.prototype.replaceRow = function(data,callback){
  * @param {string} query A query string to filter the data.
  * @param {object} data the new data.
  * @param {boolean} [upsert] If true, the data will be inserted if no match is found. (default to false).
- * @param {function(data,XHR,options)} [callback] it is executed once the request is complete whether in failure or success
+ * @param {function(data)} [callback] it is executed once the request is complete whether in failure or success
  * @returns {EThing.Table} The instance on which this method was called.
  * @example
  * table.findOneAndReplace("name=='foo'", {
  * 	 'name': 'foo',
  * 	 'value': 'bar'
- * }).done(function(table){
+ * }).then(function(table){
  *   // updated or inserted if not found !
  * });
  *
  */
 Table.prototype.findOneAndReplace = function(query,data,upsert,callback){
 	var args = [].slice.call(arguments);
-	return this.deferred(function(){
-			args.unshift(this);
-			return Table.findOneAndReplace.apply(EThing, args);
-		});
+    args.unshift(this);
+    return Table.findOneAndReplace.apply(EThing, args);
 }
 
 /**
@@ -186,24 +176,22 @@ Table.prototype.findOneAndReplace = function(query,data,upsert,callback){
  * @this {EThing.Table}
  * @param {object} data
  * @param {string} [invalid_field] The behaviour to adopt when an invalid field name appears. The value must be one of the following : "rename","stop","skip","none".
- * @param {function(data,XHR,options)} [callback] it is executed once the request is complete whether in failure or success
+ * @param {function(data)} [callback] it is executed once the request is complete whether in failure or success
  * @returns {EThing.Table} The instance on which this method was called.
  * @example
  * table.insert({
  *   'field1': "foobar",
  *   'field2': 3.14,
  *   'field3': true
- * }).done(function(){
+ * }).then(function(){
  *   // success
  * });
  *
  */
 Table.prototype.insert = function(data, callback){
 	var args = [].slice.call(arguments);
-	return this.deferred(function(){
-		args.unshift(this);
-		return Table.insert.apply(this,args);
-	});
+    args.unshift(this);
+    return Table.insert.apply(this,args);
 }
 
 /**
@@ -212,21 +200,19 @@ Table.prototype.insert = function(data, callback){
  * @param {object[]} data
  * @param {string} [invalid_field] The behaviour to adopt when an invalid field name appears. The value must be one of the following : "rename","stop","skip","none".
  * @param {bool} [skip_error] Whether to skip data on error or not
- * @param {function(data,XHR,options)} [callback] it is executed once the request is complete whether in failure or success
+ * @param {function(data)} [callback] it is executed once the request is complete whether in failure or success
  * @returns {EThing.Table} The instance on which this method was called.
  * // copy table content
  * var tableSrc, tableDst;
- * tableSrc.select().done(function(data){
+ * tableSrc.select().then(function(data){
  *   tableDst.import(data);
  * });
  *
  */
 Table.prototype.import = function(data, callback){
 	var args = [].slice.call(arguments);
-	return this.deferred(function(){
-		args.unshift(this);
-		return Table.import.apply(this,args);
-	});
+    args.unshift(this);
+    return Table.import.apply(this,args);
 }
 
 /**
@@ -236,13 +222,13 @@ Table.prototype.import = function(data, callback){
  * @returns {string}
  * @example
  * // using EThing.request() :
- * EThing.request(table.getContentUrl()).done(function(rows){
+ * EThing.request(table.getContentUrl()).then(function(rows){
  *   // success, rows is an array of object 
  *   console.log('number of rows : '+rows.length);
  * });
  * 
  * // or using jQuery :
- * $.getJSON(table.getContentUrl(true)).done(function(rows){
+ * $.getJSON(table.getContentUrl(true)).then(function(rows){
  *   // success
  * });
  */
@@ -263,15 +249,15 @@ Table.prototype.getContentUrl = function(auth) {
  *
  * @method EThing.Table.create
  * @param {object} attributes
- * @param {function(data,XHR,options)} [callback] it is executed once the request is complete whether in failure or success
- * @returns {Deferred} a {@link http://api.jquery.com/category/deferred-object/|jQuery like Promise object}. {@link EThing.request|More ...} 
+ * @param {function(data)} [callback] it is executed once the request is complete whether in failure or success
+ * @returns {Promise}
  * @fires EThing#ething.table.created
  * @example
  * // get a resource by its id
  * EThing.Table.create({
  *   name: "foobar",
  *   expireAfter: 3600*24*7 // the data are automatically removed after 7 weeks
- * }).done(function(resource){
+ * }).then(function(resource){
  *     console.log('table created : ' + resource.name());
  * })
  */
@@ -289,8 +275,9 @@ Table.create = function(a,callback){
 		'contentType': "application/json; charset=utf-8",
 		'data': a,
 		'converter': EThing.resourceConverter
-	},callback).done(function(r){
+	},callback).then(function(r){
 		EThing.trigger('ething.table.created',[r]);
+        return r
 	});
 	
 };

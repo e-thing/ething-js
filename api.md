@@ -55,7 +55,7 @@
             * [.set(properties, [callback])](#EThing.Resource+set) ⇒ [<code>Resource</code>](#EThing.Resource)
             * [.setData(data, [callback])](#EThing.Resource+setData) ⇒ [<code>Resource</code>](#EThing.Resource)
         * _static_
-            * [.create(attributes, [callback])](#EThing.App.create) ⇒ <code>Deferred</code>
+            * [.create(attributes, [callback])](#EThing.App.create) ⇒ <code>Promise</code>
     * [.Folder](#EThing.Folder) ⇐ [<code>Resource</code>](#EThing.Resource)
         * [new Folder(json)](#new_EThing.Folder_new)
         * [.ls](#EThing.Folder+ls) ⇒ [<code>Array.&lt;Resource&gt;</code>](#EThing.Resource)
@@ -115,7 +115,7 @@
             * [.set(properties, [callback])](#EThing.Resource+set) ⇒ [<code>Resource</code>](#EThing.Resource)
             * [.setData(data, [callback])](#EThing.Resource+setData) ⇒ [<code>Resource</code>](#EThing.Resource)
         * _static_
-            * [.create(type, attributes, [callback])](#EThing.Device.create) ⇒ <code>Deferred</code>
+            * [.create(type, attributes, [callback])](#EThing.Device.create) ⇒ <code>Promise</code>
     * [.File](#EThing.File) ⇐ [<code>Resource</code>](#EThing.Resource)
         * [new File(json)](#new_EThing.File_new)
         * _instance_
@@ -153,7 +153,7 @@
             * [.set(properties, [callback])](#EThing.Resource+set) ⇒ [<code>Resource</code>](#EThing.Resource)
             * [.setData(data, [callback])](#EThing.Resource+setData) ⇒ [<code>Resource</code>](#EThing.Resource)
         * _static_
-            * [.create(attributes, [callback])](#EThing.File.create) ⇒ <code>Deferred</code>
+            * [.create(attributes, [callback])](#EThing.File.create) ⇒ <code>Promise</code>
     * [.Resource](#EThing.Resource)
         * [new Resource(json)](#new_EThing.Resource_new)
         * [.parent()](#EThing.Resource+parent) ⇒ [<code>Resource</code>](#EThing.Resource) \| <code>undefined</code>
@@ -209,7 +209,7 @@
             * [.set(properties, [callback])](#EThing.Resource+set) ⇒ [<code>Resource</code>](#EThing.Resource)
             * [.setData(data, [callback])](#EThing.Resource+setData) ⇒ [<code>Resource</code>](#EThing.Resource)
         * _static_
-            * [.create(attributes, [callback])](#EThing.Rule.create) ⇒ <code>Deferred</code>
+            * [.create(attributes, [callback])](#EThing.Rule.create) ⇒ <code>Promise</code>
     * [.Table](#EThing.Table) ⇐ [<code>Resource</code>](#EThing.Resource)
         * [new Table(json)](#new_EThing.Table_new)
         * _instance_
@@ -249,13 +249,13 @@
             * [.set(properties, [callback])](#EThing.Resource+set) ⇒ [<code>Resource</code>](#EThing.Resource)
             * [.setData(data, [callback])](#EThing.Resource+setData) ⇒ [<code>Resource</code>](#EThing.Resource)
         * _static_
-            * [.create(attributes, [callback])](#EThing.Table.create) ⇒ <code>Deferred</code>
+            * [.create(attributes, [callback])](#EThing.Table.create) ⇒ <code>Promise</code>
     * [.on](#EThing.on)
     * [.off](#EThing.off)
     * [.one](#EThing.one)
     * [.trigger](#EThing.trigger)
     * [.arbo](#EThing.arbo) : <code>object</code>
-        * [.load([callback], [force])](#EThing.arbo.load) ⇒ <code>Deferred</code>
+        * [.load([callback], [force])](#EThing.arbo.load) ⇒ <code>Promise</code>
         * [.findOneById(id)](#EThing.arbo.findOneById) ⇒ [<code>Resource</code>](#EThing.Resource) \| <code>undefined</code>
         * [.find([filter])](#EThing.arbo.find) ⇒ [<code>Array.&lt;Resource&gt;</code>](#EThing.Resource)
         * [.findOne([filter])](#EThing.arbo.findOne) ⇒ [<code>Resource</code>](#EThing.Resource) \| <code>null</code>
@@ -264,29 +264,18 @@
         * [.root()](#EThing.arbo.root) ⇒ [<code>Folder</code>](#EThing.Folder) \| <code>null</code>
     * [.auth](#EThing.auth) : <code>object</code>
         * [.isAuthenticated()](#EThing.auth.isAuthenticated) ⇒ <code>boolean</code>
-        * [.getApp()](#EThing.auth.getApp) ⇒ [<code>App</code>](#EThing.App)
-        * [.getDevice()](#EThing.auth.getDevice) ⇒ [<code>Device</code>](#EThing.Device)
-        * [.getResource()](#EThing.auth.getResource) ⇒ [<code>Resource</code>](#EThing.Resource)
-        * [.getScope()](#EThing.auth.getScope) ⇒ <code>string</code>
-        * [.reset()](#EThing.auth.reset)
-    * [.request(options, [callback])](#EThing.request) ⇒ <code>Deferred</code>
-    * [.apiRequestPrefilter()](#EThing.apiRequestPrefilter)
-    * [.ajaxSend(handler)](#EThing.ajaxSend)
-    * [.ajaxComplete(handler)](#EThing.ajaxComplete)
-    * [.ajaxSuccess(handler)](#EThing.ajaxSuccess)
-    * [.ajaxError(handler)](#EThing.ajaxError)
-    * [.list([query], [callback])](#EThing.list) ⇒ <code>Deferred</code>
-    * [.get(resourceIdentifier, [callback])](#EThing.get) ⇒ <code>Deferred</code>
-    * [.usage([callback])](#EThing.usage) ⇒ <code>Deferred</code>
-    * [.initialize(options, [errorFn])](#EThing.initialize) ⇒ <code>Deferred</code>
-    * [.authenticated(callback)](#EThing.authenticated)
-    * [.notify([subject], message, [callback])](#EThing.notify) ⇒ <code>Deferred</code>
+        * [.setApiKey(apiKey)](#EThing.auth.setApiKey)
+        * [.setBasicAuth(login, password)](#EThing.auth.setBasicAuth)
+    * [.request(options, [callback])](#EThing.request) ⇒ <code>Promise</code>
+    * [.list([query], [callback])](#EThing.list) ⇒ <code>Promise</code>
+    * [.get(resourceIdentifier, [callback])](#EThing.get) ⇒ <code>Promise</code>
+    * [.usage([callback])](#EThing.usage) ⇒ <code>Promise</code>
+    * [.notify([subject], message, [callback])](#EThing.notify) ⇒ <code>Promise</code>
     * ["ething.resource.removed"](#EThing.event_ething.resource.removed)
     * ["ething.file.created"](#EThing.event_ething.file.created)
     * ["ething.table.created"](#EThing.event_ething.table.created)
     * ["ething.device.created"](#EThing.event_ething.device.created)
     * ["ething.app.created"](#EThing.event_ething.app.created)
-    * ["ething.authenticated"](#EThing.event_ething.authenticated)
 
 <a name="EThing.App"></a>
 
@@ -331,7 +320,7 @@
         * [.set(properties, [callback])](#EThing.Resource+set) ⇒ [<code>Resource</code>](#EThing.Resource)
         * [.setData(data, [callback])](#EThing.Resource+setData) ⇒ [<code>Resource</code>](#EThing.Resource)
     * _static_
-        * [.create(attributes, [callback])](#EThing.App.create) ⇒ <code>Deferred</code>
+        * [.create(attributes, [callback])](#EThing.App.create) ⇒ <code>Promise</code>
 
 <a name="new_EThing.App_new"></a>
 
@@ -373,7 +362,7 @@ document.body.appendChild(image);
 EThing.request({
   url: imageFile.iconLink(),
   dataType: "blob"
-}).done(function(blobData){
+}).then(function(blobData){
   // success
   var image = new Image();
   image.src = window.URL.createObjectURL( blobData );
@@ -396,7 +385,7 @@ EThing.request({
 **Example**  
 ```js
 // using EThing.request() :
-EThing.request(app.getContentUrl()).done(function(content){
+EThing.request(app.getContentUrl()).then(function(content){
   // success
   console.log('content as text : '+content);
 });
@@ -634,7 +623,7 @@ To get only the PathName, see [dirname](#EThing.Resource+dirname).</p>
 
 **Example**  
 ```js
-resource.remove().done(function(){
+resource.remove().then(function(){
   // the resource was successfully removed
 });
 ```
@@ -656,7 +645,7 @@ resource.remove().done(function(){
 ```js
 resource.set({
   name: "newName.txt"
-}).done(function(){
+}).then(function(){
   console.log("the resource was successfully renamed to :"+this.name());
 });
 ```
@@ -678,18 +667,18 @@ resource.set({
 ```js
 resource.setData({
   "key": "value"
-}).done(function(){
+}).then(function(){
   // success
 });
 
 // you can also write :
-resource.setData("key", "value").done(function(){
+resource.setData("key", "value").then(function(){
   // success
 });
 ```
 <a name="EThing.App.create"></a>
 
-#### App.create(attributes, [callback]) ⇒ <code>Deferred</code>
+#### App.create(attributes, [callback]) ⇒ <code>Promise</code>
 <p>Creates a new Application from the following attributes :</p>
 <ul>
 <li>name {string} <strong>required</strong> the name of the application</li>
@@ -700,7 +689,6 @@ resource.setData("key", "value").done(function(){
 </ul>
 
 **Kind**: static method of [<code>App</code>](#EThing.App)  
-**Returns**: <code>Deferred</code> - <p>a [jQuery like Promise object](http://api.jquery.com/category/deferred-object/). [More ...](#EThing.request)</p>  
 **Emits**: <code>EThing#ething.app.event:created</code>  
 
 | Param | Type | Description |
@@ -715,7 +703,7 @@ EThing.App.create({
   content: "<html><body>hello world !</body></html>",
   icon: <icon_data>, // File, Blob, Buffer, ArrayBuffer or base64 string
   scope: "resource:read settings:read",
-}).done(function(resource){
+}).then(function(resource){
     console.log('the new app can be accessed through : ' + resource.url());
 })
 ```
@@ -1022,7 +1010,7 @@ To get only the PathName, see [dirname](#EThing.Resource+dirname).</p>
         * [.set(properties, [callback])](#EThing.Resource+set) ⇒ [<code>Resource</code>](#EThing.Resource)
         * [.setData(data, [callback])](#EThing.Resource+setData) ⇒ [<code>Resource</code>](#EThing.Resource)
     * _static_
-        * [.create(type, attributes, [callback])](#EThing.Device.create) ⇒ <code>Deferred</code>
+        * [.create(type, attributes, [callback])](#EThing.Device.create) ⇒ <code>Promise</code>
 
 <a name="new_EThing.Device_new"></a>
 
@@ -1088,13 +1076,13 @@ To get only the PathName, see [dirname](#EThing.Resource+dirname).</p>
 | --- | --- | --- |
 | operationId | <code>string</code> |  |
 | [data] | <code>object</code> \| <code>array</code> \| <code>anything</code> | <p>the optional arguments required by the operation</p> |
-| [binary] | <code>boolean</code> | <p>if true, return the content as binary data (as Blob in a browser, or Buffer in NodeJs). The arguments must be provided.</p> |
+| [binary] | <code>boolean</code> | <p>if true, return the content as ArrayBuffer, if false return the content as text. A string such as 'blob' or 'json' may also be passed.</p> |
 | [callback] | <code>function</code> | <p>it is executed once the request is complete whether in failure or success</p> |
 
 **Example**  
 ```js
 // if this device is a thermometer :
-device.execute('getTemperature').done(function(data){
+device.execute('getTemperature').then(function(data){
   // success, handle the data here
 });
 
@@ -1111,7 +1099,7 @@ device.execute('setState', true);
 
 
 // you may also do :
-device.getTemperature().done(function(data){
+device.getTemperature().then(function(data){
   // success, handle the data here
 });
 ```
@@ -1334,7 +1322,7 @@ To get only the PathName, see [dirname](#EThing.Resource+dirname).</p>
 
 **Example**  
 ```js
-resource.remove().done(function(){
+resource.remove().then(function(){
   // the resource was successfully removed
 });
 ```
@@ -1356,7 +1344,7 @@ resource.remove().done(function(){
 ```js
 resource.set({
   name: "newName.txt"
-}).done(function(){
+}).then(function(){
   console.log("the resource was successfully renamed to :"+this.name());
 });
 ```
@@ -1378,22 +1366,21 @@ resource.set({
 ```js
 resource.setData({
   "key": "value"
-}).done(function(){
+}).then(function(){
   // success
 });
 
 // you can also write :
-resource.setData("key", "value").done(function(){
+resource.setData("key", "value").then(function(){
   // success
 });
 ```
 <a name="EThing.Device.create"></a>
 
-#### Device.create(type, attributes, [callback]) ⇒ <code>Deferred</code>
+#### Device.create(type, attributes, [callback]) ⇒ <code>Promise</code>
 <p>Creates a new device</p>
 
 **Kind**: static method of [<code>Device</code>](#EThing.Device)  
-**Returns**: <code>Deferred</code> - <p>a [jQuery like Promise object](http://api.jquery.com/category/deferred-object/). [More ...](#EThing.request)</p>  
 **Emits**: <code>EThing#ething.device.event:created</code>  
 
 | Param | Type | Description |
@@ -1410,7 +1397,7 @@ EThing.Device.create('SSH', {
     user: "foo",
     password: "bar"
   }
-}).done(function(resource){
+}).then(function(resource){
     console.log('the new SSH device has been created');
 })
 ```
@@ -1460,7 +1447,7 @@ EThing.Device.create('SSH', {
         * [.set(properties, [callback])](#EThing.Resource+set) ⇒ [<code>Resource</code>](#EThing.Resource)
         * [.setData(data, [callback])](#EThing.Resource+setData) ⇒ [<code>Resource</code>](#EThing.Resource)
     * _static_
-        * [.create(attributes, [callback])](#EThing.File.create) ⇒ <code>Deferred</code>
+        * [.create(attributes, [callback])](#EThing.File.create) ⇒ <code>Promise</code>
 
 <a name="new_EThing.File_new"></a>
 
@@ -1523,7 +1510,7 @@ document.body.appendChild(image);
 EThing.request({
   url: imageFile.thumbnailLink(),
   dataType: "blob"
-}).done(function(blobData){
+}).then(function(blobData){
   // success
   var image = new Image();
   image.src = window.URL.createObjectURL( blobData );
@@ -1546,7 +1533,7 @@ EThing.request({
 **Example**  
 ```js
 // using EThing.request() :
-EThing.request(file.getContentUrl()).done(function(content){
+EThing.request(file.getContentUrl()).then(function(content){
   // success
   console.log('content as text : '+content);
 });
@@ -1586,7 +1573,7 @@ document.body.appendChild(image);
 
 **Example**  
 ```js
-file.execute().done(function(result){
+file.execute().then(function(result){
   // success
   console.log(result);
 });
@@ -1602,25 +1589,30 @@ file.execute().done(function(result){
 
 | Param | Type | Description |
 | --- | --- | --- |
-| [binary] | <code>boolean</code> | <p>if true, return the content as binary data (as Blob in a browser, or Buffer in NodeJs)</p> |
+| [binary] | <code>boolean</code> \| <code>string</code> | <p>if true, return the content as ArrayBuffer, if false return the content as text. A string such as 'blob' or 'json' may also be passed.</p> |
 | [callback] | <code>function</code> | <p>it is executed once the request is complete whether in failure or success</p> |
 
 **Example**  
 ```js
-file.read().done(function(content){
+file.read().then(function(content){
   // success
   console.log('content as text : '+content);
 });
 
+// nodejs + browser :
+file.read(true).then(function(contentAsArrayBuffer){
+  // success
+});
+
 // browser :
-file.read(true).done(function(contentAsBlob){
+file.read('blob').then(function(contentAsBlob){
   // success
 });
 
 // NodeJs :
 var fs = require("fs");
-EThing.get('kDO5Fk4').done(function(resource){
-	resource.read(true).done(function(data){
+EThing.get('kDO5Fk4').then(function(resource){
+	resource.read(true).then(function(data){
 		// data : Buffer instance
 		fs.writeFile(resource.basename(), data, function(){
 			console.log('It\'s saved!');
@@ -1639,12 +1631,12 @@ EThing.get('kDO5Fk4').done(function(resource){
 
 | Param | Type | Description |
 | --- | --- | --- |
-| data | <code>string</code> \| <code>blob</code> \| <code>arraybuffer</code> |  |
+| data | <code>string</code> \| <code>Blob</code> \| <code>Buffer</code> \| <code>ArrayBuffer</code> |  |
 | [callback] | <code>function</code> | <p>it is executed once the request is complete whether in failure or success</p> |
 
 **Example**  
 ```js
-file.write("hello world !").done(function(){
+file.write("hello world !").then(function(){
   // success
 });
 ```
@@ -1833,7 +1825,7 @@ To get only the PathName, see [dirname](#EThing.Resource+dirname).</p>
 
 **Example**  
 ```js
-resource.remove().done(function(){
+resource.remove().then(function(){
   // the resource was successfully removed
 });
 ```
@@ -1855,7 +1847,7 @@ resource.remove().done(function(){
 ```js
 resource.set({
   name: "newName.txt"
-}).done(function(){
+}).then(function(){
   console.log("the resource was successfully renamed to :"+this.name());
 });
 ```
@@ -1877,18 +1869,18 @@ resource.set({
 ```js
 resource.setData({
   "key": "value"
-}).done(function(){
+}).then(function(){
   // success
 });
 
 // you can also write :
-resource.setData("key", "value").done(function(){
+resource.setData("key", "value").then(function(){
   // success
 });
 ```
 <a name="EThing.File.create"></a>
 
-#### File.create(attributes, [callback]) ⇒ <code>Deferred</code>
+#### File.create(attributes, [callback]) ⇒ <code>Promise</code>
 <p>Creates a new File from the following attributes :</p>
 <ul>
 <li>name {string} <strong>required</strong> the name of the file</li>
@@ -1898,7 +1890,6 @@ resource.setData("key", "value").done(function(){
 </ul>
 
 **Kind**: static method of [<code>File</code>](#EThing.File)  
-**Returns**: <code>Deferred</code> - <p>a [jQuery like Promise object](http://api.jquery.com/category/deferred-object/). [More ...](#EThing.request)</p>  
 **Emits**: <code>EThing#ething.file.event:created</code>  
 
 | Param | Type | Description |
@@ -1911,7 +1902,7 @@ resource.setData("key", "value").done(function(){
 EThing.File.create({
   name: "foobar.txt",
   description: "this is my file"
-}).done(function(resource){
+}).then(function(resource){
     console.log('file created : ' + resource.name());
 })
 ```
@@ -2141,7 +2132,7 @@ To get only the PathName, see [dirname](#EThing.Resource+dirname).</p>
 
 **Example**  
 ```js
-resource.remove().done(function(){
+resource.remove().then(function(){
   // the resource was successfully removed
 });
 ```
@@ -2163,7 +2154,7 @@ resource.remove().done(function(){
 ```js
 resource.set({
   name: "newName.txt"
-}).done(function(){
+}).then(function(){
   console.log("the resource was successfully renamed to :"+this.name());
 });
 ```
@@ -2185,12 +2176,12 @@ resource.set({
 ```js
 resource.setData({
   "key": "value"
-}).done(function(){
+}).then(function(){
   // success
 });
 
 // you can also write :
-resource.setData("key", "value").done(function(){
+resource.setData("key", "value").then(function(){
   // success
 });
 ```
@@ -2234,7 +2225,7 @@ resource.setData("key", "value").done(function(){
         * [.set(properties, [callback])](#EThing.Resource+set) ⇒ [<code>Resource</code>](#EThing.Resource)
         * [.setData(data, [callback])](#EThing.Resource+setData) ⇒ [<code>Resource</code>](#EThing.Resource)
     * _static_
-        * [.create(attributes, [callback])](#EThing.Rule.create) ⇒ <code>Deferred</code>
+        * [.create(attributes, [callback])](#EThing.Rule.create) ⇒ <code>Promise</code>
 
 <a name="new_EThing.Rule_new"></a>
 
@@ -2472,7 +2463,7 @@ To get only the PathName, see [dirname](#EThing.Resource+dirname).</p>
 
 **Example**  
 ```js
-resource.remove().done(function(){
+resource.remove().then(function(){
   // the resource was successfully removed
 });
 ```
@@ -2494,7 +2485,7 @@ resource.remove().done(function(){
 ```js
 resource.set({
   name: "newName.txt"
-}).done(function(){
+}).then(function(){
   console.log("the resource was successfully renamed to :"+this.name());
 });
 ```
@@ -2516,18 +2507,18 @@ resource.set({
 ```js
 resource.setData({
   "key": "value"
-}).done(function(){
+}).then(function(){
   // success
 });
 
 // you can also write :
-resource.setData("key", "value").done(function(){
+resource.setData("key", "value").then(function(){
   // success
 });
 ```
 <a name="EThing.Rule.create"></a>
 
-#### Rule.create(attributes, [callback]) ⇒ <code>Deferred</code>
+#### Rule.create(attributes, [callback]) ⇒ <code>Promise</code>
 <p>Creates a new Rule from the following attributes :</p>
 <ul>
 <li>name {string} <strong>required</strong> the name of the rule</li>
@@ -2541,7 +2532,6 @@ resource.setData("key", "value").done(function(){
 </ul>
 
 **Kind**: static method of [<code>Rule</code>](#EThing.Rule)  
-**Returns**: <code>Deferred</code> - <p>a [jQuery like Promise object](http://api.jquery.com/category/deferred-object/). [More ...](#EThing.request)</p>  
 **Emits**: <code>EThing#ething.rule.event:created</code>  
 
 | Param | Type | Description |
@@ -2557,7 +2547,7 @@ EThing.Rule.create({
   event: {
     type: 'ResourceCreated' // this rule will be fired each time a resource is created !
   }
-}).done(function(resource){
+}).then(function(resource){
     console.log('the new rule is created');
 })
 ```
@@ -2609,7 +2599,7 @@ EThing.Rule.create({
         * [.set(properties, [callback])](#EThing.Resource+set) ⇒ [<code>Resource</code>](#EThing.Resource)
         * [.setData(data, [callback])](#EThing.Resource+setData) ⇒ [<code>Resource</code>](#EThing.Resource)
     * _static_
-        * [.create(attributes, [callback])](#EThing.Table.create) ⇒ <code>Deferred</code>
+        * [.create(attributes, [callback])](#EThing.Table.create) ⇒ <code>Promise</code>
 
 <a name="new_EThing.Table_new"></a>
 
@@ -2679,12 +2669,12 @@ EThing.Rule.create({
 **Example**  
 ```js
 // returns all the content of a table :
-table.select().done(function(data){
+table.select().then(function(data){
   // success
 });
 
 // returns the last 10 rows sorted by the "foo" column :
-table.select({start: -10, sort: "foo"}).done(function(data){
+table.select({start: -10, sort: "foo"}).then(function(data){
   // success
 });
 ```
@@ -2720,7 +2710,7 @@ table.select({start: -10, sort: "foo"}).done(function(data){
 **Example**  
 ```js
 // removes the last 10 rows :
-table.select(-10).done(function(data){
+table.select(-10).then(function(data){
   this.removeRow(data.map(function(row){
     return row.id;
   }));
@@ -2745,7 +2735,7 @@ table.select(-10).done(function(data){
 table.replaceRow({
 	 'id': 'g45Tdk4',
 	 'value': 45
-}).done(function(data){
+}).then(function(data){
   // updated !
 });
 ```
@@ -2770,7 +2760,7 @@ table.replaceRow({
 table.findOneAndReplace("name=='foo'", {
 	 'name': 'foo',
 	 'value': 'bar'
-}).done(function(table){
+}).then(function(table){
   // updated or inserted if not found !
 });
 ```
@@ -2795,7 +2785,7 @@ table.insert({
   'field1': "foobar",
   'field2': 3.14,
   'field3': true
-}).done(function(){
+}).then(function(){
   // success
 });
 ```
@@ -2808,7 +2798,7 @@ table.insert({
 **Returns**: [<code>Table</code>](#EThing.Table) - <p>The instance on which this method was called.
 // copy table content
 var tableSrc, tableDst;
-tableSrc.select().done(function(data){
+tableSrc.select().then(function(data){
   tableDst.import(data);
 });</p>  
 **this**: <code>{EThing.Table}</code>  
@@ -2835,13 +2825,13 @@ tableSrc.select().done(function(data){
 **Example**  
 ```js
 // using EThing.request() :
-EThing.request(table.getContentUrl()).done(function(rows){
+EThing.request(table.getContentUrl()).then(function(rows){
   // success, rows is an array of object 
   console.log('number of rows : '+rows.length);
 });
 
 // or using jQuery :
-$.getJSON(table.getContentUrl(true)).done(function(rows){
+$.getJSON(table.getContentUrl(true)).then(function(rows){
   // success
 });
 ```
@@ -3030,7 +3020,7 @@ To get only the PathName, see [dirname](#EThing.Resource+dirname).</p>
 
 **Example**  
 ```js
-resource.remove().done(function(){
+resource.remove().then(function(){
   // the resource was successfully removed
 });
 ```
@@ -3052,7 +3042,7 @@ resource.remove().done(function(){
 ```js
 resource.set({
   name: "newName.txt"
-}).done(function(){
+}).then(function(){
   console.log("the resource was successfully renamed to :"+this.name());
 });
 ```
@@ -3074,18 +3064,18 @@ resource.set({
 ```js
 resource.setData({
   "key": "value"
-}).done(function(){
+}).then(function(){
   // success
 });
 
 // you can also write :
-resource.setData("key", "value").done(function(){
+resource.setData("key", "value").then(function(){
   // success
 });
 ```
 <a name="EThing.Table.create"></a>
 
-#### Table.create(attributes, [callback]) ⇒ <code>Deferred</code>
+#### Table.create(attributes, [callback]) ⇒ <code>Promise</code>
 <p>Creates a new Table from the following attributes :</p>
 <ul>
 <li>name {string} <strong>required</strong> the name of the table</li>
@@ -3096,7 +3086,6 @@ resource.setData("key", "value").done(function(){
 </ul>
 
 **Kind**: static method of [<code>Table</code>](#EThing.Table)  
-**Returns**: <code>Deferred</code> - <p>a [jQuery like Promise object](http://api.jquery.com/category/deferred-object/). [More ...](#EThing.request)</p>  
 **Emits**: <code>EThing#ething.table.event:created</code>  
 
 | Param | Type | Description |
@@ -3110,7 +3099,7 @@ resource.setData("key", "value").done(function(){
 EThing.Table.create({
   name: "foobar",
   expireAfter: 3600*24*7 // the data are automatically removed after 7 weeks
-}).done(function(resource){
+}).then(function(resource){
     console.log('table created : ' + resource.name());
 })
 ```
@@ -3203,7 +3192,7 @@ EThing.arbo.load(function(){
 ```
 
 * [.arbo](#EThing.arbo) : <code>object</code>
-    * [.load([callback], [force])](#EThing.arbo.load) ⇒ <code>Deferred</code>
+    * [.load([callback], [force])](#EThing.arbo.load) ⇒ <code>Promise</code>
     * [.findOneById(id)](#EThing.arbo.findOneById) ⇒ [<code>Resource</code>](#EThing.Resource) \| <code>undefined</code>
     * [.find([filter])](#EThing.arbo.find) ⇒ [<code>Array.&lt;Resource&gt;</code>](#EThing.Resource)
     * [.findOne([filter])](#EThing.arbo.findOne) ⇒ [<code>Resource</code>](#EThing.Resource) \| <code>null</code>
@@ -3213,11 +3202,10 @@ EThing.arbo.load(function(){
 
 <a name="EThing.arbo.load"></a>
 
-#### arbo.load([callback], [force]) ⇒ <code>Deferred</code>
+#### arbo.load([callback], [force]) ⇒ <code>Promise</code>
 <p>Load all available resources.</p>
 
 **Kind**: static method of [<code>arbo</code>](#EThing.arbo)  
-**Returns**: <code>Deferred</code> - <p>a [jQuery like Promise object](http://api.jquery.com/category/deferred-object/).</p>  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -3294,84 +3282,68 @@ See [find](#EThing.arbo.find) for more details about the argument.</p>
 
 * [.auth](#EThing.auth) : <code>object</code>
     * [.isAuthenticated()](#EThing.auth.isAuthenticated) ⇒ <code>boolean</code>
-    * [.getApp()](#EThing.auth.getApp) ⇒ [<code>App</code>](#EThing.App)
-    * [.getDevice()](#EThing.auth.getDevice) ⇒ [<code>Device</code>](#EThing.Device)
-    * [.getResource()](#EThing.auth.getResource) ⇒ [<code>Resource</code>](#EThing.Resource)
-    * [.getScope()](#EThing.auth.getScope) ⇒ <code>string</code>
-    * [.reset()](#EThing.auth.reset)
+    * [.setApiKey(apiKey)](#EThing.auth.setApiKey)
+    * [.setBasicAuth(login, password)](#EThing.auth.setBasicAuth)
 
 <a name="EThing.auth.isAuthenticated"></a>
 
 #### auth.isAuthenticated() ⇒ <code>boolean</code>
-<p>Returns true if the authentication process has been successful.</p>
+<p>Returns true if an authentication scheme has been set.</p>
 
 **Kind**: static method of [<code>auth</code>](#EThing.auth)  
-<a name="EThing.auth.getApp"></a>
+<a name="EThing.auth.setApiKey"></a>
 
-#### auth.getApp() ⇒ [<code>App</code>](#EThing.App)
-<p>Returns the authenticated app. Only available with app's apikey authentication.</p>
-
-**Kind**: static method of [<code>auth</code>](#EThing.auth)  
-**Returns**: [<code>App</code>](#EThing.App) - <p>the authenticated app or null.</p>  
-<a name="EThing.auth.getDevice"></a>
-
-#### auth.getDevice() ⇒ [<code>Device</code>](#EThing.Device)
-<p>Returns the authenticated app. Only available with devices's apikey authentication.</p>
+#### auth.setApiKey(apiKey)
+<p>Set the apikey authentication scheme for the next requests.</p>
 
 **Kind**: static method of [<code>auth</code>](#EThing.auth)  
-**Returns**: [<code>Device</code>](#EThing.Device) - <p>the authenticated device or null.</p>  
-<a name="EThing.auth.getResource"></a>
 
-#### auth.getResource() ⇒ [<code>Resource</code>](#EThing.Resource)
-<p>Returns the authenticated resource. Only available with apikey authentication.</p>
+| Param | Type |
+| --- | --- |
+| apiKey | <code>string</code> | 
 
-**Kind**: static method of [<code>auth</code>](#EThing.auth)  
-**Returns**: [<code>Resource</code>](#EThing.Resource) - <p>the authenticated resource or null.</p>  
-<a name="EThing.auth.getScope"></a>
+<a name="EThing.auth.setBasicAuth"></a>
 
-#### auth.getScope() ⇒ <code>string</code>
-<p>Returns the scope of the current authentication</p>
+#### auth.setBasicAuth(login, password)
+<p>Set the basic authentication scheme for the next requests.</p>
 
 **Kind**: static method of [<code>auth</code>](#EThing.auth)  
-**Returns**: <code>string</code> - <p>the scope. May be an empty string if no permissions is set. May be null if full permissions.</p>  
-<a name="EThing.auth.reset"></a>
 
-#### auth.reset()
-<p>Reset authentication. You must restart an authentication process to make API calls again.</p>
+| Param | Type |
+| --- | --- |
+| login | <code>string</code> | 
+| password | <code>string</code> | 
 
-**Kind**: static method of [<code>auth</code>](#EThing.auth)  
 <a name="EThing.request"></a>
 
-### EThing.request(options, [callback]) ⇒ <code>Deferred</code>
+### EThing.request(options, [callback]) ⇒ <code>Promise</code>
 <p>Make a HTTP request. The options object contains the following properties :</p>
 <ul>
 <li>url {string} <strong>required</strong> The url of the request. The API url will be prepended to relative URLs.</li>
 <li>method {string} The HTTP request method to use. Default is GET.</li>
 <li>data {string|object|Blob|ArrayBuffer|Buffer} The query string for GET request. The HTTP request body for POST|PATCH|PUT requests. If an object is given, it will be serialized into a query string.</li>
 <li>contentType {string} When sending data to the server, use this content type. Default is 'application/octet-stream' if the data is an instance of ArrayBuffer or Buffer, if data is an instance of Blob, the default will be the type of the data itself, else 'application/x-www-form-urlencoded; charset=UTF-8'.</li>
-<li>dataType {string} The type of data that you're expecting back from the server. See [XMLHttpRequest standard](http://xhr.spec.whatwg.org/#the-responsetype-attribute).</li>
+<li>dataType {string} The type of data that you're expecting back from the server: 'arraybuffer', 'blob', 'document', 'json', 'text', 'stream'</li>
 <li>headers {object} Additional HTTP request headers.</li>
-<li>context {object} The value of this provided for the call of the callbacks</li>
+<li>context {object} The value of this provided for the call of the callback</li>
 <li>converter {function(data,XHR)} A function that returns the transformed value of the response</li>
 </ul>
 <p>You may also give a callback as a second parameter. This callback is executed when the request is complete whether in failure or success.
 On success, it receives the returned request data, as well as the XMLHttpRequest object.
 On failure, the first parameter will be a Error object describing the error.
 To check if a request is in failure :</p>
-<pre><code>EThing.request(options,function(data,xhr){
-    if(data instanceof EThing.Error){
+<pre><code>EThing.request(options,function(data,error){
+    if(error){
       // an error occurs, print the associated message
-      console.log(data.message);
+      console.log(error);
     }
   })`
 </code></pre>
 
 
-<p>This function returns a [jQuery like Promise object](http://api.jquery.com/category/deferred-object/) object.</p>
-<p>The done|fail|always functions take the same parameters than the [jQuery version](http://api.jquery.com/category/deferred-object/).</p>
+<p>This function returns a [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) object.</p>
 
 **Kind**: static method of [<code>EThing</code>](#EThing)  
-**Returns**: <code>Deferred</code> - <p>a [jQuery like Promise object](http://api.jquery.com/category/deferred-object/)</p>  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -3391,68 +3363,19 @@ EThing.request({
   data: 'some content here ...',
   contentType: 'text/plain'
 })
-.done(function(file){
+.then(function(file){
   console.log("the content was stored in the file "+file.name());
 })
-.fail(function(error){
-  console.log("an error occurs : "+error.message);
+.catch(function(error){
+  console.log("an error occurs : "+error);
 });
 ```
-<a name="EThing.apiRequestPrefilter"></a>
-
-### EThing.apiRequestPrefilter()
-**Kind**: static method of [<code>EThing</code>](#EThing)  
-<a name="EThing.ajaxSend"></a>
-
-### EThing.ajaxSend(handler)
-<p>Register a handler to be called just before API requests is sent.</p>
-
-**Kind**: static method of [<code>EThing</code>](#EThing)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| handler | <code>function</code> | <p>The function to be invoked.</p> |
-
-<a name="EThing.ajaxComplete"></a>
-
-### EThing.ajaxComplete(handler)
-<p>Register a handler to be called when API requests complete.</p>
-
-**Kind**: static method of [<code>EThing</code>](#EThing)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| handler | <code>function</code> | <p>The function to be invoked.</p> |
-
-<a name="EThing.ajaxSuccess"></a>
-
-### EThing.ajaxSuccess(handler)
-<p>Register a handler to be called when API requests complete successfully.</p>
-
-**Kind**: static method of [<code>EThing</code>](#EThing)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| handler | <code>function</code> | <p>The function to be invoked.</p> |
-
-<a name="EThing.ajaxError"></a>
-
-### EThing.ajaxError(handler)
-<p>Register a handler to be called when API requests complete with an error.</p>
-
-**Kind**: static method of [<code>EThing</code>](#EThing)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| handler | <code>function</code> | <p>The function to be invoked.</p> |
-
 <a name="EThing.list"></a>
 
-### EThing.list([query], [callback]) ⇒ <code>Deferred</code>
+### EThing.list([query], [callback]) ⇒ <code>Promise</code>
 <p>This function get the available resources. A filter may be given to retrieve resources with specific attributes (see the HTTP API for more details).</p>
 
 **Kind**: static method of [<code>EThing</code>](#EThing)  
-**Returns**: <code>Deferred</code> - <p>a [jQuery like Promise object](http://api.jquery.com/category/deferred-object/). [More ...](#EThing.request)</p>  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -3462,22 +3385,21 @@ EThing.request({
 **Example**  
 ```js
 // get all the resources
-EThing.list().done(function(resources){
+EThing.list().then(function(resources){
     console.log(resources);
 })
 
 // get only File & Table resources
-EThing.list('type == "File" or type == "Table"').done(function(resources){
+EThing.list('type == "File" or type == "Table"').then(function(resources){
     console.log(resources);
 })
 ```
 <a name="EThing.get"></a>
 
-### EThing.get(resourceIdentifier, [callback]) ⇒ <code>Deferred</code>
+### EThing.get(resourceIdentifier, [callback]) ⇒ <code>Promise</code>
 <p>Gets a resource by its id.</p>
 
 **Kind**: static method of [<code>EThing</code>](#EThing)  
-**Returns**: <code>Deferred</code> - <p>a [jQuery like Promise object](http://api.jquery.com/category/deferred-object/). [More ...](#EThing.request)</p>  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -3487,13 +3409,13 @@ EThing.list('type == "File" or type == "Table"').done(function(resources){
 **Example**  
 ```js
 // get a resource by its id
-EThing.get("54516eb").done(function(resource){
+EThing.get("54516eb").then(function(resource){
     console.log('the name is ' + resource.name());
 })
 ```
 <a name="EThing.usage"></a>
 
-### EThing.usage([callback]) ⇒ <code>Deferred</code>
+### EThing.usage([callback]) ⇒ <code>Promise</code>
 <p>Gets an object containing informations about space usage :</p>
 <ul>
 <li>used {number} the amount of space used in bytes</li>
@@ -3501,7 +3423,6 @@ EThing.get("54516eb").done(function(resource){
 </ul>
 
 **Kind**: static method of [<code>EThing</code>](#EThing)  
-**Returns**: <code>Deferred</code> - <p>a [jQuery like Promise object](http://api.jquery.com/category/deferred-object/). [More ...](#EThing.request)</p>  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -3510,59 +3431,16 @@ EThing.get("54516eb").done(function(resource){
 **Example**  
 ```js
 // get the occupied space :
-EThing.usage().done(function(usage){
+EThing.usage().then(function(usage){
     console.log('space used : ' + (100 * usage.used / usage.quota_size) );
 })
 ```
-<a name="EThing.initialize"></a>
-
-### EThing.initialize(options, [errorFn]) ⇒ <code>Deferred</code>
-<p>Initialize the eThing library.</p>
-
-**Kind**: static method of [<code>EThing</code>](#EThing)  
-**Returns**: <code>Deferred</code> - <p>a [jQuery like Promise object](http://api.jquery.com/category/deferred-object/)</p>  
-**Emits**: <code>EThing#ething.event:authenticated</code>  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| options | <code>Object</code> |  |
-| options.serverUrl | <code>number</code> | <p>The URL of your eThing server (e.g. http://hostname:8000 ).</p> |
-| [options.apiKey] | <code>number</code> | <p>Authenticate with an API key.</p> |
-| [options.login] | <code>number</code> | <p>Basic Authentication login (Should be used only server side i.e. NodeJS).</p> |
-| [options.password] | <code>number</code> | <p>Basic Authentication password (Should be used only server side i.e. NodeJS).</p> |
-| [errorFn] | <code>function</code> | <p>it is executed on authentication error.</p> |
-
-**Example**  
-```js
-EThing.initialize({
-   serverUrl: 'http://hostname:8000',
-   apiKey: 'a4e28b3c-1f05-4a62-95f7-c12453b66b3c'
- }, function(){
-   // on authentication success
-   alert('connected !');
- }, function(error) {
-   // on authentication error
-   alert(error.message);
- });
-```
-<a name="EThing.authenticated"></a>
-
-### EThing.authenticated(callback)
-<p>Register a handler to be executed once the authentication is complete.</p>
-
-**Kind**: static method of [<code>EThing</code>](#EThing)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| callback | <code>function</code> | <p>it is executed on authentication success.</p> |
-
 <a name="EThing.notify"></a>
 
-### EThing.notify([subject], message, [callback]) ⇒ <code>Deferred</code>
+### EThing.notify([subject], message, [callback]) ⇒ <code>Promise</code>
 <p>Send a notification.</p>
 
 **Kind**: static method of [<code>EThing</code>](#EThing)  
-**Returns**: <code>Deferred</code> - <p>a [jQuery like Promise object](http://api.jquery.com/category/deferred-object/). [More ...](#EThing.request)</p>  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -3573,7 +3451,7 @@ EThing.initialize({
 **Example**  
 ```js
 EThing.notify("hello world")
-  .done(function(){
+  .then(function(){
     alert("A notification has been sent");
   })
 ```
@@ -3596,12 +3474,6 @@ EThing.notify("hello world")
 <a name="EThing.event_ething.app.created"></a>
 
 ### "ething.app.created"
-**Kind**: event emitted by [<code>EThing</code>](#EThing)  
-<a name="EThing.event_ething.authenticated"></a>
-
-### "ething.authenticated"
-<p>authenticated event.</p>
-
 **Kind**: event emitted by [<code>EThing</code>](#EThing)  
 <a name="EThing"></a>
 
@@ -3645,7 +3517,7 @@ EThing.notify("hello world")
             * [.set(properties, [callback])](#EThing.Resource+set) ⇒ [<code>Resource</code>](#EThing.Resource)
             * [.setData(data, [callback])](#EThing.Resource+setData) ⇒ [<code>Resource</code>](#EThing.Resource)
         * _static_
-            * [.create(attributes, [callback])](#EThing.App.create) ⇒ <code>Deferred</code>
+            * [.create(attributes, [callback])](#EThing.App.create) ⇒ <code>Promise</code>
     * [.Folder](#EThing.Folder) ⇐ [<code>Resource</code>](#EThing.Resource)
         * [new Folder(json)](#new_EThing.Folder_new)
         * [.ls](#EThing.Folder+ls) ⇒ [<code>Array.&lt;Resource&gt;</code>](#EThing.Resource)
@@ -3705,7 +3577,7 @@ EThing.notify("hello world")
             * [.set(properties, [callback])](#EThing.Resource+set) ⇒ [<code>Resource</code>](#EThing.Resource)
             * [.setData(data, [callback])](#EThing.Resource+setData) ⇒ [<code>Resource</code>](#EThing.Resource)
         * _static_
-            * [.create(type, attributes, [callback])](#EThing.Device.create) ⇒ <code>Deferred</code>
+            * [.create(type, attributes, [callback])](#EThing.Device.create) ⇒ <code>Promise</code>
     * [.File](#EThing.File) ⇐ [<code>Resource</code>](#EThing.Resource)
         * [new File(json)](#new_EThing.File_new)
         * _instance_
@@ -3743,7 +3615,7 @@ EThing.notify("hello world")
             * [.set(properties, [callback])](#EThing.Resource+set) ⇒ [<code>Resource</code>](#EThing.Resource)
             * [.setData(data, [callback])](#EThing.Resource+setData) ⇒ [<code>Resource</code>](#EThing.Resource)
         * _static_
-            * [.create(attributes, [callback])](#EThing.File.create) ⇒ <code>Deferred</code>
+            * [.create(attributes, [callback])](#EThing.File.create) ⇒ <code>Promise</code>
     * [.Resource](#EThing.Resource)
         * [new Resource(json)](#new_EThing.Resource_new)
         * [.parent()](#EThing.Resource+parent) ⇒ [<code>Resource</code>](#EThing.Resource) \| <code>undefined</code>
@@ -3799,7 +3671,7 @@ EThing.notify("hello world")
             * [.set(properties, [callback])](#EThing.Resource+set) ⇒ [<code>Resource</code>](#EThing.Resource)
             * [.setData(data, [callback])](#EThing.Resource+setData) ⇒ [<code>Resource</code>](#EThing.Resource)
         * _static_
-            * [.create(attributes, [callback])](#EThing.Rule.create) ⇒ <code>Deferred</code>
+            * [.create(attributes, [callback])](#EThing.Rule.create) ⇒ <code>Promise</code>
     * [.Table](#EThing.Table) ⇐ [<code>Resource</code>](#EThing.Resource)
         * [new Table(json)](#new_EThing.Table_new)
         * _instance_
@@ -3839,13 +3711,13 @@ EThing.notify("hello world")
             * [.set(properties, [callback])](#EThing.Resource+set) ⇒ [<code>Resource</code>](#EThing.Resource)
             * [.setData(data, [callback])](#EThing.Resource+setData) ⇒ [<code>Resource</code>](#EThing.Resource)
         * _static_
-            * [.create(attributes, [callback])](#EThing.Table.create) ⇒ <code>Deferred</code>
+            * [.create(attributes, [callback])](#EThing.Table.create) ⇒ <code>Promise</code>
     * [.on](#EThing.on)
     * [.off](#EThing.off)
     * [.one](#EThing.one)
     * [.trigger](#EThing.trigger)
     * [.arbo](#EThing.arbo) : <code>object</code>
-        * [.load([callback], [force])](#EThing.arbo.load) ⇒ <code>Deferred</code>
+        * [.load([callback], [force])](#EThing.arbo.load) ⇒ <code>Promise</code>
         * [.findOneById(id)](#EThing.arbo.findOneById) ⇒ [<code>Resource</code>](#EThing.Resource) \| <code>undefined</code>
         * [.find([filter])](#EThing.arbo.find) ⇒ [<code>Array.&lt;Resource&gt;</code>](#EThing.Resource)
         * [.findOne([filter])](#EThing.arbo.findOne) ⇒ [<code>Resource</code>](#EThing.Resource) \| <code>null</code>
@@ -3854,29 +3726,18 @@ EThing.notify("hello world")
         * [.root()](#EThing.arbo.root) ⇒ [<code>Folder</code>](#EThing.Folder) \| <code>null</code>
     * [.auth](#EThing.auth) : <code>object</code>
         * [.isAuthenticated()](#EThing.auth.isAuthenticated) ⇒ <code>boolean</code>
-        * [.getApp()](#EThing.auth.getApp) ⇒ [<code>App</code>](#EThing.App)
-        * [.getDevice()](#EThing.auth.getDevice) ⇒ [<code>Device</code>](#EThing.Device)
-        * [.getResource()](#EThing.auth.getResource) ⇒ [<code>Resource</code>](#EThing.Resource)
-        * [.getScope()](#EThing.auth.getScope) ⇒ <code>string</code>
-        * [.reset()](#EThing.auth.reset)
-    * [.request(options, [callback])](#EThing.request) ⇒ <code>Deferred</code>
-    * [.apiRequestPrefilter()](#EThing.apiRequestPrefilter)
-    * [.ajaxSend(handler)](#EThing.ajaxSend)
-    * [.ajaxComplete(handler)](#EThing.ajaxComplete)
-    * [.ajaxSuccess(handler)](#EThing.ajaxSuccess)
-    * [.ajaxError(handler)](#EThing.ajaxError)
-    * [.list([query], [callback])](#EThing.list) ⇒ <code>Deferred</code>
-    * [.get(resourceIdentifier, [callback])](#EThing.get) ⇒ <code>Deferred</code>
-    * [.usage([callback])](#EThing.usage) ⇒ <code>Deferred</code>
-    * [.initialize(options, [errorFn])](#EThing.initialize) ⇒ <code>Deferred</code>
-    * [.authenticated(callback)](#EThing.authenticated)
-    * [.notify([subject], message, [callback])](#EThing.notify) ⇒ <code>Deferred</code>
+        * [.setApiKey(apiKey)](#EThing.auth.setApiKey)
+        * [.setBasicAuth(login, password)](#EThing.auth.setBasicAuth)
+    * [.request(options, [callback])](#EThing.request) ⇒ <code>Promise</code>
+    * [.list([query], [callback])](#EThing.list) ⇒ <code>Promise</code>
+    * [.get(resourceIdentifier, [callback])](#EThing.get) ⇒ <code>Promise</code>
+    * [.usage([callback])](#EThing.usage) ⇒ <code>Promise</code>
+    * [.notify([subject], message, [callback])](#EThing.notify) ⇒ <code>Promise</code>
     * ["ething.resource.removed"](#EThing.event_ething.resource.removed)
     * ["ething.file.created"](#EThing.event_ething.file.created)
     * ["ething.table.created"](#EThing.event_ething.table.created)
     * ["ething.device.created"](#EThing.event_ething.device.created)
     * ["ething.app.created"](#EThing.event_ething.app.created)
-    * ["ething.authenticated"](#EThing.event_ething.authenticated)
 
 <a name="EThing.App"></a>
 
@@ -3921,7 +3782,7 @@ EThing.notify("hello world")
         * [.set(properties, [callback])](#EThing.Resource+set) ⇒ [<code>Resource</code>](#EThing.Resource)
         * [.setData(data, [callback])](#EThing.Resource+setData) ⇒ [<code>Resource</code>](#EThing.Resource)
     * _static_
-        * [.create(attributes, [callback])](#EThing.App.create) ⇒ <code>Deferred</code>
+        * [.create(attributes, [callback])](#EThing.App.create) ⇒ <code>Promise</code>
 
 <a name="new_EThing.App_new"></a>
 
@@ -3963,7 +3824,7 @@ document.body.appendChild(image);
 EThing.request({
   url: imageFile.iconLink(),
   dataType: "blob"
-}).done(function(blobData){
+}).then(function(blobData){
   // success
   var image = new Image();
   image.src = window.URL.createObjectURL( blobData );
@@ -3986,7 +3847,7 @@ EThing.request({
 **Example**  
 ```js
 // using EThing.request() :
-EThing.request(app.getContentUrl()).done(function(content){
+EThing.request(app.getContentUrl()).then(function(content){
   // success
   console.log('content as text : '+content);
 });
@@ -4224,7 +4085,7 @@ To get only the PathName, see [dirname](#EThing.Resource+dirname).</p>
 
 **Example**  
 ```js
-resource.remove().done(function(){
+resource.remove().then(function(){
   // the resource was successfully removed
 });
 ```
@@ -4246,7 +4107,7 @@ resource.remove().done(function(){
 ```js
 resource.set({
   name: "newName.txt"
-}).done(function(){
+}).then(function(){
   console.log("the resource was successfully renamed to :"+this.name());
 });
 ```
@@ -4268,18 +4129,18 @@ resource.set({
 ```js
 resource.setData({
   "key": "value"
-}).done(function(){
+}).then(function(){
   // success
 });
 
 // you can also write :
-resource.setData("key", "value").done(function(){
+resource.setData("key", "value").then(function(){
   // success
 });
 ```
 <a name="EThing.App.create"></a>
 
-#### App.create(attributes, [callback]) ⇒ <code>Deferred</code>
+#### App.create(attributes, [callback]) ⇒ <code>Promise</code>
 <p>Creates a new Application from the following attributes :</p>
 <ul>
 <li>name {string} <strong>required</strong> the name of the application</li>
@@ -4290,7 +4151,6 @@ resource.setData("key", "value").done(function(){
 </ul>
 
 **Kind**: static method of [<code>App</code>](#EThing.App)  
-**Returns**: <code>Deferred</code> - <p>a [jQuery like Promise object](http://api.jquery.com/category/deferred-object/). [More ...](#EThing.request)</p>  
 **Emits**: <code>EThing#ething.app.event:created</code>  
 
 | Param | Type | Description |
@@ -4305,7 +4165,7 @@ EThing.App.create({
   content: "<html><body>hello world !</body></html>",
   icon: <icon_data>, // File, Blob, Buffer, ArrayBuffer or base64 string
   scope: "resource:read settings:read",
-}).done(function(resource){
+}).then(function(resource){
     console.log('the new app can be accessed through : ' + resource.url());
 })
 ```
@@ -4612,7 +4472,7 @@ To get only the PathName, see [dirname](#EThing.Resource+dirname).</p>
         * [.set(properties, [callback])](#EThing.Resource+set) ⇒ [<code>Resource</code>](#EThing.Resource)
         * [.setData(data, [callback])](#EThing.Resource+setData) ⇒ [<code>Resource</code>](#EThing.Resource)
     * _static_
-        * [.create(type, attributes, [callback])](#EThing.Device.create) ⇒ <code>Deferred</code>
+        * [.create(type, attributes, [callback])](#EThing.Device.create) ⇒ <code>Promise</code>
 
 <a name="new_EThing.Device_new"></a>
 
@@ -4678,13 +4538,13 @@ To get only the PathName, see [dirname](#EThing.Resource+dirname).</p>
 | --- | --- | --- |
 | operationId | <code>string</code> |  |
 | [data] | <code>object</code> \| <code>array</code> \| <code>anything</code> | <p>the optional arguments required by the operation</p> |
-| [binary] | <code>boolean</code> | <p>if true, return the content as binary data (as Blob in a browser, or Buffer in NodeJs). The arguments must be provided.</p> |
+| [binary] | <code>boolean</code> | <p>if true, return the content as ArrayBuffer, if false return the content as text. A string such as 'blob' or 'json' may also be passed.</p> |
 | [callback] | <code>function</code> | <p>it is executed once the request is complete whether in failure or success</p> |
 
 **Example**  
 ```js
 // if this device is a thermometer :
-device.execute('getTemperature').done(function(data){
+device.execute('getTemperature').then(function(data){
   // success, handle the data here
 });
 
@@ -4701,7 +4561,7 @@ device.execute('setState', true);
 
 
 // you may also do :
-device.getTemperature().done(function(data){
+device.getTemperature().then(function(data){
   // success, handle the data here
 });
 ```
@@ -4924,7 +4784,7 @@ To get only the PathName, see [dirname](#EThing.Resource+dirname).</p>
 
 **Example**  
 ```js
-resource.remove().done(function(){
+resource.remove().then(function(){
   // the resource was successfully removed
 });
 ```
@@ -4946,7 +4806,7 @@ resource.remove().done(function(){
 ```js
 resource.set({
   name: "newName.txt"
-}).done(function(){
+}).then(function(){
   console.log("the resource was successfully renamed to :"+this.name());
 });
 ```
@@ -4968,22 +4828,21 @@ resource.set({
 ```js
 resource.setData({
   "key": "value"
-}).done(function(){
+}).then(function(){
   // success
 });
 
 // you can also write :
-resource.setData("key", "value").done(function(){
+resource.setData("key", "value").then(function(){
   // success
 });
 ```
 <a name="EThing.Device.create"></a>
 
-#### Device.create(type, attributes, [callback]) ⇒ <code>Deferred</code>
+#### Device.create(type, attributes, [callback]) ⇒ <code>Promise</code>
 <p>Creates a new device</p>
 
 **Kind**: static method of [<code>Device</code>](#EThing.Device)  
-**Returns**: <code>Deferred</code> - <p>a [jQuery like Promise object](http://api.jquery.com/category/deferred-object/). [More ...](#EThing.request)</p>  
 **Emits**: <code>EThing#ething.device.event:created</code>  
 
 | Param | Type | Description |
@@ -5000,7 +4859,7 @@ EThing.Device.create('SSH', {
     user: "foo",
     password: "bar"
   }
-}).done(function(resource){
+}).then(function(resource){
     console.log('the new SSH device has been created');
 })
 ```
@@ -5050,7 +4909,7 @@ EThing.Device.create('SSH', {
         * [.set(properties, [callback])](#EThing.Resource+set) ⇒ [<code>Resource</code>](#EThing.Resource)
         * [.setData(data, [callback])](#EThing.Resource+setData) ⇒ [<code>Resource</code>](#EThing.Resource)
     * _static_
-        * [.create(attributes, [callback])](#EThing.File.create) ⇒ <code>Deferred</code>
+        * [.create(attributes, [callback])](#EThing.File.create) ⇒ <code>Promise</code>
 
 <a name="new_EThing.File_new"></a>
 
@@ -5113,7 +4972,7 @@ document.body.appendChild(image);
 EThing.request({
   url: imageFile.thumbnailLink(),
   dataType: "blob"
-}).done(function(blobData){
+}).then(function(blobData){
   // success
   var image = new Image();
   image.src = window.URL.createObjectURL( blobData );
@@ -5136,7 +4995,7 @@ EThing.request({
 **Example**  
 ```js
 // using EThing.request() :
-EThing.request(file.getContentUrl()).done(function(content){
+EThing.request(file.getContentUrl()).then(function(content){
   // success
   console.log('content as text : '+content);
 });
@@ -5176,7 +5035,7 @@ document.body.appendChild(image);
 
 **Example**  
 ```js
-file.execute().done(function(result){
+file.execute().then(function(result){
   // success
   console.log(result);
 });
@@ -5192,25 +5051,30 @@ file.execute().done(function(result){
 
 | Param | Type | Description |
 | --- | --- | --- |
-| [binary] | <code>boolean</code> | <p>if true, return the content as binary data (as Blob in a browser, or Buffer in NodeJs)</p> |
+| [binary] | <code>boolean</code> \| <code>string</code> | <p>if true, return the content as ArrayBuffer, if false return the content as text. A string such as 'blob' or 'json' may also be passed.</p> |
 | [callback] | <code>function</code> | <p>it is executed once the request is complete whether in failure or success</p> |
 
 **Example**  
 ```js
-file.read().done(function(content){
+file.read().then(function(content){
   // success
   console.log('content as text : '+content);
 });
 
+// nodejs + browser :
+file.read(true).then(function(contentAsArrayBuffer){
+  // success
+});
+
 // browser :
-file.read(true).done(function(contentAsBlob){
+file.read('blob').then(function(contentAsBlob){
   // success
 });
 
 // NodeJs :
 var fs = require("fs");
-EThing.get('kDO5Fk4').done(function(resource){
-	resource.read(true).done(function(data){
+EThing.get('kDO5Fk4').then(function(resource){
+	resource.read(true).then(function(data){
 		// data : Buffer instance
 		fs.writeFile(resource.basename(), data, function(){
 			console.log('It\'s saved!');
@@ -5229,12 +5093,12 @@ EThing.get('kDO5Fk4').done(function(resource){
 
 | Param | Type | Description |
 | --- | --- | --- |
-| data | <code>string</code> \| <code>blob</code> \| <code>arraybuffer</code> |  |
+| data | <code>string</code> \| <code>Blob</code> \| <code>Buffer</code> \| <code>ArrayBuffer</code> |  |
 | [callback] | <code>function</code> | <p>it is executed once the request is complete whether in failure or success</p> |
 
 **Example**  
 ```js
-file.write("hello world !").done(function(){
+file.write("hello world !").then(function(){
   // success
 });
 ```
@@ -5423,7 +5287,7 @@ To get only the PathName, see [dirname](#EThing.Resource+dirname).</p>
 
 **Example**  
 ```js
-resource.remove().done(function(){
+resource.remove().then(function(){
   // the resource was successfully removed
 });
 ```
@@ -5445,7 +5309,7 @@ resource.remove().done(function(){
 ```js
 resource.set({
   name: "newName.txt"
-}).done(function(){
+}).then(function(){
   console.log("the resource was successfully renamed to :"+this.name());
 });
 ```
@@ -5467,18 +5331,18 @@ resource.set({
 ```js
 resource.setData({
   "key": "value"
-}).done(function(){
+}).then(function(){
   // success
 });
 
 // you can also write :
-resource.setData("key", "value").done(function(){
+resource.setData("key", "value").then(function(){
   // success
 });
 ```
 <a name="EThing.File.create"></a>
 
-#### File.create(attributes, [callback]) ⇒ <code>Deferred</code>
+#### File.create(attributes, [callback]) ⇒ <code>Promise</code>
 <p>Creates a new File from the following attributes :</p>
 <ul>
 <li>name {string} <strong>required</strong> the name of the file</li>
@@ -5488,7 +5352,6 @@ resource.setData("key", "value").done(function(){
 </ul>
 
 **Kind**: static method of [<code>File</code>](#EThing.File)  
-**Returns**: <code>Deferred</code> - <p>a [jQuery like Promise object](http://api.jquery.com/category/deferred-object/). [More ...](#EThing.request)</p>  
 **Emits**: <code>EThing#ething.file.event:created</code>  
 
 | Param | Type | Description |
@@ -5501,7 +5364,7 @@ resource.setData("key", "value").done(function(){
 EThing.File.create({
   name: "foobar.txt",
   description: "this is my file"
-}).done(function(resource){
+}).then(function(resource){
     console.log('file created : ' + resource.name());
 })
 ```
@@ -5731,7 +5594,7 @@ To get only the PathName, see [dirname](#EThing.Resource+dirname).</p>
 
 **Example**  
 ```js
-resource.remove().done(function(){
+resource.remove().then(function(){
   // the resource was successfully removed
 });
 ```
@@ -5753,7 +5616,7 @@ resource.remove().done(function(){
 ```js
 resource.set({
   name: "newName.txt"
-}).done(function(){
+}).then(function(){
   console.log("the resource was successfully renamed to :"+this.name());
 });
 ```
@@ -5775,12 +5638,12 @@ resource.set({
 ```js
 resource.setData({
   "key": "value"
-}).done(function(){
+}).then(function(){
   // success
 });
 
 // you can also write :
-resource.setData("key", "value").done(function(){
+resource.setData("key", "value").then(function(){
   // success
 });
 ```
@@ -5824,7 +5687,7 @@ resource.setData("key", "value").done(function(){
         * [.set(properties, [callback])](#EThing.Resource+set) ⇒ [<code>Resource</code>](#EThing.Resource)
         * [.setData(data, [callback])](#EThing.Resource+setData) ⇒ [<code>Resource</code>](#EThing.Resource)
     * _static_
-        * [.create(attributes, [callback])](#EThing.Rule.create) ⇒ <code>Deferred</code>
+        * [.create(attributes, [callback])](#EThing.Rule.create) ⇒ <code>Promise</code>
 
 <a name="new_EThing.Rule_new"></a>
 
@@ -6062,7 +5925,7 @@ To get only the PathName, see [dirname](#EThing.Resource+dirname).</p>
 
 **Example**  
 ```js
-resource.remove().done(function(){
+resource.remove().then(function(){
   // the resource was successfully removed
 });
 ```
@@ -6084,7 +5947,7 @@ resource.remove().done(function(){
 ```js
 resource.set({
   name: "newName.txt"
-}).done(function(){
+}).then(function(){
   console.log("the resource was successfully renamed to :"+this.name());
 });
 ```
@@ -6106,18 +5969,18 @@ resource.set({
 ```js
 resource.setData({
   "key": "value"
-}).done(function(){
+}).then(function(){
   // success
 });
 
 // you can also write :
-resource.setData("key", "value").done(function(){
+resource.setData("key", "value").then(function(){
   // success
 });
 ```
 <a name="EThing.Rule.create"></a>
 
-#### Rule.create(attributes, [callback]) ⇒ <code>Deferred</code>
+#### Rule.create(attributes, [callback]) ⇒ <code>Promise</code>
 <p>Creates a new Rule from the following attributes :</p>
 <ul>
 <li>name {string} <strong>required</strong> the name of the rule</li>
@@ -6131,7 +5994,6 @@ resource.setData("key", "value").done(function(){
 </ul>
 
 **Kind**: static method of [<code>Rule</code>](#EThing.Rule)  
-**Returns**: <code>Deferred</code> - <p>a [jQuery like Promise object](http://api.jquery.com/category/deferred-object/). [More ...](#EThing.request)</p>  
 **Emits**: <code>EThing#ething.rule.event:created</code>  
 
 | Param | Type | Description |
@@ -6147,7 +6009,7 @@ EThing.Rule.create({
   event: {
     type: 'ResourceCreated' // this rule will be fired each time a resource is created !
   }
-}).done(function(resource){
+}).then(function(resource){
     console.log('the new rule is created');
 })
 ```
@@ -6199,7 +6061,7 @@ EThing.Rule.create({
         * [.set(properties, [callback])](#EThing.Resource+set) ⇒ [<code>Resource</code>](#EThing.Resource)
         * [.setData(data, [callback])](#EThing.Resource+setData) ⇒ [<code>Resource</code>](#EThing.Resource)
     * _static_
-        * [.create(attributes, [callback])](#EThing.Table.create) ⇒ <code>Deferred</code>
+        * [.create(attributes, [callback])](#EThing.Table.create) ⇒ <code>Promise</code>
 
 <a name="new_EThing.Table_new"></a>
 
@@ -6269,12 +6131,12 @@ EThing.Rule.create({
 **Example**  
 ```js
 // returns all the content of a table :
-table.select().done(function(data){
+table.select().then(function(data){
   // success
 });
 
 // returns the last 10 rows sorted by the "foo" column :
-table.select({start: -10, sort: "foo"}).done(function(data){
+table.select({start: -10, sort: "foo"}).then(function(data){
   // success
 });
 ```
@@ -6310,7 +6172,7 @@ table.select({start: -10, sort: "foo"}).done(function(data){
 **Example**  
 ```js
 // removes the last 10 rows :
-table.select(-10).done(function(data){
+table.select(-10).then(function(data){
   this.removeRow(data.map(function(row){
     return row.id;
   }));
@@ -6335,7 +6197,7 @@ table.select(-10).done(function(data){
 table.replaceRow({
 	 'id': 'g45Tdk4',
 	 'value': 45
-}).done(function(data){
+}).then(function(data){
   // updated !
 });
 ```
@@ -6360,7 +6222,7 @@ table.replaceRow({
 table.findOneAndReplace("name=='foo'", {
 	 'name': 'foo',
 	 'value': 'bar'
-}).done(function(table){
+}).then(function(table){
   // updated or inserted if not found !
 });
 ```
@@ -6385,7 +6247,7 @@ table.insert({
   'field1': "foobar",
   'field2': 3.14,
   'field3': true
-}).done(function(){
+}).then(function(){
   // success
 });
 ```
@@ -6398,7 +6260,7 @@ table.insert({
 **Returns**: [<code>Table</code>](#EThing.Table) - <p>The instance on which this method was called.
 // copy table content
 var tableSrc, tableDst;
-tableSrc.select().done(function(data){
+tableSrc.select().then(function(data){
   tableDst.import(data);
 });</p>  
 **this**: <code>{EThing.Table}</code>  
@@ -6425,13 +6287,13 @@ tableSrc.select().done(function(data){
 **Example**  
 ```js
 // using EThing.request() :
-EThing.request(table.getContentUrl()).done(function(rows){
+EThing.request(table.getContentUrl()).then(function(rows){
   // success, rows is an array of object 
   console.log('number of rows : '+rows.length);
 });
 
 // or using jQuery :
-$.getJSON(table.getContentUrl(true)).done(function(rows){
+$.getJSON(table.getContentUrl(true)).then(function(rows){
   // success
 });
 ```
@@ -6620,7 +6482,7 @@ To get only the PathName, see [dirname](#EThing.Resource+dirname).</p>
 
 **Example**  
 ```js
-resource.remove().done(function(){
+resource.remove().then(function(){
   // the resource was successfully removed
 });
 ```
@@ -6642,7 +6504,7 @@ resource.remove().done(function(){
 ```js
 resource.set({
   name: "newName.txt"
-}).done(function(){
+}).then(function(){
   console.log("the resource was successfully renamed to :"+this.name());
 });
 ```
@@ -6664,18 +6526,18 @@ resource.set({
 ```js
 resource.setData({
   "key": "value"
-}).done(function(){
+}).then(function(){
   // success
 });
 
 // you can also write :
-resource.setData("key", "value").done(function(){
+resource.setData("key", "value").then(function(){
   // success
 });
 ```
 <a name="EThing.Table.create"></a>
 
-#### Table.create(attributes, [callback]) ⇒ <code>Deferred</code>
+#### Table.create(attributes, [callback]) ⇒ <code>Promise</code>
 <p>Creates a new Table from the following attributes :</p>
 <ul>
 <li>name {string} <strong>required</strong> the name of the table</li>
@@ -6686,7 +6548,6 @@ resource.setData("key", "value").done(function(){
 </ul>
 
 **Kind**: static method of [<code>Table</code>](#EThing.Table)  
-**Returns**: <code>Deferred</code> - <p>a [jQuery like Promise object](http://api.jquery.com/category/deferred-object/). [More ...](#EThing.request)</p>  
 **Emits**: <code>EThing#ething.table.event:created</code>  
 
 | Param | Type | Description |
@@ -6700,7 +6561,7 @@ resource.setData("key", "value").done(function(){
 EThing.Table.create({
   name: "foobar",
   expireAfter: 3600*24*7 // the data are automatically removed after 7 weeks
-}).done(function(resource){
+}).then(function(resource){
     console.log('table created : ' + resource.name());
 })
 ```
@@ -6793,7 +6654,7 @@ EThing.arbo.load(function(){
 ```
 
 * [.arbo](#EThing.arbo) : <code>object</code>
-    * [.load([callback], [force])](#EThing.arbo.load) ⇒ <code>Deferred</code>
+    * [.load([callback], [force])](#EThing.arbo.load) ⇒ <code>Promise</code>
     * [.findOneById(id)](#EThing.arbo.findOneById) ⇒ [<code>Resource</code>](#EThing.Resource) \| <code>undefined</code>
     * [.find([filter])](#EThing.arbo.find) ⇒ [<code>Array.&lt;Resource&gt;</code>](#EThing.Resource)
     * [.findOne([filter])](#EThing.arbo.findOne) ⇒ [<code>Resource</code>](#EThing.Resource) \| <code>null</code>
@@ -6803,11 +6664,10 @@ EThing.arbo.load(function(){
 
 <a name="EThing.arbo.load"></a>
 
-#### arbo.load([callback], [force]) ⇒ <code>Deferred</code>
+#### arbo.load([callback], [force]) ⇒ <code>Promise</code>
 <p>Load all available resources.</p>
 
 **Kind**: static method of [<code>arbo</code>](#EThing.arbo)  
-**Returns**: <code>Deferred</code> - <p>a [jQuery like Promise object](http://api.jquery.com/category/deferred-object/).</p>  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -6884,84 +6744,68 @@ See [find](#EThing.arbo.find) for more details about the argument.</p>
 
 * [.auth](#EThing.auth) : <code>object</code>
     * [.isAuthenticated()](#EThing.auth.isAuthenticated) ⇒ <code>boolean</code>
-    * [.getApp()](#EThing.auth.getApp) ⇒ [<code>App</code>](#EThing.App)
-    * [.getDevice()](#EThing.auth.getDevice) ⇒ [<code>Device</code>](#EThing.Device)
-    * [.getResource()](#EThing.auth.getResource) ⇒ [<code>Resource</code>](#EThing.Resource)
-    * [.getScope()](#EThing.auth.getScope) ⇒ <code>string</code>
-    * [.reset()](#EThing.auth.reset)
+    * [.setApiKey(apiKey)](#EThing.auth.setApiKey)
+    * [.setBasicAuth(login, password)](#EThing.auth.setBasicAuth)
 
 <a name="EThing.auth.isAuthenticated"></a>
 
 #### auth.isAuthenticated() ⇒ <code>boolean</code>
-<p>Returns true if the authentication process has been successful.</p>
+<p>Returns true if an authentication scheme has been set.</p>
 
 **Kind**: static method of [<code>auth</code>](#EThing.auth)  
-<a name="EThing.auth.getApp"></a>
+<a name="EThing.auth.setApiKey"></a>
 
-#### auth.getApp() ⇒ [<code>App</code>](#EThing.App)
-<p>Returns the authenticated app. Only available with app's apikey authentication.</p>
-
-**Kind**: static method of [<code>auth</code>](#EThing.auth)  
-**Returns**: [<code>App</code>](#EThing.App) - <p>the authenticated app or null.</p>  
-<a name="EThing.auth.getDevice"></a>
-
-#### auth.getDevice() ⇒ [<code>Device</code>](#EThing.Device)
-<p>Returns the authenticated app. Only available with devices's apikey authentication.</p>
+#### auth.setApiKey(apiKey)
+<p>Set the apikey authentication scheme for the next requests.</p>
 
 **Kind**: static method of [<code>auth</code>](#EThing.auth)  
-**Returns**: [<code>Device</code>](#EThing.Device) - <p>the authenticated device or null.</p>  
-<a name="EThing.auth.getResource"></a>
 
-#### auth.getResource() ⇒ [<code>Resource</code>](#EThing.Resource)
-<p>Returns the authenticated resource. Only available with apikey authentication.</p>
+| Param | Type |
+| --- | --- |
+| apiKey | <code>string</code> | 
 
-**Kind**: static method of [<code>auth</code>](#EThing.auth)  
-**Returns**: [<code>Resource</code>](#EThing.Resource) - <p>the authenticated resource or null.</p>  
-<a name="EThing.auth.getScope"></a>
+<a name="EThing.auth.setBasicAuth"></a>
 
-#### auth.getScope() ⇒ <code>string</code>
-<p>Returns the scope of the current authentication</p>
+#### auth.setBasicAuth(login, password)
+<p>Set the basic authentication scheme for the next requests.</p>
 
 **Kind**: static method of [<code>auth</code>](#EThing.auth)  
-**Returns**: <code>string</code> - <p>the scope. May be an empty string if no permissions is set. May be null if full permissions.</p>  
-<a name="EThing.auth.reset"></a>
 
-#### auth.reset()
-<p>Reset authentication. You must restart an authentication process to make API calls again.</p>
+| Param | Type |
+| --- | --- |
+| login | <code>string</code> | 
+| password | <code>string</code> | 
 
-**Kind**: static method of [<code>auth</code>](#EThing.auth)  
 <a name="EThing.request"></a>
 
-### EThing.request(options, [callback]) ⇒ <code>Deferred</code>
+### EThing.request(options, [callback]) ⇒ <code>Promise</code>
 <p>Make a HTTP request. The options object contains the following properties :</p>
 <ul>
 <li>url {string} <strong>required</strong> The url of the request. The API url will be prepended to relative URLs.</li>
 <li>method {string} The HTTP request method to use. Default is GET.</li>
 <li>data {string|object|Blob|ArrayBuffer|Buffer} The query string for GET request. The HTTP request body for POST|PATCH|PUT requests. If an object is given, it will be serialized into a query string.</li>
 <li>contentType {string} When sending data to the server, use this content type. Default is 'application/octet-stream' if the data is an instance of ArrayBuffer or Buffer, if data is an instance of Blob, the default will be the type of the data itself, else 'application/x-www-form-urlencoded; charset=UTF-8'.</li>
-<li>dataType {string} The type of data that you're expecting back from the server. See [XMLHttpRequest standard](http://xhr.spec.whatwg.org/#the-responsetype-attribute).</li>
+<li>dataType {string} The type of data that you're expecting back from the server: 'arraybuffer', 'blob', 'document', 'json', 'text', 'stream'</li>
 <li>headers {object} Additional HTTP request headers.</li>
-<li>context {object} The value of this provided for the call of the callbacks</li>
+<li>context {object} The value of this provided for the call of the callback</li>
 <li>converter {function(data,XHR)} A function that returns the transformed value of the response</li>
 </ul>
 <p>You may also give a callback as a second parameter. This callback is executed when the request is complete whether in failure or success.
 On success, it receives the returned request data, as well as the XMLHttpRequest object.
 On failure, the first parameter will be a Error object describing the error.
 To check if a request is in failure :</p>
-<pre><code>EThing.request(options,function(data,xhr){
-    if(data instanceof EThing.Error){
+<pre><code>EThing.request(options,function(data,error){
+    if(error){
       // an error occurs, print the associated message
-      console.log(data.message);
+      console.log(error);
     }
   })`
 </code></pre>
 
 
-<p>This function returns a [jQuery like Promise object](http://api.jquery.com/category/deferred-object/) object.</p>
-<p>The done|fail|always functions take the same parameters than the [jQuery version](http://api.jquery.com/category/deferred-object/).</p>
+<p>This function returns a [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) object.</p>
 
 **Kind**: static method of [<code>EThing</code>](#EThing)  
-**Returns**: <code>Deferred</code> - <p>a [jQuery like Promise object](http://api.jquery.com/category/deferred-object/)</p>  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -6981,68 +6825,19 @@ EThing.request({
   data: 'some content here ...',
   contentType: 'text/plain'
 })
-.done(function(file){
+.then(function(file){
   console.log("the content was stored in the file "+file.name());
 })
-.fail(function(error){
-  console.log("an error occurs : "+error.message);
+.catch(function(error){
+  console.log("an error occurs : "+error);
 });
 ```
-<a name="EThing.apiRequestPrefilter"></a>
-
-### EThing.apiRequestPrefilter()
-**Kind**: static method of [<code>EThing</code>](#EThing)  
-<a name="EThing.ajaxSend"></a>
-
-### EThing.ajaxSend(handler)
-<p>Register a handler to be called just before API requests is sent.</p>
-
-**Kind**: static method of [<code>EThing</code>](#EThing)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| handler | <code>function</code> | <p>The function to be invoked.</p> |
-
-<a name="EThing.ajaxComplete"></a>
-
-### EThing.ajaxComplete(handler)
-<p>Register a handler to be called when API requests complete.</p>
-
-**Kind**: static method of [<code>EThing</code>](#EThing)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| handler | <code>function</code> | <p>The function to be invoked.</p> |
-
-<a name="EThing.ajaxSuccess"></a>
-
-### EThing.ajaxSuccess(handler)
-<p>Register a handler to be called when API requests complete successfully.</p>
-
-**Kind**: static method of [<code>EThing</code>](#EThing)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| handler | <code>function</code> | <p>The function to be invoked.</p> |
-
-<a name="EThing.ajaxError"></a>
-
-### EThing.ajaxError(handler)
-<p>Register a handler to be called when API requests complete with an error.</p>
-
-**Kind**: static method of [<code>EThing</code>](#EThing)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| handler | <code>function</code> | <p>The function to be invoked.</p> |
-
 <a name="EThing.list"></a>
 
-### EThing.list([query], [callback]) ⇒ <code>Deferred</code>
+### EThing.list([query], [callback]) ⇒ <code>Promise</code>
 <p>This function get the available resources. A filter may be given to retrieve resources with specific attributes (see the HTTP API for more details).</p>
 
 **Kind**: static method of [<code>EThing</code>](#EThing)  
-**Returns**: <code>Deferred</code> - <p>a [jQuery like Promise object](http://api.jquery.com/category/deferred-object/). [More ...](#EThing.request)</p>  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -7052,22 +6847,21 @@ EThing.request({
 **Example**  
 ```js
 // get all the resources
-EThing.list().done(function(resources){
+EThing.list().then(function(resources){
     console.log(resources);
 })
 
 // get only File & Table resources
-EThing.list('type == "File" or type == "Table"').done(function(resources){
+EThing.list('type == "File" or type == "Table"').then(function(resources){
     console.log(resources);
 })
 ```
 <a name="EThing.get"></a>
 
-### EThing.get(resourceIdentifier, [callback]) ⇒ <code>Deferred</code>
+### EThing.get(resourceIdentifier, [callback]) ⇒ <code>Promise</code>
 <p>Gets a resource by its id.</p>
 
 **Kind**: static method of [<code>EThing</code>](#EThing)  
-**Returns**: <code>Deferred</code> - <p>a [jQuery like Promise object](http://api.jquery.com/category/deferred-object/). [More ...](#EThing.request)</p>  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -7077,13 +6871,13 @@ EThing.list('type == "File" or type == "Table"').done(function(resources){
 **Example**  
 ```js
 // get a resource by its id
-EThing.get("54516eb").done(function(resource){
+EThing.get("54516eb").then(function(resource){
     console.log('the name is ' + resource.name());
 })
 ```
 <a name="EThing.usage"></a>
 
-### EThing.usage([callback]) ⇒ <code>Deferred</code>
+### EThing.usage([callback]) ⇒ <code>Promise</code>
 <p>Gets an object containing informations about space usage :</p>
 <ul>
 <li>used {number} the amount of space used in bytes</li>
@@ -7091,7 +6885,6 @@ EThing.get("54516eb").done(function(resource){
 </ul>
 
 **Kind**: static method of [<code>EThing</code>](#EThing)  
-**Returns**: <code>Deferred</code> - <p>a [jQuery like Promise object](http://api.jquery.com/category/deferred-object/). [More ...](#EThing.request)</p>  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -7100,59 +6893,16 @@ EThing.get("54516eb").done(function(resource){
 **Example**  
 ```js
 // get the occupied space :
-EThing.usage().done(function(usage){
+EThing.usage().then(function(usage){
     console.log('space used : ' + (100 * usage.used / usage.quota_size) );
 })
 ```
-<a name="EThing.initialize"></a>
-
-### EThing.initialize(options, [errorFn]) ⇒ <code>Deferred</code>
-<p>Initialize the eThing library.</p>
-
-**Kind**: static method of [<code>EThing</code>](#EThing)  
-**Returns**: <code>Deferred</code> - <p>a [jQuery like Promise object](http://api.jquery.com/category/deferred-object/)</p>  
-**Emits**: <code>EThing#ething.event:authenticated</code>  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| options | <code>Object</code> |  |
-| options.serverUrl | <code>number</code> | <p>The URL of your eThing server (e.g. http://hostname:8000 ).</p> |
-| [options.apiKey] | <code>number</code> | <p>Authenticate with an API key.</p> |
-| [options.login] | <code>number</code> | <p>Basic Authentication login (Should be used only server side i.e. NodeJS).</p> |
-| [options.password] | <code>number</code> | <p>Basic Authentication password (Should be used only server side i.e. NodeJS).</p> |
-| [errorFn] | <code>function</code> | <p>it is executed on authentication error.</p> |
-
-**Example**  
-```js
-EThing.initialize({
-   serverUrl: 'http://hostname:8000',
-   apiKey: 'a4e28b3c-1f05-4a62-95f7-c12453b66b3c'
- }, function(){
-   // on authentication success
-   alert('connected !');
- }, function(error) {
-   // on authentication error
-   alert(error.message);
- });
-```
-<a name="EThing.authenticated"></a>
-
-### EThing.authenticated(callback)
-<p>Register a handler to be executed once the authentication is complete.</p>
-
-**Kind**: static method of [<code>EThing</code>](#EThing)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| callback | <code>function</code> | <p>it is executed on authentication success.</p> |
-
 <a name="EThing.notify"></a>
 
-### EThing.notify([subject], message, [callback]) ⇒ <code>Deferred</code>
+### EThing.notify([subject], message, [callback]) ⇒ <code>Promise</code>
 <p>Send a notification.</p>
 
 **Kind**: static method of [<code>EThing</code>](#EThing)  
-**Returns**: <code>Deferred</code> - <p>a [jQuery like Promise object](http://api.jquery.com/category/deferred-object/). [More ...](#EThing.request)</p>  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -7163,7 +6913,7 @@ EThing.initialize({
 **Example**  
 ```js
 EThing.notify("hello world")
-  .done(function(){
+  .then(function(){
     alert("A notification has been sent");
   })
 ```
@@ -7186,10 +6936,4 @@ EThing.notify("hello world")
 <a name="EThing.event_ething.app.created"></a>
 
 ### "ething.app.created"
-**Kind**: event emitted by [<code>EThing</code>](#EThing)  
-<a name="EThing.event_ething.authenticated"></a>
-
-### "ething.authenticated"
-<p>authenticated event.</p>
-
 **Kind**: event emitted by [<code>EThing</code>](#EThing)  
