@@ -12,7 +12,6 @@ require("./notify.js");
 require("./auth.js");
 require("./file.js");
 require("./table.js");
-require("./app.js");
 require("./rule.js");
 require("./device.js");
 require("./devices/http.js");

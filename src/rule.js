@@ -66,12 +66,12 @@ Rule.prototype.scriptExecutionCount = function() {
 }
 
 /**
- * Returns the last time this rule has been executed.
+ * Returns the last time this rule has been executed (or null if this rule has never been executed).
  * @this {EThing.Rule}
- * @returns {Date}
+ * @returns {Date|null}
  */
 Rule.prototype.scriptExecutionDate = function() {
-	return new Date(this._json.script_execution_date);
+	return this._json.script_execution_date ? new Date(this._json.script_execution_date) : null;
 }
 
 
