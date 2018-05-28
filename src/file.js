@@ -134,7 +134,7 @@ File.prototype.isScript = function() {
  * });
  *
  */
-File.prototype.execute = function(args, callback){
+File.prototype.execute = function(script_args, callback){
 	var args = [].slice.call(arguments);
     args.unshift(this);
     return File.execute.apply(EThing, args);

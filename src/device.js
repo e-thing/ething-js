@@ -159,7 +159,7 @@ Device.prototype.execute = function(){
 Device.prototype.executeUrl = function(operationId, data){
 	var url = 'devices/'+this.id()+'/call/'+operationId;
 	
-	if(isPlainObject(data) && Object.keys(data).length !== 0){
+	if(utils.isPlainObject(data) && Object.keys(data).length !== 0){
 		url += '?' + utils.param(data);
 	}
 	

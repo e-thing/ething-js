@@ -18,7 +18,6 @@
 <p>EThing - javascript API of the EThing project</p>
 
 **Kind**: global variable  
-**Version**: v0.1.0  
 
 * [EThing](#EThing)
     * [.Device](#EThing.Device) ⇐ [<code>Resource</code>](#EThing.Resource)

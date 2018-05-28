@@ -1,10 +1,11 @@
 /**
  * EThing - javascript API of the EThing project
- * @version v0.1.0
  */
 
 
 var EThing = require("./core.js");
+
+EThing.VERSION = VERSION;
 
 require("./resource.js");
 require("./settings.js");
