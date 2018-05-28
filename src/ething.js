@@ -5,7 +5,7 @@
 
 var EThing = require("./core.js");
 
-EThing.VERSION = VERSION;
+EThing.VERSION = '0.1.7';
 
 require("./resource.js");
 require("./settings.js");

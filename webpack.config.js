@@ -11,10 +11,5 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
 	library: "EThing",
 	libraryTarget: "umd"
-  },
-  plugins: [
-    new webpack.DefinePlugin({
-        VERSION: JSON.stringify(require("./package.json").version)
-    })
-  ]
+  }
 };
