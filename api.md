@@ -120,9 +120,8 @@
         * [new Rule(json)](#new_EThing.Rule_new)
         * _instance_
             * [.enabled()](#EThing.Rule+enabled) ⇒ <code>boolean</code>
-            * [.scriptReturnCode()](#EThing.Rule+scriptReturnCode) ⇒ <code>number</code>
-            * [.scriptExecutionCount()](#EThing.Rule+scriptExecutionCount) ⇒ <code>number</code>
-            * [.scriptExecutionDate()](#EThing.Rule+scriptExecutionDate) ⇒ <code>Date</code> \| <code>null</code>
+            * [.executionCount()](#EThing.Rule+executionCount) ⇒ <code>number</code>
+            * [.executionDate()](#EThing.Rule+executionDate) ⇒ <code>Date</code> \| <code>null</code>
             * [.execute([callback])](#EThing.Rule+execute) ⇒ [<code>Rule</code>](#EThing.Rule)
             * [.json()](#EThing.Resource+json) ⇒ <code>object</code>
             * [.isTypeof(type)](#EThing.Resource+isTypeof) ⇒ <code>boolean</code>
@@ -1421,9 +1420,8 @@ resource.setData("key", "value").then(function(){
     * [new Rule(json)](#new_EThing.Rule_new)
     * _instance_
         * [.enabled()](#EThing.Rule+enabled) ⇒ <code>boolean</code>
-        * [.scriptReturnCode()](#EThing.Rule+scriptReturnCode) ⇒ <code>number</code>
-        * [.scriptExecutionCount()](#EThing.Rule+scriptExecutionCount) ⇒ <code>number</code>
-        * [.scriptExecutionDate()](#EThing.Rule+scriptExecutionDate) ⇒ <code>Date</code> \| <code>null</code>
+        * [.executionCount()](#EThing.Rule+executionCount) ⇒ <code>number</code>
+        * [.executionDate()](#EThing.Rule+executionDate) ⇒ <code>Date</code> \| <code>null</code>
         * [.execute([callback])](#EThing.Rule+execute) ⇒ [<code>Rule</code>](#EThing.Rule)
         * [.json()](#EThing.Resource+json) ⇒ <code>object</code>
         * [.isTypeof(type)](#EThing.Resource+isTypeof) ⇒ <code>boolean</code>
@@ -1466,23 +1464,16 @@ resource.setData("key", "value").then(function(){
 
 **Kind**: instance method of [<code>Rule</code>](#EThing.Rule)  
 **this**: <code>{EThing.Rule}</code>  
-<a name="EThing.Rule+scriptReturnCode"></a>
+<a name="EThing.Rule+executionCount"></a>
 
-#### rule.scriptReturnCode() ⇒ <code>number</code>
-<p>Returns the last exit code returned by the script of this rule.</p>
-
-**Kind**: instance method of [<code>Rule</code>](#EThing.Rule)  
-**this**: <code>{EThing.Rule}</code>  
-<a name="EThing.Rule+scriptExecutionCount"></a>
-
-#### rule.scriptExecutionCount() ⇒ <code>number</code>
+#### rule.executionCount() ⇒ <code>number</code>
 <p>Returns the number of times this rule has been executed.</p>
 
 **Kind**: instance method of [<code>Rule</code>](#EThing.Rule)  
 **this**: <code>{EThing.Rule}</code>  
-<a name="EThing.Rule+scriptExecutionDate"></a>
+<a name="EThing.Rule+executionDate"></a>
 
-#### rule.scriptExecutionDate() ⇒ <code>Date</code> \| <code>null</code>
+#### rule.executionDate() ⇒ <code>Date</code> \| <code>null</code>
 <p>Returns the last time this rule has been executed (or null if this rule has never been executed).</p>
 
 **Kind**: instance method of [<code>Rule</code>](#EThing.Rule)  
@@ -1737,13 +1728,16 @@ resource.setData("key", "value").then(function(){
 <p>Creates a new Rule from the following attributes :</p>
 <ul>
 <li>name {string} <strong>required</strong> the name of the rule</li>
-<li>script {EThing.File} <strong>required</strong> the JavaScript code to be executed</li>
 <li>event {object} <strong>required</strong> the event object describing when to execute this rule<ul>
 <li>event.type {string} <strong>required</strong> the type name of the event (Timer, ResourceCreated, ...)</li>
 <li>event.*  some options depending of the type of event</li>
 </ul>
 </li>
-<li>script_args {string} an optional string holding the arguments to pass to the script</li>
+<li>action {object} <strong>required</strong> the action object describing the action to run<ul>
+<li>action.type {string} <strong>required</strong> the type name of the action (RunScript, ...)</li>
+<li>action.*  some options depending of the type of action</li>
+</ul>
+</li>
 </ul>
 
 **Kind**: static method of [<code>Rule</code>](#EThing.Rule)  
@@ -1758,9 +1752,12 @@ resource.setData("key", "value").then(function(){
 ```js
 EThing.Rule.create({
   name: "myRule",
-  script: <script_id>,
   event: {
     type: 'ResourceCreated' // this rule will be fired each time a resource is created !
+  },
+  action: {
+    type: 'RunScript',
+    script: <script_id> // this script will be executed when the rule is fired
   }
 }).then(function(resource){
     console.log('the new rule is created');
@@ -2752,9 +2749,8 @@ EThing.notify("hello world")
         * [new Rule(json)](#new_EThing.Rule_new)
         * _instance_
             * [.enabled()](#EThing.Rule+enabled) ⇒ <code>boolean</code>
-            * [.scriptReturnCode()](#EThing.Rule+scriptReturnCode) ⇒ <code>number</code>
-            * [.scriptExecutionCount()](#EThing.Rule+scriptExecutionCount) ⇒ <code>number</code>
-            * [.scriptExecutionDate()](#EThing.Rule+scriptExecutionDate) ⇒ <code>Date</code> \| <code>null</code>
+            * [.executionCount()](#EThing.Rule+executionCount) ⇒ <code>number</code>
+            * [.executionDate()](#EThing.Rule+executionDate) ⇒ <code>Date</code> \| <code>null</code>
             * [.execute([callback])](#EThing.Rule+execute) ⇒ [<code>Rule</code>](#EThing.Rule)
             * [.json()](#EThing.Resource+json) ⇒ <code>object</code>
             * [.isTypeof(type)](#EThing.Resource+isTypeof) ⇒ <code>boolean</code>
@@ -4053,9 +4049,8 @@ resource.setData("key", "value").then(function(){
     * [new Rule(json)](#new_EThing.Rule_new)
     * _instance_
         * [.enabled()](#EThing.Rule+enabled) ⇒ <code>boolean</code>
-        * [.scriptReturnCode()](#EThing.Rule+scriptReturnCode) ⇒ <code>number</code>
-        * [.scriptExecutionCount()](#EThing.Rule+scriptExecutionCount) ⇒ <code>number</code>
-        * [.scriptExecutionDate()](#EThing.Rule+scriptExecutionDate) ⇒ <code>Date</code> \| <code>null</code>
+        * [.executionCount()](#EThing.Rule+executionCount) ⇒ <code>number</code>
+        * [.executionDate()](#EThing.Rule+executionDate) ⇒ <code>Date</code> \| <code>null</code>
         * [.execute([callback])](#EThing.Rule+execute) ⇒ [<code>Rule</code>](#EThing.Rule)
         * [.json()](#EThing.Resource+json) ⇒ <code>object</code>
         * [.isTypeof(type)](#EThing.Resource+isTypeof) ⇒ <code>boolean</code>
@@ -4098,23 +4093,16 @@ resource.setData("key", "value").then(function(){
 
 **Kind**: instance method of [<code>Rule</code>](#EThing.Rule)  
 **this**: <code>{EThing.Rule}</code>  
-<a name="EThing.Rule+scriptReturnCode"></a>
+<a name="EThing.Rule+executionCount"></a>
 
-#### rule.scriptReturnCode() ⇒ <code>number</code>
-<p>Returns the last exit code returned by the script of this rule.</p>
-
-**Kind**: instance method of [<code>Rule</code>](#EThing.Rule)  
-**this**: <code>{EThing.Rule}</code>  
-<a name="EThing.Rule+scriptExecutionCount"></a>
-
-#### rule.scriptExecutionCount() ⇒ <code>number</code>
+#### rule.executionCount() ⇒ <code>number</code>
 <p>Returns the number of times this rule has been executed.</p>
 
 **Kind**: instance method of [<code>Rule</code>](#EThing.Rule)  
 **this**: <code>{EThing.Rule}</code>  
-<a name="EThing.Rule+scriptExecutionDate"></a>
+<a name="EThing.Rule+executionDate"></a>
 
-#### rule.scriptExecutionDate() ⇒ <code>Date</code> \| <code>null</code>
+#### rule.executionDate() ⇒ <code>Date</code> \| <code>null</code>
 <p>Returns the last time this rule has been executed (or null if this rule has never been executed).</p>
 
 **Kind**: instance method of [<code>Rule</code>](#EThing.Rule)  
@@ -4369,13 +4357,16 @@ resource.setData("key", "value").then(function(){
 <p>Creates a new Rule from the following attributes :</p>
 <ul>
 <li>name {string} <strong>required</strong> the name of the rule</li>
-<li>script {EThing.File} <strong>required</strong> the JavaScript code to be executed</li>
 <li>event {object} <strong>required</strong> the event object describing when to execute this rule<ul>
 <li>event.type {string} <strong>required</strong> the type name of the event (Timer, ResourceCreated, ...)</li>
 <li>event.*  some options depending of the type of event</li>
 </ul>
 </li>
-<li>script_args {string} an optional string holding the arguments to pass to the script</li>
+<li>action {object} <strong>required</strong> the action object describing the action to run<ul>
+<li>action.type {string} <strong>required</strong> the type name of the action (RunScript, ...)</li>
+<li>action.*  some options depending of the type of action</li>
+</ul>
+</li>
 </ul>
 
 **Kind**: static method of [<code>Rule</code>](#EThing.Rule)  
@@ -4390,9 +4381,12 @@ resource.setData("key", "value").then(function(){
 ```js
 EThing.Rule.create({
   name: "myRule",
-  script: <script_id>,
   event: {
     type: 'ResourceCreated' // this rule will be fired each time a resource is created !
+  },
+  action: {
+    type: 'RunScript',
+    script: <script_id> // this script will be executed when the rule is fired
   }
 }).then(function(resource){
     console.log('the new rule is created');

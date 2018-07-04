@@ -30,15 +30,6 @@ Rule.prototype.enabled = function() {
 }
 
 /**
- * Returns the id of the script file.
- * @this {EThing.Rule}
- * @returns {string}
- */
-Resource.prototype.script = function(){
-	return this._json.script;
-}
-
-/**
  * Returns an object describing the event.
  * @this {EThing.Rule}
  * @returns {object}
@@ -48,12 +39,12 @@ Resource.prototype.event = function(){
 }
 
 /**
- * Returns the last exit code returned by the script of this rule.
+ * Returns an object describing the action.
  * @this {EThing.Rule}
- * @returns {number}
+ * @returns {object}
  */
-Rule.prototype.scriptReturnCode = function() {
-	return this._json.script_return_code;
+Resource.prototype.action = function(){
+	return this._json.action;
 }
 
 /**
@@ -61,8 +52,8 @@ Rule.prototype.scriptReturnCode = function() {
  * @this {EThing.Rule}
  * @returns {number}
  */
-Rule.prototype.scriptExecutionCount = function() {
-	return this._json.script_execution_count;
+Rule.prototype.executionCount = function() {
+	return this._json.execution_count;
 }
 
 /**
@@ -70,8 +61,8 @@ Rule.prototype.scriptExecutionCount = function() {
  * @this {EThing.Rule}
  * @returns {Date|null}
  */
-Rule.prototype.scriptExecutionDate = function() {
-	return this._json.script_execution_date ? new Date(this._json.script_execution_date) : null;
+Rule.prototype.executionDate = function() {
+	return this._json.execution_date ? new Date(this._json.execution_date) : null;
 }
 
 
@@ -92,11 +83,12 @@ Rule.prototype.execute = function(callback){
 /**
  * Creates a new Rule from the following attributes :
  *   - name {string} __required__ the name of the rule
- *   - script {EThing.File} __required__ the JavaScript code to be executed
  *   - event {object} __required__ the event object describing when to execute this rule
  *       - event.type {string} __required__ the type name of the event (Timer, ResourceCreated, ...)
  *       - event.*  some options depending of the type of event
- *   - script_args {string} an optional string holding the arguments to pass to the script
+ *   - action {object} __required__ the action object describing the action to run
+ *       - action.type {string} __required__ the type name of the action (RunScript, ...)
+ *       - action.*  some options depending of the type of action
  *
  * @method EThing.Rule.create
  * @param {object} attributes
@@ -106,19 +98,19 @@ Rule.prototype.execute = function(callback){
  * @example
  * EThing.Rule.create({
  *   name: "myRule",
- *   script: <script_id>,
  *   event: {
  *     type: 'ResourceCreated' // this rule will be fired each time a resource is created !
+ *   },
+ *   action: {
+ *     type: 'RunScript',
+ *     script: <script_id> // this script will be executed when the rule is fired
  *   }
  * }).then(function(resource){
  *     console.log('the new rule is created');
  * })
  */
 Rule.create = function(json,callback){
-    
-    if(json.script instanceof EThing.Resource)
-        json.script = json.script.id();
-    
+  
 	return EThing.request({
 		'url': '/rules',
 		'dataType': 'json',
@@ -130,8 +122,8 @@ Rule.create = function(json,callback){
 		EThing.trigger('ething.rule.created',[r]);
         return r
 	});
-    
-	
+
+
 };
 
 
@@ -151,9 +143,9 @@ Rule.execute = function(a,b)
 		throw "First argument must be a Rule object or a rule id !";
 		return;
 	}
-	
+
 	var callback = b;
-	
+
 	return EThing.request({
 		'url': '/rules/' + file_id + '/execute',
 		'method': 'GET',
@@ -164,5 +156,5 @@ Rule.execute = function(a,b)
 
 
 EThing.Rule = Rule;
-	
+
 module.exports = Rule;
