@@ -30,21 +30,21 @@ Rule.prototype.enabled = function() {
 }
 
 /**
- * Returns an object describing the event.
+ * Returns an array of object describing the events.
  * @this {EThing.Rule}
- * @returns {object}
+ * @returns {object[]}
  */
-Resource.prototype.event = function(){
-	return this._json.event;
+Resource.prototype.events = function(){
+	return this._json.events || [];
 }
 
 /**
- * Returns an object describing the action.
+ * Returns an array of objects describing the actions.
  * @this {EThing.Rule}
- * @returns {object}
+ * @returns {object[]}
  */
-Resource.prototype.action = function(){
-	return this._json.action;
+Resource.prototype.actions = function(){
+	return this._json.actions || [];
 }
 
 /**

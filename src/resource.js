@@ -218,11 +218,12 @@ Resource.prototype.data = function(name, defaultValue) {
  * @this {EThing.Resource}
  * @returns {object|null}
  */
-Resource.prototype.attr = function(name) {
+Resource.prototype.attr = function(name, defaultVal) {
 	if(typeof name == 'undefined')
 		return this._json;
 	else {
-		return this._json.hasOwnProperty(name) ? this._json[name] : null;
+        if(typeof defaultVal == 'undefined') defaultVal = null
+		return this._json.hasOwnProperty(name) ? this._json[name] : defaultVal;
 	}
 }
 
