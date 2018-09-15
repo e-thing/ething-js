@@ -132,7 +132,7 @@ EThing.apiUrl = function(){
 var instanciate = EThing.instanciate = function (json){
     
     for(var i in json.extends){
-        var clsName = json.extends[i];
+        var clsName = json.extends[i].split('/').pop();
         
         if(typeof EThing[clsName] != 'undefined'){
             return new EThing[clsName](json)
