@@ -27,7 +27,9 @@
     "dev": "webpack --mode development",
     "build": "webpack --mode production",
     "docs": "jsdoc2md --no-cache -f src -c jsdoc.conf > api.md",
-    "test": "mocha"
+    "test": "mocha",
+    "version": "npm run build && git add -A dist",
+    "postversion": "git push && git push --tags"
   },
   "dependencies": {
     "axios": "^0.18.0",
