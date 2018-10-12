@@ -326,27 +326,7 @@
 
 **Example**  
 ```js
-// if this device is a thermometer :
-device.execute('getTemperature').then(function(data){
-  // success, handle the data here
-});
-
-// if this device is a switch :
-device.execute('setState', {
-	 state: true
-});
-
-// you can also pass the arguments as an array :
-device.execute('setState', [true]);
-
-// or as is :
-device.execute('setState', true);
-
-
-// you may also do :
-device.getTemperature().then(function(data){
-  // success, handle the data here
-});
+// if this device is a thermometer :device.execute('getTemperature').then(function(data){  // success, handle the data here});// if this device is a switch :device.execute('setState', {	 state: true});// you can also pass the arguments as an array :device.execute('setState', [true]);// or as is :device.execute('setState', true);// you may also do :device.getTemperature().then(function(data){  // success, handle the data here});
 ```
 <a name="EThing.Device+executeUrl"></a>
 
@@ -364,9 +344,7 @@ device.getTemperature().then(function(data){
 
 **Example**  
 ```js
-var image = new Image();
-image.src = device.executeUrl('getImage');
-document.body.appendChild(image);
+var image = new Image();image.src = device.executeUrl('getImage');document.body.appendChild(image);
 ```
 <a name="EThing.Device+getApi"></a>
 
@@ -560,9 +538,7 @@ To get only the PathName, see [dirname](#EThing.Resource+dirname).</p>
 
 **Example**  
 ```js
-resource.remove().then(function(){
-  // the resource was successfully removed
-});
+resource.remove().then(function(){  // the resource was successfully removed});
 ```
 <a name="EThing.Resource+set"></a>
 
@@ -580,11 +556,7 @@ resource.remove().then(function(){
 
 **Example**  
 ```js
-resource.set({
-  name: "newName.txt"
-}).then(function(){
-  console.log("the resource was successfully renamed to :"+this.name());
-});
+resource.set({  name: "newName.txt"}).then(function(){  console.log("the resource was successfully renamed to :"+this.name());});
 ```
 <a name="EThing.Resource+setData"></a>
 
@@ -602,16 +574,7 @@ resource.set({
 
 **Example**  
 ```js
-resource.setData({
-  "key": "value"
-}).then(function(){
-  // success
-});
-
-// you can also write :
-resource.setData("key", "value").then(function(){
-  // success
-});
+resource.setData({  "key": "value"}).then(function(){  // success});// you can also write :resource.setData("key", "value").then(function(){  // success});
 ```
 <a name="EThing.Device.create"></a>
 
@@ -629,15 +592,7 @@ resource.setData("key", "value").then(function(){
 
 **Example**  
 ```js
-EThing.Device.create('SSH', {
-  host: "localhost",
-  auth: {
-    user: "foo",
-    password: "bar"
-  }
-}).then(function(resource){
-    console.log('the new SSH device has been created');
-})
+EThing.Device.create('SSH', {  host: "localhost",  auth: {    user: "foo",    password: "bar"  }}).then(function(resource){    console.log('the new SSH device has been created');})
 ```
 <a name="EThing.File"></a>
 
@@ -738,22 +693,7 @@ EThing.Device.create('SSH', {
 
 **Example**  
 ```js
-// the simple way
-var image = new Image();
-image.src = imageFile.thumbnailLink(true);
-document.body.appendChild(image);
-
-// the hard way
-EThing.request({
-  url: imageFile.thumbnailLink(),
-  dataType: "blob"
-}).then(function(blobData){
-  // success
-  var image = new Image();
-  image.src = window.URL.createObjectURL( blobData );
-  
-  document.body.appendChild(image);
-});
+// the simple wayvar image = new Image();image.src = imageFile.thumbnailLink(true);document.body.appendChild(image);// the hard wayEThing.request({  url: imageFile.thumbnailLink(),  dataType: "blob"}).then(function(blobData){  // success  var image = new Image();  image.src = window.URL.createObjectURL( blobData );    document.body.appendChild(image);});
 ```
 <a name="EThing.File+getContentUrl"></a>
 
@@ -769,16 +709,7 @@ EThing.request({
 
 **Example**  
 ```js
-// using EThing.request() :
-EThing.request(file.getContentUrl()).then(function(content){
-  // success
-  console.log('content as text : '+content);
-});
-
-// HTML <img> Tag :
-var image = new Image();
-image.src = imageFile.getContentUrl(true);
-document.body.appendChild(image);
+// using EThing.request() :EThing.request(file.getContentUrl()).then(function(content){  // success  console.log('content as text : '+content);});// HTML <img> Tag :var image = new Image();image.src = imageFile.getContentUrl(true);document.body.appendChild(image);
 ```
 <a name="EThing.File+isText"></a>
 
@@ -810,10 +741,7 @@ document.body.appendChild(image);
 
 **Example**  
 ```js
-file.execute().then(function(result){
-  // success
-  console.log(result);
-});
+file.execute().then(function(result){  // success  console.log(result);});
 ```
 <a name="EThing.File+read"></a>
 
@@ -831,31 +759,7 @@ file.execute().then(function(result){
 
 **Example**  
 ```js
-file.read().then(function(content){
-  // success
-  console.log('content as text : '+content);
-});
-
-// nodejs + browser :
-file.read(true).then(function(contentAsArrayBuffer){
-  // success
-});
-
-// browser :
-file.read('blob').then(function(contentAsBlob){
-  // success
-});
-
-// NodeJs :
-var fs = require("fs");
-EThing.get('kDO5Fk4').then(function(resource){
-	resource.read(true).then(function(data){
-		// data : Buffer instance
-		fs.writeFile(resource.basename(), data, function(){
-			console.log('It\'s saved!');
-		});
-	});
-});
+file.read().then(function(content){  // success  console.log('content as text : '+content);});// nodejs + browser :file.read(true).then(function(contentAsArrayBuffer){  // success});// browser :file.read('blob').then(function(contentAsBlob){  // success});// NodeJs :var fs = require("fs");EThing.get('kDO5Fk4').then(function(resource){	resource.read(true).then(function(data){		// data : Buffer instance		fs.writeFile(resource.basename(), data, function(){			console.log('It\'s saved!');		});	});});
 ```
 <a name="EThing.File+write"></a>
 
@@ -873,9 +777,7 @@ EThing.get('kDO5Fk4').then(function(resource){
 
 **Example**  
 ```js
-file.write("hello world !").then(function(){
-  // success
-});
+file.write("hello world !").then(function(){  // success});
 ```
 <a name="EThing.Resource+json"></a>
 
@@ -1055,9 +957,7 @@ To get only the PathName, see [dirname](#EThing.Resource+dirname).</p>
 
 **Example**  
 ```js
-resource.remove().then(function(){
-  // the resource was successfully removed
-});
+resource.remove().then(function(){  // the resource was successfully removed});
 ```
 <a name="EThing.Resource+set"></a>
 
@@ -1075,11 +975,7 @@ resource.remove().then(function(){
 
 **Example**  
 ```js
-resource.set({
-  name: "newName.txt"
-}).then(function(){
-  console.log("the resource was successfully renamed to :"+this.name());
-});
+resource.set({  name: "newName.txt"}).then(function(){  console.log("the resource was successfully renamed to :"+this.name());});
 ```
 <a name="EThing.Resource+setData"></a>
 
@@ -1097,16 +993,7 @@ resource.set({
 
 **Example**  
 ```js
-resource.setData({
-  "key": "value"
-}).then(function(){
-  // success
-});
-
-// you can also write :
-resource.setData("key", "value").then(function(){
-  // success
-});
+resource.setData({  "key": "value"}).then(function(){  // success});// you can also write :resource.setData("key", "value").then(function(){  // success});
 ```
 <a name="EThing.File.create"></a>
 
@@ -1129,12 +1016,7 @@ resource.setData("key", "value").then(function(){
 
 **Example**  
 ```js
-EThing.File.create({
-  name: "foobar.txt",
-  description: "this is my file"
-}).then(function(resource){
-    console.log('file created : ' + resource.name());
-})
+EThing.File.create({  name: "foobar.txt",  description: "this is my file"}).then(function(resource){    console.log('file created : ' + resource.name());})
 ```
 <a name="EThing.Resource"></a>
 
@@ -1354,9 +1236,7 @@ To get only the PathName, see [dirname](#EThing.Resource+dirname).</p>
 
 **Example**  
 ```js
-resource.remove().then(function(){
-  // the resource was successfully removed
-});
+resource.remove().then(function(){  // the resource was successfully removed});
 ```
 <a name="EThing.Resource+set"></a>
 
@@ -1374,11 +1254,7 @@ resource.remove().then(function(){
 
 **Example**  
 ```js
-resource.set({
-  name: "newName.txt"
-}).then(function(){
-  console.log("the resource was successfully renamed to :"+this.name());
-});
+resource.set({  name: "newName.txt"}).then(function(){  console.log("the resource was successfully renamed to :"+this.name());});
 ```
 <a name="EThing.Resource+setData"></a>
 
@@ -1396,16 +1272,7 @@ resource.set({
 
 **Example**  
 ```js
-resource.setData({
-  "key": "value"
-}).then(function(){
-  // success
-});
-
-// you can also write :
-resource.setData("key", "value").then(function(){
-  // success
-});
+resource.setData({  "key": "value"}).then(function(){  // success});// you can also write :resource.setData("key", "value").then(function(){  // success});
 ```
 <a name="EThing.Rule"></a>
 
@@ -1669,9 +1536,7 @@ To get only the PathName, see [dirname](#EThing.Resource+dirname).</p>
 
 **Example**  
 ```js
-resource.remove().then(function(){
-  // the resource was successfully removed
-});
+resource.remove().then(function(){  // the resource was successfully removed});
 ```
 <a name="EThing.Resource+set"></a>
 
@@ -1689,11 +1554,7 @@ resource.remove().then(function(){
 
 **Example**  
 ```js
-resource.set({
-  name: "newName.txt"
-}).then(function(){
-  console.log("the resource was successfully renamed to :"+this.name());
-});
+resource.set({  name: "newName.txt"}).then(function(){  console.log("the resource was successfully renamed to :"+this.name());});
 ```
 <a name="EThing.Resource+setData"></a>
 
@@ -1711,16 +1572,7 @@ resource.set({
 
 **Example**  
 ```js
-resource.setData({
-  "key": "value"
-}).then(function(){
-  // success
-});
-
-// you can also write :
-resource.setData("key", "value").then(function(){
-  // success
-});
+resource.setData({  "key": "value"}).then(function(){  // success});// you can also write :resource.setData("key", "value").then(function(){  // success});
 ```
 <a name="EThing.Rule.create"></a>
 
@@ -1750,18 +1602,7 @@ resource.setData("key", "value").then(function(){
 
 **Example**  
 ```js
-EThing.Rule.create({
-  name: "myRule",
-  event: {
-    type: 'ResourceCreated' // this rule will be fired each time a resource is created !
-  },
-  action: {
-    type: 'RunScript',
-    script: <script_id> // this script will be executed when the rule is fired
-  }
-}).then(function(resource){
-    console.log('the new rule is created');
-})
+EThing.Rule.create({  name: "myRule",  event: {    type: 'ResourceCreated' // this rule will be fired each time a resource is created !  },  action: {    type: 'RunScript',    script: <script_id> // this script will be executed when the rule is fired  }}).then(function(resource){    console.log('the new rule is created');})
 ```
 <a name="EThing.Table"></a>
 
@@ -1879,15 +1720,7 @@ EThing.Rule.create({
 
 **Example**  
 ```js
-// returns all the content of a table :
-table.select().then(function(data){
-  // success
-});
-
-// returns the last 10 rows sorted by the "foo" column :
-table.select({start: -10, sort: "foo"}).then(function(data){
-  // success
-});
+// returns all the content of a table :table.select().then(function(data){  // success});// returns the last 10 rows sorted by the "foo" column :table.select({start: -10, sort: "foo"}).then(function(data){  // success});
 ```
 <a name="EThing.Table+computeStatistics"></a>
 
@@ -1920,12 +1753,7 @@ table.select({start: -10, sort: "foo"}).then(function(data){
 
 **Example**  
 ```js
-// removes the last 10 rows :
-table.select(-10).then(function(data){
-  this.removeRow(data.map(function(row){
-    return row.id;
-  }));
-});
+// removes the last 10 rows :table.select(-10).then(function(data){  this.removeRow(data.map(function(row){    return row.id;  }));});
 ```
 <a name="EThing.Table+replaceRow"></a>
 
@@ -1943,12 +1771,7 @@ table.select(-10).then(function(data){
 
 **Example**  
 ```js
-table.replaceRow({
-	 'id': 'g45Tdk4',
-	 'value': 45
-}).then(function(data){
-  // updated !
-});
+table.replaceRow({	 'id': 'g45Tdk4',	 'value': 45}).then(function(data){  // updated !});
 ```
 <a name="EThing.Table+findOneAndReplace"></a>
 
@@ -1968,12 +1791,7 @@ table.replaceRow({
 
 **Example**  
 ```js
-table.findOneAndReplace("name=='foo'", {
-	 'name': 'foo',
-	 'value': 'bar'
-}).then(function(table){
-  // updated or inserted if not found !
-});
+table.findOneAndReplace("name=='foo'", {	 'name': 'foo',	 'value': 'bar'}).then(function(table){  // updated or inserted if not found !});
 ```
 <a name="EThing.Table+insert"></a>
 
@@ -1992,13 +1810,7 @@ table.findOneAndReplace("name=='foo'", {
 
 **Example**  
 ```js
-table.insert({
-  'field1': "foobar",
-  'field2': 3.14,
-  'field3': true
-}).then(function(){
-  // success
-});
+table.insert({  'field1': "foobar",  'field2': 3.14,  'field3': true}).then(function(){  // success});
 ```
 <a name="EThing.Table+import"></a>
 
@@ -2035,16 +1847,7 @@ tableSrc.select().then(function(data){
 
 **Example**  
 ```js
-// using EThing.request() :
-EThing.request(table.getContentUrl()).then(function(rows){
-  // success, rows is an array of object 
-  console.log('number of rows : '+rows.length);
-});
-
-// or using jQuery :
-$.getJSON(table.getContentUrl(true)).then(function(rows){
-  // success
-});
+// using EThing.request() :EThing.request(table.getContentUrl()).then(function(rows){  // success, rows is an array of object   console.log('number of rows : '+rows.length);});// or using jQuery :$.getJSON(table.getContentUrl(true)).then(function(rows){  // success});
 ```
 <a name="EThing.Resource+json"></a>
 
@@ -2224,9 +2027,7 @@ To get only the PathName, see [dirname](#EThing.Resource+dirname).</p>
 
 **Example**  
 ```js
-resource.remove().then(function(){
-  // the resource was successfully removed
-});
+resource.remove().then(function(){  // the resource was successfully removed});
 ```
 <a name="EThing.Resource+set"></a>
 
@@ -2244,11 +2045,7 @@ resource.remove().then(function(){
 
 **Example**  
 ```js
-resource.set({
-  name: "newName.txt"
-}).then(function(){
-  console.log("the resource was successfully renamed to :"+this.name());
-});
+resource.set({  name: "newName.txt"}).then(function(){  console.log("the resource was successfully renamed to :"+this.name());});
 ```
 <a name="EThing.Resource+setData"></a>
 
@@ -2266,16 +2063,7 @@ resource.set({
 
 **Example**  
 ```js
-resource.setData({
-  "key": "value"
-}).then(function(){
-  // success
-});
-
-// you can also write :
-resource.setData("key", "value").then(function(){
-  // success
-});
+resource.setData({  "key": "value"}).then(function(){  // success});// you can also write :resource.setData("key", "value").then(function(){  // success});
 ```
 <a name="EThing.Table.create"></a>
 
@@ -2299,13 +2087,7 @@ resource.setData("key", "value").then(function(){
 
 **Example**  
 ```js
-// get a resource by its id
-EThing.Table.create({
-  name: "foobar",
-  expireAfter: 3600*24*7 // the data are automatically removed after 7 weeks
-}).then(function(resource){
-    console.log('table created : ' + resource.name());
-})
+// get a resource by its idEThing.Table.create({  name: "foobar",  expireAfter: 3600*24*7 // the data are automatically removed after 7 weeks}).then(function(resource){    console.log('table created : ' + resource.name());})
 ```
 <a name="EThing.on"></a>
 
@@ -2363,11 +2145,7 @@ EThing.Table.create({
 **Kind**: static namespace of [<code>EThing</code>](#EThing)  
 **Example**  
 ```js
-// list all the txt files in the dir1 folder
-EThing.arbo.load(function(){
-  // the next line may list Table that ends with ".txt"
-  console.log(EThing.arbo.glob('dir1/*.txt');
-})
+// list all the txt files in the dir1 folderEThing.arbo.load(function(){  // the next line may list Table that ends with ".txt"  console.log(EThing.arbo.glob('dir1/*.txt');})
 ```
 
 * [.arbo](#EThing.arbo) : <code>object</code>
@@ -2416,11 +2194,7 @@ Since there is no duplicate name for folders, their id is equal to their name.</
 
 **Example**  
 ```js
-// return all jpg and png files in 'dir' directory :
-EThing.arbo.glob('dir/{*.jpg,*.png}')
-
-// return all resource under 'dir' directory or subdirectories :
-EThing.arbo.glob('dir/**')
+// return all jpg and png files in 'dir' directory :EThing.arbo.glob('dir/{*.jpg,*.png}')// return all resource under 'dir' directory or subdirectories :EThing.arbo.glob('dir/**')
 ```
 <a name="EThing.arbo.list"></a>
 
@@ -2518,23 +2292,7 @@ To check if a request is in failure :</p>
 
 **Example**  
 ```js
-// GET request
-EThing.request('/resources') // is equivalent to EThing.list()
-
-// pass an object to make more complex request
-// store some data in a file
-EThing.request({
-  url: '/files/'+fileId,
-  method: 'PUT',
-  data: 'some content here ...',
-  contentType: 'text/plain'
-})
-.then(function(file){
-  console.log("the content was stored in the file "+file.name());
-})
-.catch(function(error){
-  console.log("an error occurs : "+error);
-});
+// GET requestEThing.request('/resources') // is equivalent to EThing.list()// pass an object to make more complex request// store some data in a fileEThing.request({  url: '/files/'+fileId,  method: 'PUT',  data: 'some content here ...',  contentType: 'text/plain'}).then(function(file){  console.log("the content was stored in the file "+file.name());}).catch(function(error){  console.log("an error occurs : "+error);});
 ```
 <a name="EThing.list"></a>
 
@@ -2550,15 +2308,7 @@ EThing.request({
 
 **Example**  
 ```js
-// get all the resources
-EThing.list().then(function(resources){
-    console.log(resources);
-})
-
-// get only File & Table resources
-EThing.list('type == "File" or type == "Table"').then(function(resources){
-    console.log(resources);
-})
+// get all the resourcesEThing.list().then(function(resources){    console.log(resources);})// get only File & Table resourcesEThing.list('type == "File" or type == "Table"').then(function(resources){    console.log(resources);})
 ```
 <a name="EThing.get"></a>
 
@@ -2574,10 +2324,7 @@ EThing.list('type == "File" or type == "Table"').then(function(resources){
 
 **Example**  
 ```js
-// get a resource by its id
-EThing.get("54516eb").then(function(resource){
-    console.log('the name is ' + resource.name());
-})
+// get a resource by its idEThing.get("54516eb").then(function(resource){    console.log('the name is ' + resource.name());})
 ```
 <a name="EThing.usage"></a>
 
@@ -2596,10 +2343,7 @@ EThing.get("54516eb").then(function(resource){
 
 **Example**  
 ```js
-// get the occupied space :
-EThing.usage().then(function(usage){
-    console.log('space used : ' + (100 * usage.used / usage.quota_size) );
-})
+// get the occupied space :EThing.usage().then(function(usage){    console.log('space used : ' + (100 * usage.used / usage.quota_size) );})
 ```
 <a name="EThing.notify"></a>
 
@@ -2616,10 +2360,7 @@ EThing.usage().then(function(usage){
 
 **Example**  
 ```js
-EThing.notify("hello world")
-  .then(function(){
-    alert("A notification has been sent");
-  })
+EThing.notify("hello world")  .then(function(){    alert("A notification has been sent");  })
 ```
 <a name="EThing.event_ething.resource.removed"></a>
 
@@ -2955,27 +2696,7 @@ EThing.notify("hello world")
 
 **Example**  
 ```js
-// if this device is a thermometer :
-device.execute('getTemperature').then(function(data){
-  // success, handle the data here
-});
-
-// if this device is a switch :
-device.execute('setState', {
-	 state: true
-});
-
-// you can also pass the arguments as an array :
-device.execute('setState', [true]);
-
-// or as is :
-device.execute('setState', true);
-
-
-// you may also do :
-device.getTemperature().then(function(data){
-  // success, handle the data here
-});
+// if this device is a thermometer :device.execute('getTemperature').then(function(data){  // success, handle the data here});// if this device is a switch :device.execute('setState', {	 state: true});// you can also pass the arguments as an array :device.execute('setState', [true]);// or as is :device.execute('setState', true);// you may also do :device.getTemperature().then(function(data){  // success, handle the data here});
 ```
 <a name="EThing.Device+executeUrl"></a>
 
@@ -2993,9 +2714,7 @@ device.getTemperature().then(function(data){
 
 **Example**  
 ```js
-var image = new Image();
-image.src = device.executeUrl('getImage');
-document.body.appendChild(image);
+var image = new Image();image.src = device.executeUrl('getImage');document.body.appendChild(image);
 ```
 <a name="EThing.Device+getApi"></a>
 
@@ -3189,9 +2908,7 @@ To get only the PathName, see [dirname](#EThing.Resource+dirname).</p>
 
 **Example**  
 ```js
-resource.remove().then(function(){
-  // the resource was successfully removed
-});
+resource.remove().then(function(){  // the resource was successfully removed});
 ```
 <a name="EThing.Resource+set"></a>
 
@@ -3209,11 +2926,7 @@ resource.remove().then(function(){
 
 **Example**  
 ```js
-resource.set({
-  name: "newName.txt"
-}).then(function(){
-  console.log("the resource was successfully renamed to :"+this.name());
-});
+resource.set({  name: "newName.txt"}).then(function(){  console.log("the resource was successfully renamed to :"+this.name());});
 ```
 <a name="EThing.Resource+setData"></a>
 
@@ -3231,16 +2944,7 @@ resource.set({
 
 **Example**  
 ```js
-resource.setData({
-  "key": "value"
-}).then(function(){
-  // success
-});
-
-// you can also write :
-resource.setData("key", "value").then(function(){
-  // success
-});
+resource.setData({  "key": "value"}).then(function(){  // success});// you can also write :resource.setData("key", "value").then(function(){  // success});
 ```
 <a name="EThing.Device.create"></a>
 
@@ -3258,15 +2962,7 @@ resource.setData("key", "value").then(function(){
 
 **Example**  
 ```js
-EThing.Device.create('SSH', {
-  host: "localhost",
-  auth: {
-    user: "foo",
-    password: "bar"
-  }
-}).then(function(resource){
-    console.log('the new SSH device has been created');
-})
+EThing.Device.create('SSH', {  host: "localhost",  auth: {    user: "foo",    password: "bar"  }}).then(function(resource){    console.log('the new SSH device has been created');})
 ```
 <a name="EThing.File"></a>
 
@@ -3367,22 +3063,7 @@ EThing.Device.create('SSH', {
 
 **Example**  
 ```js
-// the simple way
-var image = new Image();
-image.src = imageFile.thumbnailLink(true);
-document.body.appendChild(image);
-
-// the hard way
-EThing.request({
-  url: imageFile.thumbnailLink(),
-  dataType: "blob"
-}).then(function(blobData){
-  // success
-  var image = new Image();
-  image.src = window.URL.createObjectURL( blobData );
-  
-  document.body.appendChild(image);
-});
+// the simple wayvar image = new Image();image.src = imageFile.thumbnailLink(true);document.body.appendChild(image);// the hard wayEThing.request({  url: imageFile.thumbnailLink(),  dataType: "blob"}).then(function(blobData){  // success  var image = new Image();  image.src = window.URL.createObjectURL( blobData );    document.body.appendChild(image);});
 ```
 <a name="EThing.File+getContentUrl"></a>
 
@@ -3398,16 +3079,7 @@ EThing.request({
 
 **Example**  
 ```js
-// using EThing.request() :
-EThing.request(file.getContentUrl()).then(function(content){
-  // success
-  console.log('content as text : '+content);
-});
-
-// HTML <img> Tag :
-var image = new Image();
-image.src = imageFile.getContentUrl(true);
-document.body.appendChild(image);
+// using EThing.request() :EThing.request(file.getContentUrl()).then(function(content){  // success  console.log('content as text : '+content);});// HTML <img> Tag :var image = new Image();image.src = imageFile.getContentUrl(true);document.body.appendChild(image);
 ```
 <a name="EThing.File+isText"></a>
 
@@ -3439,10 +3111,7 @@ document.body.appendChild(image);
 
 **Example**  
 ```js
-file.execute().then(function(result){
-  // success
-  console.log(result);
-});
+file.execute().then(function(result){  // success  console.log(result);});
 ```
 <a name="EThing.File+read"></a>
 
@@ -3460,31 +3129,7 @@ file.execute().then(function(result){
 
 **Example**  
 ```js
-file.read().then(function(content){
-  // success
-  console.log('content as text : '+content);
-});
-
-// nodejs + browser :
-file.read(true).then(function(contentAsArrayBuffer){
-  // success
-});
-
-// browser :
-file.read('blob').then(function(contentAsBlob){
-  // success
-});
-
-// NodeJs :
-var fs = require("fs");
-EThing.get('kDO5Fk4').then(function(resource){
-	resource.read(true).then(function(data){
-		// data : Buffer instance
-		fs.writeFile(resource.basename(), data, function(){
-			console.log('It\'s saved!');
-		});
-	});
-});
+file.read().then(function(content){  // success  console.log('content as text : '+content);});// nodejs + browser :file.read(true).then(function(contentAsArrayBuffer){  // success});// browser :file.read('blob').then(function(contentAsBlob){  // success});// NodeJs :var fs = require("fs");EThing.get('kDO5Fk4').then(function(resource){	resource.read(true).then(function(data){		// data : Buffer instance		fs.writeFile(resource.basename(), data, function(){			console.log('It\'s saved!');		});	});});
 ```
 <a name="EThing.File+write"></a>
 
@@ -3502,9 +3147,7 @@ EThing.get('kDO5Fk4').then(function(resource){
 
 **Example**  
 ```js
-file.write("hello world !").then(function(){
-  // success
-});
+file.write("hello world !").then(function(){  // success});
 ```
 <a name="EThing.Resource+json"></a>
 
@@ -3684,9 +3327,7 @@ To get only the PathName, see [dirname](#EThing.Resource+dirname).</p>
 
 **Example**  
 ```js
-resource.remove().then(function(){
-  // the resource was successfully removed
-});
+resource.remove().then(function(){  // the resource was successfully removed});
 ```
 <a name="EThing.Resource+set"></a>
 
@@ -3704,11 +3345,7 @@ resource.remove().then(function(){
 
 **Example**  
 ```js
-resource.set({
-  name: "newName.txt"
-}).then(function(){
-  console.log("the resource was successfully renamed to :"+this.name());
-});
+resource.set({  name: "newName.txt"}).then(function(){  console.log("the resource was successfully renamed to :"+this.name());});
 ```
 <a name="EThing.Resource+setData"></a>
 
@@ -3726,16 +3363,7 @@ resource.set({
 
 **Example**  
 ```js
-resource.setData({
-  "key": "value"
-}).then(function(){
-  // success
-});
-
-// you can also write :
-resource.setData("key", "value").then(function(){
-  // success
-});
+resource.setData({  "key": "value"}).then(function(){  // success});// you can also write :resource.setData("key", "value").then(function(){  // success});
 ```
 <a name="EThing.File.create"></a>
 
@@ -3758,12 +3386,7 @@ resource.setData("key", "value").then(function(){
 
 **Example**  
 ```js
-EThing.File.create({
-  name: "foobar.txt",
-  description: "this is my file"
-}).then(function(resource){
-    console.log('file created : ' + resource.name());
-})
+EThing.File.create({  name: "foobar.txt",  description: "this is my file"}).then(function(resource){    console.log('file created : ' + resource.name());})
 ```
 <a name="EThing.Resource"></a>
 
@@ -3983,9 +3606,7 @@ To get only the PathName, see [dirname](#EThing.Resource+dirname).</p>
 
 **Example**  
 ```js
-resource.remove().then(function(){
-  // the resource was successfully removed
-});
+resource.remove().then(function(){  // the resource was successfully removed});
 ```
 <a name="EThing.Resource+set"></a>
 
@@ -4003,11 +3624,7 @@ resource.remove().then(function(){
 
 **Example**  
 ```js
-resource.set({
-  name: "newName.txt"
-}).then(function(){
-  console.log("the resource was successfully renamed to :"+this.name());
-});
+resource.set({  name: "newName.txt"}).then(function(){  console.log("the resource was successfully renamed to :"+this.name());});
 ```
 <a name="EThing.Resource+setData"></a>
 
@@ -4025,16 +3642,7 @@ resource.set({
 
 **Example**  
 ```js
-resource.setData({
-  "key": "value"
-}).then(function(){
-  // success
-});
-
-// you can also write :
-resource.setData("key", "value").then(function(){
-  // success
-});
+resource.setData({  "key": "value"}).then(function(){  // success});// you can also write :resource.setData("key", "value").then(function(){  // success});
 ```
 <a name="EThing.Rule"></a>
 
@@ -4298,9 +3906,7 @@ To get only the PathName, see [dirname](#EThing.Resource+dirname).</p>
 
 **Example**  
 ```js
-resource.remove().then(function(){
-  // the resource was successfully removed
-});
+resource.remove().then(function(){  // the resource was successfully removed});
 ```
 <a name="EThing.Resource+set"></a>
 
@@ -4318,11 +3924,7 @@ resource.remove().then(function(){
 
 **Example**  
 ```js
-resource.set({
-  name: "newName.txt"
-}).then(function(){
-  console.log("the resource was successfully renamed to :"+this.name());
-});
+resource.set({  name: "newName.txt"}).then(function(){  console.log("the resource was successfully renamed to :"+this.name());});
 ```
 <a name="EThing.Resource+setData"></a>
 
@@ -4340,16 +3942,7 @@ resource.set({
 
 **Example**  
 ```js
-resource.setData({
-  "key": "value"
-}).then(function(){
-  // success
-});
-
-// you can also write :
-resource.setData("key", "value").then(function(){
-  // success
-});
+resource.setData({  "key": "value"}).then(function(){  // success});// you can also write :resource.setData("key", "value").then(function(){  // success});
 ```
 <a name="EThing.Rule.create"></a>
 
@@ -4379,18 +3972,7 @@ resource.setData("key", "value").then(function(){
 
 **Example**  
 ```js
-EThing.Rule.create({
-  name: "myRule",
-  event: {
-    type: 'ResourceCreated' // this rule will be fired each time a resource is created !
-  },
-  action: {
-    type: 'RunScript',
-    script: <script_id> // this script will be executed when the rule is fired
-  }
-}).then(function(resource){
-    console.log('the new rule is created');
-})
+EThing.Rule.create({  name: "myRule",  event: {    type: 'ResourceCreated' // this rule will be fired each time a resource is created !  },  action: {    type: 'RunScript',    script: <script_id> // this script will be executed when the rule is fired  }}).then(function(resource){    console.log('the new rule is created');})
 ```
 <a name="EThing.Table"></a>
 
@@ -4508,15 +4090,7 @@ EThing.Rule.create({
 
 **Example**  
 ```js
-// returns all the content of a table :
-table.select().then(function(data){
-  // success
-});
-
-// returns the last 10 rows sorted by the "foo" column :
-table.select({start: -10, sort: "foo"}).then(function(data){
-  // success
-});
+// returns all the content of a table :table.select().then(function(data){  // success});// returns the last 10 rows sorted by the "foo" column :table.select({start: -10, sort: "foo"}).then(function(data){  // success});
 ```
 <a name="EThing.Table+computeStatistics"></a>
 
@@ -4549,12 +4123,7 @@ table.select({start: -10, sort: "foo"}).then(function(data){
 
 **Example**  
 ```js
-// removes the last 10 rows :
-table.select(-10).then(function(data){
-  this.removeRow(data.map(function(row){
-    return row.id;
-  }));
-});
+// removes the last 10 rows :table.select(-10).then(function(data){  this.removeRow(data.map(function(row){    return row.id;  }));});
 ```
 <a name="EThing.Table+replaceRow"></a>
 
@@ -4572,12 +4141,7 @@ table.select(-10).then(function(data){
 
 **Example**  
 ```js
-table.replaceRow({
-	 'id': 'g45Tdk4',
-	 'value': 45
-}).then(function(data){
-  // updated !
-});
+table.replaceRow({	 'id': 'g45Tdk4',	 'value': 45}).then(function(data){  // updated !});
 ```
 <a name="EThing.Table+findOneAndReplace"></a>
 
@@ -4597,12 +4161,7 @@ table.replaceRow({
 
 **Example**  
 ```js
-table.findOneAndReplace("name=='foo'", {
-	 'name': 'foo',
-	 'value': 'bar'
-}).then(function(table){
-  // updated or inserted if not found !
-});
+table.findOneAndReplace("name=='foo'", {	 'name': 'foo',	 'value': 'bar'}).then(function(table){  // updated or inserted if not found !});
 ```
 <a name="EThing.Table+insert"></a>
 
@@ -4621,13 +4180,7 @@ table.findOneAndReplace("name=='foo'", {
 
 **Example**  
 ```js
-table.insert({
-  'field1': "foobar",
-  'field2': 3.14,
-  'field3': true
-}).then(function(){
-  // success
-});
+table.insert({  'field1': "foobar",  'field2': 3.14,  'field3': true}).then(function(){  // success});
 ```
 <a name="EThing.Table+import"></a>
 
@@ -4664,16 +4217,7 @@ tableSrc.select().then(function(data){
 
 **Example**  
 ```js
-// using EThing.request() :
-EThing.request(table.getContentUrl()).then(function(rows){
-  // success, rows is an array of object 
-  console.log('number of rows : '+rows.length);
-});
-
-// or using jQuery :
-$.getJSON(table.getContentUrl(true)).then(function(rows){
-  // success
-});
+// using EThing.request() :EThing.request(table.getContentUrl()).then(function(rows){  // success, rows is an array of object   console.log('number of rows : '+rows.length);});// or using jQuery :$.getJSON(table.getContentUrl(true)).then(function(rows){  // success});
 ```
 <a name="EThing.Resource+json"></a>
 
@@ -4853,9 +4397,7 @@ To get only the PathName, see [dirname](#EThing.Resource+dirname).</p>
 
 **Example**  
 ```js
-resource.remove().then(function(){
-  // the resource was successfully removed
-});
+resource.remove().then(function(){  // the resource was successfully removed});
 ```
 <a name="EThing.Resource+set"></a>
 
@@ -4873,11 +4415,7 @@ resource.remove().then(function(){
 
 **Example**  
 ```js
-resource.set({
-  name: "newName.txt"
-}).then(function(){
-  console.log("the resource was successfully renamed to :"+this.name());
-});
+resource.set({  name: "newName.txt"}).then(function(){  console.log("the resource was successfully renamed to :"+this.name());});
 ```
 <a name="EThing.Resource+setData"></a>
 
@@ -4895,16 +4433,7 @@ resource.set({
 
 **Example**  
 ```js
-resource.setData({
-  "key": "value"
-}).then(function(){
-  // success
-});
-
-// you can also write :
-resource.setData("key", "value").then(function(){
-  // success
-});
+resource.setData({  "key": "value"}).then(function(){  // success});// you can also write :resource.setData("key", "value").then(function(){  // success});
 ```
 <a name="EThing.Table.create"></a>
 
@@ -4928,13 +4457,7 @@ resource.setData("key", "value").then(function(){
 
 **Example**  
 ```js
-// get a resource by its id
-EThing.Table.create({
-  name: "foobar",
-  expireAfter: 3600*24*7 // the data are automatically removed after 7 weeks
-}).then(function(resource){
-    console.log('table created : ' + resource.name());
-})
+// get a resource by its idEThing.Table.create({  name: "foobar",  expireAfter: 3600*24*7 // the data are automatically removed after 7 weeks}).then(function(resource){    console.log('table created : ' + resource.name());})
 ```
 <a name="EThing.on"></a>
 
@@ -4992,11 +4515,7 @@ EThing.Table.create({
 **Kind**: static namespace of [<code>EThing</code>](#EThing)  
 **Example**  
 ```js
-// list all the txt files in the dir1 folder
-EThing.arbo.load(function(){
-  // the next line may list Table that ends with ".txt"
-  console.log(EThing.arbo.glob('dir1/*.txt');
-})
+// list all the txt files in the dir1 folderEThing.arbo.load(function(){  // the next line may list Table that ends with ".txt"  console.log(EThing.arbo.glob('dir1/*.txt');})
 ```
 
 * [.arbo](#EThing.arbo) : <code>object</code>
@@ -5045,11 +4564,7 @@ Since there is no duplicate name for folders, their id is equal to their name.</
 
 **Example**  
 ```js
-// return all jpg and png files in 'dir' directory :
-EThing.arbo.glob('dir/{*.jpg,*.png}')
-
-// return all resource under 'dir' directory or subdirectories :
-EThing.arbo.glob('dir/**')
+// return all jpg and png files in 'dir' directory :EThing.arbo.glob('dir/{*.jpg,*.png}')// return all resource under 'dir' directory or subdirectories :EThing.arbo.glob('dir/**')
 ```
 <a name="EThing.arbo.list"></a>
 
@@ -5147,23 +4662,7 @@ To check if a request is in failure :</p>
 
 **Example**  
 ```js
-// GET request
-EThing.request('/resources') // is equivalent to EThing.list()
-
-// pass an object to make more complex request
-// store some data in a file
-EThing.request({
-  url: '/files/'+fileId,
-  method: 'PUT',
-  data: 'some content here ...',
-  contentType: 'text/plain'
-})
-.then(function(file){
-  console.log("the content was stored in the file "+file.name());
-})
-.catch(function(error){
-  console.log("an error occurs : "+error);
-});
+// GET requestEThing.request('/resources') // is equivalent to EThing.list()// pass an object to make more complex request// store some data in a fileEThing.request({  url: '/files/'+fileId,  method: 'PUT',  data: 'some content here ...',  contentType: 'text/plain'}).then(function(file){  console.log("the content was stored in the file "+file.name());}).catch(function(error){  console.log("an error occurs : "+error);});
 ```
 <a name="EThing.list"></a>
 
@@ -5179,15 +4678,7 @@ EThing.request({
 
 **Example**  
 ```js
-// get all the resources
-EThing.list().then(function(resources){
-    console.log(resources);
-})
-
-// get only File & Table resources
-EThing.list('type == "File" or type == "Table"').then(function(resources){
-    console.log(resources);
-})
+// get all the resourcesEThing.list().then(function(resources){    console.log(resources);})// get only File & Table resourcesEThing.list('type == "File" or type == "Table"').then(function(resources){    console.log(resources);})
 ```
 <a name="EThing.get"></a>
 
@@ -5203,10 +4694,7 @@ EThing.list('type == "File" or type == "Table"').then(function(resources){
 
 **Example**  
 ```js
-// get a resource by its id
-EThing.get("54516eb").then(function(resource){
-    console.log('the name is ' + resource.name());
-})
+// get a resource by its idEThing.get("54516eb").then(function(resource){    console.log('the name is ' + resource.name());})
 ```
 <a name="EThing.usage"></a>
 
@@ -5225,10 +4713,7 @@ EThing.get("54516eb").then(function(resource){
 
 **Example**  
 ```js
-// get the occupied space :
-EThing.usage().then(function(usage){
-    console.log('space used : ' + (100 * usage.used / usage.quota_size) );
-})
+// get the occupied space :EThing.usage().then(function(usage){    console.log('space used : ' + (100 * usage.used / usage.quota_size) );})
 ```
 <a name="EThing.notify"></a>
 
@@ -5245,10 +4730,7 @@ EThing.usage().then(function(usage){
 
 **Example**  
 ```js
-EThing.notify("hello world")
-  .then(function(){
-    alert("A notification has been sent");
-  })
+EThing.notify("hello world")  .then(function(){    alert("A notification has been sent");  })
 ```
 <a name="EThing.event_ething.resource.removed"></a>
 
