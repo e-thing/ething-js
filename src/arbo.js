@@ -11,11 +11,12 @@
  *
  * @namespace {object} EThing.arbo
  */
- 
+
 
 var EThing = require("./core.js");
 var utils = require("./utils.js");
 var Resource = require("./resource.js");
+var Event = require("./event.js");
 var globToRegExp = require('glob-to-regexp');
 
 
@@ -39,9 +40,9 @@ function clear(){
  */
 function load(callback, force) {
     var self = this;
-    
+
     if(force) clear();
-	
+
     if(loaddfr===null){
     // load the resources
         loaddfr = EThing.request({
@@ -49,7 +50,7 @@ function load(callback, force) {
             'method': 'GET',
             'dataType': 'json'
         }).then(function(rs) {
-            
+
             loaddfr = true;
 
             // reset
@@ -58,80 +59,80 @@ function load(callback, force) {
             }).filter(function(resource){
                 return !!resource;
             });
-            
+
             EThing.trigger('ething.arbo.loaded');
-            
+
             return resources;
         });
     }
-    
+
     loaddfr.then(function(resources){
         if (typeof callback == 'function')
             callback.call(self, resources)
     })
-    
+
     return loaddfr
 };
 
 function refresh(callback) {
     var self = this;
-    
+
 	return EThing.request({
 		'url': '/resources',
 		'method': 'GET',
 		'dataType': 'json'
 	}).then(function(rs) {
-		
+
 		rs = rs.map(function(r){
 			return EThing.instanciate(r);
 		}).filter(function(r){
 			return r;
 		});
-		
+
 		update(rs, true);
-        
+
         if (typeof callback === 'function')
             callback.call(self, resources)
-		
+
 		return resources;
 	});
-	
+
 }
 
 
 
 function update(newResources, replaceAll, noTrigger){
-	
+
 	if(!Array.isArray(newResources)) newResources = [newResources];
-	
+
 	var removed = [];
 	var added = [];
 	var updated = [];
-	
+
 	if(replaceAll){
 		// check for removed resources
 		// search for resources that have been deleted
 		resources.forEach(function(r, index){
-			
+
 			for(var i in newResources){
 				if(newResources[i].id() === r.id()){
 					return;
 				}
 			}
-			
+
 			removed.push(index);
 		});
-		
+
 		removed.map(function(i){
 			var r = resources[i];
 			resources.splice(i, 1);
-			return r; 
+			return r;
 		});
 	}
-	
+
 	// check for new resources or update ones
 	newResources.forEach(function(r, index){
-		
+
 		var found = false;
 		for(var i in resources){
 			if(resources[i].id() === r.id()){
@@ -151,15 +152,15 @@ function update(newResources, replaceAll, noTrigger){
 			}
 			newResources[index] = o;
 		}
-		
+
 	});
-	
+
 	var hasChanged = removed.length>0 || added.length>0 || updated.length>0;
-	
+
 	if(!noTrigger && hasChanged){
 		EThing.trigger('ething.arbo.changed', [added, removed, updated]);
 	}
-	
+
 	return {
 		resources : newResources,
 		removed : removed,
@@ -178,14 +179,14 @@ function remove(resource,noTrigger){
 		});
 		return;
 	}
-	
+
 	if(typeof resource === 'string'){
 		resource = get(resource);
 		if(!resource) return;
 	}
-	
+
 	var removed = [];
-	
+
 	for (var i=0; i<resources.length; i++) {
 		var r = resources[i];
 		if (r.id() == resource.id()) {
@@ -194,7 +195,7 @@ function remove(resource,noTrigger){
 			break;
 		}
 	}
-	
+
 	if(!noTrigger && removed.length){
 		EThing.trigger('ething.arbo.changed', [[], removed, []]);
 	}
@@ -219,14 +220,14 @@ function get(id) {
 
 /**
  * Returns a list of resources that match a *-wildcard style glob string.
- * 
+ *
  * @memberof EThing.arbo
  * @param {string} filter only the resources that match the glob filter are returned.
  * @return {EThing.Resource[]}
  * @example
  * // return all jpg and png files in 'dir' directory :
  * EThing.arbo.glob('dir/{*.jpg,*.png}')
- * 
+ *
  * // return all resource under 'dir' directory or subdirectories :
  * EThing.arbo.glob('dir/**')
  */
@@ -251,6 +252,41 @@ function list(){
 }
 
 
+/**
+ * dispatch an event emitted by the server (through SSE or socketio)
+ * @memberof EThing.arbo
+ */
+function dispatch (event) {
+  // console.log(event)
+
+  var name = event.name,
+    isResourceEvent = !!event.data.resource,
+    resource,
+    evt = Event(name, {
+      data: event.data,
+      originalEvent: event
+    });
+
+  if(isResourceEvent){
+    var resourceId = event.data.resource.id;
+
+    if (event.data.resource) {
+      if (name === 'ResourceDeleted') {
+        remove(resourceId);
+      } else {
+        update(EThing.instanciate(event.data.resource))
+      }
+    }
+
+    resource = get(resourceId);
+    if(resource){
+      resource.trigger(evt);
+    }
+
+  }
+
+  EThing.trigger(evt);
+}
 
 
 
@@ -280,8 +316,8 @@ EThing.arbo = {
 	update: update,
 	get: get,
 	list: list,
-    glob: glob,
-	
+	glob: glob,
+
 	/**
 	 * Check if the resources are loaded (ie. if the {@link EThing.arbo.load} function has been called and has returned).
 	 * @memberof EThing.arbo
@@ -289,7 +325,8 @@ EThing.arbo = {
 	 */
 	isLoaded: function(){
 		return loaddfr === true || ( loaddfr && loaddfr.state() == 'resolved' );
-	}
+	},
+  dispatch: dispatch
 };
 
 module.exports = EThing.arbo;

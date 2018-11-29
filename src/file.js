@@ -54,7 +54,7 @@ File.prototype.contentModifiedDate = function() {
 
 /**
  * If this file has a thumbnail (thumbnail is only available for file with MIME type __image/*__), it returns his link, else it returns null.
- * 
+ *
  * @this {EThing.File}
  * @param {boolean} [auth=false] wether or not attach any authentication element. Necessary if you are not using {@link EThing.request}.
  * @returns {string|null}
@@ -72,7 +72,7 @@ File.prototype.contentModifiedDate = function() {
  *   // success
  *   var image = new Image();
  *   image.src = window.URL.createObjectURL( blobData );
- *   
+ *
  *   document.body.appendChild(image);
  * });
  */
@@ -122,25 +122,6 @@ File.prototype.isScript = function() {
 // specific methods
 
 /**
- * Execute a script file.
- * @this {EThing.File}
- * @param {string} [arguments] a string containing the arguments
- * @param {function(data)} [callback] it is executed once the request is complete whether in failure or success
- * @returns {EThing.File} The instance on which this method was called.
- * @example
- * file.execute().then(function(result){
- *   // success
- *   console.log(result);
- * });
- *
- */
-File.prototype.execute = function(script_args, callback){
-	var args = [].slice.call(arguments);
-    args.unshift(this);
-    return File.execute.apply(EThing, args);
-}
-
-/**
  * Gets the content of this file as text or as binary data.
  * @this {EThing.File}
  * @param {boolean|string} [binary] if true, return the content as ArrayBuffer, if false return the content as text. A string such as 'blob' or 'json' may also be passed.
@@ -151,7 +132,7 @@ File.prototype.execute = function(script_args, callback){
  *   // success
  *   console.log('content as text : '+content);
  * });
- * 
+ *
  * // nodejs + browser :
  * file.read(true).then(function(contentAsArrayBuffer){
  *   // success
@@ -203,7 +184,7 @@ File.prototype.write = function(data, callback){
 /**
  * Creates a new File from the following attributes :
  *   - name {string} __required__ the name of the file
- *   - description {string} a string describing this file 
+ *   - description {string} a string describing this file
  *   - data {object} key/value pairs to attach to this file
  *   - expireAfter {number} amount of seconds after the last update after which this file is removed automatically, 0 means unlimited. Default to 0.
  *
@@ -221,18 +202,18 @@ File.prototype.write = function(data, callback){
  * })
  */
 File.create = function(a,callback){
-	
+
 	if(typeof a == "string")
 		a = {
 			'name': a
 		};
-	
+
     var json = Object.assign({}, a);
-    
+
     return new Promise(function(resolve, reject) {
         utils.toBase64(json.content || '', function(content){
             json.content = content;
-            
+
             EThing.request({
                 'url': '/files',
                 'dataType': 'json',
@@ -241,14 +222,14 @@ File.create = function(a,callback){
                 'data': json,
                 'converter': EThing.resourceConverter
             },callback).then(function(file){
-                    
+
                 EThing.trigger('ething.file.created',[file]);
-                
+
                 resolve(file)
             }).catch(function(err){
                 reject(err)
             });
-            
+
         });
     })
 };
@@ -266,12 +247,12 @@ File.read = function(file, binary, callback)
 	else if(!utils.isId(file)){
 		throw "First argument must be a File object or a file id !";
 	}
-	
+
 	if(typeof callback == 'undefined' && typeof binary == 'function'){
 		callback = binary;
 		binary = false;
 	}
-	
+
 	return EThing.request({
 		'url': '/files/' + file,
 		'method': 'GET',
@@ -293,12 +274,12 @@ File.execute = function(file, args, callback)
 	else if(!utils.isId(file)){
 		throw "First argument must be a File object or a file id !";
 	}
-	
+
 	if(typeof callback === 'undefined' && typeof args === 'function'){
 		callback = args;
 		args = null;
 	}
-	
+
 	return EThing.request({
 		'url': '/files/' + file + '/execute?' + utils.param({'args':args}),
 		'method': 'GET',
@@ -323,9 +304,9 @@ File.write = function(a,b,c)
 		throw "First argument must be a File object or a file id !";
 		return;
 	}
-	
+
 	var callback = c;
-	
+
 	return EThing.request({
 		'url': '/files/' + file_id,
 		'dataType': 'json',

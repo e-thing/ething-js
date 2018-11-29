@@ -67,7 +67,6 @@
             * [.getContentUrl([auth])](#EThing.File+getContentUrl) ⇒ <code>string</code>
             * [.isText()](#EThing.File+isText) ⇒ <code>boolean</code>
             * [.isScript()](#EThing.File+isScript) ⇒ <code>boolean</code>
-            * [.execute([arguments], [callback])](#EThing.File+execute) ⇒ [<code>File</code>](#EThing.File)
             * [.read([binary], [callback])](#EThing.File+read) ⇒ [<code>File</code>](#EThing.File)
             * [.write(data, [callback])](#EThing.File+write) ⇒ [<code>File</code>](#EThing.File)
             * [.json()](#EThing.Resource+json) ⇒ <code>object</code>
@@ -194,6 +193,7 @@
         * [.get(id)](#EThing.arbo.get) ⇒ [<code>Resource</code>](#EThing.Resource) \| <code>undefined</code>
         * [.glob(filter)](#EThing.arbo.glob) ⇒ [<code>Array.&lt;Resource&gt;</code>](#EThing.Resource)
         * [.list()](#EThing.arbo.list) ⇒ [<code>Array.&lt;Resource&gt;</code>](#EThing.Resource)
+        * [.dispatch()](#EThing.arbo.dispatch)
         * [.refresh()](#EThing.arbo.refresh) ⇒ <code>Promise</code>
         * [.isLoaded()](#EThing.arbo.isLoaded) ⇒ <code>boolean</code>
     * [.auth](#EThing.auth) : <code>object</code>
@@ -614,7 +614,6 @@ EThing.Device.create('SSH', {  host: "localhost",  auth: {    user: "foo",  
         * [.getContentUrl([auth])](#EThing.File+getContentUrl) ⇒ <code>string</code>
         * [.isText()](#EThing.File+isText) ⇒ <code>boolean</code>
         * [.isScript()](#EThing.File+isScript) ⇒ <code>boolean</code>
-        * [.execute([arguments], [callback])](#EThing.File+execute) ⇒ [<code>File</code>](#EThing.File)
         * [.read([binary], [callback])](#EThing.File+read) ⇒ [<code>File</code>](#EThing.File)
         * [.write(data, [callback])](#EThing.File+write) ⇒ [<code>File</code>](#EThing.File)
         * [.json()](#EThing.Resource+json) ⇒ <code>object</code>
@@ -693,7 +692,7 @@ EThing.Device.create('SSH', {  host: "localhost",  auth: {    user: "foo",  
 
 **Example**  
 ```js
-// the simple wayvar image = new Image();image.src = imageFile.thumbnailLink(true);document.body.appendChild(image);// the hard wayEThing.request({  url: imageFile.thumbnailLink(),  dataType: "blob"}).then(function(blobData){  // success  var image = new Image();  image.src = window.URL.createObjectURL( blobData );    document.body.appendChild(image);});
+// the simple wayvar image = new Image();image.src = imageFile.thumbnailLink(true);document.body.appendChild(image);// the hard wayEThing.request({  url: imageFile.thumbnailLink(),  dataType: "blob"}).then(function(blobData){  // success  var image = new Image();  image.src = window.URL.createObjectURL( blobData );  document.body.appendChild(image);});
 ```
 <a name="EThing.File+getContentUrl"></a>
 
@@ -725,24 +724,6 @@ EThing.Device.create('SSH', {  host: "localhost",  auth: {    user: "foo",  
 
 **Kind**: instance method of [<code>File</code>](#EThing.File)  
 **this**: <code>{EThing.File}</code>  
-<a name="EThing.File+execute"></a>
-
-#### file.execute([arguments], [callback]) ⇒ [<code>File</code>](#EThing.File)
-<p>Execute a script file.</p>
-
-**Kind**: instance method of [<code>File</code>](#EThing.File)  
-**Returns**: [<code>File</code>](#EThing.File) - <p>The instance on which this method was called.</p>  
-**this**: <code>{EThing.File}</code>  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| [arguments] | <code>string</code> | <p>a string containing the arguments</p> |
-| [callback] | <code>function</code> | <p>it is executed once the request is complete whether in failure or success</p> |
-
-**Example**  
-```js
-file.execute().then(function(result){  // success  console.log(result);});
-```
 <a name="EThing.File+read"></a>
 
 #### file.read([binary], [callback]) ⇒ [<code>File</code>](#EThing.File)
@@ -1001,7 +982,7 @@ resource.setData({  "key": "value"}).then(function(){  // success});// you
 <p>Creates a new File from the following attributes :</p>
 <ul>
 <li>name {string} <strong>required</strong> the name of the file</li>
-<li>description {string} a string describing this file </li>
+<li>description {string} a string describing this file</li>
 <li>data {object} key/value pairs to attach to this file</li>
 <li>expireAfter {number} amount of seconds after the last update after which this file is removed automatically, 0 means unlimited. Default to 0.</li>
 </ul>
@@ -2153,6 +2134,7 @@ resource.setData({  "key": "value"}).then(function(){  // success});// you
     * [.get(id)](#EThing.arbo.get) ⇒ [<code>Resource</code>](#EThing.Resource) \| <code>undefined</code>
     * [.glob(filter)](#EThing.arbo.glob) ⇒ [<code>Array.&lt;Resource&gt;</code>](#EThing.Resource)
     * [.list()](#EThing.arbo.list) ⇒ [<code>Array.&lt;Resource&gt;</code>](#EThing.Resource)
+    * [.dispatch()](#EThing.arbo.dispatch)
     * [.refresh()](#EThing.arbo.refresh) ⇒ <code>Promise</code>
     * [.isLoaded()](#EThing.arbo.isLoaded) ⇒ <code>boolean</code>
 
@@ -2200,6 +2182,12 @@ Since there is no duplicate name for folders, their id is equal to their name.</
 
 #### arbo.list() ⇒ [<code>Array.&lt;Resource&gt;</code>](#EThing.Resource)
 <p>return all the resources. Same as [EThing.arbo.find()](EThing.arbo.find).</p>
+
+**Kind**: static method of [<code>arbo</code>](#EThing.arbo)  
+<a name="EThing.arbo.dispatch"></a>
+
+#### arbo.dispatch()
+<p>dispatch an event emitted by the server (through SSE or socketio)</p>
 
 **Kind**: static method of [<code>arbo</code>](#EThing.arbo)  
 <a name="EThing.arbo.refresh"></a>
@@ -2437,7 +2425,6 @@ EThing.notify("hello world")  .then(function(){    alert("A notification has b
             * [.getContentUrl([auth])](#EThing.File+getContentUrl) ⇒ <code>string</code>
             * [.isText()](#EThing.File+isText) ⇒ <code>boolean</code>
             * [.isScript()](#EThing.File+isScript) ⇒ <code>boolean</code>
-            * [.execute([arguments], [callback])](#EThing.File+execute) ⇒ [<code>File</code>](#EThing.File)
             * [.read([binary], [callback])](#EThing.File+read) ⇒ [<code>File</code>](#EThing.File)
             * [.write(data, [callback])](#EThing.File+write) ⇒ [<code>File</code>](#EThing.File)
             * [.json()](#EThing.Resource+json) ⇒ <code>object</code>
@@ -2564,6 +2551,7 @@ EThing.notify("hello world")  .then(function(){    alert("A notification has b
         * [.get(id)](#EThing.arbo.get) ⇒ [<code>Resource</code>](#EThing.Resource) \| <code>undefined</code>
         * [.glob(filter)](#EThing.arbo.glob) ⇒ [<code>Array.&lt;Resource&gt;</code>](#EThing.Resource)
         * [.list()](#EThing.arbo.list) ⇒ [<code>Array.&lt;Resource&gt;</code>](#EThing.Resource)
+        * [.dispatch()](#EThing.arbo.dispatch)
         * [.refresh()](#EThing.arbo.refresh) ⇒ <code>Promise</code>
         * [.isLoaded()](#EThing.arbo.isLoaded) ⇒ <code>boolean</code>
     * [.auth](#EThing.auth) : <code>object</code>
@@ -2984,7 +2972,6 @@ EThing.Device.create('SSH', {  host: "localhost",  auth: {    user: "foo",  
         * [.getContentUrl([auth])](#EThing.File+getContentUrl) ⇒ <code>string</code>
         * [.isText()](#EThing.File+isText) ⇒ <code>boolean</code>
         * [.isScript()](#EThing.File+isScript) ⇒ <code>boolean</code>
-        * [.execute([arguments], [callback])](#EThing.File+execute) ⇒ [<code>File</code>](#EThing.File)
         * [.read([binary], [callback])](#EThing.File+read) ⇒ [<code>File</code>](#EThing.File)
         * [.write(data, [callback])](#EThing.File+write) ⇒ [<code>File</code>](#EThing.File)
         * [.json()](#EThing.Resource+json) ⇒ <code>object</code>
@@ -3063,7 +3050,7 @@ EThing.Device.create('SSH', {  host: "localhost",  auth: {    user: "foo",  
 
 **Example**  
 ```js
-// the simple wayvar image = new Image();image.src = imageFile.thumbnailLink(true);document.body.appendChild(image);// the hard wayEThing.request({  url: imageFile.thumbnailLink(),  dataType: "blob"}).then(function(blobData){  // success  var image = new Image();  image.src = window.URL.createObjectURL( blobData );    document.body.appendChild(image);});
+// the simple wayvar image = new Image();image.src = imageFile.thumbnailLink(true);document.body.appendChild(image);// the hard wayEThing.request({  url: imageFile.thumbnailLink(),  dataType: "blob"}).then(function(blobData){  // success  var image = new Image();  image.src = window.URL.createObjectURL( blobData );  document.body.appendChild(image);});
 ```
 <a name="EThing.File+getContentUrl"></a>
 
@@ -3095,24 +3082,6 @@ EThing.Device.create('SSH', {  host: "localhost",  auth: {    user: "foo",  
 
 **Kind**: instance method of [<code>File</code>](#EThing.File)  
 **this**: <code>{EThing.File}</code>  
-<a name="EThing.File+execute"></a>
-
-#### file.execute([arguments], [callback]) ⇒ [<code>File</code>](#EThing.File)
-<p>Execute a script file.</p>
-
-**Kind**: instance method of [<code>File</code>](#EThing.File)  
-**Returns**: [<code>File</code>](#EThing.File) - <p>The instance on which this method was called.</p>  
-**this**: <code>{EThing.File}</code>  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| [arguments] | <code>string</code> | <p>a string containing the arguments</p> |
-| [callback] | <code>function</code> | <p>it is executed once the request is complete whether in failure or success</p> |
-
-**Example**  
-```js
-file.execute().then(function(result){  // success  console.log(result);});
-```
 <a name="EThing.File+read"></a>
 
 #### file.read([binary], [callback]) ⇒ [<code>File</code>](#EThing.File)
@@ -3371,7 +3340,7 @@ resource.setData({  "key": "value"}).then(function(){  // success});// you
 <p>Creates a new File from the following attributes :</p>
 <ul>
 <li>name {string} <strong>required</strong> the name of the file</li>
-<li>description {string} a string describing this file </li>
+<li>description {string} a string describing this file</li>
 <li>data {object} key/value pairs to attach to this file</li>
 <li>expireAfter {number} amount of seconds after the last update after which this file is removed automatically, 0 means unlimited. Default to 0.</li>
 </ul>
@@ -4523,6 +4492,7 @@ resource.setData({  "key": "value"}).then(function(){  // success});// you
     * [.get(id)](#EThing.arbo.get) ⇒ [<code>Resource</code>](#EThing.Resource) \| <code>undefined</code>
     * [.glob(filter)](#EThing.arbo.glob) ⇒ [<code>Array.&lt;Resource&gt;</code>](#EThing.Resource)
     * [.list()](#EThing.arbo.list) ⇒ [<code>Array.&lt;Resource&gt;</code>](#EThing.Resource)
+    * [.dispatch()](#EThing.arbo.dispatch)
     * [.refresh()](#EThing.arbo.refresh) ⇒ <code>Promise</code>
     * [.isLoaded()](#EThing.arbo.isLoaded) ⇒ <code>boolean</code>
 
@@ -4570,6 +4540,12 @@ Since there is no duplicate name for folders, their id is equal to their name.</
 
 #### arbo.list() ⇒ [<code>Array.&lt;Resource&gt;</code>](#EThing.Resource)
 <p>return all the resources. Same as [EThing.arbo.find()](EThing.arbo.find).</p>
+
+**Kind**: static method of [<code>arbo</code>](#EThing.arbo)  
+<a name="EThing.arbo.dispatch"></a>
+
+#### arbo.dispatch()
+<p>dispatch an event emitted by the server (through SSE or socketio)</p>
 
 **Kind**: static method of [<code>arbo</code>](#EThing.arbo)  
 <a name="EThing.arbo.refresh"></a>
