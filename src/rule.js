@@ -34,7 +34,7 @@ Rule.prototype.enabled = function() {
  * @this {EThing.Rule}
  * @returns {object[]}
  */
-Resource.prototype.events = function(){
+Rule.prototype.events = function(){
 	return this._json.events || [];
 }
 
@@ -43,7 +43,7 @@ Resource.prototype.events = function(){
  * @this {EThing.Rule}
  * @returns {object[]}
  */
-Resource.prototype.actions = function(){
+Rule.prototype.actions = function(){
 	return this._json.actions || [];
 }
 
@@ -132,13 +132,13 @@ Resource,callback
 */
 Rule.execute = function(a,b)
 {
-	var file_id = null, context;
+	var r_id = null, context;
 	if(a instanceof Rule){
 		context = a;
-		file_id = a.id();
+		r_id = a.id();
 	}
 	else if(utils.isId(a))
-		file_id = a;
+		r_id = a;
 	else {
 		throw "First argument must be a Rule object or a rule id !";
 		return;
@@ -147,7 +147,7 @@ Rule.execute = function(a,b)
 	var callback = b;
 
 	return EThing.request({
-		'url': '/rules/' + file_id + '/execute',
+		'url': '/rules/' + r_id + '/execute',
 		'method': 'GET',
 		'dataType': 'text',
 		'context': context

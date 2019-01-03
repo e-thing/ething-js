@@ -140,7 +140,11 @@ var instanciate = EThing.instanciate = function (json){
         
     }
     
-	return false;
+    console.warn('unknown type: ' + json.type)
+    
+    return new EThing.Resource(json);
+    
+	//return false;
 }
 
 
