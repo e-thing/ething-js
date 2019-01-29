@@ -6,7 +6,7 @@
 var EThing = require("./core.js");
 
 // do not touch the following line, the version number will be automatically updated when executing 'npm version'
-EThing.VERSION = '0.1.15';
+EThing.VERSION = '0.1.16';
 
 require("./resource.js");
 require("./settings.js");
