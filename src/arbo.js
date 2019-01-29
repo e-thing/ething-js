@@ -317,6 +317,9 @@ EThing.arbo = {
 	get: get,
 	list: list,
 	glob: glob,
+  find: function (f) {
+    return resources.filter(f)
+  },
 
 	/**
 	 * Check if the resources are loaded (ie. if the {@link EThing.arbo.load} function has been called and has returned).
