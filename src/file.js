@@ -26,14 +26,7 @@ utils.inherits(File, Resource);
 File.prototype.size = function() {
 	return this._json.size;
 }
-/**
- * Returns the amount of seconds after the last update after which this file is removed automatically, or null if this feature is not enable (no time limit).
- * @this {EThing.File}
- * @returns {number|null}
- */
-File.prototype.expireAfter = function(){
-	return this._json.expireAfter || null;
-}
+
 /**
  * Returns the MIME type of this file
  * @this {EThing.File}
@@ -99,24 +92,6 @@ File.prototype.thumbnailLink = function(auth) {
  */
 File.prototype.getContentUrl = function(auth) {
 	return EThing.toApiUrl('files/'+this.id(),auth);
-}
-
-/**
- * Returns true if this file has text based content.
- * @this {EThing.File}
- * @returns {boolean}
- */
-File.prototype.isText = function() {
-	return this._json.isText;
-}
-
-/**
- * Returns true if this file is a script.
- * @this {EThing.File}
- * @returns {boolean}
- */
-File.prototype.isScript = function() {
-	return this._json.isText && this._json.mime === 'application/javascript';
 }
 
 // specific methods
@@ -186,7 +161,6 @@ File.prototype.write = function(data, callback){
  *   - name {string} __required__ the name of the file
  *   - description {string} a string describing this file
  *   - data {object} key/value pairs to attach to this file
- *   - expireAfter {number} amount of seconds after the last update after which this file is removed automatically, 0 means unlimited. Default to 0.
  *
  * @method EThing.File.create
  * @param {object} attributes

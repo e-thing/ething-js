@@ -36,14 +36,7 @@ Table.prototype.length = function(){
 Table.prototype.maxLength = function(){
 	return this._json.maxLength;
 }
-/**
- * Returns the amount of seconds after which a __row__ is automatically removed, or null if this feature is not enable.
- * @this {EThing.Table}
- * @returns {number}
- */
-Table.prototype.expireAfter = function(){
-	return this._json.expireAfter;
-}
+
 /**
  * Returns the keys in this table. __The default keys ("id" and "date" are not listed)__.
  * @this {EThing.Table}
@@ -223,10 +216,10 @@ Table.prototype.import = function(data, callback){
  * @example
  * // using EThing.request() :
  * EThing.request(table.getContentUrl()).then(function(rows){
- *   // success, rows is an array of object 
+ *   // success, rows is an array of object
  *   console.log('number of rows : '+rows.length);
  * });
- * 
+ *
  * // or using jQuery :
  * $.getJSON(table.getContentUrl(true)).then(function(rows){
  *   // success
@@ -242,9 +235,8 @@ Table.prototype.getContentUrl = function(auth) {
 /**
  * Creates a new Table from the following attributes :
  *   - name {string} __required__ the name of the table
- *   - description {string} a string describing this table 
+ *   - description {string} a string describing this table
  *   - data {object} key/value pairs to attach to this table
- *   - expireAfter {number} amount of seconds after which a row is automatically removed, 0 means unlimited. Default to 0.
  *   - maxLength {number} the maximum number of rows allowed in this table. 0 means unlimited. Default to 5000.
  *
  * @method EThing.Table.create
@@ -255,14 +247,13 @@ Table.prototype.getContentUrl = function(auth) {
  * @example
  * // get a resource by its id
  * EThing.Table.create({
- *   name: "foobar",
- *   expireAfter: 3600*24*7 // the data are automatically removed after 7 weeks
+ *   name: "foobar"
  * }).then(function(resource){
  *     console.log('table created : ' + resource.name());
  * })
  */
 Table.create = function(a,callback){
-	
+
 	if(typeof a == "string")
 		a = {
 			'name': a
@@ -279,7 +270,7 @@ Table.create = function(a,callback){
 		EThing.trigger('ething.table.created',[r]);
         return r
 	});
-	
+
 };
 
 
@@ -296,26 +287,26 @@ Table.select = function(a,options,callback){
 		throw "First argument must be a Table object or a table id !";
 		return;
 	}
-	
+
 	if((typeof callback == 'undefined') && (typeof options == 'function')){
 		callback = options;
 		options = null;
 	}
-	
+
 	options = options || {};
-	
+
 	if(Array.isArray(options.fields)){
 		options.fields = options.fields.join(',');
 	}
-	
-	
+
+
 	return EThing.request({
 		'url': '/tables/' + table_id + '?' + utils.param({'start':options.start,'length':options.length,'sort':options.sort,'q':options.query,'fields':options.fields,'datefmt':options.datefmt}),
 		'method': 'GET',
 		'dataType': 'json',
 		'context': context
 	},callback);
-	
+
 }
 
 Table.computeStatistics = function(a,key,query,callback){
@@ -331,20 +322,20 @@ Table.computeStatistics = function(a,key,query,callback){
 		throw "First argument must be a Table object or a table id !";
 		return;
 	}
-	
+
 	if((typeof callback == 'undefined') && (typeof query == 'function')){
 		callback = query;
 		query = null;
 	}
-	
-	
+
+
 	return EThing.request({
 		'url': '/tables/' + table_id + '/statistics?' + utils.param({'key':key,'q':query}),
 		'method': 'GET',
 		'dataType': 'json',
 		'context': context
 	},callback);
-	
+
 }
 
 
@@ -364,10 +355,10 @@ Table.removeRow = function(a,b,c){
 		throw "First argument must be a Table object or a table id !";
 		return;
 	}
-	
+
 	var id = Array.isArray(b) ? b : [b];
 	var callback = c;
-	
+
 	return EThing.request({
 		'url': '/tables/' + table_id + '/remove',
 		'dataType': 'json',
@@ -377,7 +368,7 @@ Table.removeRow = function(a,b,c){
 		'context': context,
 		'converter': EThing.resourceConverter
 	},callback);
-	
+
 }
 
 /*
@@ -396,13 +387,13 @@ Table.replaceRow = function(a,b,c){
 		throw "First argument must be a Table object or a table id !";
 		return;
 	}
-	
+
 	if(typeof b === 'object' && !utils.isId(b.id))
 		throw "Second argument must be an object containing at least a document id";
-	
+
 	var docId = b.id
 	var callback = c;
-    
+
 	return EThing.request({
 		'url': '/tables/' + table_id + '/id/'+docId,
 		'dataType': 'json',
@@ -414,7 +405,7 @@ Table.replaceRow = function(a,b,c){
 			"X-HTTP-Method-Override": "PATCH"
 		}
 	},callback);
-	
+
 }
 
 /*
@@ -433,13 +424,13 @@ Table.findOneAndReplace = function(a,b,c,d,e){
 		throw "First argument must be a Table object or a table id !";
 		return;
 	}
-	
+
 	if(typeof b !== 'string')
 		throw "Second argument must be a query string";
-	
+
 	if(typeof c !== 'object')
 		throw "Third argument must be an object";
-	
+
 	if(typeof e === 'undefined' && typeof d === 'function'){
 		callback = d;
 		upsert = false;
@@ -447,7 +438,7 @@ Table.findOneAndReplace = function(a,b,c,d,e){
 	if(typeof d === 'boolean') {
 		upsert = d;
 	}
-	
+
 	return EThing.request({
 		'url': '/tables/' + table_id + '/replace?' + utils.param({'q':b, 'upsert':upsert}),
 		'dataType': 'json',
@@ -457,7 +448,7 @@ Table.findOneAndReplace = function(a,b,c,d,e){
 		'context': context,
 		'converter': EThing.resourceConverter
 	},callback);
-	
+
 }
 
 /*
@@ -474,9 +465,9 @@ Note : if valueX is null, so no data will be appended and the columnX will be cr
 
 */
 Table.insert = function(a,postData,c,d){
-	
+
 	var callback, table_id = null, context, invalid_field;
-	
+
 	if(a instanceof Table){
 		context = a;
 		table_id = a.id();
@@ -487,7 +478,7 @@ Table.insert = function(a,postData,c,d){
 		throw "First argument must be a Table object or a table id !";
 		return;
 	}
-	
+
 	if( typeof c == 'string' ){
 		invalid_field = c;
 		callback = d;
@@ -495,8 +486,8 @@ Table.insert = function(a,postData,c,d){
 	else {
 		callback = c;
 	}
-	
-	
+
+
 	return EThing.request({
 		'url': '/tables/' + table_id + '?' + utils.param({'invalid_field':invalid_field}),
 		'dataType': 'json',
@@ -506,13 +497,13 @@ Table.insert = function(a,postData,c,d){
 		'context': context,
 		'converter': EThing.resourceConverter
 	},callback);
-	
+
 }
 
 
 Table.import = function(table,data){
 	var context,invalid_field,skip_error,callback;
-	
+
 	if(table instanceof Table){
 		context = table;
 		table = table.id();
@@ -521,10 +512,10 @@ Table.import = function(table,data){
 		throw "First argument must be a Table object or a table id !";
 		return;
 	}
-	
+
 	if(!Array.isArray(data))
 		throw "The data must be an array of objects";
-	
+
 	for(var i=2; i<arguments.length; i++){
 		switch(typeof arguments[i]){
 			case 'function':
@@ -538,7 +529,7 @@ Table.import = function(table,data){
 				break;
 		}
 	}
-	
+
 	return EThing.request({
 		'url': '/tables/' + table + '?' + utils.param({'skip_error':skip_error,'invalid_field':invalid_field}),
 		'dataType': 'json',
@@ -548,10 +539,9 @@ Table.import = function(table,data){
 		'context': context,
 		'converter': EThing.resourceConverter
 	},callback);
-	
+
 }
 
 EThing.Table = Table;
 
 module.exports = Table;
-
