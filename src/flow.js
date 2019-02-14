@@ -21,12 +21,21 @@ utils.inherits(Flow, Resource);
 // specific methods
 
 /**
- * Returns an object describing the flow.
+ * Returns the list of nodes.
  * @this {EThing.Flow}
  * @returns {object}
  */
-Flow.prototype.flow = function(){
-	return this._json.flow;
+Flow.prototype.nodes = function(){
+	return this._json.nodes;
+}
+
+/**
+ * Returns the list of connections.
+ * @this {EThing.Flow}
+ * @returns {object}
+ */
+Flow.prototype.connections = function(){
+	return this._json.connections;
 }
 
 
@@ -61,7 +70,7 @@ Flow.prototype.deploy = function(callback){
  * })
  */
 Flow.create = function(json,callback){
-  
+
 	return EThing.request({
 		'url': '/flows',
 		'dataType': 'json',
