@@ -245,7 +245,6 @@ Table.prototype.getContentUrl = function(auth) {
  * @returns {Promise}
  * @fires EThing#ething.table.created
  * @example
- * // get a resource by its id
  * EThing.Table.create({
  *   name: "foobar"
  * }).then(function(resource){
@@ -259,16 +258,9 @@ Table.create = function(a,callback){
 			'name': a
 		};
 
-	return EThing.request({
-		'url': '/tables',
-		'dataType': 'json',
-		'method': 'POST',
-		'contentType': "application/json; charset=utf-8",
-		'data': a,
-		'converter': EThing.resourceConverter
-	},callback).then(function(r){
+	return Resource.create(Object.assign({type:'resources/Table'}, a), callback).then(function(r){
 		EThing.trigger('ething.table.created',[r]);
-        return r
+    return r
 	});
 
 };

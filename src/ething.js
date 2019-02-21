@@ -14,7 +14,6 @@ require("./notify.js");
 require("./auth.js");
 require("./file.js");
 require("./table.js");
-require("./rule.js");
 require("./flow.js");
 require("./device.js");
 require("./arbo.js");

@@ -16,22 +16,18 @@ var Resource = require("./resource.js");
 var Device = function(json)
 {
 	Resource.call(this, json);
-	
+
 	(this._json.methods || []).forEach(function(operationId){
 		if(typeof this[operationId] == 'undefined'){
 			var self = this;
-			
+
 			this[operationId] = function(data, binary, callback){
 				var args = [].slice.call(arguments);
                 args.unshift(operationId);
                 args.unshift(this);
                 return Device.execute.apply(EThing, args);
 			};
-			
-			this[operationId].getApi = function(callback){
-				return Device.getApi(self, operationId, callback);
-			};
-			
+
 			this[operationId].executeUrl = function(data){
 				return self.executeUrl(operationId, data);
 			};
@@ -42,7 +38,7 @@ utils.inherits(Device, Resource);
 
 
 /**
- * 
+ *
  * @this {EThing.Device}
  * @returns {string|null} Return either a string containing information about the location (coordinates, place, room ...) or null if no location is defined for this device.
  */
@@ -51,7 +47,7 @@ Device.prototype.location = function() {
 }
 
 /**
- * 
+ *
  * @this {EThing.Device}
  * @returns {boolean} Return true if the device is connected.
  */
@@ -60,7 +56,7 @@ Device.prototype.connected = function() {
 }
 
 /**
- * 
+ *
  * @this {EThing.Device}
  * @returns {Date|null}
  */
@@ -69,7 +65,7 @@ Device.prototype.lastSeenDate = function() {
 }
 
 /**
- * 
+ *
  * @this {EThing.Device}
  * @returns {boolean}
  */
@@ -78,7 +74,7 @@ Device.prototype.hasBattery = function() {
 }
 
 /**
- * 
+ *
  * @this {EThing.Device}
  * @returns {number}
  */
@@ -93,15 +89,6 @@ Device.prototype.battery = function() {
  */
 Device.prototype.methods = function(){
 	return this._json.methods || [];
-}
-
-/**
- * List the available interfaces on this device.
- * @this {EThing.Device}
- * @returns {string[]}
- */
-Device.prototype.interfaces = function(){
-	return this._json.interfaces || [];
 }
 
 
@@ -126,11 +113,11 @@ Device.prototype.interfaces = function(){
  *
  * // you can also pass the arguments as an array :
  * device.execute('setState', [true]);
- * 
+ *
  * // or as is :
  * device.execute('setState', true);
- * 
- * 
+ *
+ *
  * // you may also do :
  * device.getTemperature().then(function(data){
  *   // success, handle the data here
@@ -150,7 +137,7 @@ Device.prototype.execute = function(){
  * @param {object} [data] the optional data required by the operation
  * @returns {string} The url.
  * @example
- * 
+ *
  * var image = new Image();
  * image.src = device.executeUrl('getImage');
  * document.body.appendChild(image);
@@ -158,28 +145,13 @@ Device.prototype.execute = function(){
  */
 Device.prototype.executeUrl = function(operationId, data){
 	var url = 'devices/'+this.id()+'/call/'+operationId;
-	
+
 	if(utils.isPlainObject(data) && Object.keys(data).length !== 0){
 		url += '?' + utils.param(data);
 	}
-	
+
 	return EThing.toApiUrl(url,true);
 }
-
-/**
- * Retrieve information about a specific method or all the methods available for this device.
- * @this {EThing.Device}
- * @param {string} [operationId] if set, only information about this operation will be returned
- * @param {function(data)} [callback] it is executed once the request is complete whether in failure or success
- * @returns {EThing.Device} The instance on which this method was called.
- *
- */
-Device.prototype.getApi = function(operationId, callback){
-	var args = [].slice.call(arguments);
-    args.unshift(this);
-    return Device.getApi.apply(EThing, args);
-}
-
 
 
 
@@ -188,9 +160,9 @@ Device.prototype.getApi = function(operationId, callback){
 device, operationId[, data ]
 */
 Device.execute = function(device, operationId, data, binary, callback){
-	
+
 	var context;
-	
+
 	if(device instanceof Device){
 		context = device;
 		device = device.id();
@@ -201,23 +173,23 @@ Device.execute = function(device, operationId, data, binary, callback){
 		throw "First argument must be a Device object or a Device id !";
 		return;
 	}
-	
+
 	if(arguments.length == 4){
-		
+
 		if(typeof binary == 'function'){
 			callback = binary;
 			binary = undefined;
 		}
-		
+
 	} else if(arguments.length == 3){
-		
+
 		if(typeof data == 'function'){
 			callback = data;
 			data = undefined;
 		}
-		
+
 	}
-	
+
 	return EThing.request({
 		'url': '/devices/' + device + '/call/' + operationId,
 		'method': 'POST',
@@ -226,40 +198,7 @@ Device.execute = function(device, operationId, data, binary, callback){
 		'dataType': binary ? (typeof binary === 'string' ? binary : 'arraybuffer') : 'text',
 		'context': context
 	},callback);
-	
-};
 
-
-/*
-device[, operationId]
-*/
-Device.getApi = function(device, operationId, callback){
-	
-	var context;
-	
-	if(typeof operationId == 'function' && typeof callback == 'undefined'){
-		callback = operationId;
-		operationId = undefined;
-	}
-	
-	if(device instanceof Device){
-		context = device;
-		device = device.id();
-	}
-	else if(utils.isId(device))
-		device = device;
-	else {
-		throw "First argument must be a Device object or a Device id !";
-		return;
-	}
-	
-	return EThing.request({
-		'url': '/devices/' + device + '/api' + (operationId?('/'+operationId):''),
-		'method': 'GET',
-		'context': context,
-		'dataType': 'json'
-	},callback);
-	
 };
 
 
@@ -284,24 +223,14 @@ Device.getApi = function(device, operationId, callback){
  * })
  */
 Device.create = function(type, a,callback){
-	
-	a.type = type;
-	
-	return EThing.request({
-		'url': '/devices',
-		'dataType': 'json',
-		'method': 'POST',
-		'contentType': "application/json; charset=utf-8",
-		'data': a,
-		'converter': EThing.resourceConverter
-	},callback).then(function(r){
+
+	return Resource.create(Object.assign({type}, a),callback).then(function(r){
 		EThing.trigger('ething.device.created',[r]);
-        return r;
+    return r;
 	});
-	
+
 };
 
 EThing.Device = Device;
 
 module.exports = Device;
-

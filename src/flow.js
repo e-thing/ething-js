@@ -71,18 +71,10 @@ Flow.prototype.deploy = function(callback){
  */
 Flow.create = function(json,callback){
 
-	return EThing.request({
-		'url': '/flows',
-		'dataType': 'json',
-		'method': 'POST',
-		'contentType': "application/json; charset=utf-8",
-		'data': json,
-		'converter': EThing.resourceConverter
-	},callback).then(function(r){
+	return Resource.create(Object.assign({type:'resources/Flow'}, json), callback).then(function(r){
 		EThing.trigger('ething.flow.created',[r]);
-        return r
+    return r
 	});
-
 
 };
 

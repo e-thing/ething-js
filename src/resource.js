@@ -14,16 +14,16 @@ var EThing = require("./core.js");
 var Resource = function (json)
 {
 	EventEngine(this);
-	
+
 	this._fromJson(json, true);
 }
 
 // loader
 Resource.prototype._fromJson = function(json, noTrigger){
-	
+
 	var updated = this._json && json && this._json.modifiedDate && json.modifiedDate && this._json.modifiedDate !== json.modifiedDate;
 	var updatedKeys = [];
-	
+
 	json = utils.extend({
 		name:null,
 		id:null,
@@ -35,7 +35,7 @@ Resource.prototype._fromJson = function(json, noTrigger){
 		data: null,
 		description: ''
 	}, json || {});
-	
+
 	if(!noTrigger && updated) {
 		// list the kays that have been updated
 		Object.keys(json).forEach(function(key){
@@ -44,15 +44,15 @@ Resource.prototype._fromJson = function(json, noTrigger){
 			}
 		},this);
 	}
-	
+
 	this._json = json;
-	
+
 	if(!noTrigger && updated) {
 		//console.log('resource updated '+this.name());
 		this.trigger('updated', [updatedKeys]);
 		EThing.trigger('ething.resource.updated',[this, updatedKeys]);
 	}
-	
+
 	return updated;
 }
 
@@ -299,20 +299,20 @@ Resource.prototype.set = function(properties, callback){
  * }).then(function(){
  *   // success
  * });
- * 
+ *
  * // you can also write :
  * resource.setData("key", "value").then(function(){
  *   // success
  * });
  */
 Resource.prototype.setData = function(data, callback){
-	
+
 	if(typeof data === 'string' && typeof callback != 'function'){
 		var key = data, value = callback, callback = arguments[2];
 		data = {};
 		data[key] = value;
 	}
-	
+
 	return this.set({'data':data},callback);
 }
 
@@ -320,6 +320,40 @@ Resource.prototype.setData = function(data, callback){
 
 
 
+/**
+ * Creates a new Resource
+ *
+ * @method EThing.Resource.create
+ * @param {object} attributes
+ * @param {function(data)} [callback] it is executed once the request is complete whether in failure or success
+ * @returns {Promise}
+ * @fires EThing#ething.resource.created
+ * @example
+ * EThing.Resource.create({
+ *   type: "resources/File",
+ *   name: "foobar"
+ * }).then(function(resource){
+ *     console.log('created : ' + resource.name());
+ * })
+ */
+Resource.create = function(a,callback){
+	if(typeof a.type == 'undefined') {
+		throw "type attribute is mandatory !";
+	}
+
+	return EThing.request({
+		'url': '/resources',
+		'dataType': 'json',
+		'method': 'POST',
+		'contentType': "application/json; charset=utf-8",
+		'data': a,
+		'converter': EThing.resourceConverter
+	},callback).then(function(r){
+		EThing.trigger('ething.resource.created',[r]);
+    return r
+	});
+
+};
 
 
 
@@ -335,14 +369,13 @@ Resource.remove = function(a,removeChildren,callback)
 	}
 	else if(!utils.isId(a)) {
 		throw "First argument must be a Resource object or a Resource id : "+a;
-		return;
 	}
-	
+
 	if(arguments.length==2 && typeof removeChildren === 'function'){
 		callback = removeChildren;
 		removeChildren = false;
 	}
-	
+
 	return EThing.request({
 		'url': '/resources/' + a + '?' + utils.param({'children':removeChildren}),
 		'method': 'DELETE',
@@ -359,12 +392,12 @@ Resource,data,callback
 */
 Resource.set = function(a,b,c){
 	var context;
-	
+
 	if(!utils.isPlainObject(b) || !b){
 		throw 'Second argument must be a unempty object !';
 		return;
 	}
-	
+
 	if(a instanceof Resource){
 		context = a;
 		a = a.id();
@@ -373,9 +406,9 @@ Resource.set = function(a,b,c){
 		throw "First argument must be a Resource object or a Resource id : "+a;
 		return;
 	}
-	
+
 	var callback = c;
-	
+
 	return EThing.request({
 		'url': '/resources/' + a,
 		'dataType': 'json',
@@ -410,20 +443,20 @@ Resource.extension = function(f){
 	return f.indexOf('.')>=0 ? f.split('.').pop() : '';
 }
 Resource.fnmatch = function fnmatch(pattern, path) {
-	
+
 	var patternTab = pattern.split(' ');
 	var parsedPattern, regexp;
-	
+
 	for(var i=0; i<patternTab.length; i++){
 		if(patternTab[i] == '') continue;
-		
+
 		parsedPattern = '^' + patternTab[i].replace(/\//g, '\\/').
 		replace(/\*\*/g, '(\\/[^\\/]+)*').
 		replace(/\*/g, '[^\\/]+').
 		replace(/((?!\\))\?/g, '$1.') + '$';
-		
+
 		parsedPattern = '^' + parsedPattern + '$';
-		
+
 		regexp = new RegExp(parsedPattern);
 		if( path.match(regexp) != null ) return true;
 	}

@@ -177,35 +177,46 @@ File.prototype.write = function(data, callback){
  */
 File.create = function(a,callback){
 
-	if(typeof a == "string")
+	if(typeof a == "string") {
 		a = {
 			'name': a
 		};
+	}
 
-    var json = Object.assign({}, a);
+  var json = Object.assign({type:'resources/File'}, a);
 
-    return new Promise(function(resolve, reject) {
-        utils.toBase64(json.content || '', function(content){
-            json.content = content;
+	var content = json.content
+	delete json.content
 
-            EThing.request({
-                'url': '/files',
-                'dataType': 'json',
-                'method': 'POST',
-                'contentType': "application/json; charset=utf-8",
-                'data': json,
-                'converter': EThing.resourceConverter
-            },callback).then(function(file){
+  p = new Promise(function(resolve, reject) {
 
-                EThing.trigger('ething.file.created',[file]);
+			Resource.create(json).then(function(file){
 
-                resolve(file)
-            }).catch(function(err){
-                reject(err)
-            });
+          EThing.trigger('ething.file.created',[file]);
 
-        });
-    })
+					if (content) {
+						File.write(file, content).then(function(file){
+							resolve(file)
+						}).catch(function(err){
+	              reject(err)
+	          });
+					} else {
+						resolve(file)
+					}
+      }).catch(function(err){
+          reject(err)
+      });
+  })
+
+	if (callback) {
+		p.then(function(file){
+			callback.call(EThing, file, false)
+		}).catch(function(err){
+			callback.call(EThing, null, err)
+		});
+	}
+
+	return p
 };
 
 /*
@@ -231,33 +242,6 @@ File.read = function(file, binary, callback)
 		'url': '/files/' + file,
 		'method': 'GET',
 		'dataType': binary ? (typeof binary === 'string' ? binary : 'arraybuffer') : 'text',
-		'context': context
-	},callback);
-};
-
-/*
-Resource,args,callback{function({object})}
-*/
-File.execute = function(file, args, callback)
-{
-	var context;
-	if(file instanceof File){
-		context = file;
-		file = file.id();
-	}
-	else if(!utils.isId(file)){
-		throw "First argument must be a File object or a file id !";
-	}
-
-	if(typeof callback === 'undefined' && typeof args === 'function'){
-		callback = args;
-		args = null;
-	}
-
-	return EThing.request({
-		'url': '/files/' + file + '/execute?' + utils.param({'args':args}),
-		'method': 'GET',
-		'dataType': 'json',
 		'context': context
 	},callback);
 };

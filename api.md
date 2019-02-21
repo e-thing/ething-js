@@ -29,10 +29,8 @@
             * [.hasBattery()](#EThing.Device+hasBattery) ⇒ <code>boolean</code>
             * [.battery()](#EThing.Device+battery) ⇒ <code>number</code>
             * [.methods()](#EThing.Device+methods) ⇒ <code>Array.&lt;string&gt;</code>
-            * [.interfaces()](#EThing.Device+interfaces) ⇒ <code>Array.&lt;string&gt;</code>
             * [.execute(operationId, [data], [binary], [callback])](#EThing.Device+execute) ⇒ [<code>Device</code>](#EThing.Device)
             * [.executeUrl(operationId, [data])](#EThing.Device+executeUrl) ⇒ <code>string</code>
-            * [.getApi([operationId], [callback])](#EThing.Device+getApi) ⇒ [<code>Device</code>](#EThing.Device)
             * [.json()](#EThing.Resource+json) ⇒ <code>object</code>
             * [.isTypeof(type)](#EThing.Resource+isTypeof) ⇒ <code>boolean</code>
             * [.name()](#EThing.Resource+name) ⇒ <code>string</code>
@@ -60,13 +58,10 @@
         * [new File(json)](#new_EThing.File_new)
         * _instance_
             * [.size()](#EThing.File+size) ⇒ <code>number</code>
-            * [.expireAfter()](#EThing.File+expireAfter) ⇒ <code>number</code> \| <code>null</code>
             * [.mime()](#EThing.File+mime) ⇒ <code>string</code>
             * [.contentModifiedDate()](#EThing.File+contentModifiedDate) ⇒ <code>Date</code>
             * [.thumbnailLink([auth])](#EThing.File+thumbnailLink) ⇒ <code>string</code> \| <code>null</code>
             * [.getContentUrl([auth])](#EThing.File+getContentUrl) ⇒ <code>string</code>
-            * [.isText()](#EThing.File+isText) ⇒ <code>boolean</code>
-            * [.isScript()](#EThing.File+isScript) ⇒ <code>boolean</code>
             * [.read([binary], [callback])](#EThing.File+read) ⇒ [<code>File</code>](#EThing.File)
             * [.write(data, [callback])](#EThing.File+write) ⇒ [<code>File</code>](#EThing.File)
             * [.json()](#EThing.Resource+json) ⇒ <code>object</code>
@@ -95,7 +90,8 @@
     * [.Flow](#EThing.Flow) ⇐ [<code>Resource</code>](#EThing.Resource)
         * [new Flow(json)](#new_EThing.Flow_new)
         * _instance_
-            * [.flow()](#EThing.Flow+flow) ⇒ <code>object</code>
+            * [.nodes()](#EThing.Flow+nodes) ⇒ <code>object</code>
+            * [.connections()](#EThing.Flow+connections) ⇒ <code>object</code>
             * [.deploy([callback])](#EThing.Flow+deploy) ⇒ [<code>Flow</code>](#EThing.Flow)
             * [.json()](#EThing.Resource+json) ⇒ <code>object</code>
             * [.isTypeof(type)](#EThing.Resource+isTypeof) ⇒ <code>boolean</code>
@@ -122,36 +118,7 @@
             * [.create(attributes, [callback])](#EThing.Flow.create) ⇒ <code>Promise</code>
     * [.Resource](#EThing.Resource)
         * [new Resource(json)](#new_EThing.Resource_new)
-        * [.json()](#EThing.Resource+json) ⇒ <code>object</code>
-        * [.isTypeof(type)](#EThing.Resource+isTypeof) ⇒ <code>boolean</code>
-        * [.name()](#EThing.Resource+name) ⇒ <code>string</code>
-        * [.dirname()](#EThing.Resource+dirname) ⇒ <code>string</code>
-        * [.basename()](#EThing.Resource+basename) ⇒ <code>string</code>
-        * [.extension()](#EThing.Resource+extension) ⇒ <code>string</code>
-        * [.id()](#EThing.Resource+id) ⇒ <code>string</code>
-        * [.createdBy()](#EThing.Resource+createdBy) ⇒ <code>string</code> \| <code>null</code>
-        * [.type()](#EThing.Resource+type) ⇒ <code>string</code>
-        * [.types()](#EThing.Resource+types) ⇒ <code>Array.&lt;string&gt;</code>
-        * [.baseType()](#EThing.Resource+baseType) ⇒ <code>string</code>
-        * [.createdDate()](#EThing.Resource+createdDate) ⇒ <code>Date</code>
-        * [.modifiedDate()](#EThing.Resource+modifiedDate) ⇒ <code>Date</code>
-        * [.public()](#EThing.Resource+public) ⇒ <code>boolean</code> \| <code>string</code>
-        * [.data([name], [defaultValue])](#EThing.Resource+data) ⇒ <code>object</code> \| <code>null</code>
-        * [.attr([name])](#EThing.Resource+attr) ⇒ <code>object</code> \| <code>null</code>
-        * [.hasAttr(name)](#EThing.Resource+hasAttr) ⇒ <code>boolean</code>
-        * [.description()](#EThing.Resource+description) ⇒ <code>string</code>
-        * [.remove([removeChildren], [callback])](#EThing.Resource+remove) ⇒ [<code>Resource</code>](#EThing.Resource)
-        * [.set(properties, [callback])](#EThing.Resource+set) ⇒ [<code>Resource</code>](#EThing.Resource)
-        * [.setData(data, [callback])](#EThing.Resource+setData) ⇒ [<code>Resource</code>](#EThing.Resource)
-    * [.Rule](#EThing.Rule) ⇐ [<code>Resource</code>](#EThing.Resource)
-        * [new Rule(json)](#new_EThing.Rule_new)
         * _instance_
-            * [.enabled()](#EThing.Rule+enabled) ⇒ <code>boolean</code>
-            * [.events()](#EThing.Rule+events) ⇒ <code>Array.&lt;object&gt;</code>
-            * [.actions()](#EThing.Rule+actions) ⇒ <code>Array.&lt;object&gt;</code>
-            * [.executionCount()](#EThing.Rule+executionCount) ⇒ <code>number</code>
-            * [.executionDate()](#EThing.Rule+executionDate) ⇒ <code>Date</code> \| <code>null</code>
-            * [.execute([callback])](#EThing.Rule+execute) ⇒ [<code>Rule</code>](#EThing.Rule)
             * [.json()](#EThing.Resource+json) ⇒ <code>object</code>
             * [.isTypeof(type)](#EThing.Resource+isTypeof) ⇒ <code>boolean</code>
             * [.name()](#EThing.Resource+name) ⇒ <code>string</code>
@@ -174,13 +141,12 @@
             * [.set(properties, [callback])](#EThing.Resource+set) ⇒ [<code>Resource</code>](#EThing.Resource)
             * [.setData(data, [callback])](#EThing.Resource+setData) ⇒ [<code>Resource</code>](#EThing.Resource)
         * _static_
-            * [.create(attributes, [callback])](#EThing.Rule.create) ⇒ <code>Promise</code>
+            * [.create(attributes, [callback])](#EThing.Resource.create) ⇒ <code>Promise</code>
     * [.Table](#EThing.Table) ⇐ [<code>Resource</code>](#EThing.Resource)
         * [new Table(json)](#new_EThing.Table_new)
         * _instance_
             * [.length()](#EThing.Table+length) ⇒ <code>number</code>
             * [.maxLength()](#EThing.Table+maxLength) ⇒ <code>number</code> \| <code>null</code>
-            * [.expireAfter()](#EThing.Table+expireAfter) ⇒ <code>number</code>
             * [.keys()](#EThing.Table+keys) ⇒ <code>Array.&lt;string&gt;</code>
             * [.contentModifiedDate()](#EThing.Table+contentModifiedDate) ⇒ <code>Date</code>
             * [.select([options], [callback])](#EThing.Table+select) ⇒ [<code>Table</code>](#EThing.Table)
@@ -220,11 +186,12 @@
     * [.trigger](#EThing.trigger)
     * [.arbo](#EThing.arbo) : <code>object</code>
         * [.load([callback], [force])](#EThing.arbo.load) ⇒ <code>Promise</code>
+        * [.refresh()](#EThing.arbo.refresh) ⇒ <code>Promise</code>
         * [.get(id)](#EThing.arbo.get) ⇒ [<code>Resource</code>](#EThing.Resource) \| <code>undefined</code>
         * [.glob(filter)](#EThing.arbo.glob) ⇒ [<code>Array.&lt;Resource&gt;</code>](#EThing.Resource)
         * [.list()](#EThing.arbo.list) ⇒ [<code>Array.&lt;Resource&gt;</code>](#EThing.Resource)
         * [.dispatch()](#EThing.arbo.dispatch)
-        * [.refresh()](#EThing.arbo.refresh) ⇒ <code>Promise</code>
+        * [.find(filter)](#EThing.arbo.find) ⇒ [<code>Array.&lt;Resource&gt;</code>](#EThing.Resource)
         * [.isLoaded()](#EThing.arbo.isLoaded) ⇒ <code>boolean</code>
     * [.auth](#EThing.auth) : <code>object</code>
         * [.isAuthenticated()](#EThing.auth.isAuthenticated) ⇒ <code>boolean</code>
@@ -259,10 +226,8 @@
         * [.hasBattery()](#EThing.Device+hasBattery) ⇒ <code>boolean</code>
         * [.battery()](#EThing.Device+battery) ⇒ <code>number</code>
         * [.methods()](#EThing.Device+methods) ⇒ <code>Array.&lt;string&gt;</code>
-        * [.interfaces()](#EThing.Device+interfaces) ⇒ <code>Array.&lt;string&gt;</code>
         * [.execute(operationId, [data], [binary], [callback])](#EThing.Device+execute) ⇒ [<code>Device</code>](#EThing.Device)
         * [.executeUrl(operationId, [data])](#EThing.Device+executeUrl) ⇒ <code>string</code>
-        * [.getApi([operationId], [callback])](#EThing.Device+getApi) ⇒ [<code>Device</code>](#EThing.Device)
         * [.json()](#EThing.Resource+json) ⇒ <code>object</code>
         * [.isTypeof(type)](#EThing.Resource+isTypeof) ⇒ <code>boolean</code>
         * [.name()](#EThing.Resource+name) ⇒ <code>string</code>
@@ -331,13 +296,6 @@
 
 **Kind**: instance method of [<code>Device</code>](#EThing.Device)  
 **this**: <code>{EThing.Device}</code>  
-<a name="EThing.Device+interfaces"></a>
-
-#### device.interfaces() ⇒ <code>Array.&lt;string&gt;</code>
-<p>List the available interfaces on this device.</p>
-
-**Kind**: instance method of [<code>Device</code>](#EThing.Device)  
-**this**: <code>{EThing.Device}</code>  
 <a name="EThing.Device+execute"></a>
 
 #### device.execute(operationId, [data], [binary], [callback]) ⇒ [<code>Device</code>](#EThing.Device)
@@ -376,20 +334,6 @@
 ```js
 var image = new Image();image.src = device.executeUrl('getImage');document.body.appendChild(image);
 ```
-<a name="EThing.Device+getApi"></a>
-
-#### device.getApi([operationId], [callback]) ⇒ [<code>Device</code>](#EThing.Device)
-<p>Retrieve information about a specific method or all the methods available for this device.</p>
-
-**Kind**: instance method of [<code>Device</code>](#EThing.Device)  
-**Returns**: [<code>Device</code>](#EThing.Device) - <p>The instance on which this method was called.</p>  
-**this**: <code>{EThing.Device}</code>  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| [operationId] | <code>string</code> | <p>if set, only information about this operation will be returned</p> |
-| [callback] | <code>function</code> | <p>it is executed once the request is complete whether in failure or success</p> |
-
 <a name="EThing.Resource+json"></a>
 
 #### device.json() ⇒ <code>object</code>
@@ -637,13 +581,10 @@ EThing.Device.create('SSH', {  host: "localhost",  auth: {    user: "foo",  
     * [new File(json)](#new_EThing.File_new)
     * _instance_
         * [.size()](#EThing.File+size) ⇒ <code>number</code>
-        * [.expireAfter()](#EThing.File+expireAfter) ⇒ <code>number</code> \| <code>null</code>
         * [.mime()](#EThing.File+mime) ⇒ <code>string</code>
         * [.contentModifiedDate()](#EThing.File+contentModifiedDate) ⇒ <code>Date</code>
         * [.thumbnailLink([auth])](#EThing.File+thumbnailLink) ⇒ <code>string</code> \| <code>null</code>
         * [.getContentUrl([auth])](#EThing.File+getContentUrl) ⇒ <code>string</code>
-        * [.isText()](#EThing.File+isText) ⇒ <code>boolean</code>
-        * [.isScript()](#EThing.File+isScript) ⇒ <code>boolean</code>
         * [.read([binary], [callback])](#EThing.File+read) ⇒ [<code>File</code>](#EThing.File)
         * [.write(data, [callback])](#EThing.File+write) ⇒ [<code>File</code>](#EThing.File)
         * [.json()](#EThing.Resource+json) ⇒ <code>object</code>
@@ -684,13 +625,6 @@ EThing.Device.create('SSH', {  host: "localhost",  auth: {    user: "foo",  
 
 #### file.size() ⇒ <code>number</code>
 <p>Returns the size of this file in bytes.</p>
-
-**Kind**: instance method of [<code>File</code>](#EThing.File)  
-**this**: <code>{EThing.File}</code>  
-<a name="EThing.File+expireAfter"></a>
-
-#### file.expireAfter() ⇒ <code>number</code> \| <code>null</code>
-<p>Returns the amount of seconds after the last update after which this file is removed automatically, or null if this feature is not enable (no time limit).</p>
 
 **Kind**: instance method of [<code>File</code>](#EThing.File)  
 **this**: <code>{EThing.File}</code>  
@@ -740,20 +674,6 @@ EThing.Device.create('SSH', {  host: "localhost",  auth: {    user: "foo",  
 ```js
 // using EThing.request() :EThing.request(file.getContentUrl()).then(function(content){  // success  console.log('content as text : '+content);});// HTML <img> Tag :var image = new Image();image.src = imageFile.getContentUrl(true);document.body.appendChild(image);
 ```
-<a name="EThing.File+isText"></a>
-
-#### file.isText() ⇒ <code>boolean</code>
-<p>Returns true if this file has text based content.</p>
-
-**Kind**: instance method of [<code>File</code>](#EThing.File)  
-**this**: <code>{EThing.File}</code>  
-<a name="EThing.File+isScript"></a>
-
-#### file.isScript() ⇒ <code>boolean</code>
-<p>Returns true if this file is a script.</p>
-
-**Kind**: instance method of [<code>File</code>](#EThing.File)  
-**this**: <code>{EThing.File}</code>  
 <a name="EThing.File+read"></a>
 
 #### file.read([binary], [callback]) ⇒ [<code>File</code>](#EThing.File)
@@ -1014,7 +934,6 @@ resource.setData({  "key": "value"}).then(function(){  // success});// you
 <li>name {string} <strong>required</strong> the name of the file</li>
 <li>description {string} a string describing this file</li>
 <li>data {object} key/value pairs to attach to this file</li>
-<li>expireAfter {number} amount of seconds after the last update after which this file is removed automatically, 0 means unlimited. Default to 0.</li>
 </ul>
 
 **Kind**: static method of [<code>File</code>](#EThing.File)  
@@ -1041,7 +960,8 @@ EThing.File.create({  name: "foobar.txt",  description: "this is my file"}).t
 * [.Flow](#EThing.Flow) ⇐ [<code>Resource</code>](#EThing.Resource)
     * [new Flow(json)](#new_EThing.Flow_new)
     * _instance_
-        * [.flow()](#EThing.Flow+flow) ⇒ <code>object</code>
+        * [.nodes()](#EThing.Flow+nodes) ⇒ <code>object</code>
+        * [.connections()](#EThing.Flow+connections) ⇒ <code>object</code>
         * [.deploy([callback])](#EThing.Flow+deploy) ⇒ [<code>Flow</code>](#EThing.Flow)
         * [.json()](#EThing.Resource+json) ⇒ <code>object</code>
         * [.isTypeof(type)](#EThing.Resource+isTypeof) ⇒ <code>boolean</code>
@@ -1077,10 +997,17 @@ EThing.File.create({  name: "foobar.txt",  description: "this is my file"}).t
 | --- | --- |
 | json | <code>object</code> | 
 
-<a name="EThing.Flow+flow"></a>
+<a name="EThing.Flow+nodes"></a>
 
-#### flow.flow() ⇒ <code>object</code>
-<p>Returns an object describing the flow.</p>
+#### flow.nodes() ⇒ <code>object</code>
+<p>Returns the list of nodes.</p>
+
+**Kind**: instance method of [<code>Flow</code>](#EThing.Flow)  
+**this**: <code>{EThing.Flow}</code>  
+<a name="EThing.Flow+connections"></a>
+
+#### flow.connections() ⇒ <code>object</code>
+<p>Returns the list of connections.</p>
 
 **Kind**: instance method of [<code>Flow</code>](#EThing.Flow)  
 **this**: <code>{EThing.Flow}</code>  
@@ -1342,27 +1269,30 @@ EThing.Flow.create({  name: "myFlow"}).then(function(resource){    console.lo
 
 * [.Resource](#EThing.Resource)
     * [new Resource(json)](#new_EThing.Resource_new)
-    * [.json()](#EThing.Resource+json) ⇒ <code>object</code>
-    * [.isTypeof(type)](#EThing.Resource+isTypeof) ⇒ <code>boolean</code>
-    * [.name()](#EThing.Resource+name) ⇒ <code>string</code>
-    * [.dirname()](#EThing.Resource+dirname) ⇒ <code>string</code>
-    * [.basename()](#EThing.Resource+basename) ⇒ <code>string</code>
-    * [.extension()](#EThing.Resource+extension) ⇒ <code>string</code>
-    * [.id()](#EThing.Resource+id) ⇒ <code>string</code>
-    * [.createdBy()](#EThing.Resource+createdBy) ⇒ <code>string</code> \| <code>null</code>
-    * [.type()](#EThing.Resource+type) ⇒ <code>string</code>
-    * [.types()](#EThing.Resource+types) ⇒ <code>Array.&lt;string&gt;</code>
-    * [.baseType()](#EThing.Resource+baseType) ⇒ <code>string</code>
-    * [.createdDate()](#EThing.Resource+createdDate) ⇒ <code>Date</code>
-    * [.modifiedDate()](#EThing.Resource+modifiedDate) ⇒ <code>Date</code>
-    * [.public()](#EThing.Resource+public) ⇒ <code>boolean</code> \| <code>string</code>
-    * [.data([name], [defaultValue])](#EThing.Resource+data) ⇒ <code>object</code> \| <code>null</code>
-    * [.attr([name])](#EThing.Resource+attr) ⇒ <code>object</code> \| <code>null</code>
-    * [.hasAttr(name)](#EThing.Resource+hasAttr) ⇒ <code>boolean</code>
-    * [.description()](#EThing.Resource+description) ⇒ <code>string</code>
-    * [.remove([removeChildren], [callback])](#EThing.Resource+remove) ⇒ [<code>Resource</code>](#EThing.Resource)
-    * [.set(properties, [callback])](#EThing.Resource+set) ⇒ [<code>Resource</code>](#EThing.Resource)
-    * [.setData(data, [callback])](#EThing.Resource+setData) ⇒ [<code>Resource</code>](#EThing.Resource)
+    * _instance_
+        * [.json()](#EThing.Resource+json) ⇒ <code>object</code>
+        * [.isTypeof(type)](#EThing.Resource+isTypeof) ⇒ <code>boolean</code>
+        * [.name()](#EThing.Resource+name) ⇒ <code>string</code>
+        * [.dirname()](#EThing.Resource+dirname) ⇒ <code>string</code>
+        * [.basename()](#EThing.Resource+basename) ⇒ <code>string</code>
+        * [.extension()](#EThing.Resource+extension) ⇒ <code>string</code>
+        * [.id()](#EThing.Resource+id) ⇒ <code>string</code>
+        * [.createdBy()](#EThing.Resource+createdBy) ⇒ <code>string</code> \| <code>null</code>
+        * [.type()](#EThing.Resource+type) ⇒ <code>string</code>
+        * [.types()](#EThing.Resource+types) ⇒ <code>Array.&lt;string&gt;</code>
+        * [.baseType()](#EThing.Resource+baseType) ⇒ <code>string</code>
+        * [.createdDate()](#EThing.Resource+createdDate) ⇒ <code>Date</code>
+        * [.modifiedDate()](#EThing.Resource+modifiedDate) ⇒ <code>Date</code>
+        * [.public()](#EThing.Resource+public) ⇒ <code>boolean</code> \| <code>string</code>
+        * [.data([name], [defaultValue])](#EThing.Resource+data) ⇒ <code>object</code> \| <code>null</code>
+        * [.attr([name])](#EThing.Resource+attr) ⇒ <code>object</code> \| <code>null</code>
+        * [.hasAttr(name)](#EThing.Resource+hasAttr) ⇒ <code>boolean</code>
+        * [.description()](#EThing.Resource+description) ⇒ <code>string</code>
+        * [.remove([removeChildren], [callback])](#EThing.Resource+remove) ⇒ [<code>Resource</code>](#EThing.Resource)
+        * [.set(properties, [callback])](#EThing.Resource+set) ⇒ [<code>Resource</code>](#EThing.Resource)
+        * [.setData(data, [callback])](#EThing.Resource+setData) ⇒ [<code>Resource</code>](#EThing.Resource)
+    * _static_
+        * [.create(attributes, [callback])](#EThing.Resource.create) ⇒ <code>Promise</code>
 
 <a name="new_EThing.Resource_new"></a>
 
@@ -1590,342 +1520,13 @@ resource.set({  name: "newName.txt"}).then(function(){  console.log("the reso
 ```js
 resource.setData({  "key": "value"}).then(function(){  // success});// you can also write :resource.setData("key", "value").then(function(){  // success});
 ```
-<a name="EThing.Rule"></a>
+<a name="EThing.Resource.create"></a>
 
-### EThing.Rule ⇐ [<code>Resource</code>](#EThing.Resource)
-<p>The Rule resource handle an application</p>
+#### Resource.create(attributes, [callback]) ⇒ <code>Promise</code>
+<p>Creates a new Resource</p>
 
-**Kind**: static class of [<code>EThing</code>](#EThing)  
-**Extends**: [<code>Resource</code>](#EThing.Resource)  
-**Access**: protected  
-
-* [.Rule](#EThing.Rule) ⇐ [<code>Resource</code>](#EThing.Resource)
-    * [new Rule(json)](#new_EThing.Rule_new)
-    * _instance_
-        * [.enabled()](#EThing.Rule+enabled) ⇒ <code>boolean</code>
-        * [.events()](#EThing.Rule+events) ⇒ <code>Array.&lt;object&gt;</code>
-        * [.actions()](#EThing.Rule+actions) ⇒ <code>Array.&lt;object&gt;</code>
-        * [.executionCount()](#EThing.Rule+executionCount) ⇒ <code>number</code>
-        * [.executionDate()](#EThing.Rule+executionDate) ⇒ <code>Date</code> \| <code>null</code>
-        * [.execute([callback])](#EThing.Rule+execute) ⇒ [<code>Rule</code>](#EThing.Rule)
-        * [.json()](#EThing.Resource+json) ⇒ <code>object</code>
-        * [.isTypeof(type)](#EThing.Resource+isTypeof) ⇒ <code>boolean</code>
-        * [.name()](#EThing.Resource+name) ⇒ <code>string</code>
-        * [.dirname()](#EThing.Resource+dirname) ⇒ <code>string</code>
-        * [.basename()](#EThing.Resource+basename) ⇒ <code>string</code>
-        * [.extension()](#EThing.Resource+extension) ⇒ <code>string</code>
-        * [.id()](#EThing.Resource+id) ⇒ <code>string</code>
-        * [.createdBy()](#EThing.Resource+createdBy) ⇒ <code>string</code> \| <code>null</code>
-        * [.type()](#EThing.Resource+type) ⇒ <code>string</code>
-        * [.types()](#EThing.Resource+types) ⇒ <code>Array.&lt;string&gt;</code>
-        * [.baseType()](#EThing.Resource+baseType) ⇒ <code>string</code>
-        * [.createdDate()](#EThing.Resource+createdDate) ⇒ <code>Date</code>
-        * [.modifiedDate()](#EThing.Resource+modifiedDate) ⇒ <code>Date</code>
-        * [.public()](#EThing.Resource+public) ⇒ <code>boolean</code> \| <code>string</code>
-        * [.data([name], [defaultValue])](#EThing.Resource+data) ⇒ <code>object</code> \| <code>null</code>
-        * [.attr([name])](#EThing.Resource+attr) ⇒ <code>object</code> \| <code>null</code>
-        * [.hasAttr(name)](#EThing.Resource+hasAttr) ⇒ <code>boolean</code>
-        * [.description()](#EThing.Resource+description) ⇒ <code>string</code>
-        * [.remove([removeChildren], [callback])](#EThing.Resource+remove) ⇒ [<code>Resource</code>](#EThing.Resource)
-        * [.set(properties, [callback])](#EThing.Resource+set) ⇒ [<code>Resource</code>](#EThing.Resource)
-        * [.setData(data, [callback])](#EThing.Resource+setData) ⇒ [<code>Resource</code>](#EThing.Resource)
-    * _static_
-        * [.create(attributes, [callback])](#EThing.Rule.create) ⇒ <code>Promise</code>
-
-<a name="new_EThing.Rule_new"></a>
-
-#### new Rule(json)
-<p>Constructs a Rule instance from an object decribing a rule. Should not be called directly. Use instead [list](#EThing.list).</p>
-
-
-| Param | Type |
-| --- | --- |
-| json | <code>object</code> | 
-
-<a name="EThing.Rule+enabled"></a>
-
-#### rule.enabled() ⇒ <code>boolean</code>
-<p>Returns true if this rule is enabled.</p>
-
-**Kind**: instance method of [<code>Rule</code>](#EThing.Rule)  
-**this**: <code>{EThing.Rule}</code>  
-<a name="EThing.Rule+events"></a>
-
-#### rule.events() ⇒ <code>Array.&lt;object&gt;</code>
-<p>Returns an array of object describing the events.</p>
-
-**Kind**: instance method of [<code>Rule</code>](#EThing.Rule)  
-**this**: <code>{EThing.Rule}</code>  
-<a name="EThing.Rule+actions"></a>
-
-#### rule.actions() ⇒ <code>Array.&lt;object&gt;</code>
-<p>Returns an array of objects describing the actions.</p>
-
-**Kind**: instance method of [<code>Rule</code>](#EThing.Rule)  
-**this**: <code>{EThing.Rule}</code>  
-<a name="EThing.Rule+executionCount"></a>
-
-#### rule.executionCount() ⇒ <code>number</code>
-<p>Returns the number of times this rule has been executed.</p>
-
-**Kind**: instance method of [<code>Rule</code>](#EThing.Rule)  
-**this**: <code>{EThing.Rule}</code>  
-<a name="EThing.Rule+executionDate"></a>
-
-#### rule.executionDate() ⇒ <code>Date</code> \| <code>null</code>
-<p>Returns the last time this rule has been executed (or null if this rule has never been executed).</p>
-
-**Kind**: instance method of [<code>Rule</code>](#EThing.Rule)  
-**this**: <code>{EThing.Rule}</code>  
-<a name="EThing.Rule+execute"></a>
-
-#### rule.execute([callback]) ⇒ [<code>Rule</code>](#EThing.Rule)
-<p>Run this rule.</p>
-
-**Kind**: instance method of [<code>Rule</code>](#EThing.Rule)  
-**Returns**: [<code>Rule</code>](#EThing.Rule) - <p>The instance on which this method was called.</p>  
-**this**: <code>{EThing.Rule}</code>  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| [callback] | <code>function</code> | <p>it is executed once the request is complete whether in failure or success</p> |
-
-<a name="EThing.Resource+json"></a>
-
-#### rule.json() ⇒ <code>object</code>
-<p>Returns the representation of this instance</p>
-
-**Kind**: instance method of [<code>Rule</code>](#EThing.Rule)  
-**this**: <code>{EThing.Resource}</code>  
-<a name="EThing.Resource+isTypeof"></a>
-
-#### rule.isTypeof(type) ⇒ <code>boolean</code>
-<p>Return true if the resource is of the given type.</p>
-
-**Kind**: instance method of [<code>Rule</code>](#EThing.Rule)  
-**this**: <code>{EThing.Resource}</code>  
-
-| Param | Type |
-| --- | --- |
-| type | <code>string</code> | 
-
-<a name="EThing.Resource+name"></a>
-
-#### rule.name() ⇒ <code>string</code>
-<p>Returns the name of this resource. A name is constructed as <strong>PathName/FileName</strong>.
-To get only the FileName, see [basename](#EThing.Resource+basename).
-To get only the PathName, see [dirname](#EThing.Resource+dirname).</p>
-
-**Kind**: instance method of [<code>Rule</code>](#EThing.Rule)  
-**this**: <code>{EThing.Resource}</code>  
-<a name="EThing.Resource+dirname"></a>
-
-#### rule.dirname() ⇒ <code>string</code>
-<p>Returns the path of this resource</p>
-
-**Kind**: instance method of [<code>Rule</code>](#EThing.Rule)  
-**this**: <code>{EThing.Resource}</code>  
-<a name="EThing.Resource+basename"></a>
-
-#### rule.basename() ⇒ <code>string</code>
-<p>Returns the basename of this resource</p>
-
-**Kind**: instance method of [<code>Rule</code>](#EThing.Rule)  
-**this**: <code>{EThing.Resource}</code>  
-<a name="EThing.Resource+extension"></a>
-
-#### rule.extension() ⇒ <code>string</code>
-<p>Returns the extension of this resource</p>
-
-**Kind**: instance method of [<code>Rule</code>](#EThing.Rule)  
-**this**: <code>{EThing.Resource}</code>  
-<a name="EThing.Resource+id"></a>
-
-#### rule.id() ⇒ <code>string</code>
-<p>Returns the id of this resource. This id is unique and immutable.</p>
-
-**Kind**: instance method of [<code>Rule</code>](#EThing.Rule)  
-**this**: <code>{EThing.Resource}</code>  
-<a name="EThing.Resource+createdBy"></a>
-
-#### rule.createdBy() ⇒ <code>string</code> \| <code>null</code>
-<p>Returns the id of the Resource which creates it if any, or returns null.</p>
-
-**Kind**: instance method of [<code>Rule</code>](#EThing.Rule)  
-**this**: <code>{EThing.Resource}</code>  
-<a name="EThing.Resource+type"></a>
-
-#### rule.type() ⇒ <code>string</code>
-<p>Returns the type of this resource :</p>
-<ul>
-<li>&quot;File&quot;</li>
-<li>&quot;Table&quot;</li>
-<li>&quot;App&quot;</li>
-<li>&quot;Device&quot;</li>
-</ul>
-
-**Kind**: instance method of [<code>Rule</code>](#EThing.Rule)  
-**this**: <code>{EThing.Resource}</code>  
-<a name="EThing.Resource+types"></a>
-
-#### rule.types() ⇒ <code>Array.&lt;string&gt;</code>
-<p>Returns the types this resource depends on</p>
-
-**Kind**: instance method of [<code>Rule</code>](#EThing.Rule)  
-**this**: <code>{EThing.Resource}</code>  
-<a name="EThing.Resource+baseType"></a>
-
-#### rule.baseType() ⇒ <code>string</code>
-<p>Returns the type of this resource :</p>
-<ul>
-<li>&quot;File&quot;</li>
-<li>&quot;Table&quot;</li>
-<li>&quot;App&quot;</li>
-<li>&quot;Device&quot;</li>
-</ul>
-
-**Kind**: instance method of [<code>Rule</code>](#EThing.Rule)  
-**this**: <code>{EThing.Resource}</code>  
-<a name="EThing.Resource+createdDate"></a>
-
-#### rule.createdDate() ⇒ <code>Date</code>
-<p>Create time for this resource</p>
-
-**Kind**: instance method of [<code>Rule</code>](#EThing.Rule)  
-**this**: <code>{EThing.Resource}</code>  
-<a name="EThing.Resource+modifiedDate"></a>
-
-#### rule.modifiedDate() ⇒ <code>Date</code>
-<p>Last time this resource was modified</p>
-
-**Kind**: instance method of [<code>Rule</code>](#EThing.Rule)  
-**this**: <code>{EThing.Resource}</code>  
-<a name="EThing.Resource+public"></a>
-
-#### rule.public() ⇒ <code>boolean</code> \| <code>string</code>
-<p>Tells if this resource is publicly available.</p>
-
-**Kind**: instance method of [<code>Rule</code>](#EThing.Rule)  
-**this**: <code>{EThing.Resource}</code>  
-<a name="EThing.Resource+data"></a>
-
-#### rule.data([name], [defaultValue]) ⇒ <code>object</code> \| <code>null</code>
-<p>Returns the data attached to this resource.</p>
-
-**Kind**: instance method of [<code>Rule</code>](#EThing.Rule)  
-**this**: <code>{EThing.Resource}</code>  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| [name] | <code>string</code> | <p>an optional data attribute name.</p> |
-| [defaultValue] |  | <p>a default value if the attribute was not found.</p> |
-
-<a name="EThing.Resource+attr"></a>
-
-#### rule.attr([name]) ⇒ <code>object</code> \| <code>null</code>
-<p>Returns the attributes to this resource.</p>
-
-**Kind**: instance method of [<code>Rule</code>](#EThing.Rule)  
-**this**: <code>{EThing.Resource}</code>  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| [name] | <code>string</code> | <p>an optional attribute name.</p> |
-
-<a name="EThing.Resource+hasAttr"></a>
-
-#### rule.hasAttr(name) ⇒ <code>boolean</code>
-<p>Returns true if the attribute exists for this resource.</p>
-
-**Kind**: instance method of [<code>Rule</code>](#EThing.Rule)  
-**this**: <code>{EThing.Resource}</code>  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| name | <code>string</code> | <p>attribute name.</p> |
-
-<a name="EThing.Resource+description"></a>
-
-#### rule.description() ⇒ <code>string</code>
-<p>Returns the description of this resource</p>
-
-**Kind**: instance method of [<code>Rule</code>](#EThing.Rule)  
-**this**: <code>{EThing.Resource}</code>  
-<a name="EThing.Resource+remove"></a>
-
-#### rule.remove([removeChildren], [callback]) ⇒ [<code>Resource</code>](#EThing.Resource)
-<p>Remove this resource.</p>
-
-**Kind**: instance method of [<code>Rule</code>](#EThing.Rule)  
-**Returns**: [<code>Resource</code>](#EThing.Resource) - <p>The instance on which this method was called.</p>  
-**Emits**: <code>EThing#ething.resource.event:removed</code>  
-**this**: <code>{EThing.Resource}</code>  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| [removeChildren] | <code>Boolean</code> | <p>When true, the children are also removed. Default to false.</p> |
-| [callback] | <code>function</code> | <p>it is executed once the request is complete whether in failure or success</p> |
-
-**Example**  
-```js
-resource.remove().then(function(){  // the resource was successfully removed});
-```
-<a name="EThing.Resource+set"></a>
-
-#### rule.set(properties, [callback]) ⇒ [<code>Resource</code>](#EThing.Resource)
-<p>Update this resource attributes</p>
-
-**Kind**: instance method of [<code>Rule</code>](#EThing.Rule)  
-**Returns**: [<code>Resource</code>](#EThing.Resource) - <p>The instance on which this method was called.</p>  
-**this**: <code>{EThing.Resource}</code>  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| properties |  |  |
-| [callback] | <code>function</code> | <p>it is executed once the request is complete whether in failure or success</p> |
-
-**Example**  
-```js
-resource.set({  name: "newName.txt"}).then(function(){  console.log("the resource was successfully renamed to :"+this.name());});
-```
-<a name="EThing.Resource+setData"></a>
-
-#### rule.setData(data, [callback]) ⇒ [<code>Resource</code>](#EThing.Resource)
-<p>Attaches persistant data to this resource</p>
-
-**Kind**: instance method of [<code>Rule</code>](#EThing.Rule)  
-**Returns**: [<code>Resource</code>](#EThing.Resource) - <p>The instance on which this method was called.</p>  
-**this**: <code>{EThing.Resource}</code>  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| data | <code>object</code> |  |
-| [callback] | <code>function</code> | <p>it is executed once the request is complete whether in failure or success</p> |
-
-**Example**  
-```js
-resource.setData({  "key": "value"}).then(function(){  // success});// you can also write :resource.setData("key", "value").then(function(){  // success});
-```
-<a name="EThing.Rule.create"></a>
-
-#### Rule.create(attributes, [callback]) ⇒ <code>Promise</code>
-<p>Creates a new Rule from the following attributes :</p>
-<ul>
-<li>name {string} <strong>required</strong> the name of the rule</li>
-<li>event {object} <strong>required</strong> the event object describing when to execute this rule<ul>
-<li>event.type {string} <strong>required</strong> the type name of the event (Timer, ResourceCreated, ...)</li>
-<li>event.*  some options depending of the type of event</li>
-</ul>
-</li>
-<li>action {object} <strong>required</strong> the action object describing the action to run<ul>
-<li>action.type {string} <strong>required</strong> the type name of the action (RunScript, ...)</li>
-<li>action.*  some options depending of the type of action</li>
-</ul>
-</li>
-</ul>
-
-**Kind**: static method of [<code>Rule</code>](#EThing.Rule)  
-**Emits**: <code>EThing#ething.rule.event:created</code>  
+**Kind**: static method of [<code>Resource</code>](#EThing.Resource)  
+**Emits**: <code>EThing#ething.resource.event:created</code>  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -1934,7 +1535,7 @@ resource.setData({  "key": "value"}).then(function(){  // success});// you
 
 **Example**  
 ```js
-EThing.Rule.create({  name: "myRule",  event: {    type: 'ResourceCreated' // this rule will be fired each time a resource is created !  },  action: {    type: 'RunScript',    script: <script_id> // this script will be executed when the rule is fired  }}).then(function(resource){    console.log('the new rule is created');})
+EThing.Resource.create({  type: "resources/File",  name: "foobar"}).then(function(resource){    console.log('created : ' + resource.name());})
 ```
 <a name="EThing.Table"></a>
 
@@ -1950,7 +1551,6 @@ EThing.Rule.create({  name: "myRule",  event: {    type: 'ResourceCreated' //
     * _instance_
         * [.length()](#EThing.Table+length) ⇒ <code>number</code>
         * [.maxLength()](#EThing.Table+maxLength) ⇒ <code>number</code> \| <code>null</code>
-        * [.expireAfter()](#EThing.Table+expireAfter) ⇒ <code>number</code>
         * [.keys()](#EThing.Table+keys) ⇒ <code>Array.&lt;string&gt;</code>
         * [.contentModifiedDate()](#EThing.Table+contentModifiedDate) ⇒ <code>Date</code>
         * [.select([options], [callback])](#EThing.Table+select) ⇒ [<code>Table</code>](#EThing.Table)
@@ -2006,13 +1606,6 @@ EThing.Rule.create({  name: "myRule",  event: {    type: 'ResourceCreated' //
 
 #### table.maxLength() ⇒ <code>number</code> \| <code>null</code>
 <p>The maximum number of rows allowed in this table. Returns null if this feature is disable (number of rows is unlimited).</p>
-
-**Kind**: instance method of [<code>Table</code>](#EThing.Table)  
-**this**: <code>{EThing.Table}</code>  
-<a name="EThing.Table+expireAfter"></a>
-
-#### table.expireAfter() ⇒ <code>number</code>
-<p>Returns the amount of seconds after which a <strong>row</strong> is automatically removed, or null if this feature is not enable.</p>
 
 **Kind**: instance method of [<code>Table</code>](#EThing.Table)  
 **this**: <code>{EThing.Table}</code>  
@@ -2179,7 +1772,7 @@ tableSrc.select().then(function(data){
 
 **Example**  
 ```js
-// using EThing.request() :EThing.request(table.getContentUrl()).then(function(rows){  // success, rows is an array of object   console.log('number of rows : '+rows.length);});// or using jQuery :$.getJSON(table.getContentUrl(true)).then(function(rows){  // success});
+// using EThing.request() :EThing.request(table.getContentUrl()).then(function(rows){  // success, rows is an array of object  console.log('number of rows : '+rows.length);});// or using jQuery :$.getJSON(table.getContentUrl(true)).then(function(rows){  // success});
 ```
 <a name="EThing.Resource+json"></a>
 
@@ -2403,9 +1996,8 @@ resource.setData({  "key": "value"}).then(function(){  // success});// you
 <p>Creates a new Table from the following attributes :</p>
 <ul>
 <li>name {string} <strong>required</strong> the name of the table</li>
-<li>description {string} a string describing this table </li>
+<li>description {string} a string describing this table</li>
 <li>data {object} key/value pairs to attach to this table</li>
-<li>expireAfter {number} amount of seconds after which a row is automatically removed, 0 means unlimited. Default to 0.</li>
 <li>maxLength {number} the maximum number of rows allowed in this table. 0 means unlimited. Default to 5000.</li>
 </ul>
 
@@ -2419,7 +2011,7 @@ resource.setData({  "key": "value"}).then(function(){  // success});// you
 
 **Example**  
 ```js
-// get a resource by its idEThing.Table.create({  name: "foobar",  expireAfter: 3600*24*7 // the data are automatically removed after 7 weeks}).then(function(resource){    console.log('table created : ' + resource.name());})
+EThing.Table.create({  name: "foobar"}).then(function(resource){    console.log('table created : ' + resource.name());})
 ```
 <a name="EThing.on"></a>
 
@@ -2482,11 +2074,12 @@ resource.setData({  "key": "value"}).then(function(){  // success});// you
 
 * [.arbo](#EThing.arbo) : <code>object</code>
     * [.load([callback], [force])](#EThing.arbo.load) ⇒ <code>Promise</code>
+    * [.refresh()](#EThing.arbo.refresh) ⇒ <code>Promise</code>
     * [.get(id)](#EThing.arbo.get) ⇒ [<code>Resource</code>](#EThing.Resource) \| <code>undefined</code>
     * [.glob(filter)](#EThing.arbo.glob) ⇒ [<code>Array.&lt;Resource&gt;</code>](#EThing.Resource)
     * [.list()](#EThing.arbo.list) ⇒ [<code>Array.&lt;Resource&gt;</code>](#EThing.Resource)
     * [.dispatch()](#EThing.arbo.dispatch)
-    * [.refresh()](#EThing.arbo.refresh) ⇒ <code>Promise</code>
+    * [.find(filter)](#EThing.arbo.find) ⇒ [<code>Array.&lt;Resource&gt;</code>](#EThing.Resource)
     * [.isLoaded()](#EThing.arbo.isLoaded) ⇒ <code>boolean</code>
 
 <a name="EThing.arbo.load"></a>
@@ -2501,6 +2094,13 @@ resource.setData({  "key": "value"}).then(function(){  // success});// you
 | [callback] | <code>function</code> | <p>function executed once the resources are loaded</p> |
 | [force] | <code>boolean</code> | <p>force to reload the entire resources</p> |
 
+<a name="EThing.arbo.refresh"></a>
+
+#### arbo.refresh() ⇒ <code>Promise</code>
+<p>Refresh the resources list from the server.</p>
+
+**Kind**: static method of [<code>arbo</code>](#EThing.arbo)  
+**Returns**: <code>Promise</code> - <p>return a Promise object</p>  
 <a name="EThing.arbo.get"></a>
 
 #### arbo.get(id) ⇒ [<code>Resource</code>](#EThing.Resource) \| <code>undefined</code>
@@ -2532,7 +2132,7 @@ Since there is no duplicate name for folders, their id is equal to their name.</
 <a name="EThing.arbo.list"></a>
 
 #### arbo.list() ⇒ [<code>Array.&lt;Resource&gt;</code>](#EThing.Resource)
-<p>return all the resources. Same as [EThing.arbo.find()](EThing.arbo.find).</p>
+<p>return all the resources. Same as [EThing.arbo.find()](#EThing.arbo.find).</p>
 
 **Kind**: static method of [<code>arbo</code>](#EThing.arbo)  
 <a name="EThing.arbo.dispatch"></a>
@@ -2541,13 +2141,17 @@ Since there is no duplicate name for folders, their id is equal to their name.</
 <p>dispatch an event emitted by the server (through SSE or socketio)</p>
 
 **Kind**: static method of [<code>arbo</code>](#EThing.arbo)  
-<a name="EThing.arbo.refresh"></a>
+<a name="EThing.arbo.find"></a>
 
-#### arbo.refresh() ⇒ <code>Promise</code>
-<p>Refresh the resources list from the server.</p>
+#### arbo.find(filter) ⇒ [<code>Array.&lt;Resource&gt;</code>](#EThing.Resource)
+<p>Returns a list of resources that pass the test implemented by the provided function.</p>
 
 **Kind**: static method of [<code>arbo</code>](#EThing.arbo)  
-**Returns**: <code>Promise</code> - <p>return a Promise object</p>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| filter | <code>function</code> | <p>Function is a predicate, to test each resource of the array. Return true to keep the resource, false otherwise.</p> |
+
 <a name="EThing.arbo.isLoaded"></a>
 
 #### arbo.isLoaded() ⇒ <code>boolean</code>
@@ -2738,10 +2342,8 @@ EThing.notify("hello world")  .then(function(){    alert("A notification has b
             * [.hasBattery()](#EThing.Device+hasBattery) ⇒ <code>boolean</code>
             * [.battery()](#EThing.Device+battery) ⇒ <code>number</code>
             * [.methods()](#EThing.Device+methods) ⇒ <code>Array.&lt;string&gt;</code>
-            * [.interfaces()](#EThing.Device+interfaces) ⇒ <code>Array.&lt;string&gt;</code>
             * [.execute(operationId, [data], [binary], [callback])](#EThing.Device+execute) ⇒ [<code>Device</code>](#EThing.Device)
             * [.executeUrl(operationId, [data])](#EThing.Device+executeUrl) ⇒ <code>string</code>
-            * [.getApi([operationId], [callback])](#EThing.Device+getApi) ⇒ [<code>Device</code>](#EThing.Device)
             * [.json()](#EThing.Resource+json) ⇒ <code>object</code>
             * [.isTypeof(type)](#EThing.Resource+isTypeof) ⇒ <code>boolean</code>
             * [.name()](#EThing.Resource+name) ⇒ <code>string</code>
@@ -2769,13 +2371,10 @@ EThing.notify("hello world")  .then(function(){    alert("A notification has b
         * [new File(json)](#new_EThing.File_new)
         * _instance_
             * [.size()](#EThing.File+size) ⇒ <code>number</code>
-            * [.expireAfter()](#EThing.File+expireAfter) ⇒ <code>number</code> \| <code>null</code>
             * [.mime()](#EThing.File+mime) ⇒ <code>string</code>
             * [.contentModifiedDate()](#EThing.File+contentModifiedDate) ⇒ <code>Date</code>
             * [.thumbnailLink([auth])](#EThing.File+thumbnailLink) ⇒ <code>string</code> \| <code>null</code>
             * [.getContentUrl([auth])](#EThing.File+getContentUrl) ⇒ <code>string</code>
-            * [.isText()](#EThing.File+isText) ⇒ <code>boolean</code>
-            * [.isScript()](#EThing.File+isScript) ⇒ <code>boolean</code>
             * [.read([binary], [callback])](#EThing.File+read) ⇒ [<code>File</code>](#EThing.File)
             * [.write(data, [callback])](#EThing.File+write) ⇒ [<code>File</code>](#EThing.File)
             * [.json()](#EThing.Resource+json) ⇒ <code>object</code>
@@ -2804,7 +2403,8 @@ EThing.notify("hello world")  .then(function(){    alert("A notification has b
     * [.Flow](#EThing.Flow) ⇐ [<code>Resource</code>](#EThing.Resource)
         * [new Flow(json)](#new_EThing.Flow_new)
         * _instance_
-            * [.flow()](#EThing.Flow+flow) ⇒ <code>object</code>
+            * [.nodes()](#EThing.Flow+nodes) ⇒ <code>object</code>
+            * [.connections()](#EThing.Flow+connections) ⇒ <code>object</code>
             * [.deploy([callback])](#EThing.Flow+deploy) ⇒ [<code>Flow</code>](#EThing.Flow)
             * [.json()](#EThing.Resource+json) ⇒ <code>object</code>
             * [.isTypeof(type)](#EThing.Resource+isTypeof) ⇒ <code>boolean</code>
@@ -2831,36 +2431,7 @@ EThing.notify("hello world")  .then(function(){    alert("A notification has b
             * [.create(attributes, [callback])](#EThing.Flow.create) ⇒ <code>Promise</code>
     * [.Resource](#EThing.Resource)
         * [new Resource(json)](#new_EThing.Resource_new)
-        * [.json()](#EThing.Resource+json) ⇒ <code>object</code>
-        * [.isTypeof(type)](#EThing.Resource+isTypeof) ⇒ <code>boolean</code>
-        * [.name()](#EThing.Resource+name) ⇒ <code>string</code>
-        * [.dirname()](#EThing.Resource+dirname) ⇒ <code>string</code>
-        * [.basename()](#EThing.Resource+basename) ⇒ <code>string</code>
-        * [.extension()](#EThing.Resource+extension) ⇒ <code>string</code>
-        * [.id()](#EThing.Resource+id) ⇒ <code>string</code>
-        * [.createdBy()](#EThing.Resource+createdBy) ⇒ <code>string</code> \| <code>null</code>
-        * [.type()](#EThing.Resource+type) ⇒ <code>string</code>
-        * [.types()](#EThing.Resource+types) ⇒ <code>Array.&lt;string&gt;</code>
-        * [.baseType()](#EThing.Resource+baseType) ⇒ <code>string</code>
-        * [.createdDate()](#EThing.Resource+createdDate) ⇒ <code>Date</code>
-        * [.modifiedDate()](#EThing.Resource+modifiedDate) ⇒ <code>Date</code>
-        * [.public()](#EThing.Resource+public) ⇒ <code>boolean</code> \| <code>string</code>
-        * [.data([name], [defaultValue])](#EThing.Resource+data) ⇒ <code>object</code> \| <code>null</code>
-        * [.attr([name])](#EThing.Resource+attr) ⇒ <code>object</code> \| <code>null</code>
-        * [.hasAttr(name)](#EThing.Resource+hasAttr) ⇒ <code>boolean</code>
-        * [.description()](#EThing.Resource+description) ⇒ <code>string</code>
-        * [.remove([removeChildren], [callback])](#EThing.Resource+remove) ⇒ [<code>Resource</code>](#EThing.Resource)
-        * [.set(properties, [callback])](#EThing.Resource+set) ⇒ [<code>Resource</code>](#EThing.Resource)
-        * [.setData(data, [callback])](#EThing.Resource+setData) ⇒ [<code>Resource</code>](#EThing.Resource)
-    * [.Rule](#EThing.Rule) ⇐ [<code>Resource</code>](#EThing.Resource)
-        * [new Rule(json)](#new_EThing.Rule_new)
         * _instance_
-            * [.enabled()](#EThing.Rule+enabled) ⇒ <code>boolean</code>
-            * [.events()](#EThing.Rule+events) ⇒ <code>Array.&lt;object&gt;</code>
-            * [.actions()](#EThing.Rule+actions) ⇒ <code>Array.&lt;object&gt;</code>
-            * [.executionCount()](#EThing.Rule+executionCount) ⇒ <code>number</code>
-            * [.executionDate()](#EThing.Rule+executionDate) ⇒ <code>Date</code> \| <code>null</code>
-            * [.execute([callback])](#EThing.Rule+execute) ⇒ [<code>Rule</code>](#EThing.Rule)
             * [.json()](#EThing.Resource+json) ⇒ <code>object</code>
             * [.isTypeof(type)](#EThing.Resource+isTypeof) ⇒ <code>boolean</code>
             * [.name()](#EThing.Resource+name) ⇒ <code>string</code>
@@ -2883,13 +2454,12 @@ EThing.notify("hello world")  .then(function(){    alert("A notification has b
             * [.set(properties, [callback])](#EThing.Resource+set) ⇒ [<code>Resource</code>](#EThing.Resource)
             * [.setData(data, [callback])](#EThing.Resource+setData) ⇒ [<code>Resource</code>](#EThing.Resource)
         * _static_
-            * [.create(attributes, [callback])](#EThing.Rule.create) ⇒ <code>Promise</code>
+            * [.create(attributes, [callback])](#EThing.Resource.create) ⇒ <code>Promise</code>
     * [.Table](#EThing.Table) ⇐ [<code>Resource</code>](#EThing.Resource)
         * [new Table(json)](#new_EThing.Table_new)
         * _instance_
             * [.length()](#EThing.Table+length) ⇒ <code>number</code>
             * [.maxLength()](#EThing.Table+maxLength) ⇒ <code>number</code> \| <code>null</code>
-            * [.expireAfter()](#EThing.Table+expireAfter) ⇒ <code>number</code>
             * [.keys()](#EThing.Table+keys) ⇒ <code>Array.&lt;string&gt;</code>
             * [.contentModifiedDate()](#EThing.Table+contentModifiedDate) ⇒ <code>Date</code>
             * [.select([options], [callback])](#EThing.Table+select) ⇒ [<code>Table</code>](#EThing.Table)
@@ -2929,11 +2499,12 @@ EThing.notify("hello world")  .then(function(){    alert("A notification has b
     * [.trigger](#EThing.trigger)
     * [.arbo](#EThing.arbo) : <code>object</code>
         * [.load([callback], [force])](#EThing.arbo.load) ⇒ <code>Promise</code>
+        * [.refresh()](#EThing.arbo.refresh) ⇒ <code>Promise</code>
         * [.get(id)](#EThing.arbo.get) ⇒ [<code>Resource</code>](#EThing.Resource) \| <code>undefined</code>
         * [.glob(filter)](#EThing.arbo.glob) ⇒ [<code>Array.&lt;Resource&gt;</code>](#EThing.Resource)
         * [.list()](#EThing.arbo.list) ⇒ [<code>Array.&lt;Resource&gt;</code>](#EThing.Resource)
         * [.dispatch()](#EThing.arbo.dispatch)
-        * [.refresh()](#EThing.arbo.refresh) ⇒ <code>Promise</code>
+        * [.find(filter)](#EThing.arbo.find) ⇒ [<code>Array.&lt;Resource&gt;</code>](#EThing.Resource)
         * [.isLoaded()](#EThing.arbo.isLoaded) ⇒ <code>boolean</code>
     * [.auth](#EThing.auth) : <code>object</code>
         * [.isAuthenticated()](#EThing.auth.isAuthenticated) ⇒ <code>boolean</code>
@@ -2968,10 +2539,8 @@ EThing.notify("hello world")  .then(function(){    alert("A notification has b
         * [.hasBattery()](#EThing.Device+hasBattery) ⇒ <code>boolean</code>
         * [.battery()](#EThing.Device+battery) ⇒ <code>number</code>
         * [.methods()](#EThing.Device+methods) ⇒ <code>Array.&lt;string&gt;</code>
-        * [.interfaces()](#EThing.Device+interfaces) ⇒ <code>Array.&lt;string&gt;</code>
         * [.execute(operationId, [data], [binary], [callback])](#EThing.Device+execute) ⇒ [<code>Device</code>](#EThing.Device)
         * [.executeUrl(operationId, [data])](#EThing.Device+executeUrl) ⇒ <code>string</code>
-        * [.getApi([operationId], [callback])](#EThing.Device+getApi) ⇒ [<code>Device</code>](#EThing.Device)
         * [.json()](#EThing.Resource+json) ⇒ <code>object</code>
         * [.isTypeof(type)](#EThing.Resource+isTypeof) ⇒ <code>boolean</code>
         * [.name()](#EThing.Resource+name) ⇒ <code>string</code>
@@ -3040,13 +2609,6 @@ EThing.notify("hello world")  .then(function(){    alert("A notification has b
 
 **Kind**: instance method of [<code>Device</code>](#EThing.Device)  
 **this**: <code>{EThing.Device}</code>  
-<a name="EThing.Device+interfaces"></a>
-
-#### device.interfaces() ⇒ <code>Array.&lt;string&gt;</code>
-<p>List the available interfaces on this device.</p>
-
-**Kind**: instance method of [<code>Device</code>](#EThing.Device)  
-**this**: <code>{EThing.Device}</code>  
 <a name="EThing.Device+execute"></a>
 
 #### device.execute(operationId, [data], [binary], [callback]) ⇒ [<code>Device</code>](#EThing.Device)
@@ -3085,20 +2647,6 @@ EThing.notify("hello world")  .then(function(){    alert("A notification has b
 ```js
 var image = new Image();image.src = device.executeUrl('getImage');document.body.appendChild(image);
 ```
-<a name="EThing.Device+getApi"></a>
-
-#### device.getApi([operationId], [callback]) ⇒ [<code>Device</code>](#EThing.Device)
-<p>Retrieve information about a specific method or all the methods available for this device.</p>
-
-**Kind**: instance method of [<code>Device</code>](#EThing.Device)  
-**Returns**: [<code>Device</code>](#EThing.Device) - <p>The instance on which this method was called.</p>  
-**this**: <code>{EThing.Device}</code>  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| [operationId] | <code>string</code> | <p>if set, only information about this operation will be returned</p> |
-| [callback] | <code>function</code> | <p>it is executed once the request is complete whether in failure or success</p> |
-
 <a name="EThing.Resource+json"></a>
 
 #### device.json() ⇒ <code>object</code>
@@ -3346,13 +2894,10 @@ EThing.Device.create('SSH', {  host: "localhost",  auth: {    user: "foo",  
     * [new File(json)](#new_EThing.File_new)
     * _instance_
         * [.size()](#EThing.File+size) ⇒ <code>number</code>
-        * [.expireAfter()](#EThing.File+expireAfter) ⇒ <code>number</code> \| <code>null</code>
         * [.mime()](#EThing.File+mime) ⇒ <code>string</code>
         * [.contentModifiedDate()](#EThing.File+contentModifiedDate) ⇒ <code>Date</code>
         * [.thumbnailLink([auth])](#EThing.File+thumbnailLink) ⇒ <code>string</code> \| <code>null</code>
         * [.getContentUrl([auth])](#EThing.File+getContentUrl) ⇒ <code>string</code>
-        * [.isText()](#EThing.File+isText) ⇒ <code>boolean</code>
-        * [.isScript()](#EThing.File+isScript) ⇒ <code>boolean</code>
         * [.read([binary], [callback])](#EThing.File+read) ⇒ [<code>File</code>](#EThing.File)
         * [.write(data, [callback])](#EThing.File+write) ⇒ [<code>File</code>](#EThing.File)
         * [.json()](#EThing.Resource+json) ⇒ <code>object</code>
@@ -3393,13 +2938,6 @@ EThing.Device.create('SSH', {  host: "localhost",  auth: {    user: "foo",  
 
 #### file.size() ⇒ <code>number</code>
 <p>Returns the size of this file in bytes.</p>
-
-**Kind**: instance method of [<code>File</code>](#EThing.File)  
-**this**: <code>{EThing.File}</code>  
-<a name="EThing.File+expireAfter"></a>
-
-#### file.expireAfter() ⇒ <code>number</code> \| <code>null</code>
-<p>Returns the amount of seconds after the last update after which this file is removed automatically, or null if this feature is not enable (no time limit).</p>
 
 **Kind**: instance method of [<code>File</code>](#EThing.File)  
 **this**: <code>{EThing.File}</code>  
@@ -3449,20 +2987,6 @@ EThing.Device.create('SSH', {  host: "localhost",  auth: {    user: "foo",  
 ```js
 // using EThing.request() :EThing.request(file.getContentUrl()).then(function(content){  // success  console.log('content as text : '+content);});// HTML <img> Tag :var image = new Image();image.src = imageFile.getContentUrl(true);document.body.appendChild(image);
 ```
-<a name="EThing.File+isText"></a>
-
-#### file.isText() ⇒ <code>boolean</code>
-<p>Returns true if this file has text based content.</p>
-
-**Kind**: instance method of [<code>File</code>](#EThing.File)  
-**this**: <code>{EThing.File}</code>  
-<a name="EThing.File+isScript"></a>
-
-#### file.isScript() ⇒ <code>boolean</code>
-<p>Returns true if this file is a script.</p>
-
-**Kind**: instance method of [<code>File</code>](#EThing.File)  
-**this**: <code>{EThing.File}</code>  
 <a name="EThing.File+read"></a>
 
 #### file.read([binary], [callback]) ⇒ [<code>File</code>](#EThing.File)
@@ -3723,7 +3247,6 @@ resource.setData({  "key": "value"}).then(function(){  // success});// you
 <li>name {string} <strong>required</strong> the name of the file</li>
 <li>description {string} a string describing this file</li>
 <li>data {object} key/value pairs to attach to this file</li>
-<li>expireAfter {number} amount of seconds after the last update after which this file is removed automatically, 0 means unlimited. Default to 0.</li>
 </ul>
 
 **Kind**: static method of [<code>File</code>](#EThing.File)  
@@ -3750,7 +3273,8 @@ EThing.File.create({  name: "foobar.txt",  description: "this is my file"}).t
 * [.Flow](#EThing.Flow) ⇐ [<code>Resource</code>](#EThing.Resource)
     * [new Flow(json)](#new_EThing.Flow_new)
     * _instance_
-        * [.flow()](#EThing.Flow+flow) ⇒ <code>object</code>
+        * [.nodes()](#EThing.Flow+nodes) ⇒ <code>object</code>
+        * [.connections()](#EThing.Flow+connections) ⇒ <code>object</code>
         * [.deploy([callback])](#EThing.Flow+deploy) ⇒ [<code>Flow</code>](#EThing.Flow)
         * [.json()](#EThing.Resource+json) ⇒ <code>object</code>
         * [.isTypeof(type)](#EThing.Resource+isTypeof) ⇒ <code>boolean</code>
@@ -3786,10 +3310,17 @@ EThing.File.create({  name: "foobar.txt",  description: "this is my file"}).t
 | --- | --- |
 | json | <code>object</code> | 
 
-<a name="EThing.Flow+flow"></a>
+<a name="EThing.Flow+nodes"></a>
 
-#### flow.flow() ⇒ <code>object</code>
-<p>Returns an object describing the flow.</p>
+#### flow.nodes() ⇒ <code>object</code>
+<p>Returns the list of nodes.</p>
+
+**Kind**: instance method of [<code>Flow</code>](#EThing.Flow)  
+**this**: <code>{EThing.Flow}</code>  
+<a name="EThing.Flow+connections"></a>
+
+#### flow.connections() ⇒ <code>object</code>
+<p>Returns the list of connections.</p>
 
 **Kind**: instance method of [<code>Flow</code>](#EThing.Flow)  
 **this**: <code>{EThing.Flow}</code>  
@@ -4051,27 +3582,30 @@ EThing.Flow.create({  name: "myFlow"}).then(function(resource){    console.lo
 
 * [.Resource](#EThing.Resource)
     * [new Resource(json)](#new_EThing.Resource_new)
-    * [.json()](#EThing.Resource+json) ⇒ <code>object</code>
-    * [.isTypeof(type)](#EThing.Resource+isTypeof) ⇒ <code>boolean</code>
-    * [.name()](#EThing.Resource+name) ⇒ <code>string</code>
-    * [.dirname()](#EThing.Resource+dirname) ⇒ <code>string</code>
-    * [.basename()](#EThing.Resource+basename) ⇒ <code>string</code>
-    * [.extension()](#EThing.Resource+extension) ⇒ <code>string</code>
-    * [.id()](#EThing.Resource+id) ⇒ <code>string</code>
-    * [.createdBy()](#EThing.Resource+createdBy) ⇒ <code>string</code> \| <code>null</code>
-    * [.type()](#EThing.Resource+type) ⇒ <code>string</code>
-    * [.types()](#EThing.Resource+types) ⇒ <code>Array.&lt;string&gt;</code>
-    * [.baseType()](#EThing.Resource+baseType) ⇒ <code>string</code>
-    * [.createdDate()](#EThing.Resource+createdDate) ⇒ <code>Date</code>
-    * [.modifiedDate()](#EThing.Resource+modifiedDate) ⇒ <code>Date</code>
-    * [.public()](#EThing.Resource+public) ⇒ <code>boolean</code> \| <code>string</code>
-    * [.data([name], [defaultValue])](#EThing.Resource+data) ⇒ <code>object</code> \| <code>null</code>
-    * [.attr([name])](#EThing.Resource+attr) ⇒ <code>object</code> \| <code>null</code>
-    * [.hasAttr(name)](#EThing.Resource+hasAttr) ⇒ <code>boolean</code>
-    * [.description()](#EThing.Resource+description) ⇒ <code>string</code>
-    * [.remove([removeChildren], [callback])](#EThing.Resource+remove) ⇒ [<code>Resource</code>](#EThing.Resource)
-    * [.set(properties, [callback])](#EThing.Resource+set) ⇒ [<code>Resource</code>](#EThing.Resource)
-    * [.setData(data, [callback])](#EThing.Resource+setData) ⇒ [<code>Resource</code>](#EThing.Resource)
+    * _instance_
+        * [.json()](#EThing.Resource+json) ⇒ <code>object</code>
+        * [.isTypeof(type)](#EThing.Resource+isTypeof) ⇒ <code>boolean</code>
+        * [.name()](#EThing.Resource+name) ⇒ <code>string</code>
+        * [.dirname()](#EThing.Resource+dirname) ⇒ <code>string</code>
+        * [.basename()](#EThing.Resource+basename) ⇒ <code>string</code>
+        * [.extension()](#EThing.Resource+extension) ⇒ <code>string</code>
+        * [.id()](#EThing.Resource+id) ⇒ <code>string</code>
+        * [.createdBy()](#EThing.Resource+createdBy) ⇒ <code>string</code> \| <code>null</code>
+        * [.type()](#EThing.Resource+type) ⇒ <code>string</code>
+        * [.types()](#EThing.Resource+types) ⇒ <code>Array.&lt;string&gt;</code>
+        * [.baseType()](#EThing.Resource+baseType) ⇒ <code>string</code>
+        * [.createdDate()](#EThing.Resource+createdDate) ⇒ <code>Date</code>
+        * [.modifiedDate()](#EThing.Resource+modifiedDate) ⇒ <code>Date</code>
+        * [.public()](#EThing.Resource+public) ⇒ <code>boolean</code> \| <code>string</code>
+        * [.data([name], [defaultValue])](#EThing.Resource+data) ⇒ <code>object</code> \| <code>null</code>
+        * [.attr([name])](#EThing.Resource+attr) ⇒ <code>object</code> \| <code>null</code>
+        * [.hasAttr(name)](#EThing.Resource+hasAttr) ⇒ <code>boolean</code>
+        * [.description()](#EThing.Resource+description) ⇒ <code>string</code>
+        * [.remove([removeChildren], [callback])](#EThing.Resource+remove) ⇒ [<code>Resource</code>](#EThing.Resource)
+        * [.set(properties, [callback])](#EThing.Resource+set) ⇒ [<code>Resource</code>](#EThing.Resource)
+        * [.setData(data, [callback])](#EThing.Resource+setData) ⇒ [<code>Resource</code>](#EThing.Resource)
+    * _static_
+        * [.create(attributes, [callback])](#EThing.Resource.create) ⇒ <code>Promise</code>
 
 <a name="new_EThing.Resource_new"></a>
 
@@ -4299,342 +3833,13 @@ resource.set({  name: "newName.txt"}).then(function(){  console.log("the reso
 ```js
 resource.setData({  "key": "value"}).then(function(){  // success});// you can also write :resource.setData("key", "value").then(function(){  // success});
 ```
-<a name="EThing.Rule"></a>
+<a name="EThing.Resource.create"></a>
 
-### EThing.Rule ⇐ [<code>Resource</code>](#EThing.Resource)
-<p>The Rule resource handle an application</p>
+#### Resource.create(attributes, [callback]) ⇒ <code>Promise</code>
+<p>Creates a new Resource</p>
 
-**Kind**: static class of [<code>EThing</code>](#EThing)  
-**Extends**: [<code>Resource</code>](#EThing.Resource)  
-**Access**: protected  
-
-* [.Rule](#EThing.Rule) ⇐ [<code>Resource</code>](#EThing.Resource)
-    * [new Rule(json)](#new_EThing.Rule_new)
-    * _instance_
-        * [.enabled()](#EThing.Rule+enabled) ⇒ <code>boolean</code>
-        * [.events()](#EThing.Rule+events) ⇒ <code>Array.&lt;object&gt;</code>
-        * [.actions()](#EThing.Rule+actions) ⇒ <code>Array.&lt;object&gt;</code>
-        * [.executionCount()](#EThing.Rule+executionCount) ⇒ <code>number</code>
-        * [.executionDate()](#EThing.Rule+executionDate) ⇒ <code>Date</code> \| <code>null</code>
-        * [.execute([callback])](#EThing.Rule+execute) ⇒ [<code>Rule</code>](#EThing.Rule)
-        * [.json()](#EThing.Resource+json) ⇒ <code>object</code>
-        * [.isTypeof(type)](#EThing.Resource+isTypeof) ⇒ <code>boolean</code>
-        * [.name()](#EThing.Resource+name) ⇒ <code>string</code>
-        * [.dirname()](#EThing.Resource+dirname) ⇒ <code>string</code>
-        * [.basename()](#EThing.Resource+basename) ⇒ <code>string</code>
-        * [.extension()](#EThing.Resource+extension) ⇒ <code>string</code>
-        * [.id()](#EThing.Resource+id) ⇒ <code>string</code>
-        * [.createdBy()](#EThing.Resource+createdBy) ⇒ <code>string</code> \| <code>null</code>
-        * [.type()](#EThing.Resource+type) ⇒ <code>string</code>
-        * [.types()](#EThing.Resource+types) ⇒ <code>Array.&lt;string&gt;</code>
-        * [.baseType()](#EThing.Resource+baseType) ⇒ <code>string</code>
-        * [.createdDate()](#EThing.Resource+createdDate) ⇒ <code>Date</code>
-        * [.modifiedDate()](#EThing.Resource+modifiedDate) ⇒ <code>Date</code>
-        * [.public()](#EThing.Resource+public) ⇒ <code>boolean</code> \| <code>string</code>
-        * [.data([name], [defaultValue])](#EThing.Resource+data) ⇒ <code>object</code> \| <code>null</code>
-        * [.attr([name])](#EThing.Resource+attr) ⇒ <code>object</code> \| <code>null</code>
-        * [.hasAttr(name)](#EThing.Resource+hasAttr) ⇒ <code>boolean</code>
-        * [.description()](#EThing.Resource+description) ⇒ <code>string</code>
-        * [.remove([removeChildren], [callback])](#EThing.Resource+remove) ⇒ [<code>Resource</code>](#EThing.Resource)
-        * [.set(properties, [callback])](#EThing.Resource+set) ⇒ [<code>Resource</code>](#EThing.Resource)
-        * [.setData(data, [callback])](#EThing.Resource+setData) ⇒ [<code>Resource</code>](#EThing.Resource)
-    * _static_
-        * [.create(attributes, [callback])](#EThing.Rule.create) ⇒ <code>Promise</code>
-
-<a name="new_EThing.Rule_new"></a>
-
-#### new Rule(json)
-<p>Constructs a Rule instance from an object decribing a rule. Should not be called directly. Use instead [list](#EThing.list).</p>
-
-
-| Param | Type |
-| --- | --- |
-| json | <code>object</code> | 
-
-<a name="EThing.Rule+enabled"></a>
-
-#### rule.enabled() ⇒ <code>boolean</code>
-<p>Returns true if this rule is enabled.</p>
-
-**Kind**: instance method of [<code>Rule</code>](#EThing.Rule)  
-**this**: <code>{EThing.Rule}</code>  
-<a name="EThing.Rule+events"></a>
-
-#### rule.events() ⇒ <code>Array.&lt;object&gt;</code>
-<p>Returns an array of object describing the events.</p>
-
-**Kind**: instance method of [<code>Rule</code>](#EThing.Rule)  
-**this**: <code>{EThing.Rule}</code>  
-<a name="EThing.Rule+actions"></a>
-
-#### rule.actions() ⇒ <code>Array.&lt;object&gt;</code>
-<p>Returns an array of objects describing the actions.</p>
-
-**Kind**: instance method of [<code>Rule</code>](#EThing.Rule)  
-**this**: <code>{EThing.Rule}</code>  
-<a name="EThing.Rule+executionCount"></a>
-
-#### rule.executionCount() ⇒ <code>number</code>
-<p>Returns the number of times this rule has been executed.</p>
-
-**Kind**: instance method of [<code>Rule</code>](#EThing.Rule)  
-**this**: <code>{EThing.Rule}</code>  
-<a name="EThing.Rule+executionDate"></a>
-
-#### rule.executionDate() ⇒ <code>Date</code> \| <code>null</code>
-<p>Returns the last time this rule has been executed (or null if this rule has never been executed).</p>
-
-**Kind**: instance method of [<code>Rule</code>](#EThing.Rule)  
-**this**: <code>{EThing.Rule}</code>  
-<a name="EThing.Rule+execute"></a>
-
-#### rule.execute([callback]) ⇒ [<code>Rule</code>](#EThing.Rule)
-<p>Run this rule.</p>
-
-**Kind**: instance method of [<code>Rule</code>](#EThing.Rule)  
-**Returns**: [<code>Rule</code>](#EThing.Rule) - <p>The instance on which this method was called.</p>  
-**this**: <code>{EThing.Rule}</code>  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| [callback] | <code>function</code> | <p>it is executed once the request is complete whether in failure or success</p> |
-
-<a name="EThing.Resource+json"></a>
-
-#### rule.json() ⇒ <code>object</code>
-<p>Returns the representation of this instance</p>
-
-**Kind**: instance method of [<code>Rule</code>](#EThing.Rule)  
-**this**: <code>{EThing.Resource}</code>  
-<a name="EThing.Resource+isTypeof"></a>
-
-#### rule.isTypeof(type) ⇒ <code>boolean</code>
-<p>Return true if the resource is of the given type.</p>
-
-**Kind**: instance method of [<code>Rule</code>](#EThing.Rule)  
-**this**: <code>{EThing.Resource}</code>  
-
-| Param | Type |
-| --- | --- |
-| type | <code>string</code> | 
-
-<a name="EThing.Resource+name"></a>
-
-#### rule.name() ⇒ <code>string</code>
-<p>Returns the name of this resource. A name is constructed as <strong>PathName/FileName</strong>.
-To get only the FileName, see [basename](#EThing.Resource+basename).
-To get only the PathName, see [dirname](#EThing.Resource+dirname).</p>
-
-**Kind**: instance method of [<code>Rule</code>](#EThing.Rule)  
-**this**: <code>{EThing.Resource}</code>  
-<a name="EThing.Resource+dirname"></a>
-
-#### rule.dirname() ⇒ <code>string</code>
-<p>Returns the path of this resource</p>
-
-**Kind**: instance method of [<code>Rule</code>](#EThing.Rule)  
-**this**: <code>{EThing.Resource}</code>  
-<a name="EThing.Resource+basename"></a>
-
-#### rule.basename() ⇒ <code>string</code>
-<p>Returns the basename of this resource</p>
-
-**Kind**: instance method of [<code>Rule</code>](#EThing.Rule)  
-**this**: <code>{EThing.Resource}</code>  
-<a name="EThing.Resource+extension"></a>
-
-#### rule.extension() ⇒ <code>string</code>
-<p>Returns the extension of this resource</p>
-
-**Kind**: instance method of [<code>Rule</code>](#EThing.Rule)  
-**this**: <code>{EThing.Resource}</code>  
-<a name="EThing.Resource+id"></a>
-
-#### rule.id() ⇒ <code>string</code>
-<p>Returns the id of this resource. This id is unique and immutable.</p>
-
-**Kind**: instance method of [<code>Rule</code>](#EThing.Rule)  
-**this**: <code>{EThing.Resource}</code>  
-<a name="EThing.Resource+createdBy"></a>
-
-#### rule.createdBy() ⇒ <code>string</code> \| <code>null</code>
-<p>Returns the id of the Resource which creates it if any, or returns null.</p>
-
-**Kind**: instance method of [<code>Rule</code>](#EThing.Rule)  
-**this**: <code>{EThing.Resource}</code>  
-<a name="EThing.Resource+type"></a>
-
-#### rule.type() ⇒ <code>string</code>
-<p>Returns the type of this resource :</p>
-<ul>
-<li>&quot;File&quot;</li>
-<li>&quot;Table&quot;</li>
-<li>&quot;App&quot;</li>
-<li>&quot;Device&quot;</li>
-</ul>
-
-**Kind**: instance method of [<code>Rule</code>](#EThing.Rule)  
-**this**: <code>{EThing.Resource}</code>  
-<a name="EThing.Resource+types"></a>
-
-#### rule.types() ⇒ <code>Array.&lt;string&gt;</code>
-<p>Returns the types this resource depends on</p>
-
-**Kind**: instance method of [<code>Rule</code>](#EThing.Rule)  
-**this**: <code>{EThing.Resource}</code>  
-<a name="EThing.Resource+baseType"></a>
-
-#### rule.baseType() ⇒ <code>string</code>
-<p>Returns the type of this resource :</p>
-<ul>
-<li>&quot;File&quot;</li>
-<li>&quot;Table&quot;</li>
-<li>&quot;App&quot;</li>
-<li>&quot;Device&quot;</li>
-</ul>
-
-**Kind**: instance method of [<code>Rule</code>](#EThing.Rule)  
-**this**: <code>{EThing.Resource}</code>  
-<a name="EThing.Resource+createdDate"></a>
-
-#### rule.createdDate() ⇒ <code>Date</code>
-<p>Create time for this resource</p>
-
-**Kind**: instance method of [<code>Rule</code>](#EThing.Rule)  
-**this**: <code>{EThing.Resource}</code>  
-<a name="EThing.Resource+modifiedDate"></a>
-
-#### rule.modifiedDate() ⇒ <code>Date</code>
-<p>Last time this resource was modified</p>
-
-**Kind**: instance method of [<code>Rule</code>](#EThing.Rule)  
-**this**: <code>{EThing.Resource}</code>  
-<a name="EThing.Resource+public"></a>
-
-#### rule.public() ⇒ <code>boolean</code> \| <code>string</code>
-<p>Tells if this resource is publicly available.</p>
-
-**Kind**: instance method of [<code>Rule</code>](#EThing.Rule)  
-**this**: <code>{EThing.Resource}</code>  
-<a name="EThing.Resource+data"></a>
-
-#### rule.data([name], [defaultValue]) ⇒ <code>object</code> \| <code>null</code>
-<p>Returns the data attached to this resource.</p>
-
-**Kind**: instance method of [<code>Rule</code>](#EThing.Rule)  
-**this**: <code>{EThing.Resource}</code>  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| [name] | <code>string</code> | <p>an optional data attribute name.</p> |
-| [defaultValue] |  | <p>a default value if the attribute was not found.</p> |
-
-<a name="EThing.Resource+attr"></a>
-
-#### rule.attr([name]) ⇒ <code>object</code> \| <code>null</code>
-<p>Returns the attributes to this resource.</p>
-
-**Kind**: instance method of [<code>Rule</code>](#EThing.Rule)  
-**this**: <code>{EThing.Resource}</code>  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| [name] | <code>string</code> | <p>an optional attribute name.</p> |
-
-<a name="EThing.Resource+hasAttr"></a>
-
-#### rule.hasAttr(name) ⇒ <code>boolean</code>
-<p>Returns true if the attribute exists for this resource.</p>
-
-**Kind**: instance method of [<code>Rule</code>](#EThing.Rule)  
-**this**: <code>{EThing.Resource}</code>  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| name | <code>string</code> | <p>attribute name.</p> |
-
-<a name="EThing.Resource+description"></a>
-
-#### rule.description() ⇒ <code>string</code>
-<p>Returns the description of this resource</p>
-
-**Kind**: instance method of [<code>Rule</code>](#EThing.Rule)  
-**this**: <code>{EThing.Resource}</code>  
-<a name="EThing.Resource+remove"></a>
-
-#### rule.remove([removeChildren], [callback]) ⇒ [<code>Resource</code>](#EThing.Resource)
-<p>Remove this resource.</p>
-
-**Kind**: instance method of [<code>Rule</code>](#EThing.Rule)  
-**Returns**: [<code>Resource</code>](#EThing.Resource) - <p>The instance on which this method was called.</p>  
-**Emits**: <code>EThing#ething.resource.event:removed</code>  
-**this**: <code>{EThing.Resource}</code>  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| [removeChildren] | <code>Boolean</code> | <p>When true, the children are also removed. Default to false.</p> |
-| [callback] | <code>function</code> | <p>it is executed once the request is complete whether in failure or success</p> |
-
-**Example**  
-```js
-resource.remove().then(function(){  // the resource was successfully removed});
-```
-<a name="EThing.Resource+set"></a>
-
-#### rule.set(properties, [callback]) ⇒ [<code>Resource</code>](#EThing.Resource)
-<p>Update this resource attributes</p>
-
-**Kind**: instance method of [<code>Rule</code>](#EThing.Rule)  
-**Returns**: [<code>Resource</code>](#EThing.Resource) - <p>The instance on which this method was called.</p>  
-**this**: <code>{EThing.Resource}</code>  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| properties |  |  |
-| [callback] | <code>function</code> | <p>it is executed once the request is complete whether in failure or success</p> |
-
-**Example**  
-```js
-resource.set({  name: "newName.txt"}).then(function(){  console.log("the resource was successfully renamed to :"+this.name());});
-```
-<a name="EThing.Resource+setData"></a>
-
-#### rule.setData(data, [callback]) ⇒ [<code>Resource</code>](#EThing.Resource)
-<p>Attaches persistant data to this resource</p>
-
-**Kind**: instance method of [<code>Rule</code>](#EThing.Rule)  
-**Returns**: [<code>Resource</code>](#EThing.Resource) - <p>The instance on which this method was called.</p>  
-**this**: <code>{EThing.Resource}</code>  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| data | <code>object</code> |  |
-| [callback] | <code>function</code> | <p>it is executed once the request is complete whether in failure or success</p> |
-
-**Example**  
-```js
-resource.setData({  "key": "value"}).then(function(){  // success});// you can also write :resource.setData("key", "value").then(function(){  // success});
-```
-<a name="EThing.Rule.create"></a>
-
-#### Rule.create(attributes, [callback]) ⇒ <code>Promise</code>
-<p>Creates a new Rule from the following attributes :</p>
-<ul>
-<li>name {string} <strong>required</strong> the name of the rule</li>
-<li>event {object} <strong>required</strong> the event object describing when to execute this rule<ul>
-<li>event.type {string} <strong>required</strong> the type name of the event (Timer, ResourceCreated, ...)</li>
-<li>event.*  some options depending of the type of event</li>
-</ul>
-</li>
-<li>action {object} <strong>required</strong> the action object describing the action to run<ul>
-<li>action.type {string} <strong>required</strong> the type name of the action (RunScript, ...)</li>
-<li>action.*  some options depending of the type of action</li>
-</ul>
-</li>
-</ul>
-
-**Kind**: static method of [<code>Rule</code>](#EThing.Rule)  
-**Emits**: <code>EThing#ething.rule.event:created</code>  
+**Kind**: static method of [<code>Resource</code>](#EThing.Resource)  
+**Emits**: <code>EThing#ething.resource.event:created</code>  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -4643,7 +3848,7 @@ resource.setData({  "key": "value"}).then(function(){  // success});// you
 
 **Example**  
 ```js
-EThing.Rule.create({  name: "myRule",  event: {    type: 'ResourceCreated' // this rule will be fired each time a resource is created !  },  action: {    type: 'RunScript',    script: <script_id> // this script will be executed when the rule is fired  }}).then(function(resource){    console.log('the new rule is created');})
+EThing.Resource.create({  type: "resources/File",  name: "foobar"}).then(function(resource){    console.log('created : ' + resource.name());})
 ```
 <a name="EThing.Table"></a>
 
@@ -4659,7 +3864,6 @@ EThing.Rule.create({  name: "myRule",  event: {    type: 'ResourceCreated' //
     * _instance_
         * [.length()](#EThing.Table+length) ⇒ <code>number</code>
         * [.maxLength()](#EThing.Table+maxLength) ⇒ <code>number</code> \| <code>null</code>
-        * [.expireAfter()](#EThing.Table+expireAfter) ⇒ <code>number</code>
         * [.keys()](#EThing.Table+keys) ⇒ <code>Array.&lt;string&gt;</code>
         * [.contentModifiedDate()](#EThing.Table+contentModifiedDate) ⇒ <code>Date</code>
         * [.select([options], [callback])](#EThing.Table+select) ⇒ [<code>Table</code>](#EThing.Table)
@@ -4715,13 +3919,6 @@ EThing.Rule.create({  name: "myRule",  event: {    type: 'ResourceCreated' //
 
 #### table.maxLength() ⇒ <code>number</code> \| <code>null</code>
 <p>The maximum number of rows allowed in this table. Returns null if this feature is disable (number of rows is unlimited).</p>
-
-**Kind**: instance method of [<code>Table</code>](#EThing.Table)  
-**this**: <code>{EThing.Table}</code>  
-<a name="EThing.Table+expireAfter"></a>
-
-#### table.expireAfter() ⇒ <code>number</code>
-<p>Returns the amount of seconds after which a <strong>row</strong> is automatically removed, or null if this feature is not enable.</p>
 
 **Kind**: instance method of [<code>Table</code>](#EThing.Table)  
 **this**: <code>{EThing.Table}</code>  
@@ -4888,7 +4085,7 @@ tableSrc.select().then(function(data){
 
 **Example**  
 ```js
-// using EThing.request() :EThing.request(table.getContentUrl()).then(function(rows){  // success, rows is an array of object   console.log('number of rows : '+rows.length);});// or using jQuery :$.getJSON(table.getContentUrl(true)).then(function(rows){  // success});
+// using EThing.request() :EThing.request(table.getContentUrl()).then(function(rows){  // success, rows is an array of object  console.log('number of rows : '+rows.length);});// or using jQuery :$.getJSON(table.getContentUrl(true)).then(function(rows){  // success});
 ```
 <a name="EThing.Resource+json"></a>
 
@@ -5112,9 +4309,8 @@ resource.setData({  "key": "value"}).then(function(){  // success});// you
 <p>Creates a new Table from the following attributes :</p>
 <ul>
 <li>name {string} <strong>required</strong> the name of the table</li>
-<li>description {string} a string describing this table </li>
+<li>description {string} a string describing this table</li>
 <li>data {object} key/value pairs to attach to this table</li>
-<li>expireAfter {number} amount of seconds after which a row is automatically removed, 0 means unlimited. Default to 0.</li>
 <li>maxLength {number} the maximum number of rows allowed in this table. 0 means unlimited. Default to 5000.</li>
 </ul>
 
@@ -5128,7 +4324,7 @@ resource.setData({  "key": "value"}).then(function(){  // success});// you
 
 **Example**  
 ```js
-// get a resource by its idEThing.Table.create({  name: "foobar",  expireAfter: 3600*24*7 // the data are automatically removed after 7 weeks}).then(function(resource){    console.log('table created : ' + resource.name());})
+EThing.Table.create({  name: "foobar"}).then(function(resource){    console.log('table created : ' + resource.name());})
 ```
 <a name="EThing.on"></a>
 
@@ -5191,11 +4387,12 @@ resource.setData({  "key": "value"}).then(function(){  // success});// you
 
 * [.arbo](#EThing.arbo) : <code>object</code>
     * [.load([callback], [force])](#EThing.arbo.load) ⇒ <code>Promise</code>
+    * [.refresh()](#EThing.arbo.refresh) ⇒ <code>Promise</code>
     * [.get(id)](#EThing.arbo.get) ⇒ [<code>Resource</code>](#EThing.Resource) \| <code>undefined</code>
     * [.glob(filter)](#EThing.arbo.glob) ⇒ [<code>Array.&lt;Resource&gt;</code>](#EThing.Resource)
     * [.list()](#EThing.arbo.list) ⇒ [<code>Array.&lt;Resource&gt;</code>](#EThing.Resource)
     * [.dispatch()](#EThing.arbo.dispatch)
-    * [.refresh()](#EThing.arbo.refresh) ⇒ <code>Promise</code>
+    * [.find(filter)](#EThing.arbo.find) ⇒ [<code>Array.&lt;Resource&gt;</code>](#EThing.Resource)
     * [.isLoaded()](#EThing.arbo.isLoaded) ⇒ <code>boolean</code>
 
 <a name="EThing.arbo.load"></a>
@@ -5210,6 +4407,13 @@ resource.setData({  "key": "value"}).then(function(){  // success});// you
 | [callback] | <code>function</code> | <p>function executed once the resources are loaded</p> |
 | [force] | <code>boolean</code> | <p>force to reload the entire resources</p> |
 
+<a name="EThing.arbo.refresh"></a>
+
+#### arbo.refresh() ⇒ <code>Promise</code>
+<p>Refresh the resources list from the server.</p>
+
+**Kind**: static method of [<code>arbo</code>](#EThing.arbo)  
+**Returns**: <code>Promise</code> - <p>return a Promise object</p>  
 <a name="EThing.arbo.get"></a>
 
 #### arbo.get(id) ⇒ [<code>Resource</code>](#EThing.Resource) \| <code>undefined</code>
@@ -5241,7 +4445,7 @@ Since there is no duplicate name for folders, their id is equal to their name.</
 <a name="EThing.arbo.list"></a>
 
 #### arbo.list() ⇒ [<code>Array.&lt;Resource&gt;</code>](#EThing.Resource)
-<p>return all the resources. Same as [EThing.arbo.find()](EThing.arbo.find).</p>
+<p>return all the resources. Same as [EThing.arbo.find()](#EThing.arbo.find).</p>
 
 **Kind**: static method of [<code>arbo</code>](#EThing.arbo)  
 <a name="EThing.arbo.dispatch"></a>
@@ -5250,13 +4454,17 @@ Since there is no duplicate name for folders, their id is equal to their name.</
 <p>dispatch an event emitted by the server (through SSE or socketio)</p>
 
 **Kind**: static method of [<code>arbo</code>](#EThing.arbo)  
-<a name="EThing.arbo.refresh"></a>
+<a name="EThing.arbo.find"></a>
 
-#### arbo.refresh() ⇒ <code>Promise</code>
-<p>Refresh the resources list from the server.</p>
+#### arbo.find(filter) ⇒ [<code>Array.&lt;Resource&gt;</code>](#EThing.Resource)
+<p>Returns a list of resources that pass the test implemented by the provided function.</p>
 
 **Kind**: static method of [<code>arbo</code>](#EThing.arbo)  
-**Returns**: <code>Promise</code> - <p>return a Promise object</p>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| filter | <code>function</code> | <p>Function is a predicate, to test each resource of the array. Return true to keep the resource, false otherwise.</p> |
+
 <a name="EThing.arbo.isLoaded"></a>
 
 #### arbo.isLoaded() ⇒ <code>boolean</code>
