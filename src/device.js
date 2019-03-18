@@ -4,7 +4,6 @@ var Resource = require("./resource.js");
 
 
 
-
 /**
  * Constructs a Device instance from an object decribing a device. Should not be called directly. Use instead {@link EThing.list}.
  * @protected
@@ -16,23 +15,6 @@ var Resource = require("./resource.js");
 var Device = function(json)
 {
 	Resource.call(this, json);
-
-	(this._json.methods || []).forEach(function(operationId){
-		if(typeof this[operationId] == 'undefined'){
-			var self = this;
-
-			this[operationId] = function(data, binary, callback){
-				var args = [].slice.call(arguments);
-                args.unshift(operationId);
-                args.unshift(this);
-                return Device.execute.apply(EThing, args);
-			};
-
-			this[operationId].executeUrl = function(data){
-				return self.executeUrl(operationId, data);
-			};
-		}
-	}, this);
 }
 utils.inherits(Device, Resource);
 
@@ -82,15 +64,6 @@ Device.prototype.battery = function() {
   return this.hasBattery() ? this._json.battery : null ;
 }
 
-/**
- * List the available methods on this device.
- * @this {EThing.Device}
- * @returns {string[]}
- */
-Device.prototype.methods = function(){
-	return this._json.methods || [];
-}
-
 
 /**
  * Execute an operation on this device.
@@ -101,10 +74,6 @@ Device.prototype.methods = function(){
  * @param {function(data)} [callback] it is executed once the request is complete whether in failure or success
  * @returns {EThing.Device} The instance on which this method was called.
  * @example
- * // if this device is a thermometer :
- * device.execute('getTemperature').then(function(data){
- *   // success, handle the data here
- * });
  *
  * // if this device is a switch :
  * device.execute('setState', {
@@ -116,12 +85,6 @@ Device.prototype.methods = function(){
  *
  * // or as is :
  * device.execute('setState', true);
- *
- *
- * // you may also do :
- * device.getTemperature().then(function(data){
- *   // success, handle the data here
- * });
  *
  */
 Device.prototype.execute = function(){
