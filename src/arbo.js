@@ -31,10 +31,10 @@ EThing.on('ething.resource.removed', function(evt, resourceId){
 
 
 EThing.arbo = {
-  
+
   resources: [],
   loaddfr: null,
-  
+
   /**
    * Load all available resources.
    * @memberof EThing.arbo
@@ -57,7 +57,7 @@ EThing.arbo = {
 
               // reset
               self.resources.splice(0,self.resources.length) // keep reference
-              
+
               rs.map(function(resource) {
                   return EThing.instanciate(resource);
               }).filter(function(resource){
@@ -79,9 +79,9 @@ EThing.arbo = {
 
       return this.loaddfr
   },
-  
+
 	lastRefreshTs: 0,
-  
+
   /**
    * Refresh the resources list from the server.
    *
@@ -113,7 +113,7 @@ EThing.arbo = {
     });
 
   },
-  
+
 	remove: function (resource,noTrigger){
     if(Array.isArray(resource)){
       resource.forEach(function(r){
@@ -142,11 +142,11 @@ EThing.arbo = {
       EThing.trigger('ething.arbo.changed', [[], removed, []]);
     }
   },
-  
+
   update: function (newResources, replaceAll, noTrigger){
 
     if(!Array.isArray(newResources)) newResources = [newResources];
-    
+
     var self = this;
     var removed = [];
     var added = [];
@@ -212,8 +212,8 @@ EThing.arbo = {
       hasChanged: hasChanged
     };
   },
-  
-	
+
+
   /**
    * Find a resource by its unique id. For all the resources except the Folder, the id is a 7 character alphanumeric string.
    * Since there is no duplicate name for folders, their id is equal to their name.
@@ -281,7 +281,7 @@ EThing.arbo = {
     if(isResourceEvent){
       var resourceId = event.resource.id;
 
-      if (name === 'ResourceDeleted') {
+      if (name === 'signals/ResourceDeleted') {
         this.remove(resourceId);
       } else {
         this.update(EThing.instanciate(event.resource))
@@ -296,7 +296,7 @@ EThing.arbo = {
 
     EThing.trigger(evt);
   },
-  
+
   /**
    * Returns a list of resources that pass the test implemented by the provided function.
    *
@@ -316,8 +316,8 @@ EThing.arbo = {
 	isLoaded: function(){
 		return this.loaddfr === true || ( this.loaddfr && this.loaddfr.state() == 'resolved' );
 	},
-  
-  
+
+
 };
 
 module.exports = EThing.arbo;
