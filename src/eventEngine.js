@@ -2,9 +2,9 @@
 var Event = require("./event.js");
 
 function EventEngine(obj){
-	
+
 	var event_map = {};
-	
+
 	obj.on = function(events, handler) {
 		if(typeof handler == 'function'){
 			events = events.split(' ');
@@ -17,7 +17,7 @@ function EventEngine(obj){
 			}
 		}
 	}
-	
+
 	obj.off = function(events, handler) {
 		events = events.split(' ');
 		for(var i=0; i<events.length; i++){
@@ -37,7 +37,7 @@ function EventEngine(obj){
 			}
 		}
 	}
-	
+
 	obj.one = function(events, handler) {
 		if(typeof handler == 'function'){
 			obj.on(events, function(){
@@ -46,27 +46,29 @@ function EventEngine(obj){
 			});
 		}
 	}
-	
+
 	obj.trigger = function(event, extraParameters){
 		if(typeof event === 'string')
 			event = Event(event);
-		
+
 		var type = event.type,
 			h = event_map[type] || [];
-		
+
+		if (event_map['*']) h = h.concat(event_map['*'])
+
 		for(var i=0; i<h.length; i++){
 			var args = [event];
 			if(Array.isArray(extraParameters))
 				args = args.concat(extraParameters);
 			h[i].apply(obj,args);
-			
+
 			if(event.isImmediatePropagationStopped() || event.isPropagationStopped())
 				break;
 		}
 		return event;
 	}
-	
-	
+
+
 }
 
 module.exports = EventEngine;

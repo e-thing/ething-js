@@ -22,10 +22,10 @@ utils.inherits(Device, Resource);
 /**
  *
  * @this {EThing.Device}
- * @returns {string|null} Return either a string containing information about the location (coordinates, place, room ...) or null if no location is defined for this device.
+ * @returns {string|null} Return either a string containing information about the location (coordinates, place, room ...) or empty if no location is defined for this device.
  */
 Device.prototype.location = function() {
-  return this._json.location || null;
+  return this._json.location || '';
 }
 
 /**
