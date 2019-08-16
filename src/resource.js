@@ -250,7 +250,6 @@ Resource.prototype.description = function() {
 /**
  * Remove this resource.
  * @this {EThing.Resource}
- * @param {Boolean} [removeChildren] When true, the children are also removed. Default to false.
  * @param {function(data)} [callback] it is executed once the request is complete whether in failure or success
  * @returns {EThing.Resource} The instance on which this method was called.
  * @fires EThing#ething.resource.removed
@@ -259,7 +258,7 @@ Resource.prototype.description = function() {
  *   // the resource was successfully removed
  * });
  */
-Resource.prototype.remove = function(removeChildren, callback){
+Resource.prototype.remove = function(callback){
     var args = [].slice.call(arguments);
     args.unshift(this);
     return Resource.remove.apply(EThing, args);
@@ -360,7 +359,7 @@ Resource.create = function(a,callback){
 /*
 Resource,callback
 */
-Resource.remove = function(a,removeChildren,callback)
+Resource.remove = function(a,callback)
 {
 	var context;
 	if(a instanceof Resource){
@@ -371,13 +370,8 @@ Resource.remove = function(a,removeChildren,callback)
 		throw "First argument must be a Resource object or a Resource id : "+a;
 	}
 
-	if(arguments.length==2 && typeof removeChildren === 'function'){
-		callback = removeChildren;
-		removeChildren = false;
-	}
-
 	return EThing.request({
-		'url': '/resources/' + a + '?' + utils.param({'children':removeChildren}),
+		'url': '/resources/' + a,
 		'method': 'DELETE',
 		'context': context
 	},callback).then(function(){

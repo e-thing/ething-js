@@ -28,7 +28,6 @@
             * [.lastSeenDate()](#EThing.Device+lastSeenDate) ⇒ <code>Date</code> \| <code>null</code>
             * [.hasBattery()](#EThing.Device+hasBattery) ⇒ <code>boolean</code>
             * [.battery()](#EThing.Device+battery) ⇒ <code>number</code>
-            * [.methods()](#EThing.Device+methods) ⇒ <code>Array.&lt;string&gt;</code>
             * [.execute(operationId, [data], [binary], [callback])](#EThing.Device+execute) ⇒ [<code>Device</code>](#EThing.Device)
             * [.executeUrl(operationId, [data])](#EThing.Device+executeUrl) ⇒ <code>string</code>
             * [.json()](#EThing.Resource+json) ⇒ <code>object</code>
@@ -49,7 +48,7 @@
             * [.attr([name])](#EThing.Resource+attr) ⇒ <code>object</code> \| <code>null</code>
             * [.hasAttr(name)](#EThing.Resource+hasAttr) ⇒ <code>boolean</code>
             * [.description()](#EThing.Resource+description) ⇒ <code>string</code>
-            * [.remove([removeChildren], [callback])](#EThing.Resource+remove) ⇒ [<code>Resource</code>](#EThing.Resource)
+            * [.remove([callback])](#EThing.Resource+remove) ⇒ [<code>Resource</code>](#EThing.Resource)
             * [.set(properties, [callback])](#EThing.Resource+set) ⇒ [<code>Resource</code>](#EThing.Resource)
             * [.setData(data, [callback])](#EThing.Resource+setData) ⇒ [<code>Resource</code>](#EThing.Resource)
         * _static_
@@ -82,7 +81,7 @@
             * [.attr([name])](#EThing.Resource+attr) ⇒ <code>object</code> \| <code>null</code>
             * [.hasAttr(name)](#EThing.Resource+hasAttr) ⇒ <code>boolean</code>
             * [.description()](#EThing.Resource+description) ⇒ <code>string</code>
-            * [.remove([removeChildren], [callback])](#EThing.Resource+remove) ⇒ [<code>Resource</code>](#EThing.Resource)
+            * [.remove([callback])](#EThing.Resource+remove) ⇒ [<code>Resource</code>](#EThing.Resource)
             * [.set(properties, [callback])](#EThing.Resource+set) ⇒ [<code>Resource</code>](#EThing.Resource)
             * [.setData(data, [callback])](#EThing.Resource+setData) ⇒ [<code>Resource</code>](#EThing.Resource)
         * _static_
@@ -111,7 +110,7 @@
             * [.attr([name])](#EThing.Resource+attr) ⇒ <code>object</code> \| <code>null</code>
             * [.hasAttr(name)](#EThing.Resource+hasAttr) ⇒ <code>boolean</code>
             * [.description()](#EThing.Resource+description) ⇒ <code>string</code>
-            * [.remove([removeChildren], [callback])](#EThing.Resource+remove) ⇒ [<code>Resource</code>](#EThing.Resource)
+            * [.remove([callback])](#EThing.Resource+remove) ⇒ [<code>Resource</code>](#EThing.Resource)
             * [.set(properties, [callback])](#EThing.Resource+set) ⇒ [<code>Resource</code>](#EThing.Resource)
             * [.setData(data, [callback])](#EThing.Resource+setData) ⇒ [<code>Resource</code>](#EThing.Resource)
         * _static_
@@ -137,7 +136,7 @@
             * [.attr([name])](#EThing.Resource+attr) ⇒ <code>object</code> \| <code>null</code>
             * [.hasAttr(name)](#EThing.Resource+hasAttr) ⇒ <code>boolean</code>
             * [.description()](#EThing.Resource+description) ⇒ <code>string</code>
-            * [.remove([removeChildren], [callback])](#EThing.Resource+remove) ⇒ [<code>Resource</code>](#EThing.Resource)
+            * [.remove([callback])](#EThing.Resource+remove) ⇒ [<code>Resource</code>](#EThing.Resource)
             * [.set(properties, [callback])](#EThing.Resource+set) ⇒ [<code>Resource</code>](#EThing.Resource)
             * [.setData(data, [callback])](#EThing.Resource+setData) ⇒ [<code>Resource</code>](#EThing.Resource)
         * _static_
@@ -175,7 +174,7 @@
             * [.attr([name])](#EThing.Resource+attr) ⇒ <code>object</code> \| <code>null</code>
             * [.hasAttr(name)](#EThing.Resource+hasAttr) ⇒ <code>boolean</code>
             * [.description()](#EThing.Resource+description) ⇒ <code>string</code>
-            * [.remove([removeChildren], [callback])](#EThing.Resource+remove) ⇒ [<code>Resource</code>](#EThing.Resource)
+            * [.remove([callback])](#EThing.Resource+remove) ⇒ [<code>Resource</code>](#EThing.Resource)
             * [.set(properties, [callback])](#EThing.Resource+set) ⇒ [<code>Resource</code>](#EThing.Resource)
             * [.setData(data, [callback])](#EThing.Resource+setData) ⇒ [<code>Resource</code>](#EThing.Resource)
         * _static_
@@ -225,7 +224,6 @@
         * [.lastSeenDate()](#EThing.Device+lastSeenDate) ⇒ <code>Date</code> \| <code>null</code>
         * [.hasBattery()](#EThing.Device+hasBattery) ⇒ <code>boolean</code>
         * [.battery()](#EThing.Device+battery) ⇒ <code>number</code>
-        * [.methods()](#EThing.Device+methods) ⇒ <code>Array.&lt;string&gt;</code>
         * [.execute(operationId, [data], [binary], [callback])](#EThing.Device+execute) ⇒ [<code>Device</code>](#EThing.Device)
         * [.executeUrl(operationId, [data])](#EThing.Device+executeUrl) ⇒ <code>string</code>
         * [.json()](#EThing.Resource+json) ⇒ <code>object</code>
@@ -246,7 +244,7 @@
         * [.attr([name])](#EThing.Resource+attr) ⇒ <code>object</code> \| <code>null</code>
         * [.hasAttr(name)](#EThing.Resource+hasAttr) ⇒ <code>boolean</code>
         * [.description()](#EThing.Resource+description) ⇒ <code>string</code>
-        * [.remove([removeChildren], [callback])](#EThing.Resource+remove) ⇒ [<code>Resource</code>](#EThing.Resource)
+        * [.remove([callback])](#EThing.Resource+remove) ⇒ [<code>Resource</code>](#EThing.Resource)
         * [.set(properties, [callback])](#EThing.Resource+set) ⇒ [<code>Resource</code>](#EThing.Resource)
         * [.setData(data, [callback])](#EThing.Resource+setData) ⇒ [<code>Resource</code>](#EThing.Resource)
     * _static_
@@ -266,7 +264,7 @@
 
 #### device.location() ⇒ <code>string</code> \| <code>null</code>
 **Kind**: instance method of [<code>Device</code>](#EThing.Device)  
-**Returns**: <code>string</code> \| <code>null</code> - <p>Return either a string containing information about the location (coordinates, place, room ...) or null if no location is defined for this device.</p>  
+**Returns**: <code>string</code> \| <code>null</code> - <p>Return either a string containing information about the location (coordinates, place, room ...) or empty if no location is defined for this device.</p>  
 **this**: <code>{EThing.Device}</code>  
 <a name="EThing.Device+connected"></a>
 
@@ -289,13 +287,6 @@
 #### device.battery() ⇒ <code>number</code>
 **Kind**: instance method of [<code>Device</code>](#EThing.Device)  
 **this**: <code>{EThing.Device}</code>  
-<a name="EThing.Device+methods"></a>
-
-#### device.methods() ⇒ <code>Array.&lt;string&gt;</code>
-<p>List the available methods on this device.</p>
-
-**Kind**: instance method of [<code>Device</code>](#EThing.Device)  
-**this**: <code>{EThing.Device}</code>  
 <a name="EThing.Device+execute"></a>
 
 #### device.execute(operationId, [data], [binary], [callback]) ⇒ [<code>Device</code>](#EThing.Device)
@@ -314,7 +305,7 @@
 
 **Example**  
 ```js
-// if this device is a thermometer :device.execute('getTemperature').then(function(data){  // success, handle the data here});// if this device is a switch :device.execute('setState', {	 state: true});// you can also pass the arguments as an array :device.execute('setState', [true]);// or as is :device.execute('setState', true);// you may also do :device.getTemperature().then(function(data){  // success, handle the data here});
+// if this device is a switch :device.execute('setState', {	 state: true});// you can also pass the arguments as an array :device.execute('setState', [true]);// or as is :device.execute('setState', true);
 ```
 <a name="EThing.Device+executeUrl"></a>
 
@@ -497,7 +488,7 @@ To get only the PathName, see [dirname](#EThing.Resource+dirname).</p>
 **this**: <code>{EThing.Resource}</code>  
 <a name="EThing.Resource+remove"></a>
 
-#### device.remove([removeChildren], [callback]) ⇒ [<code>Resource</code>](#EThing.Resource)
+#### device.remove([callback]) ⇒ [<code>Resource</code>](#EThing.Resource)
 <p>Remove this resource.</p>
 
 **Kind**: instance method of [<code>Device</code>](#EThing.Device)  
@@ -507,7 +498,6 @@ To get only the PathName, see [dirname](#EThing.Resource+dirname).</p>
 
 | Param | Type | Description |
 | --- | --- | --- |
-| [removeChildren] | <code>Boolean</code> | <p>When true, the children are also removed. Default to false.</p> |
 | [callback] | <code>function</code> | <p>it is executed once the request is complete whether in failure or success</p> |
 
 **Example**  
@@ -605,7 +595,7 @@ EThing.Device.create('SSH', {  host: "localhost",  auth: {    user: "foo",  
         * [.attr([name])](#EThing.Resource+attr) ⇒ <code>object</code> \| <code>null</code>
         * [.hasAttr(name)](#EThing.Resource+hasAttr) ⇒ <code>boolean</code>
         * [.description()](#EThing.Resource+description) ⇒ <code>string</code>
-        * [.remove([removeChildren], [callback])](#EThing.Resource+remove) ⇒ [<code>Resource</code>](#EThing.Resource)
+        * [.remove([callback])](#EThing.Resource+remove) ⇒ [<code>Resource</code>](#EThing.Resource)
         * [.set(properties, [callback])](#EThing.Resource+set) ⇒ [<code>Resource</code>](#EThing.Resource)
         * [.setData(data, [callback])](#EThing.Resource+setData) ⇒ [<code>Resource</code>](#EThing.Resource)
     * _static_
@@ -873,7 +863,7 @@ To get only the PathName, see [dirname](#EThing.Resource+dirname).</p>
 **this**: <code>{EThing.Resource}</code>  
 <a name="EThing.Resource+remove"></a>
 
-#### file.remove([removeChildren], [callback]) ⇒ [<code>Resource</code>](#EThing.Resource)
+#### file.remove([callback]) ⇒ [<code>Resource</code>](#EThing.Resource)
 <p>Remove this resource.</p>
 
 **Kind**: instance method of [<code>File</code>](#EThing.File)  
@@ -883,7 +873,6 @@ To get only the PathName, see [dirname](#EThing.Resource+dirname).</p>
 
 | Param | Type | Description |
 | --- | --- | --- |
-| [removeChildren] | <code>Boolean</code> | <p>When true, the children are also removed. Default to false.</p> |
 | [callback] | <code>function</code> | <p>it is executed once the request is complete whether in failure or success</p> |
 
 **Example**  
@@ -981,7 +970,7 @@ EThing.File.create({  name: "foobar.txt",  description: "this is my file"}).t
         * [.attr([name])](#EThing.Resource+attr) ⇒ <code>object</code> \| <code>null</code>
         * [.hasAttr(name)](#EThing.Resource+hasAttr) ⇒ <code>boolean</code>
         * [.description()](#EThing.Resource+description) ⇒ <code>string</code>
-        * [.remove([removeChildren], [callback])](#EThing.Resource+remove) ⇒ [<code>Resource</code>](#EThing.Resource)
+        * [.remove([callback])](#EThing.Resource+remove) ⇒ [<code>Resource</code>](#EThing.Resource)
         * [.set(properties, [callback])](#EThing.Resource+set) ⇒ [<code>Resource</code>](#EThing.Resource)
         * [.setData(data, [callback])](#EThing.Resource+setData) ⇒ [<code>Resource</code>](#EThing.Resource)
     * _static_
@@ -1187,7 +1176,7 @@ To get only the PathName, see [dirname](#EThing.Resource+dirname).</p>
 **this**: <code>{EThing.Resource}</code>  
 <a name="EThing.Resource+remove"></a>
 
-#### flow.remove([removeChildren], [callback]) ⇒ [<code>Resource</code>](#EThing.Resource)
+#### flow.remove([callback]) ⇒ [<code>Resource</code>](#EThing.Resource)
 <p>Remove this resource.</p>
 
 **Kind**: instance method of [<code>Flow</code>](#EThing.Flow)  
@@ -1197,7 +1186,6 @@ To get only the PathName, see [dirname](#EThing.Resource+dirname).</p>
 
 | Param | Type | Description |
 | --- | --- | --- |
-| [removeChildren] | <code>Boolean</code> | <p>When true, the children are also removed. Default to false.</p> |
 | [callback] | <code>function</code> | <p>it is executed once the request is complete whether in failure or success</p> |
 
 **Example**  
@@ -1288,7 +1276,7 @@ EThing.Flow.create({  name: "myFlow"}).then(function(resource){    console.lo
         * [.attr([name])](#EThing.Resource+attr) ⇒ <code>object</code> \| <code>null</code>
         * [.hasAttr(name)](#EThing.Resource+hasAttr) ⇒ <code>boolean</code>
         * [.description()](#EThing.Resource+description) ⇒ <code>string</code>
-        * [.remove([removeChildren], [callback])](#EThing.Resource+remove) ⇒ [<code>Resource</code>](#EThing.Resource)
+        * [.remove([callback])](#EThing.Resource+remove) ⇒ [<code>Resource</code>](#EThing.Resource)
         * [.set(properties, [callback])](#EThing.Resource+set) ⇒ [<code>Resource</code>](#EThing.Resource)
         * [.setData(data, [callback])](#EThing.Resource+setData) ⇒ [<code>Resource</code>](#EThing.Resource)
     * _static_
@@ -1467,7 +1455,7 @@ To get only the PathName, see [dirname](#EThing.Resource+dirname).</p>
 **this**: <code>{EThing.Resource}</code>  
 <a name="EThing.Resource+remove"></a>
 
-#### resource.remove([removeChildren], [callback]) ⇒ [<code>Resource</code>](#EThing.Resource)
+#### resource.remove([callback]) ⇒ [<code>Resource</code>](#EThing.Resource)
 <p>Remove this resource.</p>
 
 **Kind**: instance method of [<code>Resource</code>](#EThing.Resource)  
@@ -1477,7 +1465,6 @@ To get only the PathName, see [dirname](#EThing.Resource+dirname).</p>
 
 | Param | Type | Description |
 | --- | --- | --- |
-| [removeChildren] | <code>Boolean</code> | <p>When true, the children are also removed. Default to false.</p> |
 | [callback] | <code>function</code> | <p>it is executed once the request is complete whether in failure or success</p> |
 
 **Example**  
@@ -1579,7 +1566,7 @@ EThing.Resource.create({  type: "resources/File",  name: "foobar"}).then(func
         * [.attr([name])](#EThing.Resource+attr) ⇒ <code>object</code> \| <code>null</code>
         * [.hasAttr(name)](#EThing.Resource+hasAttr) ⇒ <code>boolean</code>
         * [.description()](#EThing.Resource+description) ⇒ <code>string</code>
-        * [.remove([removeChildren], [callback])](#EThing.Resource+remove) ⇒ [<code>Resource</code>](#EThing.Resource)
+        * [.remove([callback])](#EThing.Resource+remove) ⇒ [<code>Resource</code>](#EThing.Resource)
         * [.set(properties, [callback])](#EThing.Resource+set) ⇒ [<code>Resource</code>](#EThing.Resource)
         * [.setData(data, [callback])](#EThing.Resource+setData) ⇒ [<code>Resource</code>](#EThing.Resource)
     * _static_
@@ -1937,7 +1924,7 @@ To get only the PathName, see [dirname](#EThing.Resource+dirname).</p>
 **this**: <code>{EThing.Resource}</code>  
 <a name="EThing.Resource+remove"></a>
 
-#### table.remove([removeChildren], [callback]) ⇒ [<code>Resource</code>](#EThing.Resource)
+#### table.remove([callback]) ⇒ [<code>Resource</code>](#EThing.Resource)
 <p>Remove this resource.</p>
 
 **Kind**: instance method of [<code>Table</code>](#EThing.Table)  
@@ -1947,7 +1934,6 @@ To get only the PathName, see [dirname](#EThing.Resource+dirname).</p>
 
 | Param | Type | Description |
 | --- | --- | --- |
-| [removeChildren] | <code>Boolean</code> | <p>When true, the children are also removed. Default to false.</p> |
 | [callback] | <code>function</code> | <p>it is executed once the request is complete whether in failure or success</p> |
 
 **Example**  
@@ -2341,7 +2327,6 @@ EThing.notify("hello world")  .then(function(){    alert("A notification has b
             * [.lastSeenDate()](#EThing.Device+lastSeenDate) ⇒ <code>Date</code> \| <code>null</code>
             * [.hasBattery()](#EThing.Device+hasBattery) ⇒ <code>boolean</code>
             * [.battery()](#EThing.Device+battery) ⇒ <code>number</code>
-            * [.methods()](#EThing.Device+methods) ⇒ <code>Array.&lt;string&gt;</code>
             * [.execute(operationId, [data], [binary], [callback])](#EThing.Device+execute) ⇒ [<code>Device</code>](#EThing.Device)
             * [.executeUrl(operationId, [data])](#EThing.Device+executeUrl) ⇒ <code>string</code>
             * [.json()](#EThing.Resource+json) ⇒ <code>object</code>
@@ -2362,7 +2347,7 @@ EThing.notify("hello world")  .then(function(){    alert("A notification has b
             * [.attr([name])](#EThing.Resource+attr) ⇒ <code>object</code> \| <code>null</code>
             * [.hasAttr(name)](#EThing.Resource+hasAttr) ⇒ <code>boolean</code>
             * [.description()](#EThing.Resource+description) ⇒ <code>string</code>
-            * [.remove([removeChildren], [callback])](#EThing.Resource+remove) ⇒ [<code>Resource</code>](#EThing.Resource)
+            * [.remove([callback])](#EThing.Resource+remove) ⇒ [<code>Resource</code>](#EThing.Resource)
             * [.set(properties, [callback])](#EThing.Resource+set) ⇒ [<code>Resource</code>](#EThing.Resource)
             * [.setData(data, [callback])](#EThing.Resource+setData) ⇒ [<code>Resource</code>](#EThing.Resource)
         * _static_
@@ -2395,7 +2380,7 @@ EThing.notify("hello world")  .then(function(){    alert("A notification has b
             * [.attr([name])](#EThing.Resource+attr) ⇒ <code>object</code> \| <code>null</code>
             * [.hasAttr(name)](#EThing.Resource+hasAttr) ⇒ <code>boolean</code>
             * [.description()](#EThing.Resource+description) ⇒ <code>string</code>
-            * [.remove([removeChildren], [callback])](#EThing.Resource+remove) ⇒ [<code>Resource</code>](#EThing.Resource)
+            * [.remove([callback])](#EThing.Resource+remove) ⇒ [<code>Resource</code>](#EThing.Resource)
             * [.set(properties, [callback])](#EThing.Resource+set) ⇒ [<code>Resource</code>](#EThing.Resource)
             * [.setData(data, [callback])](#EThing.Resource+setData) ⇒ [<code>Resource</code>](#EThing.Resource)
         * _static_
@@ -2424,7 +2409,7 @@ EThing.notify("hello world")  .then(function(){    alert("A notification has b
             * [.attr([name])](#EThing.Resource+attr) ⇒ <code>object</code> \| <code>null</code>
             * [.hasAttr(name)](#EThing.Resource+hasAttr) ⇒ <code>boolean</code>
             * [.description()](#EThing.Resource+description) ⇒ <code>string</code>
-            * [.remove([removeChildren], [callback])](#EThing.Resource+remove) ⇒ [<code>Resource</code>](#EThing.Resource)
+            * [.remove([callback])](#EThing.Resource+remove) ⇒ [<code>Resource</code>](#EThing.Resource)
             * [.set(properties, [callback])](#EThing.Resource+set) ⇒ [<code>Resource</code>](#EThing.Resource)
             * [.setData(data, [callback])](#EThing.Resource+setData) ⇒ [<code>Resource</code>](#EThing.Resource)
         * _static_
@@ -2450,7 +2435,7 @@ EThing.notify("hello world")  .then(function(){    alert("A notification has b
             * [.attr([name])](#EThing.Resource+attr) ⇒ <code>object</code> \| <code>null</code>
             * [.hasAttr(name)](#EThing.Resource+hasAttr) ⇒ <code>boolean</code>
             * [.description()](#EThing.Resource+description) ⇒ <code>string</code>
-            * [.remove([removeChildren], [callback])](#EThing.Resource+remove) ⇒ [<code>Resource</code>](#EThing.Resource)
+            * [.remove([callback])](#EThing.Resource+remove) ⇒ [<code>Resource</code>](#EThing.Resource)
             * [.set(properties, [callback])](#EThing.Resource+set) ⇒ [<code>Resource</code>](#EThing.Resource)
             * [.setData(data, [callback])](#EThing.Resource+setData) ⇒ [<code>Resource</code>](#EThing.Resource)
         * _static_
@@ -2488,7 +2473,7 @@ EThing.notify("hello world")  .then(function(){    alert("A notification has b
             * [.attr([name])](#EThing.Resource+attr) ⇒ <code>object</code> \| <code>null</code>
             * [.hasAttr(name)](#EThing.Resource+hasAttr) ⇒ <code>boolean</code>
             * [.description()](#EThing.Resource+description) ⇒ <code>string</code>
-            * [.remove([removeChildren], [callback])](#EThing.Resource+remove) ⇒ [<code>Resource</code>](#EThing.Resource)
+            * [.remove([callback])](#EThing.Resource+remove) ⇒ [<code>Resource</code>](#EThing.Resource)
             * [.set(properties, [callback])](#EThing.Resource+set) ⇒ [<code>Resource</code>](#EThing.Resource)
             * [.setData(data, [callback])](#EThing.Resource+setData) ⇒ [<code>Resource</code>](#EThing.Resource)
         * _static_
@@ -2538,7 +2523,6 @@ EThing.notify("hello world")  .then(function(){    alert("A notification has b
         * [.lastSeenDate()](#EThing.Device+lastSeenDate) ⇒ <code>Date</code> \| <code>null</code>
         * [.hasBattery()](#EThing.Device+hasBattery) ⇒ <code>boolean</code>
         * [.battery()](#EThing.Device+battery) ⇒ <code>number</code>
-        * [.methods()](#EThing.Device+methods) ⇒ <code>Array.&lt;string&gt;</code>
         * [.execute(operationId, [data], [binary], [callback])](#EThing.Device+execute) ⇒ [<code>Device</code>](#EThing.Device)
         * [.executeUrl(operationId, [data])](#EThing.Device+executeUrl) ⇒ <code>string</code>
         * [.json()](#EThing.Resource+json) ⇒ <code>object</code>
@@ -2559,7 +2543,7 @@ EThing.notify("hello world")  .then(function(){    alert("A notification has b
         * [.attr([name])](#EThing.Resource+attr) ⇒ <code>object</code> \| <code>null</code>
         * [.hasAttr(name)](#EThing.Resource+hasAttr) ⇒ <code>boolean</code>
         * [.description()](#EThing.Resource+description) ⇒ <code>string</code>
-        * [.remove([removeChildren], [callback])](#EThing.Resource+remove) ⇒ [<code>Resource</code>](#EThing.Resource)
+        * [.remove([callback])](#EThing.Resource+remove) ⇒ [<code>Resource</code>](#EThing.Resource)
         * [.set(properties, [callback])](#EThing.Resource+set) ⇒ [<code>Resource</code>](#EThing.Resource)
         * [.setData(data, [callback])](#EThing.Resource+setData) ⇒ [<code>Resource</code>](#EThing.Resource)
     * _static_
@@ -2579,7 +2563,7 @@ EThing.notify("hello world")  .then(function(){    alert("A notification has b
 
 #### device.location() ⇒ <code>string</code> \| <code>null</code>
 **Kind**: instance method of [<code>Device</code>](#EThing.Device)  
-**Returns**: <code>string</code> \| <code>null</code> - <p>Return either a string containing information about the location (coordinates, place, room ...) or null if no location is defined for this device.</p>  
+**Returns**: <code>string</code> \| <code>null</code> - <p>Return either a string containing information about the location (coordinates, place, room ...) or empty if no location is defined for this device.</p>  
 **this**: <code>{EThing.Device}</code>  
 <a name="EThing.Device+connected"></a>
 
@@ -2602,13 +2586,6 @@ EThing.notify("hello world")  .then(function(){    alert("A notification has b
 #### device.battery() ⇒ <code>number</code>
 **Kind**: instance method of [<code>Device</code>](#EThing.Device)  
 **this**: <code>{EThing.Device}</code>  
-<a name="EThing.Device+methods"></a>
-
-#### device.methods() ⇒ <code>Array.&lt;string&gt;</code>
-<p>List the available methods on this device.</p>
-
-**Kind**: instance method of [<code>Device</code>](#EThing.Device)  
-**this**: <code>{EThing.Device}</code>  
 <a name="EThing.Device+execute"></a>
 
 #### device.execute(operationId, [data], [binary], [callback]) ⇒ [<code>Device</code>](#EThing.Device)
@@ -2627,7 +2604,7 @@ EThing.notify("hello world")  .then(function(){    alert("A notification has b
 
 **Example**  
 ```js
-// if this device is a thermometer :device.execute('getTemperature').then(function(data){  // success, handle the data here});// if this device is a switch :device.execute('setState', {	 state: true});// you can also pass the arguments as an array :device.execute('setState', [true]);// or as is :device.execute('setState', true);// you may also do :device.getTemperature().then(function(data){  // success, handle the data here});
+// if this device is a switch :device.execute('setState', {	 state: true});// you can also pass the arguments as an array :device.execute('setState', [true]);// or as is :device.execute('setState', true);
 ```
 <a name="EThing.Device+executeUrl"></a>
 
@@ -2810,7 +2787,7 @@ To get only the PathName, see [dirname](#EThing.Resource+dirname).</p>
 **this**: <code>{EThing.Resource}</code>  
 <a name="EThing.Resource+remove"></a>
 
-#### device.remove([removeChildren], [callback]) ⇒ [<code>Resource</code>](#EThing.Resource)
+#### device.remove([callback]) ⇒ [<code>Resource</code>](#EThing.Resource)
 <p>Remove this resource.</p>
 
 **Kind**: instance method of [<code>Device</code>](#EThing.Device)  
@@ -2820,7 +2797,6 @@ To get only the PathName, see [dirname](#EThing.Resource+dirname).</p>
 
 | Param | Type | Description |
 | --- | --- | --- |
-| [removeChildren] | <code>Boolean</code> | <p>When true, the children are also removed. Default to false.</p> |
 | [callback] | <code>function</code> | <p>it is executed once the request is complete whether in failure or success</p> |
 
 **Example**  
@@ -2918,7 +2894,7 @@ EThing.Device.create('SSH', {  host: "localhost",  auth: {    user: "foo",  
         * [.attr([name])](#EThing.Resource+attr) ⇒ <code>object</code> \| <code>null</code>
         * [.hasAttr(name)](#EThing.Resource+hasAttr) ⇒ <code>boolean</code>
         * [.description()](#EThing.Resource+description) ⇒ <code>string</code>
-        * [.remove([removeChildren], [callback])](#EThing.Resource+remove) ⇒ [<code>Resource</code>](#EThing.Resource)
+        * [.remove([callback])](#EThing.Resource+remove) ⇒ [<code>Resource</code>](#EThing.Resource)
         * [.set(properties, [callback])](#EThing.Resource+set) ⇒ [<code>Resource</code>](#EThing.Resource)
         * [.setData(data, [callback])](#EThing.Resource+setData) ⇒ [<code>Resource</code>](#EThing.Resource)
     * _static_
@@ -3186,7 +3162,7 @@ To get only the PathName, see [dirname](#EThing.Resource+dirname).</p>
 **this**: <code>{EThing.Resource}</code>  
 <a name="EThing.Resource+remove"></a>
 
-#### file.remove([removeChildren], [callback]) ⇒ [<code>Resource</code>](#EThing.Resource)
+#### file.remove([callback]) ⇒ [<code>Resource</code>](#EThing.Resource)
 <p>Remove this resource.</p>
 
 **Kind**: instance method of [<code>File</code>](#EThing.File)  
@@ -3196,7 +3172,6 @@ To get only the PathName, see [dirname](#EThing.Resource+dirname).</p>
 
 | Param | Type | Description |
 | --- | --- | --- |
-| [removeChildren] | <code>Boolean</code> | <p>When true, the children are also removed. Default to false.</p> |
 | [callback] | <code>function</code> | <p>it is executed once the request is complete whether in failure or success</p> |
 
 **Example**  
@@ -3294,7 +3269,7 @@ EThing.File.create({  name: "foobar.txt",  description: "this is my file"}).t
         * [.attr([name])](#EThing.Resource+attr) ⇒ <code>object</code> \| <code>null</code>
         * [.hasAttr(name)](#EThing.Resource+hasAttr) ⇒ <code>boolean</code>
         * [.description()](#EThing.Resource+description) ⇒ <code>string</code>
-        * [.remove([removeChildren], [callback])](#EThing.Resource+remove) ⇒ [<code>Resource</code>](#EThing.Resource)
+        * [.remove([callback])](#EThing.Resource+remove) ⇒ [<code>Resource</code>](#EThing.Resource)
         * [.set(properties, [callback])](#EThing.Resource+set) ⇒ [<code>Resource</code>](#EThing.Resource)
         * [.setData(data, [callback])](#EThing.Resource+setData) ⇒ [<code>Resource</code>](#EThing.Resource)
     * _static_
@@ -3500,7 +3475,7 @@ To get only the PathName, see [dirname](#EThing.Resource+dirname).</p>
 **this**: <code>{EThing.Resource}</code>  
 <a name="EThing.Resource+remove"></a>
 
-#### flow.remove([removeChildren], [callback]) ⇒ [<code>Resource</code>](#EThing.Resource)
+#### flow.remove([callback]) ⇒ [<code>Resource</code>](#EThing.Resource)
 <p>Remove this resource.</p>
 
 **Kind**: instance method of [<code>Flow</code>](#EThing.Flow)  
@@ -3510,7 +3485,6 @@ To get only the PathName, see [dirname](#EThing.Resource+dirname).</p>
 
 | Param | Type | Description |
 | --- | --- | --- |
-| [removeChildren] | <code>Boolean</code> | <p>When true, the children are also removed. Default to false.</p> |
 | [callback] | <code>function</code> | <p>it is executed once the request is complete whether in failure or success</p> |
 
 **Example**  
@@ -3601,7 +3575,7 @@ EThing.Flow.create({  name: "myFlow"}).then(function(resource){    console.lo
         * [.attr([name])](#EThing.Resource+attr) ⇒ <code>object</code> \| <code>null</code>
         * [.hasAttr(name)](#EThing.Resource+hasAttr) ⇒ <code>boolean</code>
         * [.description()](#EThing.Resource+description) ⇒ <code>string</code>
-        * [.remove([removeChildren], [callback])](#EThing.Resource+remove) ⇒ [<code>Resource</code>](#EThing.Resource)
+        * [.remove([callback])](#EThing.Resource+remove) ⇒ [<code>Resource</code>](#EThing.Resource)
         * [.set(properties, [callback])](#EThing.Resource+set) ⇒ [<code>Resource</code>](#EThing.Resource)
         * [.setData(data, [callback])](#EThing.Resource+setData) ⇒ [<code>Resource</code>](#EThing.Resource)
     * _static_
@@ -3780,7 +3754,7 @@ To get only the PathName, see [dirname](#EThing.Resource+dirname).</p>
 **this**: <code>{EThing.Resource}</code>  
 <a name="EThing.Resource+remove"></a>
 
-#### resource.remove([removeChildren], [callback]) ⇒ [<code>Resource</code>](#EThing.Resource)
+#### resource.remove([callback]) ⇒ [<code>Resource</code>](#EThing.Resource)
 <p>Remove this resource.</p>
 
 **Kind**: instance method of [<code>Resource</code>](#EThing.Resource)  
@@ -3790,7 +3764,6 @@ To get only the PathName, see [dirname](#EThing.Resource+dirname).</p>
 
 | Param | Type | Description |
 | --- | --- | --- |
-| [removeChildren] | <code>Boolean</code> | <p>When true, the children are also removed. Default to false.</p> |
 | [callback] | <code>function</code> | <p>it is executed once the request is complete whether in failure or success</p> |
 
 **Example**  
@@ -3892,7 +3865,7 @@ EThing.Resource.create({  type: "resources/File",  name: "foobar"}).then(func
         * [.attr([name])](#EThing.Resource+attr) ⇒ <code>object</code> \| <code>null</code>
         * [.hasAttr(name)](#EThing.Resource+hasAttr) ⇒ <code>boolean</code>
         * [.description()](#EThing.Resource+description) ⇒ <code>string</code>
-        * [.remove([removeChildren], [callback])](#EThing.Resource+remove) ⇒ [<code>Resource</code>](#EThing.Resource)
+        * [.remove([callback])](#EThing.Resource+remove) ⇒ [<code>Resource</code>](#EThing.Resource)
         * [.set(properties, [callback])](#EThing.Resource+set) ⇒ [<code>Resource</code>](#EThing.Resource)
         * [.setData(data, [callback])](#EThing.Resource+setData) ⇒ [<code>Resource</code>](#EThing.Resource)
     * _static_
@@ -4250,7 +4223,7 @@ To get only the PathName, see [dirname](#EThing.Resource+dirname).</p>
 **this**: <code>{EThing.Resource}</code>  
 <a name="EThing.Resource+remove"></a>
 
-#### table.remove([removeChildren], [callback]) ⇒ [<code>Resource</code>](#EThing.Resource)
+#### table.remove([callback]) ⇒ [<code>Resource</code>](#EThing.Resource)
 <p>Remove this resource.</p>
 
 **Kind**: instance method of [<code>Table</code>](#EThing.Table)  
@@ -4260,7 +4233,6 @@ To get only the PathName, see [dirname](#EThing.Resource+dirname).</p>
 
 | Param | Type | Description |
 | --- | --- | --- |
-| [removeChildren] | <code>Boolean</code> | <p>When true, the children are also removed. Default to false.</p> |
 | [callback] | <code>function</code> | <p>it is executed once the request is complete whether in failure or success</p> |
 
 **Example**  
