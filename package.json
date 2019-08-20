@@ -1,7 +1,7 @@
 {
   "name": "ething-js",
   "description": "ething javascript library",
-  "version": "0.1.22",
+  "version": "0.1.23",
   "main": "src/ething.js",
   "author": {
     "name": "Adrien Mezerette",
