@@ -189,7 +189,6 @@
         * [.get(id)](#EThing.arbo.get) ⇒ [<code>Resource</code>](#EThing.Resource) \| <code>undefined</code>
         * [.glob(filter)](#EThing.arbo.glob) ⇒ [<code>Array.&lt;Resource&gt;</code>](#EThing.Resource)
         * [.list()](#EThing.arbo.list) ⇒ [<code>Array.&lt;Resource&gt;</code>](#EThing.Resource)
-        * [.dispatch()](#EThing.arbo.dispatch)
         * [.find(filter)](#EThing.arbo.find) ⇒ [<code>Array.&lt;Resource&gt;</code>](#EThing.Resource)
         * [.isLoaded()](#EThing.arbo.isLoaded) ⇒ <code>boolean</code>
     * [.auth](#EThing.auth) : <code>object</code>
@@ -199,8 +198,7 @@
     * [.request(options, [callback])](#EThing.request) ⇒ <code>Promise</code>
     * [.list([query], [callback])](#EThing.list) ⇒ <code>Promise</code>
     * [.get(resourceIdentifier, [callback])](#EThing.get) ⇒ <code>Promise</code>
-    * [.usage([callback])](#EThing.usage) ⇒ <code>Promise</code>
-    * [.notify([subject], message, [callback])](#EThing.notify) ⇒ <code>Promise</code>
+    * [.dispatch(event)](#EThing.dispatch)
     * ["ething.resource.removed"](#EThing.event_ething.resource.removed)
     * ["ething.file.created"](#EThing.event_ething.file.created)
     * ["ething.table.created"](#EThing.event_ething.table.created)
@@ -2064,7 +2062,6 @@ EThing.Table.create({  name: "foobar"}).then(function(resource){    console.l
     * [.get(id)](#EThing.arbo.get) ⇒ [<code>Resource</code>](#EThing.Resource) \| <code>undefined</code>
     * [.glob(filter)](#EThing.arbo.glob) ⇒ [<code>Array.&lt;Resource&gt;</code>](#EThing.Resource)
     * [.list()](#EThing.arbo.list) ⇒ [<code>Array.&lt;Resource&gt;</code>](#EThing.Resource)
-    * [.dispatch()](#EThing.arbo.dispatch)
     * [.find(filter)](#EThing.arbo.find) ⇒ [<code>Array.&lt;Resource&gt;</code>](#EThing.Resource)
     * [.isLoaded()](#EThing.arbo.isLoaded) ⇒ <code>boolean</code>
 
@@ -2119,12 +2116,6 @@ Since there is no duplicate name for folders, their id is equal to their name.</
 
 #### arbo.list() ⇒ [<code>Array.&lt;Resource&gt;</code>](#EThing.Resource)
 <p>return all the resources. Same as [EThing.arbo.find()](#EThing.arbo.find).</p>
-
-**Kind**: static method of [<code>arbo</code>](#EThing.arbo)  
-<a name="EThing.arbo.dispatch"></a>
-
-#### arbo.dispatch()
-<p>dispatch an event emitted by the server (through SSE or socketio)</p>
 
 **Kind**: static method of [<code>arbo</code>](#EThing.arbo)  
 <a name="EThing.arbo.find"></a>
@@ -2255,42 +2246,17 @@ To check if a request is in failure :</p>
 ```js
 // get a resource by its idEThing.get("54516eb").then(function(resource){    console.log('the name is ' + resource.name());})
 ```
-<a name="EThing.usage"></a>
+<a name="EThing.dispatch"></a>
 
-### EThing.usage([callback]) ⇒ <code>Promise</code>
-<p>Gets an object containing informations about space usage :</p>
-<ul>
-<li>used {number} the amount of space used in bytes</li>
-<li>quota_size {number} the maximum space authorized in bytes</li>
-</ul>
+### EThing.dispatch(event)
+<p>dispatch an event emitted by the server (through SSE or socketio)</p>
 
 **Kind**: static method of [<code>EThing</code>](#EThing)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| [callback] | <code>function</code> | <p>it is executed once the request is complete whether in failure or success</p> |
+| event | <code>object</code> | <p>the event object provided by the server</p> |
 
-**Example**  
-```js
-// get the occupied space :EThing.usage().then(function(usage){    console.log('space used : ' + (100 * usage.used / usage.quota_size) );})
-```
-<a name="EThing.notify"></a>
-
-### EThing.notify([subject], message, [callback]) ⇒ <code>Promise</code>
-<p>Send a notification.</p>
-
-**Kind**: static method of [<code>EThing</code>](#EThing)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| [subject] | <code>string</code> | <p>The subject of the notification</p> |
-| message | <code>string</code> | <p>The message of the notification</p> |
-| [callback] | <code>function</code> | <p>it is executed once the request is complete whether in failure or success</p> |
-
-**Example**  
-```js
-EThing.notify("hello world")  .then(function(){    alert("A notification has been sent");  })
-```
 <a name="EThing.event_ething.resource.removed"></a>
 
 ### "ething.resource.removed"
@@ -2488,7 +2454,6 @@ EThing.notify("hello world")  .then(function(){    alert("A notification has b
         * [.get(id)](#EThing.arbo.get) ⇒ [<code>Resource</code>](#EThing.Resource) \| <code>undefined</code>
         * [.glob(filter)](#EThing.arbo.glob) ⇒ [<code>Array.&lt;Resource&gt;</code>](#EThing.Resource)
         * [.list()](#EThing.arbo.list) ⇒ [<code>Array.&lt;Resource&gt;</code>](#EThing.Resource)
-        * [.dispatch()](#EThing.arbo.dispatch)
         * [.find(filter)](#EThing.arbo.find) ⇒ [<code>Array.&lt;Resource&gt;</code>](#EThing.Resource)
         * [.isLoaded()](#EThing.arbo.isLoaded) ⇒ <code>boolean</code>
     * [.auth](#EThing.auth) : <code>object</code>
@@ -2498,8 +2463,7 @@ EThing.notify("hello world")  .then(function(){    alert("A notification has b
     * [.request(options, [callback])](#EThing.request) ⇒ <code>Promise</code>
     * [.list([query], [callback])](#EThing.list) ⇒ <code>Promise</code>
     * [.get(resourceIdentifier, [callback])](#EThing.get) ⇒ <code>Promise</code>
-    * [.usage([callback])](#EThing.usage) ⇒ <code>Promise</code>
-    * [.notify([subject], message, [callback])](#EThing.notify) ⇒ <code>Promise</code>
+    * [.dispatch(event)](#EThing.dispatch)
     * ["ething.resource.removed"](#EThing.event_ething.resource.removed)
     * ["ething.file.created"](#EThing.event_ething.file.created)
     * ["ething.table.created"](#EThing.event_ething.table.created)
@@ -4363,7 +4327,6 @@ EThing.Table.create({  name: "foobar"}).then(function(resource){    console.l
     * [.get(id)](#EThing.arbo.get) ⇒ [<code>Resource</code>](#EThing.Resource) \| <code>undefined</code>
     * [.glob(filter)](#EThing.arbo.glob) ⇒ [<code>Array.&lt;Resource&gt;</code>](#EThing.Resource)
     * [.list()](#EThing.arbo.list) ⇒ [<code>Array.&lt;Resource&gt;</code>](#EThing.Resource)
-    * [.dispatch()](#EThing.arbo.dispatch)
     * [.find(filter)](#EThing.arbo.find) ⇒ [<code>Array.&lt;Resource&gt;</code>](#EThing.Resource)
     * [.isLoaded()](#EThing.arbo.isLoaded) ⇒ <code>boolean</code>
 
@@ -4418,12 +4381,6 @@ Since there is no duplicate name for folders, their id is equal to their name.</
 
 #### arbo.list() ⇒ [<code>Array.&lt;Resource&gt;</code>](#EThing.Resource)
 <p>return all the resources. Same as [EThing.arbo.find()](#EThing.arbo.find).</p>
-
-**Kind**: static method of [<code>arbo</code>](#EThing.arbo)  
-<a name="EThing.arbo.dispatch"></a>
-
-#### arbo.dispatch()
-<p>dispatch an event emitted by the server (through SSE or socketio)</p>
 
 **Kind**: static method of [<code>arbo</code>](#EThing.arbo)  
 <a name="EThing.arbo.find"></a>
@@ -4554,42 +4511,17 @@ To check if a request is in failure :</p>
 ```js
 // get a resource by its idEThing.get("54516eb").then(function(resource){    console.log('the name is ' + resource.name());})
 ```
-<a name="EThing.usage"></a>
+<a name="EThing.dispatch"></a>
 
-### EThing.usage([callback]) ⇒ <code>Promise</code>
-<p>Gets an object containing informations about space usage :</p>
-<ul>
-<li>used {number} the amount of space used in bytes</li>
-<li>quota_size {number} the maximum space authorized in bytes</li>
-</ul>
+### EThing.dispatch(event)
+<p>dispatch an event emitted by the server (through SSE or socketio)</p>
 
 **Kind**: static method of [<code>EThing</code>](#EThing)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| [callback] | <code>function</code> | <p>it is executed once the request is complete whether in failure or success</p> |
+| event | <code>object</code> | <p>the event object provided by the server</p> |
 
-**Example**  
-```js
-// get the occupied space :EThing.usage().then(function(usage){    console.log('space used : ' + (100 * usage.used / usage.quota_size) );})
-```
-<a name="EThing.notify"></a>
-
-### EThing.notify([subject], message, [callback]) ⇒ <code>Promise</code>
-<p>Send a notification.</p>
-
-**Kind**: static method of [<code>EThing</code>](#EThing)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| [subject] | <code>string</code> | <p>The subject of the notification</p> |
-| message | <code>string</code> | <p>The message of the notification</p> |
-| [callback] | <code>function</code> | <p>it is executed once the request is complete whether in failure or success</p> |
-
-**Example**  
-```js
-EThing.notify("hello world")  .then(function(){    alert("A notification has been sent");  })
-```
 <a name="EThing.event_ething.resource.removed"></a>
 
 ### "ething.resource.removed"

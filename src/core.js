@@ -69,22 +69,22 @@ EThing.config = {
  * @memberof EThing
  * @event "ething.resource.removed"
  */
- 
+
 /**
  * @memberof EThing
  * @event "ething.file.created"
  */
- 
+
 /**
  * @memberof EThing
  * @event "ething.table.created"
  */
- 
+
 /**
  * @memberof EThing
  * @event "ething.device.created"
  */
- 
+
 /**
  * @memberof EThing
  * @event "ething.app.created"
@@ -97,19 +97,19 @@ EventEngine(EThing);
 // else api server url is prepended
 EThing.toApiUrl = function(url, auth){
 	url = url || '';
-	
+
 	if(!/^([a-z]+:)?\/\//.test(url)){
 		// relative url
 		if(!/^\//.test(url) && url)
 			url = '/'+url;
-		
+
 		url = apiUrl() + url;
 	}
-	
+
 	if(auth && isApiUrl(url)){
 		url = this.auth.instance().setUrl(url);
 	}
-    
+
 	return url;
 }
 
@@ -130,20 +130,20 @@ EThing.apiUrl = function(){
 
 
 var instanciate = EThing.instanciate = function (json){
-    
+
     for(var i in json.extends){
         var clsName = json.extends[i].split('/').pop();
-        
+
         if(typeof EThing[clsName] != 'undefined'){
             return new EThing[clsName](json)
         }
-        
+
     }
-    
+
     console.warn('unknown type: ' + json.type)
-    
+
     return new EThing.Resource(json);
-    
+
 	//return false;
 }
 
@@ -153,28 +153,28 @@ var instanciate = EThing.instanciate = function (json){
 
 // if the argument is a json object describing a resource, then it converts it into a Resource instance, else it returns the object unchanged
 EThing.resourceConverter = function(data){
-	
+
 	if(typeof data == 'object' && data !== null){
-		
+
 		var isArray = Array.isArray(data);
 		if(!isArray) data = [data];
-		
+
 		// convert into resource instance
 		data = data.map(function(r){
 			return EThing.instanciate(r);
 		}).filter(function(r){
 			return r;
 		});
-		
-		
+
+
 		// update the arbo collection with the new properties
 		// and return the corresponding resource object(s)
 		if(EThing.arbo)
 			data = EThing.arbo.update(data).resources;
-		
+
 		if(!isArray) data = data.length ? data[0] : null;
 	}
-	
+
 	return data;
 }
 
@@ -192,7 +192,7 @@ EThing.resourceConverter = function(data){
  *  - context {object} The value of this provided for the call of the callback
  *  - converter {function(data,XHR)} A function that returns the transformed value of the response
  *
- * 
+ *
  * You may also give a callback as a second parameter. This callback is executed when the request is complete whether in failure or success.
  * On success, it receives the returned request data, as well as the XMLHttpRequest object.
  * On failure, the first parameter will be a Error object describing the error.
@@ -236,12 +236,12 @@ EThing.resourceConverter = function(data){
 // opt : same as ajax options or an url
 EThing.request = function(opt,callback){
     var self = this;
-    
+
     if(typeof opt == 'string')
 		opt = {
 			url: opt
 		};
-	
+
 	var options = Object.assign({
 		method: 'GET',
 		context: this,
@@ -253,14 +253,14 @@ EThing.request = function(opt,callback){
 		converter: null, // a user defined function to convert the receive data into something else ...
         params: {}
 	},opt);
-	
+
     this.auth.instance().set(options);
-    
+
     if (options.contentType) {
         options.headers = options.headers || {}
         options.headers['content-type'] = options.contentType
     }
-    
+
     return this.axios.request({
         url: options.url,
         baseURL: this.apiUrl(),
@@ -269,16 +269,16 @@ EThing.request = function(opt,callback){
         data: options.data,
         responseType: options.dataType.toLowerCase(),
         headers: options.headers
-        
+
     }).then(function(response){
         /*console.log(response.data);
         console.log(response.status);
         console.log(response.statusText);
         console.log(response.headers);
         console.log(response.config);*/
-        
+
         var data = response.data;
-        
+
         if(options.converter){
             try {
                 data = options.converter.call(options.context,data);
@@ -286,23 +286,23 @@ EThing.request = function(opt,callback){
                 return Promise.reject(String(e))
             }
         }
-        
+
         return Promise.resolve(data)
-        
+
     }, function(error){
-        
+
         if (error.response) {
           // The request was made and the server responded with a status code
           // that falls out of the range of 2xx
           /*console.log(error.response.data);
           console.log(error.response.status);
           console.log(error.response.headers);*/
-          
+
           // get the error message from the response.data
           var parseData = new Promise(function(resolve, reject) {
               var data = error.response.data;
               var responseType = error.config.responseType;
-              
+
               function decodeJson(data){
                 try {
                     data = JSON.parse(data);
@@ -310,12 +310,12 @@ EThing.request = function(opt,callback){
                     reject('invalid JSON data')
                     return
                 }
-                
+
                 resolve(data)
               }
-              
+
               switch(responseType){ // 'arraybuffer', 'blob', 'document', 'json', 'text', 'stream'
-                    
+
                     case 'text':
                         decodeJson(data)
                         break;
@@ -323,18 +323,18 @@ EThing.request = function(opt,callback){
                         resolve(data)
                         break;
                     case 'blob':
-                        
+
                         if(typeof FileReader === "undefined"){
                             reject("FileReader not supported.");
                             return;
                         }
-                        
+
                         var fileReader = new FileReader();
                         fileReader.onload = function() {
                             decodeJson(String.fromCharCode.apply(null, new Uint8Array(this.result)));
                         };
                         fileReader.readAsArrayBuffer(data);
-                        
+
                         break;
                     case 'arraybuffer':
                         decodeJson(String.fromCharCode.apply(null, new Uint8Array(data)));
@@ -347,14 +347,14 @@ EThing.request = function(opt,callback){
                         break;
                 }
           })
-          
+
           return parseData.then(function(serverErr){
               return Promise.reject(serverErr.message);
           }, function(parseErr) {
               return Promise.reject(parseErr);
           })
-          
-          
+
+
         } else if (error.request) {
           // The request was made but no response was received
           // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
@@ -367,22 +367,22 @@ EThing.request = function(opt,callback){
         }
     }).then(function(data){
         self.trigger('ething.request.success',[data]);
-        
+
         if(typeof callback === 'function'){
             callback.call(self, data, false)
         }
-        
+
         return data
     }, function(err){
         self.trigger('ething.request.error',[err]);
-        
+
         if(typeof callback === 'function'){
             callback.call(self, null, err)
         }
-        
+
         return Promise.reject(err)
     })
-    
+
 }
 
 
@@ -409,7 +409,7 @@ EThing.request = function(opt,callback){
 EThing.list = EThing.find = function(a,b)
 {
 	var query = null, callback = null;
-	
+
 	if(arguments.length==1){
 		if(typeof arguments[0] == 'function')
 			callback = arguments[0];
@@ -420,7 +420,7 @@ EThing.list = EThing.find = function(a,b)
 		query = arguments[0];
 		callback = arguments[1];
 	}
-	
+
 	return EThing.request({
 		'url': '/resources?' + utils.param({'q':query}),
 		'method': 'GET',
@@ -454,9 +454,9 @@ EThing.get = function(a,b)
 		throw "First argument must be a Resource object or a Resource id : "+a;
 		return;
 	}
-	
+
 	var callback = b;
-	
+
 	return EThing.request({
 		'url': '/resources/' + a,
 		'dataType': 'json',
@@ -467,33 +467,46 @@ EThing.get = function(a,b)
 };
 
 
-/**
- * Gets an object containing informations about space usage :
- *  - used {number} the amount of space used in bytes
- *  - quota_size {number} the maximum space authorized in bytes
- *
- * @method EThing.usage
- * @param {function(data)} [callback] it is executed once the request is complete whether in failure or success
- * @returns {Promise}
- * @example
- * // get the occupied space :
- * EThing.usage().then(function(usage){
- *     console.log('space used : ' + (100 * usage.used / usage.quota_size) );
- * })
- */
-EThing.usage = function(a)
-{
-	var callback = a;
-	
-	return EThing.request({
-		'url': '/usage',
-		'dataType': 'json',
-		'method': 'GET'
-	},callback);
-};
 
+
+/**
+ * dispatch an event emitted by the server (through SSE or socketio)
+ *
+ * @method EThing.dispatch
+ * @param {object} event the event object provided by the server
+ */
+EThing.dispatch = function (event) {
+	// console.log(event)
+
+	var name = event.type,
+		isResourceEvent = !!event.resource,
+		resource,
+		evt = Event(name, {
+			data: event.data,
+			originalEvent: event
+		}),
+		arbo = EThing.arbo;
+
+	if(isResourceEvent && arbo){
+		var resourceId = event.resource.id;
+
+		if (name === 'signals/ResourceDeleted') {
+			arbo.remove(resourceId);
+		} else {
+			arbo.update(EThing.instanciate(event.resource))
+		}
+
+		resource = arbo.get(resourceId);
+		if(resource){
+			resource.trigger(evt);
+		}
+
+	}
+
+	EThing.trigger(evt);
+
+}
 
 
 
 module.exports = EThing;
-

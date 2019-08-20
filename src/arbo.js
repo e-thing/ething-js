@@ -16,7 +16,6 @@
 var EThing = require("./core.js");
 var utils = require("./utils.js");
 var Resource = require("./resource.js");
-var Event = require("./event.js");
 var globToRegExp = require('glob-to-regexp');
 
 
@@ -260,41 +259,6 @@ EThing.arbo = {
    */
   list: function (){
     return this.resources;
-  },
-
-
-  /**
-   * dispatch an event emitted by the server (through SSE or socketio)
-   * @memberof EThing.arbo
-   */
-  dispatch: function (event) {
-    // console.log(event)
-
-    var name = event._type,
-      isResourceEvent = !!event.resource,
-      resource,
-      evt = Event(name, {
-        data: event.payload,
-        originalEvent: event
-      });
-
-    if(isResourceEvent){
-      var resourceId = event.resource.id;
-
-      if (name === 'signals/ResourceDeleted') {
-        this.remove(resourceId);
-      } else {
-        this.update(EThing.instanciate(event.resource))
-      }
-
-      resource = this.get(resourceId);
-      if(resource){
-        resource.trigger(evt);
-      }
-
-    }
-
-    EThing.trigger(evt);
   },
 
   /**

@@ -10,7 +10,6 @@ EThing.VERSION = '0.1.22';
 
 require("./resource.js");
 require("./settings.js");
-require("./notify.js");
 require("./auth.js");
 require("./file.js");
 require("./table.js");
