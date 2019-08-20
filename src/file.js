@@ -46,34 +46,6 @@ File.prototype.contentModifiedDate = function() {
 }
 
 /**
- * If this file has a thumbnail (thumbnail is only available for file with MIME type __image/*__), it returns his link, else it returns null.
- *
- * @this {EThing.File}
- * @param {boolean} [auth=false] wether or not attach any authentication element. Necessary if you are not using {@link EThing.request}.
- * @returns {string|null}
- * @example
- * // the simple way
- * var image = new Image();
- * image.src = imageFile.thumbnailLink(true);
- * document.body.appendChild(image);
- *
- * // the hard way
- * EThing.request({
- *   url: imageFile.thumbnailLink(),
- *   dataType: "blob"
- * }).then(function(blobData){
- *   // success
- *   var image = new Image();
- *   image.src = window.URL.createObjectURL( blobData );
- *
- *   document.body.appendChild(image);
- * });
- */
-File.prototype.thumbnailLink = function(auth) {
-  return this._json.hasThumbnail ? EThing.toApiUrl('files/'+this.id()+'/thumbnail',auth) : null;
-}
-
-/**
  * Returns the link to access the content.
  * @this {EThing.File}
  * @param {boolean} [auth=false] wether or not attach any authentication element. Necessary if you are not using {@link EThing.request}.

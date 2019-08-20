@@ -59,7 +59,6 @@
             * [.size()](#EThing.File+size) ⇒ <code>number</code>
             * [.mime()](#EThing.File+mime) ⇒ <code>string</code>
             * [.contentModifiedDate()](#EThing.File+contentModifiedDate) ⇒ <code>Date</code>
-            * [.thumbnailLink([auth])](#EThing.File+thumbnailLink) ⇒ <code>string</code> \| <code>null</code>
             * [.getContentUrl([auth])](#EThing.File+getContentUrl) ⇒ <code>string</code>
             * [.read([binary], [callback])](#EThing.File+read) ⇒ [<code>File</code>](#EThing.File)
             * [.write(data, [callback])](#EThing.File+write) ⇒ [<code>File</code>](#EThing.File)
@@ -571,7 +570,6 @@ EThing.Device.create('SSH', {  host: "localhost",  auth: {    user: "foo",  
         * [.size()](#EThing.File+size) ⇒ <code>number</code>
         * [.mime()](#EThing.File+mime) ⇒ <code>string</code>
         * [.contentModifiedDate()](#EThing.File+contentModifiedDate) ⇒ <code>Date</code>
-        * [.thumbnailLink([auth])](#EThing.File+thumbnailLink) ⇒ <code>string</code> \| <code>null</code>
         * [.getContentUrl([auth])](#EThing.File+getContentUrl) ⇒ <code>string</code>
         * [.read([binary], [callback])](#EThing.File+read) ⇒ [<code>File</code>](#EThing.File)
         * [.write(data, [callback])](#EThing.File+write) ⇒ [<code>File</code>](#EThing.File)
@@ -630,22 +628,6 @@ EThing.Device.create('SSH', {  host: "localhost",  auth: {    user: "foo",  
 
 **Kind**: instance method of [<code>File</code>](#EThing.File)  
 **this**: <code>{EThing.File}</code>  
-<a name="EThing.File+thumbnailLink"></a>
-
-#### file.thumbnailLink([auth]) ⇒ <code>string</code> \| <code>null</code>
-<p>If this file has a thumbnail (thumbnail is only available for file with MIME type <strong>image/*</strong>), it returns his link, else it returns null.</p>
-
-**Kind**: instance method of [<code>File</code>](#EThing.File)  
-**this**: <code>{EThing.File}</code>  
-
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| [auth] | <code>boolean</code> | <code>false</code> | <p>wether or not attach any authentication element. Necessary if you are not using [request](#EThing.request).</p> |
-
-**Example**  
-```js
-// the simple wayvar image = new Image();image.src = imageFile.thumbnailLink(true);document.body.appendChild(image);// the hard wayEThing.request({  url: imageFile.thumbnailLink(),  dataType: "blob"}).then(function(blobData){  // success  var image = new Image();  image.src = window.URL.createObjectURL( blobData );  document.body.appendChild(image);});
-```
 <a name="EThing.File+getContentUrl"></a>
 
 #### file.getContentUrl([auth]) ⇒ <code>string</code>
@@ -2324,7 +2306,6 @@ To check if a request is in failure :</p>
             * [.size()](#EThing.File+size) ⇒ <code>number</code>
             * [.mime()](#EThing.File+mime) ⇒ <code>string</code>
             * [.contentModifiedDate()](#EThing.File+contentModifiedDate) ⇒ <code>Date</code>
-            * [.thumbnailLink([auth])](#EThing.File+thumbnailLink) ⇒ <code>string</code> \| <code>null</code>
             * [.getContentUrl([auth])](#EThing.File+getContentUrl) ⇒ <code>string</code>
             * [.read([binary], [callback])](#EThing.File+read) ⇒ [<code>File</code>](#EThing.File)
             * [.write(data, [callback])](#EThing.File+write) ⇒ [<code>File</code>](#EThing.File)
@@ -2836,7 +2817,6 @@ EThing.Device.create('SSH', {  host: "localhost",  auth: {    user: "foo",  
         * [.size()](#EThing.File+size) ⇒ <code>number</code>
         * [.mime()](#EThing.File+mime) ⇒ <code>string</code>
         * [.contentModifiedDate()](#EThing.File+contentModifiedDate) ⇒ <code>Date</code>
-        * [.thumbnailLink([auth])](#EThing.File+thumbnailLink) ⇒ <code>string</code> \| <code>null</code>
         * [.getContentUrl([auth])](#EThing.File+getContentUrl) ⇒ <code>string</code>
         * [.read([binary], [callback])](#EThing.File+read) ⇒ [<code>File</code>](#EThing.File)
         * [.write(data, [callback])](#EThing.File+write) ⇒ [<code>File</code>](#EThing.File)
@@ -2895,22 +2875,6 @@ EThing.Device.create('SSH', {  host: "localhost",  auth: {    user: "foo",  
 
 **Kind**: instance method of [<code>File</code>](#EThing.File)  
 **this**: <code>{EThing.File}</code>  
-<a name="EThing.File+thumbnailLink"></a>
-
-#### file.thumbnailLink([auth]) ⇒ <code>string</code> \| <code>null</code>
-<p>If this file has a thumbnail (thumbnail is only available for file with MIME type <strong>image/*</strong>), it returns his link, else it returns null.</p>
-
-**Kind**: instance method of [<code>File</code>](#EThing.File)  
-**this**: <code>{EThing.File}</code>  
-
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| [auth] | <code>boolean</code> | <code>false</code> | <p>wether or not attach any authentication element. Necessary if you are not using [request](#EThing.request).</p> |
-
-**Example**  
-```js
-// the simple wayvar image = new Image();image.src = imageFile.thumbnailLink(true);document.body.appendChild(image);// the hard wayEThing.request({  url: imageFile.thumbnailLink(),  dataType: "blob"}).then(function(blobData){  // success  var image = new Image();  image.src = window.URL.createObjectURL( blobData );  document.body.appendChild(image);});
-```
 <a name="EThing.File+getContentUrl"></a>
 
 #### file.getContentUrl([auth]) ⇒ <code>string</code>
