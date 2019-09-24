@@ -304,13 +304,14 @@ EThing.request = function(opt,callback){
               var responseType = error.config.responseType;
 
               function decodeJson(data){
-                try {
-                    data = JSON.parse(data);
-                } catch(e){
-                    reject('invalid JSON data')
-                    return
-                }
-
+								if (typeof data === 'string') {
+	                try {
+	                    data = JSON.parse(data);
+	                } catch(e){
+	                    reject('invalid JSON data')
+	                    return
+	                }
+								}
                 resolve(data)
               }
 
