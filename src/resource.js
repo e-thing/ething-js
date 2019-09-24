@@ -315,8 +315,56 @@ Resource.prototype.setData = function(data, callback){
 	return this.set({'data':data},callback);
 }
 
+/**
+ * Execute an operation on this resource.
+ * @this {EThing.Resource}
+ * @param {string} operationId
+ * @param {object|array|anything} [data] the optional arguments required by the operation
+ * @param {boolean} [binary] if true, return the content as ArrayBuffer, if false return the content as text. A string such as 'blob' or 'json' may also be passed.
+ * @param {function(data)} [callback] it is executed once the request is complete whether in failure or success
+ * @returns {EThing.Resource} The instance on which this method was called.
+ * @example
+ *
+ * // if this resource is a switch :
+ * resource.execute('setState', {
+ * 	 state: true
+ * });
+ *
+ * // you can also pass the arguments as an array :
+ * resource.execute('setState', [true]);
+ *
+ * // or as is :
+ * resource.execute('setState', true);
+ *
+ */
+Resource.prototype.execute = function(){
+	var args = [].slice.call(arguments);
+    args.unshift(this);
+    return Resource.execute.apply(EThing, args);
+}
 
+/**
+ * Returns an url for executing an operation.
+ * @this {EThing.Resource}
+ * @param {string} operationId
+ * @param {object} [data] the optional data required by the operation
+ * @returns {string} The url.
+ * @example
+ *
+ * var image = new Image();
+ * image.src = resource.executeUrl('getImage');
+ * document.body.appendChild(image);
+ *
+ */
+Resource.prototype.executeUrl = function(operationId, data){
+	var url = 'resources/'+this.id()+'/call/'+operationId;
 
+	if(utils.isPlainObject(data) && Object.keys(data).length !== 0){
+		url += '?' + utils.param(data);
+	}
+
+	return EThing.toApiUrl(url,true);
+}
 
 
 /**
@@ -418,6 +466,51 @@ Resource.set = function(a,b,c){
 };
 
 
+
+/*
+resource, operationId[, data ]
+*/
+Resource.execute = function(resource, operationId, data, binary, callback){
+
+	var context;
+
+	if(resource instanceof Resource){
+		context = resource;
+		resource = resource.id();
+	}
+	else if(utils.isId(resource))
+		resource = resource;
+	else {
+		throw "First argument must be a Resource object or a Resource id !";
+		return;
+	}
+
+	if(arguments.length == 4){
+
+		if(typeof binary == 'function'){
+			callback = binary;
+			binary = undefined;
+		}
+
+	} else if(arguments.length == 3){
+
+		if(typeof data == 'function'){
+			callback = data;
+			data = undefined;
+		}
+
+	}
+
+	return EThing.request({
+		'url': '/resources/' + resource + '/call/' + operationId,
+		'method': 'POST',
+		'contentType': "application/json; charset=utf-8",
+		'data': typeof data != 'undefined' && data!==null ? JSON.stringify(data) : undefined,
+		'dataType': binary ? (typeof binary === 'string' ? binary : 'arraybuffer') : 'text',
+		'context': context
+	},callback);
+
+};
 
 
 
