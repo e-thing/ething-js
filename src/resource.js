@@ -15,37 +15,26 @@ var Resource = function (json)
 {
 	EventEngine(this);
 
+	this._json = {}
 	this._fromJson(json, true);
 }
 
 // loader
 Resource.prototype._fromJson = function(json, noTrigger){
 
-	var updated = this._json && json && this._json.modifiedDate && json.modifiedDate && this._json.modifiedDate !== json.modifiedDate;
+	var updated = this._json.modifiedDate && json.modifiedDate && this._json.modifiedDate !== json.modifiedDate;
 	var updatedKeys = [];
-
-	json = utils.extend({
-		name:null,
-		id:null,
-		type:null,
-        extends: [],
-		createdBy:null,
-		createdDate: 0,
-		modifiedDate: 0,
-		data: null,
-		description: ''
-	}, json || {});
 
 	if(!noTrigger && updated) {
 		// list the kays that have been updated
 		Object.keys(json).forEach(function(key){
-			if((typeof this._json[key] === 'undefined') || !utils.isEqual(json[key],this._json[key])){
+			if((typeof this._json[key] !== 'undefined') && !utils.isEqual(json[key],this._json[key])){
 				updatedKeys.push(key);
 			}
 		},this);
 	}
 
-	this._json = json;
+	Object.assign(this._json, json);
 
 	if(!noTrigger && updated) {
 		//console.log('resource updated '+this.name());

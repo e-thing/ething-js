@@ -489,15 +489,26 @@ EThing.dispatch = function (event) {
 		arbo = EThing.arbo;
 
 	if(isResourceEvent && arbo){
-		var resourceId = event.resource.id;
+		var resourceId, resourceObj;
+
+		if (typeof event.resource === 'string') {
+			resourceId = event.resource;
+			resourceObj = {};
+		} else {
+			resourceId = event.resource.id;
+			resourceObj = event.resource;
+		}
 
 		if (name === 'signals/ResourceDeleted') {
 			arbo.remove(resourceId);
-		} else {
-			arbo.update(EThing.instanciate(event.resource))
+		} else if (name === 'signals/ResourceCreated') {
+			arbo.update(EThing.instanciate(resourceObj))
+		} else if (name === 'signals/ResourceUpdated') {
+			resource = arbo.get(resourceId);
+			if (resource) resource._fromJson(resourceObj)
 		}
 
-		resource = arbo.get(resourceId);
+		if (!resource) resource = arbo.get(resourceId);
 		if(resource){
 			resource.trigger(evt);
 		}
