@@ -488,31 +488,42 @@ EThing.dispatch = function (event) {
 		}),
 		arbo = EThing.arbo;
 
-	if(isResourceEvent && arbo){
-		var resourceId, resourceObj;
+	if(isResourceEvent){
+		if (arbo) {
+			var resourceId, resourceObj;
 
-		if (typeof event.resource === 'string') {
-			resourceId = event.resource;
-			resourceObj = {};
-		} else {
-			resourceId = event.resource.id;
-			resourceObj = event.resource;
+			if (typeof event.resource === 'string') {
+				resourceId = event.resource;
+				resourceObj = {};
+			} else {
+				resourceId = event.resource.id;
+				resourceObj = event.resource;
+			}
+
+			if (name === 'signals/ResourceDeleted') {
+				arbo.remove(resourceId);
+			} else if (name === 'signals/ResourceCreated') {
+				arbo.update(EThing.instanciate(resourceObj))
+			} else if (name === 'signals/ResourceUpdated') {
+				resource = arbo.get(resourceId);
+				if (resource) resource._fromJson(resourceObj)
+			}
+
+			if (!resource) resource = arbo.get(resourceId);
+			if(resource){
+				evt.resource = resource;
+				resource.trigger(evt);
+			}
 		}
-
-		if (name === 'signals/ResourceDeleted') {
-			arbo.remove(resourceId);
-		} else if (name === 'signals/ResourceCreated') {
-			arbo.update(EThing.instanciate(resourceObj))
-		} else if (name === 'signals/ResourceUpdated') {
-			resource = arbo.get(resourceId);
-			if (resource) resource._fromJson(resourceObj)
+	} else {
+		// other type of event
+		if (name === 'signals/PluginUpdated') {
+			var plugin = EThing.Plugin._updateFromJson(event.plugin);
+			if (plugin) {
+				evt.plugin = plugin;
+				plugin.trigger(evt);
+			}
 		}
-
-		if (!resource) resource = arbo.get(resourceId);
-		if(resource){
-			resource.trigger(evt);
-		}
-
 	}
 
 	EThing.trigger(evt);

@@ -16,5 +16,6 @@ require("./table.js");
 require("./flow.js");
 require("./device.js");
 require("./arbo.js");
+require("./plugin.js");
 
 module.exports = EThing;

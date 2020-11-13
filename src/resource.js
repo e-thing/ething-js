@@ -136,7 +136,7 @@ Resource.prototype.type = function() {
  * @returns {string[]}
  */
 Resource.prototype.types = function() {
-	return this._json.extends || [];
+	return this._json.extends.slice();
 }
 
 /**
@@ -203,7 +203,7 @@ Resource.prototype.data = function(name, defaultValue) {
 
 /**
  * Returns the attributes to this resource.
- * @param {string} [name] an optional attribute name.
+ * @param {string} [name] an optional attribute name. If none is given, an object with all the attributes is returned.
  * @this {EThing.Resource}
  * @returns {object|null}
  */
@@ -415,7 +415,6 @@ Resource.remove = function(a,callback)
 		EThing.trigger('ething.resource.removed',[a]);
 	});
 };
-
 
 
 /*
