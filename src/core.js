@@ -29,6 +29,7 @@ EThing.config = {
 };
 
 
+EThing.pairing = false;
 
 
 
@@ -468,7 +469,37 @@ EThing.get = function(a,b)
 };
 
 
+/**
+ * start pairing.
+ *
+ * @method EThing.startPairing
+ * @param {function(data)} [callback] it is executed once the request is complete whether in failure or success
+ * @returns {Promise}
+ */
+EThing.startPairing = function(callback)
+{
+	return EThing.request({
+		'url': '/start_pairing',
+		'dataType': 'json',
+		'method': 'POST',
+	},callback);
+};
 
+/**
+ * stop pairing.
+ *
+ * @method EThing.stopPairing
+ * @param {function(data)} [callback] it is executed once the request is complete whether in failure or success
+ * @returns {Promise}
+ */
+EThing.stopPairing = function(callback)
+{
+	return EThing.request({
+		'url': '/stop_pairing',
+		'dataType': 'json',
+		'method': 'POST',
+	},callback);
+};
 
 /**
  * dispatch an event emitted by the server (through SSE or socketio)
@@ -523,6 +554,8 @@ EThing.dispatch = function (event) {
 				evt.plugin = plugin;
 				plugin.trigger(evt);
 			}
+		} else if (name === 'signals/PairingUpdated') {
+			EThing.pairing = !!event.data.state;
 		}
 	}
 
