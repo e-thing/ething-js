@@ -28,8 +28,6 @@
             * [.lastSeenDate()](#EThing.Device+lastSeenDate) ⇒ <code>Date</code> \| <code>null</code>
             * [.hasBattery()](#EThing.Device+hasBattery) ⇒ <code>boolean</code>
             * [.battery()](#EThing.Device+battery) ⇒ <code>number</code>
-            * [.execute(operationId, [data], [binary], [callback])](#EThing.Device+execute) ⇒ [<code>Device</code>](#EThing.Device)
-            * [.executeUrl(operationId, [data])](#EThing.Device+executeUrl) ⇒ <code>string</code>
             * [.json()](#EThing.Resource+json) ⇒ <code>object</code>
             * [.isTypeof(type)](#EThing.Resource+isTypeof) ⇒ <code>boolean</code>
             * [.name()](#EThing.Resource+name) ⇒ <code>string</code>
@@ -51,6 +49,8 @@
             * [.remove([callback])](#EThing.Resource+remove) ⇒ [<code>Resource</code>](#EThing.Resource)
             * [.set(properties, [callback])](#EThing.Resource+set) ⇒ [<code>Resource</code>](#EThing.Resource)
             * [.setData(data, [callback])](#EThing.Resource+setData) ⇒ [<code>Resource</code>](#EThing.Resource)
+            * [.execute(operationId, [data], [binary], [callback])](#EThing.Resource+execute) ⇒ [<code>Resource</code>](#EThing.Resource)
+            * [.executeUrl(operationId, [data])](#EThing.Resource+executeUrl) ⇒ <code>string</code>
         * _static_
             * [.create(type, attributes, [callback])](#EThing.Device.create) ⇒ <code>Promise</code>
     * [.File](#EThing.File) ⇐ [<code>Resource</code>](#EThing.Resource)
@@ -83,6 +83,8 @@
             * [.remove([callback])](#EThing.Resource+remove) ⇒ [<code>Resource</code>](#EThing.Resource)
             * [.set(properties, [callback])](#EThing.Resource+set) ⇒ [<code>Resource</code>](#EThing.Resource)
             * [.setData(data, [callback])](#EThing.Resource+setData) ⇒ [<code>Resource</code>](#EThing.Resource)
+            * [.execute(operationId, [data], [binary], [callback])](#EThing.Resource+execute) ⇒ [<code>Resource</code>](#EThing.Resource)
+            * [.executeUrl(operationId, [data])](#EThing.Resource+executeUrl) ⇒ <code>string</code>
         * _static_
             * [.create(attributes, [callback])](#EThing.File.create) ⇒ <code>Promise</code>
     * [.Flow](#EThing.Flow) ⇐ [<code>Resource</code>](#EThing.Resource)
@@ -112,8 +114,18 @@
             * [.remove([callback])](#EThing.Resource+remove) ⇒ [<code>Resource</code>](#EThing.Resource)
             * [.set(properties, [callback])](#EThing.Resource+set) ⇒ [<code>Resource</code>](#EThing.Resource)
             * [.setData(data, [callback])](#EThing.Resource+setData) ⇒ [<code>Resource</code>](#EThing.Resource)
+            * [.execute(operationId, [data], [binary], [callback])](#EThing.Resource+execute) ⇒ [<code>Resource</code>](#EThing.Resource)
+            * [.executeUrl(operationId, [data])](#EThing.Resource+executeUrl) ⇒ <code>string</code>
         * _static_
             * [.create(attributes, [callback])](#EThing.Flow.create) ⇒ <code>Promise</code>
+    * [.Plugin](#EThing.Plugin)
+        * [new Plugin(json)](#new_EThing.Plugin_new)
+        * [.name()](#EThing.Plugin+name) ⇒ <code>string</code>
+        * [.type()](#EThing.Plugin+type) ⇒ <code>string</code>
+        * [.attr([name])](#EThing.Plugin+attr) ⇒ <code>object</code> \| <code>null</code>
+        * [.execute(operationId, [data], [binary], [callback])](#EThing.Plugin+execute) ⇒ <code>EThing.plugin</code>
+        * [.executeUrl(operationId, [data])](#EThing.Plugin+executeUrl) ⇒ <code>string</code>
+        * [.set(properties, [callback])](#EThing.Plugin+set) ⇒ [<code>Plugin</code>](#EThing.Plugin)
     * [.Resource](#EThing.Resource)
         * [new Resource(json)](#new_EThing.Resource_new)
         * _instance_
@@ -138,6 +150,8 @@
             * [.remove([callback])](#EThing.Resource+remove) ⇒ [<code>Resource</code>](#EThing.Resource)
             * [.set(properties, [callback])](#EThing.Resource+set) ⇒ [<code>Resource</code>](#EThing.Resource)
             * [.setData(data, [callback])](#EThing.Resource+setData) ⇒ [<code>Resource</code>](#EThing.Resource)
+            * [.execute(operationId, [data], [binary], [callback])](#EThing.Resource+execute) ⇒ [<code>Resource</code>](#EThing.Resource)
+            * [.executeUrl(operationId, [data])](#EThing.Resource+executeUrl) ⇒ <code>string</code>
         * _static_
             * [.create(attributes, [callback])](#EThing.Resource.create) ⇒ <code>Promise</code>
     * [.Table](#EThing.Table) ⇐ [<code>Resource</code>](#EThing.Resource)
@@ -176,6 +190,8 @@
             * [.remove([callback])](#EThing.Resource+remove) ⇒ [<code>Resource</code>](#EThing.Resource)
             * [.set(properties, [callback])](#EThing.Resource+set) ⇒ [<code>Resource</code>](#EThing.Resource)
             * [.setData(data, [callback])](#EThing.Resource+setData) ⇒ [<code>Resource</code>](#EThing.Resource)
+            * [.execute(operationId, [data], [binary], [callback])](#EThing.Resource+execute) ⇒ [<code>Resource</code>](#EThing.Resource)
+            * [.executeUrl(operationId, [data])](#EThing.Resource+executeUrl) ⇒ <code>string</code>
         * _static_
             * [.create(attributes, [callback])](#EThing.Table.create) ⇒ <code>Promise</code>
     * [.on](#EThing.on)
@@ -197,6 +213,8 @@
     * [.request(options, [callback])](#EThing.request) ⇒ <code>Promise</code>
     * [.list([query], [callback])](#EThing.list) ⇒ <code>Promise</code>
     * [.get(resourceIdentifier, [callback])](#EThing.get) ⇒ <code>Promise</code>
+    * [.startPairing([callback])](#EThing.startPairing) ⇒ <code>Promise</code>
+    * [.stopPairing([callback])](#EThing.stopPairing) ⇒ <code>Promise</code>
     * [.dispatch(event)](#EThing.dispatch)
     * ["ething.resource.removed"](#EThing.event_ething.resource.removed)
     * ["ething.file.created"](#EThing.event_ething.file.created)
@@ -221,8 +239,6 @@
         * [.lastSeenDate()](#EThing.Device+lastSeenDate) ⇒ <code>Date</code> \| <code>null</code>
         * [.hasBattery()](#EThing.Device+hasBattery) ⇒ <code>boolean</code>
         * [.battery()](#EThing.Device+battery) ⇒ <code>number</code>
-        * [.execute(operationId, [data], [binary], [callback])](#EThing.Device+execute) ⇒ [<code>Device</code>](#EThing.Device)
-        * [.executeUrl(operationId, [data])](#EThing.Device+executeUrl) ⇒ <code>string</code>
         * [.json()](#EThing.Resource+json) ⇒ <code>object</code>
         * [.isTypeof(type)](#EThing.Resource+isTypeof) ⇒ <code>boolean</code>
         * [.name()](#EThing.Resource+name) ⇒ <code>string</code>
@@ -244,6 +260,8 @@
         * [.remove([callback])](#EThing.Resource+remove) ⇒ [<code>Resource</code>](#EThing.Resource)
         * [.set(properties, [callback])](#EThing.Resource+set) ⇒ [<code>Resource</code>](#EThing.Resource)
         * [.setData(data, [callback])](#EThing.Resource+setData) ⇒ [<code>Resource</code>](#EThing.Resource)
+        * [.execute(operationId, [data], [binary], [callback])](#EThing.Resource+execute) ⇒ [<code>Resource</code>](#EThing.Resource)
+        * [.executeUrl(operationId, [data])](#EThing.Resource+executeUrl) ⇒ <code>string</code>
     * _static_
         * [.create(type, attributes, [callback])](#EThing.Device.create) ⇒ <code>Promise</code>
 
@@ -284,44 +302,6 @@
 #### device.battery() ⇒ <code>number</code>
 **Kind**: instance method of [<code>Device</code>](#EThing.Device)  
 **this**: <code>{EThing.Device}</code>  
-<a name="EThing.Device+execute"></a>
-
-#### device.execute(operationId, [data], [binary], [callback]) ⇒ [<code>Device</code>](#EThing.Device)
-<p>Execute an operation on this device.</p>
-
-**Kind**: instance method of [<code>Device</code>](#EThing.Device)  
-**Returns**: [<code>Device</code>](#EThing.Device) - <p>The instance on which this method was called.</p>  
-**this**: <code>{EThing.Device}</code>  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| operationId | <code>string</code> |  |
-| [data] | <code>object</code> \| <code>array</code> \| <code>anything</code> | <p>the optional arguments required by the operation</p> |
-| [binary] | <code>boolean</code> | <p>if true, return the content as ArrayBuffer, if false return the content as text. A string such as 'blob' or 'json' may also be passed.</p> |
-| [callback] | <code>function</code> | <p>it is executed once the request is complete whether in failure or success</p> |
-
-**Example**  
-```js
-// if this device is a switch :device.execute('setState', {	 state: true});// you can also pass the arguments as an array :device.execute('setState', [true]);// or as is :device.execute('setState', true);
-```
-<a name="EThing.Device+executeUrl"></a>
-
-#### device.executeUrl(operationId, [data]) ⇒ <code>string</code>
-<p>Returns an url for executing an operation.</p>
-
-**Kind**: instance method of [<code>Device</code>](#EThing.Device)  
-**Returns**: <code>string</code> - <p>The url.</p>  
-**this**: <code>{EThing.Device}</code>  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| operationId | <code>string</code> |  |
-| [data] | <code>object</code> | <p>the optional data required by the operation</p> |
-
-**Example**  
-```js
-var image = new Image();image.src = device.executeUrl('getImage');document.body.appendChild(image);
-```
 <a name="EThing.Resource+json"></a>
 
 #### device.json() ⇒ <code>object</code>
@@ -462,7 +442,7 @@ To get only the PathName, see [dirname](#EThing.Resource+dirname).</p>
 
 | Param | Type | Description |
 | --- | --- | --- |
-| [name] | <code>string</code> | <p>an optional attribute name.</p> |
+| [name] | <code>string</code> | <p>an optional attribute name. If none is given, an object with all the attributes is returned.</p> |
 
 <a name="EThing.Resource+hasAttr"></a>
 
@@ -537,6 +517,44 @@ resource.set({  name: "newName.txt"}).then(function(){  console.log("the reso
 ```js
 resource.setData({  "key": "value"}).then(function(){  // success});// you can also write :resource.setData("key", "value").then(function(){  // success});
 ```
+<a name="EThing.Resource+execute"></a>
+
+#### device.execute(operationId, [data], [binary], [callback]) ⇒ [<code>Resource</code>](#EThing.Resource)
+<p>Execute an operation on this resource.</p>
+
+**Kind**: instance method of [<code>Device</code>](#EThing.Device)  
+**Returns**: [<code>Resource</code>](#EThing.Resource) - <p>The instance on which this method was called.</p>  
+**this**: <code>{EThing.Resource}</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| operationId | <code>string</code> |  |
+| [data] | <code>object</code> \| <code>array</code> \| <code>anything</code> | <p>the optional arguments required by the operation</p> |
+| [binary] | <code>boolean</code> | <p>if true, return the content as ArrayBuffer, if false return the content as text. A string such as 'blob' or 'json' may also be passed.</p> |
+| [callback] | <code>function</code> | <p>it is executed once the request is complete whether in failure or success</p> |
+
+**Example**  
+```js
+// if this resource is a switch :resource.execute('setState', {	 state: true});// you can also pass the arguments as an array :resource.execute('setState', [true]);// or as is :resource.execute('setState', true);
+```
+<a name="EThing.Resource+executeUrl"></a>
+
+#### device.executeUrl(operationId, [data]) ⇒ <code>string</code>
+<p>Returns an url for executing an operation.</p>
+
+**Kind**: instance method of [<code>Device</code>](#EThing.Device)  
+**Returns**: <code>string</code> - <p>The url.</p>  
+**this**: <code>{EThing.Resource}</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| operationId | <code>string</code> |  |
+| [data] | <code>object</code> | <p>the optional data required by the operation</p> |
+
+**Example**  
+```js
+var image = new Image();image.src = resource.executeUrl('getImage');document.body.appendChild(image);
+```
 <a name="EThing.Device.create"></a>
 
 #### Device.create(type, attributes, [callback]) ⇒ <code>Promise</code>
@@ -594,6 +612,8 @@ EThing.Device.create('SSH', {  host: "localhost",  auth: {    user: "foo",  
         * [.remove([callback])](#EThing.Resource+remove) ⇒ [<code>Resource</code>](#EThing.Resource)
         * [.set(properties, [callback])](#EThing.Resource+set) ⇒ [<code>Resource</code>](#EThing.Resource)
         * [.setData(data, [callback])](#EThing.Resource+setData) ⇒ [<code>Resource</code>](#EThing.Resource)
+        * [.execute(operationId, [data], [binary], [callback])](#EThing.Resource+execute) ⇒ [<code>Resource</code>](#EThing.Resource)
+        * [.executeUrl(operationId, [data])](#EThing.Resource+executeUrl) ⇒ <code>string</code>
     * _static_
         * [.create(attributes, [callback])](#EThing.File.create) ⇒ <code>Promise</code>
 
@@ -820,7 +840,7 @@ To get only the PathName, see [dirname](#EThing.Resource+dirname).</p>
 
 | Param | Type | Description |
 | --- | --- | --- |
-| [name] | <code>string</code> | <p>an optional attribute name.</p> |
+| [name] | <code>string</code> | <p>an optional attribute name. If none is given, an object with all the attributes is returned.</p> |
 
 <a name="EThing.Resource+hasAttr"></a>
 
@@ -895,6 +915,44 @@ resource.set({  name: "newName.txt"}).then(function(){  console.log("the reso
 ```js
 resource.setData({  "key": "value"}).then(function(){  // success});// you can also write :resource.setData("key", "value").then(function(){  // success});
 ```
+<a name="EThing.Resource+execute"></a>
+
+#### file.execute(operationId, [data], [binary], [callback]) ⇒ [<code>Resource</code>](#EThing.Resource)
+<p>Execute an operation on this resource.</p>
+
+**Kind**: instance method of [<code>File</code>](#EThing.File)  
+**Returns**: [<code>Resource</code>](#EThing.Resource) - <p>The instance on which this method was called.</p>  
+**this**: <code>{EThing.Resource}</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| operationId | <code>string</code> |  |
+| [data] | <code>object</code> \| <code>array</code> \| <code>anything</code> | <p>the optional arguments required by the operation</p> |
+| [binary] | <code>boolean</code> | <p>if true, return the content as ArrayBuffer, if false return the content as text. A string such as 'blob' or 'json' may also be passed.</p> |
+| [callback] | <code>function</code> | <p>it is executed once the request is complete whether in failure or success</p> |
+
+**Example**  
+```js
+// if this resource is a switch :resource.execute('setState', {	 state: true});// you can also pass the arguments as an array :resource.execute('setState', [true]);// or as is :resource.execute('setState', true);
+```
+<a name="EThing.Resource+executeUrl"></a>
+
+#### file.executeUrl(operationId, [data]) ⇒ <code>string</code>
+<p>Returns an url for executing an operation.</p>
+
+**Kind**: instance method of [<code>File</code>](#EThing.File)  
+**Returns**: <code>string</code> - <p>The url.</p>  
+**this**: <code>{EThing.Resource}</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| operationId | <code>string</code> |  |
+| [data] | <code>object</code> | <p>the optional data required by the operation</p> |
+
+**Example**  
+```js
+var image = new Image();image.src = resource.executeUrl('getImage');document.body.appendChild(image);
+```
 <a name="EThing.File.create"></a>
 
 #### File.create(attributes, [callback]) ⇒ <code>Promise</code>
@@ -953,6 +1011,8 @@ EThing.File.create({  name: "foobar.txt",  description: "this is my file"}).t
         * [.remove([callback])](#EThing.Resource+remove) ⇒ [<code>Resource</code>](#EThing.Resource)
         * [.set(properties, [callback])](#EThing.Resource+set) ⇒ [<code>Resource</code>](#EThing.Resource)
         * [.setData(data, [callback])](#EThing.Resource+setData) ⇒ [<code>Resource</code>](#EThing.Resource)
+        * [.execute(operationId, [data], [binary], [callback])](#EThing.Resource+execute) ⇒ [<code>Resource</code>](#EThing.Resource)
+        * [.executeUrl(operationId, [data])](#EThing.Resource+executeUrl) ⇒ <code>string</code>
     * _static_
         * [.create(attributes, [callback])](#EThing.Flow.create) ⇒ <code>Promise</code>
 
@@ -1133,7 +1193,7 @@ To get only the PathName, see [dirname](#EThing.Resource+dirname).</p>
 
 | Param | Type | Description |
 | --- | --- | --- |
-| [name] | <code>string</code> | <p>an optional attribute name.</p> |
+| [name] | <code>string</code> | <p>an optional attribute name. If none is given, an object with all the attributes is returned.</p> |
 
 <a name="EThing.Resource+hasAttr"></a>
 
@@ -1208,6 +1268,44 @@ resource.set({  name: "newName.txt"}).then(function(){  console.log("the reso
 ```js
 resource.setData({  "key": "value"}).then(function(){  // success});// you can also write :resource.setData("key", "value").then(function(){  // success});
 ```
+<a name="EThing.Resource+execute"></a>
+
+#### flow.execute(operationId, [data], [binary], [callback]) ⇒ [<code>Resource</code>](#EThing.Resource)
+<p>Execute an operation on this resource.</p>
+
+**Kind**: instance method of [<code>Flow</code>](#EThing.Flow)  
+**Returns**: [<code>Resource</code>](#EThing.Resource) - <p>The instance on which this method was called.</p>  
+**this**: <code>{EThing.Resource}</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| operationId | <code>string</code> |  |
+| [data] | <code>object</code> \| <code>array</code> \| <code>anything</code> | <p>the optional arguments required by the operation</p> |
+| [binary] | <code>boolean</code> | <p>if true, return the content as ArrayBuffer, if false return the content as text. A string such as 'blob' or 'json' may also be passed.</p> |
+| [callback] | <code>function</code> | <p>it is executed once the request is complete whether in failure or success</p> |
+
+**Example**  
+```js
+// if this resource is a switch :resource.execute('setState', {	 state: true});// you can also pass the arguments as an array :resource.execute('setState', [true]);// or as is :resource.execute('setState', true);
+```
+<a name="EThing.Resource+executeUrl"></a>
+
+#### flow.executeUrl(operationId, [data]) ⇒ <code>string</code>
+<p>Returns an url for executing an operation.</p>
+
+**Kind**: instance method of [<code>Flow</code>](#EThing.Flow)  
+**Returns**: <code>string</code> - <p>The url.</p>  
+**this**: <code>{EThing.Resource}</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| operationId | <code>string</code> |  |
+| [data] | <code>object</code> | <p>the optional data required by the operation</p> |
+
+**Example**  
+```js
+var image = new Image();image.src = resource.executeUrl('getImage');document.body.appendChild(image);
+```
 <a name="EThing.Flow.create"></a>
 
 #### Flow.create(attributes, [callback]) ⇒ <code>Promise</code>
@@ -1229,6 +1327,103 @@ resource.setData({  "key": "value"}).then(function(){  // success});// you
 ```js
 EThing.Flow.create({  name: "myFlow"}).then(function(resource){    console.log('the new flow is created');})
 ```
+<a name="EThing.Plugin"></a>
+
+### EThing.Plugin
+<p>The Plugin</p>
+
+**Kind**: static class of [<code>EThing</code>](#EThing)  
+**Access**: protected  
+
+* [.Plugin](#EThing.Plugin)
+    * [new Plugin(json)](#new_EThing.Plugin_new)
+    * [.name()](#EThing.Plugin+name) ⇒ <code>string</code>
+    * [.type()](#EThing.Plugin+type) ⇒ <code>string</code>
+    * [.attr([name])](#EThing.Plugin+attr) ⇒ <code>object</code> \| <code>null</code>
+    * [.execute(operationId, [data], [binary], [callback])](#EThing.Plugin+execute) ⇒ <code>EThing.plugin</code>
+    * [.executeUrl(operationId, [data])](#EThing.Plugin+executeUrl) ⇒ <code>string</code>
+    * [.set(properties, [callback])](#EThing.Plugin+set) ⇒ [<code>Plugin</code>](#EThing.Plugin)
+
+<a name="new_EThing.Plugin_new"></a>
+
+#### new Plugin(json)
+<p>Constructs a Plugin instance from an object decribing a plugin. Should not be called directly.</p>
+
+
+| Param | Type |
+| --- | --- |
+| json | <code>object</code> | 
+
+<a name="EThing.Plugin+name"></a>
+
+#### plugin.name() ⇒ <code>string</code>
+<p>Returns the name of this plugin :</p>
+
+**Kind**: instance method of [<code>Plugin</code>](#EThing.Plugin)  
+**this**: <code>{EThing.Plugin}</code>  
+<a name="EThing.Plugin+type"></a>
+
+#### plugin.type() ⇒ <code>string</code>
+<p>Returns the type of this plugin :</p>
+
+**Kind**: instance method of [<code>Plugin</code>](#EThing.Plugin)  
+**this**: <code>{EThing.Plugin}</code>  
+<a name="EThing.Plugin+attr"></a>
+
+#### plugin.attr([name]) ⇒ <code>object</code> \| <code>null</code>
+<p>Returns the attributes to this plugin.</p>
+
+**Kind**: instance method of [<code>Plugin</code>](#EThing.Plugin)  
+**this**: <code>{EThing.Plugin}</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| [name] | <code>string</code> | <p>an optional attribute name. If none is given, an object with all the attributes is returned.</p> |
+
+<a name="EThing.Plugin+execute"></a>
+
+#### plugin.execute(operationId, [data], [binary], [callback]) ⇒ <code>EThing.plugin</code>
+<p>Execute an operation on this plugin. Same as for Resource.</p>
+
+**Kind**: instance method of [<code>Plugin</code>](#EThing.Plugin)  
+**Returns**: <code>EThing.plugin</code> - <p>The instance on which this method was called.</p>  
+**this**: <code>{EThing.Plugin}</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| operationId | <code>string</code> |  |
+| [data] | <code>object</code> \| <code>array</code> \| <code>anything</code> | <p>the optional arguments required by the operation</p> |
+| [binary] | <code>boolean</code> | <p>if true, return the content as ArrayBuffer, if false return the content as text. A string such as 'blob' or 'json' may also be passed.</p> |
+| [callback] | <code>function</code> | <p>it is executed once the request is complete whether in failure or success</p> |
+
+<a name="EThing.Plugin+executeUrl"></a>
+
+#### plugin.executeUrl(operationId, [data]) ⇒ <code>string</code>
+<p>Returns an url for executing an operation.</p>
+
+**Kind**: instance method of [<code>Plugin</code>](#EThing.Plugin)  
+**Returns**: <code>string</code> - <p>The url.</p>  
+**this**: <code>{EThing.Plugin}</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| operationId | <code>string</code> |  |
+| [data] | <code>object</code> | <p>the optional data required by the operation</p> |
+
+<a name="EThing.Plugin+set"></a>
+
+#### plugin.set(properties, [callback]) ⇒ [<code>Plugin</code>](#EThing.Plugin)
+<p>Update this plugin attributes</p>
+
+**Kind**: instance method of [<code>Plugin</code>](#EThing.Plugin)  
+**Returns**: [<code>Plugin</code>](#EThing.Plugin) - <p>The instance on which this method was called.</p>  
+**this**: <code>{EThing.Plugin}</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| properties |  |  |
+| [callback] | <code>function</code> | <p>it is executed once the request is complete whether in failure or success</p> |
+
 <a name="EThing.Resource"></a>
 
 ### EThing.Resource
@@ -1259,6 +1454,8 @@ EThing.Flow.create({  name: "myFlow"}).then(function(resource){    console.lo
         * [.remove([callback])](#EThing.Resource+remove) ⇒ [<code>Resource</code>](#EThing.Resource)
         * [.set(properties, [callback])](#EThing.Resource+set) ⇒ [<code>Resource</code>](#EThing.Resource)
         * [.setData(data, [callback])](#EThing.Resource+setData) ⇒ [<code>Resource</code>](#EThing.Resource)
+        * [.execute(operationId, [data], [binary], [callback])](#EThing.Resource+execute) ⇒ [<code>Resource</code>](#EThing.Resource)
+        * [.executeUrl(operationId, [data])](#EThing.Resource+executeUrl) ⇒ <code>string</code>
     * _static_
         * [.create(attributes, [callback])](#EThing.Resource.create) ⇒ <code>Promise</code>
 
@@ -1412,7 +1609,7 @@ To get only the PathName, see [dirname](#EThing.Resource+dirname).</p>
 
 | Param | Type | Description |
 | --- | --- | --- |
-| [name] | <code>string</code> | <p>an optional attribute name.</p> |
+| [name] | <code>string</code> | <p>an optional attribute name. If none is given, an object with all the attributes is returned.</p> |
 
 <a name="EThing.Resource+hasAttr"></a>
 
@@ -1487,6 +1684,44 @@ resource.set({  name: "newName.txt"}).then(function(){  console.log("the reso
 ```js
 resource.setData({  "key": "value"}).then(function(){  // success});// you can also write :resource.setData("key", "value").then(function(){  // success});
 ```
+<a name="EThing.Resource+execute"></a>
+
+#### resource.execute(operationId, [data], [binary], [callback]) ⇒ [<code>Resource</code>](#EThing.Resource)
+<p>Execute an operation on this resource.</p>
+
+**Kind**: instance method of [<code>Resource</code>](#EThing.Resource)  
+**Returns**: [<code>Resource</code>](#EThing.Resource) - <p>The instance on which this method was called.</p>  
+**this**: <code>{EThing.Resource}</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| operationId | <code>string</code> |  |
+| [data] | <code>object</code> \| <code>array</code> \| <code>anything</code> | <p>the optional arguments required by the operation</p> |
+| [binary] | <code>boolean</code> | <p>if true, return the content as ArrayBuffer, if false return the content as text. A string such as 'blob' or 'json' may also be passed.</p> |
+| [callback] | <code>function</code> | <p>it is executed once the request is complete whether in failure or success</p> |
+
+**Example**  
+```js
+// if this resource is a switch :resource.execute('setState', {	 state: true});// you can also pass the arguments as an array :resource.execute('setState', [true]);// or as is :resource.execute('setState', true);
+```
+<a name="EThing.Resource+executeUrl"></a>
+
+#### resource.executeUrl(operationId, [data]) ⇒ <code>string</code>
+<p>Returns an url for executing an operation.</p>
+
+**Kind**: instance method of [<code>Resource</code>](#EThing.Resource)  
+**Returns**: <code>string</code> - <p>The url.</p>  
+**this**: <code>{EThing.Resource}</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| operationId | <code>string</code> |  |
+| [data] | <code>object</code> | <p>the optional data required by the operation</p> |
+
+**Example**  
+```js
+var image = new Image();image.src = resource.executeUrl('getImage');document.body.appendChild(image);
+```
 <a name="EThing.Resource.create"></a>
 
 #### Resource.create(attributes, [callback]) ⇒ <code>Promise</code>
@@ -1549,6 +1784,8 @@ EThing.Resource.create({  type: "resources/File",  name: "foobar"}).then(func
         * [.remove([callback])](#EThing.Resource+remove) ⇒ [<code>Resource</code>](#EThing.Resource)
         * [.set(properties, [callback])](#EThing.Resource+set) ⇒ [<code>Resource</code>](#EThing.Resource)
         * [.setData(data, [callback])](#EThing.Resource+setData) ⇒ [<code>Resource</code>](#EThing.Resource)
+        * [.execute(operationId, [data], [binary], [callback])](#EThing.Resource+execute) ⇒ [<code>Resource</code>](#EThing.Resource)
+        * [.executeUrl(operationId, [data])](#EThing.Resource+executeUrl) ⇒ <code>string</code>
     * _static_
         * [.create(attributes, [callback])](#EThing.Table.create) ⇒ <code>Promise</code>
 
@@ -1714,7 +1951,7 @@ table.insert({  'field1': "foobar",  'field2': 3.14,  'field3': true}).then(
 // copy table content
 var tableSrc, tableDst;
 tableSrc.select().then(function(data){
-  tableDst.import(data);
+tableDst.import(data);
 });</p>  
 **this**: <code>{EThing.Table}</code>  
 
@@ -1881,7 +2118,7 @@ To get only the PathName, see [dirname](#EThing.Resource+dirname).</p>
 
 | Param | Type | Description |
 | --- | --- | --- |
-| [name] | <code>string</code> | <p>an optional attribute name.</p> |
+| [name] | <code>string</code> | <p>an optional attribute name. If none is given, an object with all the attributes is returned.</p> |
 
 <a name="EThing.Resource+hasAttr"></a>
 
@@ -1955,6 +2192,44 @@ resource.set({  name: "newName.txt"}).then(function(){  console.log("the reso
 **Example**  
 ```js
 resource.setData({  "key": "value"}).then(function(){  // success});// you can also write :resource.setData("key", "value").then(function(){  // success});
+```
+<a name="EThing.Resource+execute"></a>
+
+#### table.execute(operationId, [data], [binary], [callback]) ⇒ [<code>Resource</code>](#EThing.Resource)
+<p>Execute an operation on this resource.</p>
+
+**Kind**: instance method of [<code>Table</code>](#EThing.Table)  
+**Returns**: [<code>Resource</code>](#EThing.Resource) - <p>The instance on which this method was called.</p>  
+**this**: <code>{EThing.Resource}</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| operationId | <code>string</code> |  |
+| [data] | <code>object</code> \| <code>array</code> \| <code>anything</code> | <p>the optional arguments required by the operation</p> |
+| [binary] | <code>boolean</code> | <p>if true, return the content as ArrayBuffer, if false return the content as text. A string such as 'blob' or 'json' may also be passed.</p> |
+| [callback] | <code>function</code> | <p>it is executed once the request is complete whether in failure or success</p> |
+
+**Example**  
+```js
+// if this resource is a switch :resource.execute('setState', {	 state: true});// you can also pass the arguments as an array :resource.execute('setState', [true]);// or as is :resource.execute('setState', true);
+```
+<a name="EThing.Resource+executeUrl"></a>
+
+#### table.executeUrl(operationId, [data]) ⇒ <code>string</code>
+<p>Returns an url for executing an operation.</p>
+
+**Kind**: instance method of [<code>Table</code>](#EThing.Table)  
+**Returns**: <code>string</code> - <p>The url.</p>  
+**this**: <code>{EThing.Resource}</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| operationId | <code>string</code> |  |
+| [data] | <code>object</code> | <p>the optional data required by the operation</p> |
+
+**Example**  
+```js
+var image = new Image();image.src = resource.executeUrl('getImage');document.body.appendChild(image);
 ```
 <a name="EThing.Table.create"></a>
 
@@ -2181,8 +2456,6 @@ To check if a request is in failure :</p>
     }
   })`
 </code></pre>
-
-
 <p>This function returns a [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) object.</p>
 
 **Kind**: static method of [<code>EThing</code>](#EThing)  
@@ -2228,6 +2501,28 @@ To check if a request is in failure :</p>
 ```js
 // get a resource by its idEThing.get("54516eb").then(function(resource){    console.log('the name is ' + resource.name());})
 ```
+<a name="EThing.startPairing"></a>
+
+### EThing.startPairing([callback]) ⇒ <code>Promise</code>
+<p>start pairing.</p>
+
+**Kind**: static method of [<code>EThing</code>](#EThing)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| [callback] | <code>function</code> | <p>it is executed once the request is complete whether in failure or success</p> |
+
+<a name="EThing.stopPairing"></a>
+
+### EThing.stopPairing([callback]) ⇒ <code>Promise</code>
+<p>stop pairing.</p>
+
+**Kind**: static method of [<code>EThing</code>](#EThing)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| [callback] | <code>function</code> | <p>it is executed once the request is complete whether in failure or success</p> |
+
 <a name="EThing.dispatch"></a>
 
 ### EThing.dispatch(event)
@@ -2275,8 +2570,6 @@ To check if a request is in failure :</p>
             * [.lastSeenDate()](#EThing.Device+lastSeenDate) ⇒ <code>Date</code> \| <code>null</code>
             * [.hasBattery()](#EThing.Device+hasBattery) ⇒ <code>boolean</code>
             * [.battery()](#EThing.Device+battery) ⇒ <code>number</code>
-            * [.execute(operationId, [data], [binary], [callback])](#EThing.Device+execute) ⇒ [<code>Device</code>](#EThing.Device)
-            * [.executeUrl(operationId, [data])](#EThing.Device+executeUrl) ⇒ <code>string</code>
             * [.json()](#EThing.Resource+json) ⇒ <code>object</code>
             * [.isTypeof(type)](#EThing.Resource+isTypeof) ⇒ <code>boolean</code>
             * [.name()](#EThing.Resource+name) ⇒ <code>string</code>
@@ -2298,6 +2591,8 @@ To check if a request is in failure :</p>
             * [.remove([callback])](#EThing.Resource+remove) ⇒ [<code>Resource</code>](#EThing.Resource)
             * [.set(properties, [callback])](#EThing.Resource+set) ⇒ [<code>Resource</code>](#EThing.Resource)
             * [.setData(data, [callback])](#EThing.Resource+setData) ⇒ [<code>Resource</code>](#EThing.Resource)
+            * [.execute(operationId, [data], [binary], [callback])](#EThing.Resource+execute) ⇒ [<code>Resource</code>](#EThing.Resource)
+            * [.executeUrl(operationId, [data])](#EThing.Resource+executeUrl) ⇒ <code>string</code>
         * _static_
             * [.create(type, attributes, [callback])](#EThing.Device.create) ⇒ <code>Promise</code>
     * [.File](#EThing.File) ⇐ [<code>Resource</code>](#EThing.Resource)
@@ -2330,6 +2625,8 @@ To check if a request is in failure :</p>
             * [.remove([callback])](#EThing.Resource+remove) ⇒ [<code>Resource</code>](#EThing.Resource)
             * [.set(properties, [callback])](#EThing.Resource+set) ⇒ [<code>Resource</code>](#EThing.Resource)
             * [.setData(data, [callback])](#EThing.Resource+setData) ⇒ [<code>Resource</code>](#EThing.Resource)
+            * [.execute(operationId, [data], [binary], [callback])](#EThing.Resource+execute) ⇒ [<code>Resource</code>](#EThing.Resource)
+            * [.executeUrl(operationId, [data])](#EThing.Resource+executeUrl) ⇒ <code>string</code>
         * _static_
             * [.create(attributes, [callback])](#EThing.File.create) ⇒ <code>Promise</code>
     * [.Flow](#EThing.Flow) ⇐ [<code>Resource</code>](#EThing.Resource)
@@ -2359,8 +2656,18 @@ To check if a request is in failure :</p>
             * [.remove([callback])](#EThing.Resource+remove) ⇒ [<code>Resource</code>](#EThing.Resource)
             * [.set(properties, [callback])](#EThing.Resource+set) ⇒ [<code>Resource</code>](#EThing.Resource)
             * [.setData(data, [callback])](#EThing.Resource+setData) ⇒ [<code>Resource</code>](#EThing.Resource)
+            * [.execute(operationId, [data], [binary], [callback])](#EThing.Resource+execute) ⇒ [<code>Resource</code>](#EThing.Resource)
+            * [.executeUrl(operationId, [data])](#EThing.Resource+executeUrl) ⇒ <code>string</code>
         * _static_
             * [.create(attributes, [callback])](#EThing.Flow.create) ⇒ <code>Promise</code>
+    * [.Plugin](#EThing.Plugin)
+        * [new Plugin(json)](#new_EThing.Plugin_new)
+        * [.name()](#EThing.Plugin+name) ⇒ <code>string</code>
+        * [.type()](#EThing.Plugin+type) ⇒ <code>string</code>
+        * [.attr([name])](#EThing.Plugin+attr) ⇒ <code>object</code> \| <code>null</code>
+        * [.execute(operationId, [data], [binary], [callback])](#EThing.Plugin+execute) ⇒ <code>EThing.plugin</code>
+        * [.executeUrl(operationId, [data])](#EThing.Plugin+executeUrl) ⇒ <code>string</code>
+        * [.set(properties, [callback])](#EThing.Plugin+set) ⇒ [<code>Plugin</code>](#EThing.Plugin)
     * [.Resource](#EThing.Resource)
         * [new Resource(json)](#new_EThing.Resource_new)
         * _instance_
@@ -2385,6 +2692,8 @@ To check if a request is in failure :</p>
             * [.remove([callback])](#EThing.Resource+remove) ⇒ [<code>Resource</code>](#EThing.Resource)
             * [.set(properties, [callback])](#EThing.Resource+set) ⇒ [<code>Resource</code>](#EThing.Resource)
             * [.setData(data, [callback])](#EThing.Resource+setData) ⇒ [<code>Resource</code>](#EThing.Resource)
+            * [.execute(operationId, [data], [binary], [callback])](#EThing.Resource+execute) ⇒ [<code>Resource</code>](#EThing.Resource)
+            * [.executeUrl(operationId, [data])](#EThing.Resource+executeUrl) ⇒ <code>string</code>
         * _static_
             * [.create(attributes, [callback])](#EThing.Resource.create) ⇒ <code>Promise</code>
     * [.Table](#EThing.Table) ⇐ [<code>Resource</code>](#EThing.Resource)
@@ -2423,6 +2732,8 @@ To check if a request is in failure :</p>
             * [.remove([callback])](#EThing.Resource+remove) ⇒ [<code>Resource</code>](#EThing.Resource)
             * [.set(properties, [callback])](#EThing.Resource+set) ⇒ [<code>Resource</code>](#EThing.Resource)
             * [.setData(data, [callback])](#EThing.Resource+setData) ⇒ [<code>Resource</code>](#EThing.Resource)
+            * [.execute(operationId, [data], [binary], [callback])](#EThing.Resource+execute) ⇒ [<code>Resource</code>](#EThing.Resource)
+            * [.executeUrl(operationId, [data])](#EThing.Resource+executeUrl) ⇒ <code>string</code>
         * _static_
             * [.create(attributes, [callback])](#EThing.Table.create) ⇒ <code>Promise</code>
     * [.on](#EThing.on)
@@ -2444,6 +2755,8 @@ To check if a request is in failure :</p>
     * [.request(options, [callback])](#EThing.request) ⇒ <code>Promise</code>
     * [.list([query], [callback])](#EThing.list) ⇒ <code>Promise</code>
     * [.get(resourceIdentifier, [callback])](#EThing.get) ⇒ <code>Promise</code>
+    * [.startPairing([callback])](#EThing.startPairing) ⇒ <code>Promise</code>
+    * [.stopPairing([callback])](#EThing.stopPairing) ⇒ <code>Promise</code>
     * [.dispatch(event)](#EThing.dispatch)
     * ["ething.resource.removed"](#EThing.event_ething.resource.removed)
     * ["ething.file.created"](#EThing.event_ething.file.created)
@@ -2468,8 +2781,6 @@ To check if a request is in failure :</p>
         * [.lastSeenDate()](#EThing.Device+lastSeenDate) ⇒ <code>Date</code> \| <code>null</code>
         * [.hasBattery()](#EThing.Device+hasBattery) ⇒ <code>boolean</code>
         * [.battery()](#EThing.Device+battery) ⇒ <code>number</code>
-        * [.execute(operationId, [data], [binary], [callback])](#EThing.Device+execute) ⇒ [<code>Device</code>](#EThing.Device)
-        * [.executeUrl(operationId, [data])](#EThing.Device+executeUrl) ⇒ <code>string</code>
         * [.json()](#EThing.Resource+json) ⇒ <code>object</code>
         * [.isTypeof(type)](#EThing.Resource+isTypeof) ⇒ <code>boolean</code>
         * [.name()](#EThing.Resource+name) ⇒ <code>string</code>
@@ -2491,6 +2802,8 @@ To check if a request is in failure :</p>
         * [.remove([callback])](#EThing.Resource+remove) ⇒ [<code>Resource</code>](#EThing.Resource)
         * [.set(properties, [callback])](#EThing.Resource+set) ⇒ [<code>Resource</code>](#EThing.Resource)
         * [.setData(data, [callback])](#EThing.Resource+setData) ⇒ [<code>Resource</code>](#EThing.Resource)
+        * [.execute(operationId, [data], [binary], [callback])](#EThing.Resource+execute) ⇒ [<code>Resource</code>](#EThing.Resource)
+        * [.executeUrl(operationId, [data])](#EThing.Resource+executeUrl) ⇒ <code>string</code>
     * _static_
         * [.create(type, attributes, [callback])](#EThing.Device.create) ⇒ <code>Promise</code>
 
@@ -2531,44 +2844,6 @@ To check if a request is in failure :</p>
 #### device.battery() ⇒ <code>number</code>
 **Kind**: instance method of [<code>Device</code>](#EThing.Device)  
 **this**: <code>{EThing.Device}</code>  
-<a name="EThing.Device+execute"></a>
-
-#### device.execute(operationId, [data], [binary], [callback]) ⇒ [<code>Device</code>](#EThing.Device)
-<p>Execute an operation on this device.</p>
-
-**Kind**: instance method of [<code>Device</code>](#EThing.Device)  
-**Returns**: [<code>Device</code>](#EThing.Device) - <p>The instance on which this method was called.</p>  
-**this**: <code>{EThing.Device}</code>  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| operationId | <code>string</code> |  |
-| [data] | <code>object</code> \| <code>array</code> \| <code>anything</code> | <p>the optional arguments required by the operation</p> |
-| [binary] | <code>boolean</code> | <p>if true, return the content as ArrayBuffer, if false return the content as text. A string such as 'blob' or 'json' may also be passed.</p> |
-| [callback] | <code>function</code> | <p>it is executed once the request is complete whether in failure or success</p> |
-
-**Example**  
-```js
-// if this device is a switch :device.execute('setState', {	 state: true});// you can also pass the arguments as an array :device.execute('setState', [true]);// or as is :device.execute('setState', true);
-```
-<a name="EThing.Device+executeUrl"></a>
-
-#### device.executeUrl(operationId, [data]) ⇒ <code>string</code>
-<p>Returns an url for executing an operation.</p>
-
-**Kind**: instance method of [<code>Device</code>](#EThing.Device)  
-**Returns**: <code>string</code> - <p>The url.</p>  
-**this**: <code>{EThing.Device}</code>  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| operationId | <code>string</code> |  |
-| [data] | <code>object</code> | <p>the optional data required by the operation</p> |
-
-**Example**  
-```js
-var image = new Image();image.src = device.executeUrl('getImage');document.body.appendChild(image);
-```
 <a name="EThing.Resource+json"></a>
 
 #### device.json() ⇒ <code>object</code>
@@ -2709,7 +2984,7 @@ To get only the PathName, see [dirname](#EThing.Resource+dirname).</p>
 
 | Param | Type | Description |
 | --- | --- | --- |
-| [name] | <code>string</code> | <p>an optional attribute name.</p> |
+| [name] | <code>string</code> | <p>an optional attribute name. If none is given, an object with all the attributes is returned.</p> |
 
 <a name="EThing.Resource+hasAttr"></a>
 
@@ -2784,6 +3059,44 @@ resource.set({  name: "newName.txt"}).then(function(){  console.log("the reso
 ```js
 resource.setData({  "key": "value"}).then(function(){  // success});// you can also write :resource.setData("key", "value").then(function(){  // success});
 ```
+<a name="EThing.Resource+execute"></a>
+
+#### device.execute(operationId, [data], [binary], [callback]) ⇒ [<code>Resource</code>](#EThing.Resource)
+<p>Execute an operation on this resource.</p>
+
+**Kind**: instance method of [<code>Device</code>](#EThing.Device)  
+**Returns**: [<code>Resource</code>](#EThing.Resource) - <p>The instance on which this method was called.</p>  
+**this**: <code>{EThing.Resource}</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| operationId | <code>string</code> |  |
+| [data] | <code>object</code> \| <code>array</code> \| <code>anything</code> | <p>the optional arguments required by the operation</p> |
+| [binary] | <code>boolean</code> | <p>if true, return the content as ArrayBuffer, if false return the content as text. A string such as 'blob' or 'json' may also be passed.</p> |
+| [callback] | <code>function</code> | <p>it is executed once the request is complete whether in failure or success</p> |
+
+**Example**  
+```js
+// if this resource is a switch :resource.execute('setState', {	 state: true});// you can also pass the arguments as an array :resource.execute('setState', [true]);// or as is :resource.execute('setState', true);
+```
+<a name="EThing.Resource+executeUrl"></a>
+
+#### device.executeUrl(operationId, [data]) ⇒ <code>string</code>
+<p>Returns an url for executing an operation.</p>
+
+**Kind**: instance method of [<code>Device</code>](#EThing.Device)  
+**Returns**: <code>string</code> - <p>The url.</p>  
+**this**: <code>{EThing.Resource}</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| operationId | <code>string</code> |  |
+| [data] | <code>object</code> | <p>the optional data required by the operation</p> |
+
+**Example**  
+```js
+var image = new Image();image.src = resource.executeUrl('getImage');document.body.appendChild(image);
+```
 <a name="EThing.Device.create"></a>
 
 #### Device.create(type, attributes, [callback]) ⇒ <code>Promise</code>
@@ -2841,6 +3154,8 @@ EThing.Device.create('SSH', {  host: "localhost",  auth: {    user: "foo",  
         * [.remove([callback])](#EThing.Resource+remove) ⇒ [<code>Resource</code>](#EThing.Resource)
         * [.set(properties, [callback])](#EThing.Resource+set) ⇒ [<code>Resource</code>](#EThing.Resource)
         * [.setData(data, [callback])](#EThing.Resource+setData) ⇒ [<code>Resource</code>](#EThing.Resource)
+        * [.execute(operationId, [data], [binary], [callback])](#EThing.Resource+execute) ⇒ [<code>Resource</code>](#EThing.Resource)
+        * [.executeUrl(operationId, [data])](#EThing.Resource+executeUrl) ⇒ <code>string</code>
     * _static_
         * [.create(attributes, [callback])](#EThing.File.create) ⇒ <code>Promise</code>
 
@@ -3067,7 +3382,7 @@ To get only the PathName, see [dirname](#EThing.Resource+dirname).</p>
 
 | Param | Type | Description |
 | --- | --- | --- |
-| [name] | <code>string</code> | <p>an optional attribute name.</p> |
+| [name] | <code>string</code> | <p>an optional attribute name. If none is given, an object with all the attributes is returned.</p> |
 
 <a name="EThing.Resource+hasAttr"></a>
 
@@ -3142,6 +3457,44 @@ resource.set({  name: "newName.txt"}).then(function(){  console.log("the reso
 ```js
 resource.setData({  "key": "value"}).then(function(){  // success});// you can also write :resource.setData("key", "value").then(function(){  // success});
 ```
+<a name="EThing.Resource+execute"></a>
+
+#### file.execute(operationId, [data], [binary], [callback]) ⇒ [<code>Resource</code>](#EThing.Resource)
+<p>Execute an operation on this resource.</p>
+
+**Kind**: instance method of [<code>File</code>](#EThing.File)  
+**Returns**: [<code>Resource</code>](#EThing.Resource) - <p>The instance on which this method was called.</p>  
+**this**: <code>{EThing.Resource}</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| operationId | <code>string</code> |  |
+| [data] | <code>object</code> \| <code>array</code> \| <code>anything</code> | <p>the optional arguments required by the operation</p> |
+| [binary] | <code>boolean</code> | <p>if true, return the content as ArrayBuffer, if false return the content as text. A string such as 'blob' or 'json' may also be passed.</p> |
+| [callback] | <code>function</code> | <p>it is executed once the request is complete whether in failure or success</p> |
+
+**Example**  
+```js
+// if this resource is a switch :resource.execute('setState', {	 state: true});// you can also pass the arguments as an array :resource.execute('setState', [true]);// or as is :resource.execute('setState', true);
+```
+<a name="EThing.Resource+executeUrl"></a>
+
+#### file.executeUrl(operationId, [data]) ⇒ <code>string</code>
+<p>Returns an url for executing an operation.</p>
+
+**Kind**: instance method of [<code>File</code>](#EThing.File)  
+**Returns**: <code>string</code> - <p>The url.</p>  
+**this**: <code>{EThing.Resource}</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| operationId | <code>string</code> |  |
+| [data] | <code>object</code> | <p>the optional data required by the operation</p> |
+
+**Example**  
+```js
+var image = new Image();image.src = resource.executeUrl('getImage');document.body.appendChild(image);
+```
 <a name="EThing.File.create"></a>
 
 #### File.create(attributes, [callback]) ⇒ <code>Promise</code>
@@ -3200,6 +3553,8 @@ EThing.File.create({  name: "foobar.txt",  description: "this is my file"}).t
         * [.remove([callback])](#EThing.Resource+remove) ⇒ [<code>Resource</code>](#EThing.Resource)
         * [.set(properties, [callback])](#EThing.Resource+set) ⇒ [<code>Resource</code>](#EThing.Resource)
         * [.setData(data, [callback])](#EThing.Resource+setData) ⇒ [<code>Resource</code>](#EThing.Resource)
+        * [.execute(operationId, [data], [binary], [callback])](#EThing.Resource+execute) ⇒ [<code>Resource</code>](#EThing.Resource)
+        * [.executeUrl(operationId, [data])](#EThing.Resource+executeUrl) ⇒ <code>string</code>
     * _static_
         * [.create(attributes, [callback])](#EThing.Flow.create) ⇒ <code>Promise</code>
 
@@ -3380,7 +3735,7 @@ To get only the PathName, see [dirname](#EThing.Resource+dirname).</p>
 
 | Param | Type | Description |
 | --- | --- | --- |
-| [name] | <code>string</code> | <p>an optional attribute name.</p> |
+| [name] | <code>string</code> | <p>an optional attribute name. If none is given, an object with all the attributes is returned.</p> |
 
 <a name="EThing.Resource+hasAttr"></a>
 
@@ -3455,6 +3810,44 @@ resource.set({  name: "newName.txt"}).then(function(){  console.log("the reso
 ```js
 resource.setData({  "key": "value"}).then(function(){  // success});// you can also write :resource.setData("key", "value").then(function(){  // success});
 ```
+<a name="EThing.Resource+execute"></a>
+
+#### flow.execute(operationId, [data], [binary], [callback]) ⇒ [<code>Resource</code>](#EThing.Resource)
+<p>Execute an operation on this resource.</p>
+
+**Kind**: instance method of [<code>Flow</code>](#EThing.Flow)  
+**Returns**: [<code>Resource</code>](#EThing.Resource) - <p>The instance on which this method was called.</p>  
+**this**: <code>{EThing.Resource}</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| operationId | <code>string</code> |  |
+| [data] | <code>object</code> \| <code>array</code> \| <code>anything</code> | <p>the optional arguments required by the operation</p> |
+| [binary] | <code>boolean</code> | <p>if true, return the content as ArrayBuffer, if false return the content as text. A string such as 'blob' or 'json' may also be passed.</p> |
+| [callback] | <code>function</code> | <p>it is executed once the request is complete whether in failure or success</p> |
+
+**Example**  
+```js
+// if this resource is a switch :resource.execute('setState', {	 state: true});// you can also pass the arguments as an array :resource.execute('setState', [true]);// or as is :resource.execute('setState', true);
+```
+<a name="EThing.Resource+executeUrl"></a>
+
+#### flow.executeUrl(operationId, [data]) ⇒ <code>string</code>
+<p>Returns an url for executing an operation.</p>
+
+**Kind**: instance method of [<code>Flow</code>](#EThing.Flow)  
+**Returns**: <code>string</code> - <p>The url.</p>  
+**this**: <code>{EThing.Resource}</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| operationId | <code>string</code> |  |
+| [data] | <code>object</code> | <p>the optional data required by the operation</p> |
+
+**Example**  
+```js
+var image = new Image();image.src = resource.executeUrl('getImage');document.body.appendChild(image);
+```
 <a name="EThing.Flow.create"></a>
 
 #### Flow.create(attributes, [callback]) ⇒ <code>Promise</code>
@@ -3476,6 +3869,103 @@ resource.setData({  "key": "value"}).then(function(){  // success});// you
 ```js
 EThing.Flow.create({  name: "myFlow"}).then(function(resource){    console.log('the new flow is created');})
 ```
+<a name="EThing.Plugin"></a>
+
+### EThing.Plugin
+<p>The Plugin</p>
+
+**Kind**: static class of [<code>EThing</code>](#EThing)  
+**Access**: protected  
+
+* [.Plugin](#EThing.Plugin)
+    * [new Plugin(json)](#new_EThing.Plugin_new)
+    * [.name()](#EThing.Plugin+name) ⇒ <code>string</code>
+    * [.type()](#EThing.Plugin+type) ⇒ <code>string</code>
+    * [.attr([name])](#EThing.Plugin+attr) ⇒ <code>object</code> \| <code>null</code>
+    * [.execute(operationId, [data], [binary], [callback])](#EThing.Plugin+execute) ⇒ <code>EThing.plugin</code>
+    * [.executeUrl(operationId, [data])](#EThing.Plugin+executeUrl) ⇒ <code>string</code>
+    * [.set(properties, [callback])](#EThing.Plugin+set) ⇒ [<code>Plugin</code>](#EThing.Plugin)
+
+<a name="new_EThing.Plugin_new"></a>
+
+#### new Plugin(json)
+<p>Constructs a Plugin instance from an object decribing a plugin. Should not be called directly.</p>
+
+
+| Param | Type |
+| --- | --- |
+| json | <code>object</code> | 
+
+<a name="EThing.Plugin+name"></a>
+
+#### plugin.name() ⇒ <code>string</code>
+<p>Returns the name of this plugin :</p>
+
+**Kind**: instance method of [<code>Plugin</code>](#EThing.Plugin)  
+**this**: <code>{EThing.Plugin}</code>  
+<a name="EThing.Plugin+type"></a>
+
+#### plugin.type() ⇒ <code>string</code>
+<p>Returns the type of this plugin :</p>
+
+**Kind**: instance method of [<code>Plugin</code>](#EThing.Plugin)  
+**this**: <code>{EThing.Plugin}</code>  
+<a name="EThing.Plugin+attr"></a>
+
+#### plugin.attr([name]) ⇒ <code>object</code> \| <code>null</code>
+<p>Returns the attributes to this plugin.</p>
+
+**Kind**: instance method of [<code>Plugin</code>](#EThing.Plugin)  
+**this**: <code>{EThing.Plugin}</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| [name] | <code>string</code> | <p>an optional attribute name. If none is given, an object with all the attributes is returned.</p> |
+
+<a name="EThing.Plugin+execute"></a>
+
+#### plugin.execute(operationId, [data], [binary], [callback]) ⇒ <code>EThing.plugin</code>
+<p>Execute an operation on this plugin. Same as for Resource.</p>
+
+**Kind**: instance method of [<code>Plugin</code>](#EThing.Plugin)  
+**Returns**: <code>EThing.plugin</code> - <p>The instance on which this method was called.</p>  
+**this**: <code>{EThing.Plugin}</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| operationId | <code>string</code> |  |
+| [data] | <code>object</code> \| <code>array</code> \| <code>anything</code> | <p>the optional arguments required by the operation</p> |
+| [binary] | <code>boolean</code> | <p>if true, return the content as ArrayBuffer, if false return the content as text. A string such as 'blob' or 'json' may also be passed.</p> |
+| [callback] | <code>function</code> | <p>it is executed once the request is complete whether in failure or success</p> |
+
+<a name="EThing.Plugin+executeUrl"></a>
+
+#### plugin.executeUrl(operationId, [data]) ⇒ <code>string</code>
+<p>Returns an url for executing an operation.</p>
+
+**Kind**: instance method of [<code>Plugin</code>](#EThing.Plugin)  
+**Returns**: <code>string</code> - <p>The url.</p>  
+**this**: <code>{EThing.Plugin}</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| operationId | <code>string</code> |  |
+| [data] | <code>object</code> | <p>the optional data required by the operation</p> |
+
+<a name="EThing.Plugin+set"></a>
+
+#### plugin.set(properties, [callback]) ⇒ [<code>Plugin</code>](#EThing.Plugin)
+<p>Update this plugin attributes</p>
+
+**Kind**: instance method of [<code>Plugin</code>](#EThing.Plugin)  
+**Returns**: [<code>Plugin</code>](#EThing.Plugin) - <p>The instance on which this method was called.</p>  
+**this**: <code>{EThing.Plugin}</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| properties |  |  |
+| [callback] | <code>function</code> | <p>it is executed once the request is complete whether in failure or success</p> |
+
 <a name="EThing.Resource"></a>
 
 ### EThing.Resource
@@ -3506,6 +3996,8 @@ EThing.Flow.create({  name: "myFlow"}).then(function(resource){    console.lo
         * [.remove([callback])](#EThing.Resource+remove) ⇒ [<code>Resource</code>](#EThing.Resource)
         * [.set(properties, [callback])](#EThing.Resource+set) ⇒ [<code>Resource</code>](#EThing.Resource)
         * [.setData(data, [callback])](#EThing.Resource+setData) ⇒ [<code>Resource</code>](#EThing.Resource)
+        * [.execute(operationId, [data], [binary], [callback])](#EThing.Resource+execute) ⇒ [<code>Resource</code>](#EThing.Resource)
+        * [.executeUrl(operationId, [data])](#EThing.Resource+executeUrl) ⇒ <code>string</code>
     * _static_
         * [.create(attributes, [callback])](#EThing.Resource.create) ⇒ <code>Promise</code>
 
@@ -3659,7 +4151,7 @@ To get only the PathName, see [dirname](#EThing.Resource+dirname).</p>
 
 | Param | Type | Description |
 | --- | --- | --- |
-| [name] | <code>string</code> | <p>an optional attribute name.</p> |
+| [name] | <code>string</code> | <p>an optional attribute name. If none is given, an object with all the attributes is returned.</p> |
 
 <a name="EThing.Resource+hasAttr"></a>
 
@@ -3734,6 +4226,44 @@ resource.set({  name: "newName.txt"}).then(function(){  console.log("the reso
 ```js
 resource.setData({  "key": "value"}).then(function(){  // success});// you can also write :resource.setData("key", "value").then(function(){  // success});
 ```
+<a name="EThing.Resource+execute"></a>
+
+#### resource.execute(operationId, [data], [binary], [callback]) ⇒ [<code>Resource</code>](#EThing.Resource)
+<p>Execute an operation on this resource.</p>
+
+**Kind**: instance method of [<code>Resource</code>](#EThing.Resource)  
+**Returns**: [<code>Resource</code>](#EThing.Resource) - <p>The instance on which this method was called.</p>  
+**this**: <code>{EThing.Resource}</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| operationId | <code>string</code> |  |
+| [data] | <code>object</code> \| <code>array</code> \| <code>anything</code> | <p>the optional arguments required by the operation</p> |
+| [binary] | <code>boolean</code> | <p>if true, return the content as ArrayBuffer, if false return the content as text. A string such as 'blob' or 'json' may also be passed.</p> |
+| [callback] | <code>function</code> | <p>it is executed once the request is complete whether in failure or success</p> |
+
+**Example**  
+```js
+// if this resource is a switch :resource.execute('setState', {	 state: true});// you can also pass the arguments as an array :resource.execute('setState', [true]);// or as is :resource.execute('setState', true);
+```
+<a name="EThing.Resource+executeUrl"></a>
+
+#### resource.executeUrl(operationId, [data]) ⇒ <code>string</code>
+<p>Returns an url for executing an operation.</p>
+
+**Kind**: instance method of [<code>Resource</code>](#EThing.Resource)  
+**Returns**: <code>string</code> - <p>The url.</p>  
+**this**: <code>{EThing.Resource}</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| operationId | <code>string</code> |  |
+| [data] | <code>object</code> | <p>the optional data required by the operation</p> |
+
+**Example**  
+```js
+var image = new Image();image.src = resource.executeUrl('getImage');document.body.appendChild(image);
+```
 <a name="EThing.Resource.create"></a>
 
 #### Resource.create(attributes, [callback]) ⇒ <code>Promise</code>
@@ -3796,6 +4326,8 @@ EThing.Resource.create({  type: "resources/File",  name: "foobar"}).then(func
         * [.remove([callback])](#EThing.Resource+remove) ⇒ [<code>Resource</code>](#EThing.Resource)
         * [.set(properties, [callback])](#EThing.Resource+set) ⇒ [<code>Resource</code>](#EThing.Resource)
         * [.setData(data, [callback])](#EThing.Resource+setData) ⇒ [<code>Resource</code>](#EThing.Resource)
+        * [.execute(operationId, [data], [binary], [callback])](#EThing.Resource+execute) ⇒ [<code>Resource</code>](#EThing.Resource)
+        * [.executeUrl(operationId, [data])](#EThing.Resource+executeUrl) ⇒ <code>string</code>
     * _static_
         * [.create(attributes, [callback])](#EThing.Table.create) ⇒ <code>Promise</code>
 
@@ -3961,7 +4493,7 @@ table.insert({  'field1': "foobar",  'field2': 3.14,  'field3': true}).then(
 // copy table content
 var tableSrc, tableDst;
 tableSrc.select().then(function(data){
-  tableDst.import(data);
+tableDst.import(data);
 });</p>  
 **this**: <code>{EThing.Table}</code>  
 
@@ -4128,7 +4660,7 @@ To get only the PathName, see [dirname](#EThing.Resource+dirname).</p>
 
 | Param | Type | Description |
 | --- | --- | --- |
-| [name] | <code>string</code> | <p>an optional attribute name.</p> |
+| [name] | <code>string</code> | <p>an optional attribute name. If none is given, an object with all the attributes is returned.</p> |
 
 <a name="EThing.Resource+hasAttr"></a>
 
@@ -4202,6 +4734,44 @@ resource.set({  name: "newName.txt"}).then(function(){  console.log("the reso
 **Example**  
 ```js
 resource.setData({  "key": "value"}).then(function(){  // success});// you can also write :resource.setData("key", "value").then(function(){  // success});
+```
+<a name="EThing.Resource+execute"></a>
+
+#### table.execute(operationId, [data], [binary], [callback]) ⇒ [<code>Resource</code>](#EThing.Resource)
+<p>Execute an operation on this resource.</p>
+
+**Kind**: instance method of [<code>Table</code>](#EThing.Table)  
+**Returns**: [<code>Resource</code>](#EThing.Resource) - <p>The instance on which this method was called.</p>  
+**this**: <code>{EThing.Resource}</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| operationId | <code>string</code> |  |
+| [data] | <code>object</code> \| <code>array</code> \| <code>anything</code> | <p>the optional arguments required by the operation</p> |
+| [binary] | <code>boolean</code> | <p>if true, return the content as ArrayBuffer, if false return the content as text. A string such as 'blob' or 'json' may also be passed.</p> |
+| [callback] | <code>function</code> | <p>it is executed once the request is complete whether in failure or success</p> |
+
+**Example**  
+```js
+// if this resource is a switch :resource.execute('setState', {	 state: true});// you can also pass the arguments as an array :resource.execute('setState', [true]);// or as is :resource.execute('setState', true);
+```
+<a name="EThing.Resource+executeUrl"></a>
+
+#### table.executeUrl(operationId, [data]) ⇒ <code>string</code>
+<p>Returns an url for executing an operation.</p>
+
+**Kind**: instance method of [<code>Table</code>](#EThing.Table)  
+**Returns**: <code>string</code> - <p>The url.</p>  
+**this**: <code>{EThing.Resource}</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| operationId | <code>string</code> |  |
+| [data] | <code>object</code> | <p>the optional data required by the operation</p> |
+
+**Example**  
+```js
+var image = new Image();image.src = resource.executeUrl('getImage');document.body.appendChild(image);
 ```
 <a name="EThing.Table.create"></a>
 
@@ -4428,8 +4998,6 @@ To check if a request is in failure :</p>
     }
   })`
 </code></pre>
-
-
 <p>This function returns a [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) object.</p>
 
 **Kind**: static method of [<code>EThing</code>](#EThing)  
@@ -4475,6 +5043,28 @@ To check if a request is in failure :</p>
 ```js
 // get a resource by its idEThing.get("54516eb").then(function(resource){    console.log('the name is ' + resource.name());})
 ```
+<a name="EThing.startPairing"></a>
+
+### EThing.startPairing([callback]) ⇒ <code>Promise</code>
+<p>start pairing.</p>
+
+**Kind**: static method of [<code>EThing</code>](#EThing)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| [callback] | <code>function</code> | <p>it is executed once the request is complete whether in failure or success</p> |
+
+<a name="EThing.stopPairing"></a>
+
+### EThing.stopPairing([callback]) ⇒ <code>Promise</code>
+<p>stop pairing.</p>
+
+**Kind**: static method of [<code>EThing</code>](#EThing)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| [callback] | <code>function</code> | <p>it is executed once the request is complete whether in failure or success</p> |
+
 <a name="EThing.dispatch"></a>
 
 ### EThing.dispatch(event)
