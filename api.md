@@ -41,7 +41,6 @@
             * [.baseType()](#EThing.Resource+baseType) ⇒ <code>string</code>
             * [.createdDate()](#EThing.Resource+createdDate) ⇒ <code>Date</code>
             * [.modifiedDate()](#EThing.Resource+modifiedDate) ⇒ <code>Date</code>
-            * [.public()](#EThing.Resource+public) ⇒ <code>boolean</code> \| <code>string</code>
             * [.data([name], [defaultValue])](#EThing.Resource+data) ⇒ <code>object</code> \| <code>null</code>
             * [.attr([name])](#EThing.Resource+attr) ⇒ <code>object</code> \| <code>null</code>
             * [.hasAttr(name)](#EThing.Resource+hasAttr) ⇒ <code>boolean</code>
@@ -75,7 +74,6 @@
             * [.baseType()](#EThing.Resource+baseType) ⇒ <code>string</code>
             * [.createdDate()](#EThing.Resource+createdDate) ⇒ <code>Date</code>
             * [.modifiedDate()](#EThing.Resource+modifiedDate) ⇒ <code>Date</code>
-            * [.public()](#EThing.Resource+public) ⇒ <code>boolean</code> \| <code>string</code>
             * [.data([name], [defaultValue])](#EThing.Resource+data) ⇒ <code>object</code> \| <code>null</code>
             * [.attr([name])](#EThing.Resource+attr) ⇒ <code>object</code> \| <code>null</code>
             * [.hasAttr(name)](#EThing.Resource+hasAttr) ⇒ <code>boolean</code>
@@ -106,7 +104,6 @@
             * [.baseType()](#EThing.Resource+baseType) ⇒ <code>string</code>
             * [.createdDate()](#EThing.Resource+createdDate) ⇒ <code>Date</code>
             * [.modifiedDate()](#EThing.Resource+modifiedDate) ⇒ <code>Date</code>
-            * [.public()](#EThing.Resource+public) ⇒ <code>boolean</code> \| <code>string</code>
             * [.data([name], [defaultValue])](#EThing.Resource+data) ⇒ <code>object</code> \| <code>null</code>
             * [.attr([name])](#EThing.Resource+attr) ⇒ <code>object</code> \| <code>null</code>
             * [.hasAttr(name)](#EThing.Resource+hasAttr) ⇒ <code>boolean</code>
@@ -142,7 +139,6 @@
             * [.baseType()](#EThing.Resource+baseType) ⇒ <code>string</code>
             * [.createdDate()](#EThing.Resource+createdDate) ⇒ <code>Date</code>
             * [.modifiedDate()](#EThing.Resource+modifiedDate) ⇒ <code>Date</code>
-            * [.public()](#EThing.Resource+public) ⇒ <code>boolean</code> \| <code>string</code>
             * [.data([name], [defaultValue])](#EThing.Resource+data) ⇒ <code>object</code> \| <code>null</code>
             * [.attr([name])](#EThing.Resource+attr) ⇒ <code>object</code> \| <code>null</code>
             * [.hasAttr(name)](#EThing.Resource+hasAttr) ⇒ <code>boolean</code>
@@ -182,7 +178,6 @@
             * [.baseType()](#EThing.Resource+baseType) ⇒ <code>string</code>
             * [.createdDate()](#EThing.Resource+createdDate) ⇒ <code>Date</code>
             * [.modifiedDate()](#EThing.Resource+modifiedDate) ⇒ <code>Date</code>
-            * [.public()](#EThing.Resource+public) ⇒ <code>boolean</code> \| <code>string</code>
             * [.data([name], [defaultValue])](#EThing.Resource+data) ⇒ <code>object</code> \| <code>null</code>
             * [.attr([name])](#EThing.Resource+attr) ⇒ <code>object</code> \| <code>null</code>
             * [.hasAttr(name)](#EThing.Resource+hasAttr) ⇒ <code>boolean</code>
@@ -252,7 +247,6 @@
         * [.baseType()](#EThing.Resource+baseType) ⇒ <code>string</code>
         * [.createdDate()](#EThing.Resource+createdDate) ⇒ <code>Date</code>
         * [.modifiedDate()](#EThing.Resource+modifiedDate) ⇒ <code>Date</code>
-        * [.public()](#EThing.Resource+public) ⇒ <code>boolean</code> \| <code>string</code>
         * [.data([name], [defaultValue])](#EThing.Resource+data) ⇒ <code>object</code> \| <code>null</code>
         * [.attr([name])](#EThing.Resource+attr) ⇒ <code>object</code> \| <code>null</code>
         * [.hasAttr(name)](#EThing.Resource+hasAttr) ⇒ <code>boolean</code>
@@ -409,13 +403,6 @@ To get only the PathName, see [dirname](#EThing.Resource+dirname).</p>
 
 #### device.modifiedDate() ⇒ <code>Date</code>
 <p>Last time this resource was modified</p>
-
-**Kind**: instance method of [<code>Device</code>](#EThing.Device)  
-**this**: <code>{EThing.Resource}</code>  
-<a name="EThing.Resource+public"></a>
-
-#### device.public() ⇒ <code>boolean</code> \| <code>string</code>
-<p>Tells if this resource is publicly available.</p>
 
 **Kind**: instance method of [<code>Device</code>](#EThing.Device)  
 **this**: <code>{EThing.Resource}</code>  
@@ -604,7 +591,6 @@ EThing.Device.create('SSH', {  host: "localhost",  auth: {    user: "foo",  
         * [.baseType()](#EThing.Resource+baseType) ⇒ <code>string</code>
         * [.createdDate()](#EThing.Resource+createdDate) ⇒ <code>Date</code>
         * [.modifiedDate()](#EThing.Resource+modifiedDate) ⇒ <code>Date</code>
-        * [.public()](#EThing.Resource+public) ⇒ <code>boolean</code> \| <code>string</code>
         * [.data([name], [defaultValue])](#EThing.Resource+data) ⇒ <code>object</code> \| <code>null</code>
         * [.attr([name])](#EThing.Resource+attr) ⇒ <code>object</code> \| <code>null</code>
         * [.hasAttr(name)](#EThing.Resource+hasAttr) ⇒ <code>boolean</code>
@@ -810,13 +796,6 @@ To get only the PathName, see [dirname](#EThing.Resource+dirname).</p>
 
 **Kind**: instance method of [<code>File</code>](#EThing.File)  
 **this**: <code>{EThing.Resource}</code>  
-<a name="EThing.Resource+public"></a>
-
-#### file.public() ⇒ <code>boolean</code> \| <code>string</code>
-<p>Tells if this resource is publicly available.</p>
-
-**Kind**: instance method of [<code>File</code>](#EThing.File)  
-**this**: <code>{EThing.Resource}</code>  
 <a name="EThing.Resource+data"></a>
 
 #### file.data([name], [defaultValue]) ⇒ <code>object</code> \| <code>null</code>
@@ -1003,7 +982,6 @@ EThing.File.create({  name: "foobar.txt",  description: "this is my file"}).t
         * [.baseType()](#EThing.Resource+baseType) ⇒ <code>string</code>
         * [.createdDate()](#EThing.Resource+createdDate) ⇒ <code>Date</code>
         * [.modifiedDate()](#EThing.Resource+modifiedDate) ⇒ <code>Date</code>
-        * [.public()](#EThing.Resource+public) ⇒ <code>boolean</code> \| <code>string</code>
         * [.data([name], [defaultValue])](#EThing.Resource+data) ⇒ <code>object</code> \| <code>null</code>
         * [.attr([name])](#EThing.Resource+attr) ⇒ <code>object</code> \| <code>null</code>
         * [.hasAttr(name)](#EThing.Resource+hasAttr) ⇒ <code>boolean</code>
@@ -1160,13 +1138,6 @@ To get only the PathName, see [dirname](#EThing.Resource+dirname).</p>
 
 #### flow.modifiedDate() ⇒ <code>Date</code>
 <p>Last time this resource was modified</p>
-
-**Kind**: instance method of [<code>Flow</code>](#EThing.Flow)  
-**this**: <code>{EThing.Resource}</code>  
-<a name="EThing.Resource+public"></a>
-
-#### flow.public() ⇒ <code>boolean</code> \| <code>string</code>
-<p>Tells if this resource is publicly available.</p>
 
 **Kind**: instance method of [<code>Flow</code>](#EThing.Flow)  
 **this**: <code>{EThing.Resource}</code>  
@@ -1446,7 +1417,6 @@ EThing.Flow.create({  name: "myFlow"}).then(function(resource){    console.lo
         * [.baseType()](#EThing.Resource+baseType) ⇒ <code>string</code>
         * [.createdDate()](#EThing.Resource+createdDate) ⇒ <code>Date</code>
         * [.modifiedDate()](#EThing.Resource+modifiedDate) ⇒ <code>Date</code>
-        * [.public()](#EThing.Resource+public) ⇒ <code>boolean</code> \| <code>string</code>
         * [.data([name], [defaultValue])](#EThing.Resource+data) ⇒ <code>object</code> \| <code>null</code>
         * [.attr([name])](#EThing.Resource+attr) ⇒ <code>object</code> \| <code>null</code>
         * [.hasAttr(name)](#EThing.Resource+hasAttr) ⇒ <code>boolean</code>
@@ -1576,13 +1546,6 @@ To get only the PathName, see [dirname](#EThing.Resource+dirname).</p>
 
 #### resource.modifiedDate() ⇒ <code>Date</code>
 <p>Last time this resource was modified</p>
-
-**Kind**: instance method of [<code>Resource</code>](#EThing.Resource)  
-**this**: <code>{EThing.Resource}</code>  
-<a name="EThing.Resource+public"></a>
-
-#### resource.public() ⇒ <code>boolean</code> \| <code>string</code>
-<p>Tells if this resource is publicly available.</p>
 
 **Kind**: instance method of [<code>Resource</code>](#EThing.Resource)  
 **this**: <code>{EThing.Resource}</code>  
@@ -1776,7 +1739,6 @@ EThing.Resource.create({  type: "resources/File",  name: "foobar"}).then(func
         * [.baseType()](#EThing.Resource+baseType) ⇒ <code>string</code>
         * [.createdDate()](#EThing.Resource+createdDate) ⇒ <code>Date</code>
         * [.modifiedDate()](#EThing.Resource+modifiedDate) ⇒ <code>Date</code>
-        * [.public()](#EThing.Resource+public) ⇒ <code>boolean</code> \| <code>string</code>
         * [.data([name], [defaultValue])](#EThing.Resource+data) ⇒ <code>object</code> \| <code>null</code>
         * [.attr([name])](#EThing.Resource+attr) ⇒ <code>object</code> \| <code>null</code>
         * [.hasAttr(name)](#EThing.Resource+hasAttr) ⇒ <code>boolean</code>
@@ -2085,13 +2047,6 @@ To get only the PathName, see [dirname](#EThing.Resource+dirname).</p>
 
 #### table.modifiedDate() ⇒ <code>Date</code>
 <p>Last time this resource was modified</p>
-
-**Kind**: instance method of [<code>Table</code>](#EThing.Table)  
-**this**: <code>{EThing.Resource}</code>  
-<a name="EThing.Resource+public"></a>
-
-#### table.public() ⇒ <code>boolean</code> \| <code>string</code>
-<p>Tells if this resource is publicly available.</p>
 
 **Kind**: instance method of [<code>Table</code>](#EThing.Table)  
 **this**: <code>{EThing.Resource}</code>  
@@ -2583,7 +2538,6 @@ To check if a request is in failure :</p>
             * [.baseType()](#EThing.Resource+baseType) ⇒ <code>string</code>
             * [.createdDate()](#EThing.Resource+createdDate) ⇒ <code>Date</code>
             * [.modifiedDate()](#EThing.Resource+modifiedDate) ⇒ <code>Date</code>
-            * [.public()](#EThing.Resource+public) ⇒ <code>boolean</code> \| <code>string</code>
             * [.data([name], [defaultValue])](#EThing.Resource+data) ⇒ <code>object</code> \| <code>null</code>
             * [.attr([name])](#EThing.Resource+attr) ⇒ <code>object</code> \| <code>null</code>
             * [.hasAttr(name)](#EThing.Resource+hasAttr) ⇒ <code>boolean</code>
@@ -2617,7 +2571,6 @@ To check if a request is in failure :</p>
             * [.baseType()](#EThing.Resource+baseType) ⇒ <code>string</code>
             * [.createdDate()](#EThing.Resource+createdDate) ⇒ <code>Date</code>
             * [.modifiedDate()](#EThing.Resource+modifiedDate) ⇒ <code>Date</code>
-            * [.public()](#EThing.Resource+public) ⇒ <code>boolean</code> \| <code>string</code>
             * [.data([name], [defaultValue])](#EThing.Resource+data) ⇒ <code>object</code> \| <code>null</code>
             * [.attr([name])](#EThing.Resource+attr) ⇒ <code>object</code> \| <code>null</code>
             * [.hasAttr(name)](#EThing.Resource+hasAttr) ⇒ <code>boolean</code>
@@ -2648,7 +2601,6 @@ To check if a request is in failure :</p>
             * [.baseType()](#EThing.Resource+baseType) ⇒ <code>string</code>
             * [.createdDate()](#EThing.Resource+createdDate) ⇒ <code>Date</code>
             * [.modifiedDate()](#EThing.Resource+modifiedDate) ⇒ <code>Date</code>
-            * [.public()](#EThing.Resource+public) ⇒ <code>boolean</code> \| <code>string</code>
             * [.data([name], [defaultValue])](#EThing.Resource+data) ⇒ <code>object</code> \| <code>null</code>
             * [.attr([name])](#EThing.Resource+attr) ⇒ <code>object</code> \| <code>null</code>
             * [.hasAttr(name)](#EThing.Resource+hasAttr) ⇒ <code>boolean</code>
@@ -2684,7 +2636,6 @@ To check if a request is in failure :</p>
             * [.baseType()](#EThing.Resource+baseType) ⇒ <code>string</code>
             * [.createdDate()](#EThing.Resource+createdDate) ⇒ <code>Date</code>
             * [.modifiedDate()](#EThing.Resource+modifiedDate) ⇒ <code>Date</code>
-            * [.public()](#EThing.Resource+public) ⇒ <code>boolean</code> \| <code>string</code>
             * [.data([name], [defaultValue])](#EThing.Resource+data) ⇒ <code>object</code> \| <code>null</code>
             * [.attr([name])](#EThing.Resource+attr) ⇒ <code>object</code> \| <code>null</code>
             * [.hasAttr(name)](#EThing.Resource+hasAttr) ⇒ <code>boolean</code>
@@ -2724,7 +2675,6 @@ To check if a request is in failure :</p>
             * [.baseType()](#EThing.Resource+baseType) ⇒ <code>string</code>
             * [.createdDate()](#EThing.Resource+createdDate) ⇒ <code>Date</code>
             * [.modifiedDate()](#EThing.Resource+modifiedDate) ⇒ <code>Date</code>
-            * [.public()](#EThing.Resource+public) ⇒ <code>boolean</code> \| <code>string</code>
             * [.data([name], [defaultValue])](#EThing.Resource+data) ⇒ <code>object</code> \| <code>null</code>
             * [.attr([name])](#EThing.Resource+attr) ⇒ <code>object</code> \| <code>null</code>
             * [.hasAttr(name)](#EThing.Resource+hasAttr) ⇒ <code>boolean</code>
@@ -2794,7 +2744,6 @@ To check if a request is in failure :</p>
         * [.baseType()](#EThing.Resource+baseType) ⇒ <code>string</code>
         * [.createdDate()](#EThing.Resource+createdDate) ⇒ <code>Date</code>
         * [.modifiedDate()](#EThing.Resource+modifiedDate) ⇒ <code>Date</code>
-        * [.public()](#EThing.Resource+public) ⇒ <code>boolean</code> \| <code>string</code>
         * [.data([name], [defaultValue])](#EThing.Resource+data) ⇒ <code>object</code> \| <code>null</code>
         * [.attr([name])](#EThing.Resource+attr) ⇒ <code>object</code> \| <code>null</code>
         * [.hasAttr(name)](#EThing.Resource+hasAttr) ⇒ <code>boolean</code>
@@ -2951,13 +2900,6 @@ To get only the PathName, see [dirname](#EThing.Resource+dirname).</p>
 
 #### device.modifiedDate() ⇒ <code>Date</code>
 <p>Last time this resource was modified</p>
-
-**Kind**: instance method of [<code>Device</code>](#EThing.Device)  
-**this**: <code>{EThing.Resource}</code>  
-<a name="EThing.Resource+public"></a>
-
-#### device.public() ⇒ <code>boolean</code> \| <code>string</code>
-<p>Tells if this resource is publicly available.</p>
 
 **Kind**: instance method of [<code>Device</code>](#EThing.Device)  
 **this**: <code>{EThing.Resource}</code>  
@@ -3146,7 +3088,6 @@ EThing.Device.create('SSH', {  host: "localhost",  auth: {    user: "foo",  
         * [.baseType()](#EThing.Resource+baseType) ⇒ <code>string</code>
         * [.createdDate()](#EThing.Resource+createdDate) ⇒ <code>Date</code>
         * [.modifiedDate()](#EThing.Resource+modifiedDate) ⇒ <code>Date</code>
-        * [.public()](#EThing.Resource+public) ⇒ <code>boolean</code> \| <code>string</code>
         * [.data([name], [defaultValue])](#EThing.Resource+data) ⇒ <code>object</code> \| <code>null</code>
         * [.attr([name])](#EThing.Resource+attr) ⇒ <code>object</code> \| <code>null</code>
         * [.hasAttr(name)](#EThing.Resource+hasAttr) ⇒ <code>boolean</code>
@@ -3352,13 +3293,6 @@ To get only the PathName, see [dirname](#EThing.Resource+dirname).</p>
 
 **Kind**: instance method of [<code>File</code>](#EThing.File)  
 **this**: <code>{EThing.Resource}</code>  
-<a name="EThing.Resource+public"></a>
-
-#### file.public() ⇒ <code>boolean</code> \| <code>string</code>
-<p>Tells if this resource is publicly available.</p>
-
-**Kind**: instance method of [<code>File</code>](#EThing.File)  
-**this**: <code>{EThing.Resource}</code>  
 <a name="EThing.Resource+data"></a>
 
 #### file.data([name], [defaultValue]) ⇒ <code>object</code> \| <code>null</code>
@@ -3545,7 +3479,6 @@ EThing.File.create({  name: "foobar.txt",  description: "this is my file"}).t
         * [.baseType()](#EThing.Resource+baseType) ⇒ <code>string</code>
         * [.createdDate()](#EThing.Resource+createdDate) ⇒ <code>Date</code>
         * [.modifiedDate()](#EThing.Resource+modifiedDate) ⇒ <code>Date</code>
-        * [.public()](#EThing.Resource+public) ⇒ <code>boolean</code> \| <code>string</code>
         * [.data([name], [defaultValue])](#EThing.Resource+data) ⇒ <code>object</code> \| <code>null</code>
         * [.attr([name])](#EThing.Resource+attr) ⇒ <code>object</code> \| <code>null</code>
         * [.hasAttr(name)](#EThing.Resource+hasAttr) ⇒ <code>boolean</code>
@@ -3702,13 +3635,6 @@ To get only the PathName, see [dirname](#EThing.Resource+dirname).</p>
 
 #### flow.modifiedDate() ⇒ <code>Date</code>
 <p>Last time this resource was modified</p>
-
-**Kind**: instance method of [<code>Flow</code>](#EThing.Flow)  
-**this**: <code>{EThing.Resource}</code>  
-<a name="EThing.Resource+public"></a>
-
-#### flow.public() ⇒ <code>boolean</code> \| <code>string</code>
-<p>Tells if this resource is publicly available.</p>
 
 **Kind**: instance method of [<code>Flow</code>](#EThing.Flow)  
 **this**: <code>{EThing.Resource}</code>  
@@ -3988,7 +3914,6 @@ EThing.Flow.create({  name: "myFlow"}).then(function(resource){    console.lo
         * [.baseType()](#EThing.Resource+baseType) ⇒ <code>string</code>
         * [.createdDate()](#EThing.Resource+createdDate) ⇒ <code>Date</code>
         * [.modifiedDate()](#EThing.Resource+modifiedDate) ⇒ <code>Date</code>
-        * [.public()](#EThing.Resource+public) ⇒ <code>boolean</code> \| <code>string</code>
         * [.data([name], [defaultValue])](#EThing.Resource+data) ⇒ <code>object</code> \| <code>null</code>
         * [.attr([name])](#EThing.Resource+attr) ⇒ <code>object</code> \| <code>null</code>
         * [.hasAttr(name)](#EThing.Resource+hasAttr) ⇒ <code>boolean</code>
@@ -4118,13 +4043,6 @@ To get only the PathName, see [dirname](#EThing.Resource+dirname).</p>
 
 #### resource.modifiedDate() ⇒ <code>Date</code>
 <p>Last time this resource was modified</p>
-
-**Kind**: instance method of [<code>Resource</code>](#EThing.Resource)  
-**this**: <code>{EThing.Resource}</code>  
-<a name="EThing.Resource+public"></a>
-
-#### resource.public() ⇒ <code>boolean</code> \| <code>string</code>
-<p>Tells if this resource is publicly available.</p>
 
 **Kind**: instance method of [<code>Resource</code>](#EThing.Resource)  
 **this**: <code>{EThing.Resource}</code>  
@@ -4318,7 +4236,6 @@ EThing.Resource.create({  type: "resources/File",  name: "foobar"}).then(func
         * [.baseType()](#EThing.Resource+baseType) ⇒ <code>string</code>
         * [.createdDate()](#EThing.Resource+createdDate) ⇒ <code>Date</code>
         * [.modifiedDate()](#EThing.Resource+modifiedDate) ⇒ <code>Date</code>
-        * [.public()](#EThing.Resource+public) ⇒ <code>boolean</code> \| <code>string</code>
         * [.data([name], [defaultValue])](#EThing.Resource+data) ⇒ <code>object</code> \| <code>null</code>
         * [.attr([name])](#EThing.Resource+attr) ⇒ <code>object</code> \| <code>null</code>
         * [.hasAttr(name)](#EThing.Resource+hasAttr) ⇒ <code>boolean</code>
@@ -4627,13 +4544,6 @@ To get only the PathName, see [dirname](#EThing.Resource+dirname).</p>
 
 #### table.modifiedDate() ⇒ <code>Date</code>
 <p>Last time this resource was modified</p>
-
-**Kind**: instance method of [<code>Table</code>](#EThing.Table)  
-**this**: <code>{EThing.Resource}</code>  
-<a name="EThing.Resource+public"></a>
-
-#### table.public() ⇒ <code>boolean</code> \| <code>string</code>
-<p>Tells if this resource is publicly available.</p>
 
 **Kind**: instance method of [<code>Table</code>](#EThing.Table)  
 **this**: <code>{EThing.Resource}</code>  

@@ -47,3 +47,14 @@ EThing.list().done(function(resources){
 
 ```
 
+
+
+## Dev
+
+To generate the API documentation:
+```
+npm run docs
+```
+
+
+

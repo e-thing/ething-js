@@ -178,15 +178,6 @@ Resource.prototype.mtime = function(){
 }
 
 /**
- * Tells if this resource is publicly available.
- * @this {EThing.Resource}
- * @returns {boolean|string}
- */
-Resource.prototype.public = function() {
-	return this._json.public || false;
-}
-
-/**
  * Returns the data attached to this resource.
  * @param {string} [name] an optional data attribute name.
  * @param {} [defaultValue] a default value if the attribute was not found.
